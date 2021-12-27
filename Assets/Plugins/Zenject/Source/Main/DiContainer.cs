@@ -2837,7 +2837,10 @@ namespace Zenject
         {
             return BindInterfacesAndSelfTo(typeof(T));
         }
-
+        public FromBinderNonGeneric BindInterfacesAndSelfTo2(Type type)
+        {
+            return BindInterfacesAndSelfTo(type);
+        }
         public FromBinderNonGeneric BindInterfacesAndSelfTo(Type type)
         {
             var statement = StartBinding();
@@ -2909,6 +2912,23 @@ namespace Zenject
                 this, bindInfo, factoryBindInfo);
         }
 
+
+        FactoryToChoiceIdBinder<TContract> BindfactoryInternal2<TContract>(Type factoryType)
+        {
+            var statement = StartBinding();
+            var bindInfo = statement.SpawnBindInfo();
+            bindInfo.ContractTypes.Add(factoryType);
+
+            var factoryBindInfo = new FactoryBindInfo(factoryType);
+
+            statement.SetFinalizer(
+                new PlaceholderFactoryBindingFinalizer<TContract>(
+                    bindInfo, factoryBindInfo));
+
+            return new FactoryToChoiceIdBinder<TContract>(
+                this, bindInfo, factoryBindInfo);
+        }
+
         public FactoryToChoiceIdBinder<TContract> BindIFactory<TContract>()
         {
             return BindFactoryInternal<TContract, IFactory<TContract>, PlaceholderFactory<TContract>>();
@@ -2918,6 +2938,11 @@ namespace Zenject
             where TFactory : PlaceholderFactory<TContract>
         {
             return BindFactoryInternal<TContract, TFactory, TFactory>();
+        }
+
+        public FactoryToChoiceIdBinder<TContract> BindFactory2<TContract>(Type factoryType)
+        {
+            return BindfactoryInternal2<TContract>(factoryType);
         }
 
         public FactoryToChoiceIdBinder<TContract> BindFactoryCustomInterface<TContract, TFactoryConcrete, TFactoryContract>()
