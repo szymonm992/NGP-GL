@@ -17,11 +17,16 @@ namespace Frontend.Scripts.Components
     {
       // private readonly CalibrationState.Factory calibrationFactory;
         private DiContainer container;
-        public GameStateFactory(DiContainer localContainer)//,
+
+        StateFactory[] stateFactories;
+        private IGameState currentIGameState;
+
+        public GameStateFactory(StateFactory[] localFactories)//,
                                 //CalibrationState.Factory localCalibrationFactory)
         {
-            container = localContainer;
-           // calibrationFactory = localCalibrationFactory;
+            stateFactories = localFactories;
+            Debug.Log(stateFactories.Length);
+            // calibrationFactory = localCalibrationFactory;
         }
 
         // Creates the requested game state entity
@@ -36,9 +41,9 @@ namespace Frontend.Scripts.Components
                // var obb = container.Resolve(typeOfAttribute);
                 //container.TryResolve(typeOfAttribute);
             }
-           
 
-            
+            IGameState state =  stateFactories[0].Create();
+            Debug.Log(state.GetType().BaseType);
             switch (gameState)
             {
                 //case GameState.Calibration:

@@ -1,7 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+using System.Linq;
+
+using UInc.Core.Utilities;
+using System.Reflection;
 
 namespace Frontend.Scripts.Components
 {
@@ -16,20 +21,23 @@ namespace Frontend.Scripts.Components
         public GameState CurrentGameState => currentGameState;
         public GameState PeeviousGameState => previousGameState;
 
-        StateFactory[] stateFactory;
-        IGameState[] strategy;
+        private readonly Dictionary<IGameState, StateFactory> allStates = new Dictionary<IGameState, StateFactory>();
+        
+        private IGameState currentIGameState;
+
+    
         public void Initialize()
         {
-            ChangeState(GameState.Calibration);
+            ChangeState(GameState.Lobby);
         }
 
-        public GameStateManager(StateFactory[] localStateFactory)
+        public GameStateManager(StateFactory[] localStateFactory,IGameState[] localAllStates)
         {
-            stateFactory = localStateFactory;
+            for(int i=0; i< localAllStates.Length;i++)
+            {
+                allStates.Add(localAllStates[i], localStateFactory[i]);
+            }
         }
-
-
-        private void Start() => ChangeState(GameState.Calibration);
 
         public void ChangeState(GameState gameState)
         {
@@ -40,13 +48,45 @@ namespace Frontend.Scripts.Components
             }
 
             previousGameState = currentGameState;
-
             currentGameState = gameState;
-           // _strategy = _strategyFactory.Create();
-           // _strategy.Startt();
+
+            PlaceholderFactory<IGameState> localFactory = FindFactoryConnectedToState(gameState);
+           
+            if(localFactory!=null)
+            {
+                currentIGameState = localFactory.Create();
+                currentIGameState.Startt();
+                //Debug.Log("State was changed to: " + gameState);
+            }
+            else
+            {
+                Debug.LogError("Factory of state "+gameState+" was not found!");
+                return;
+            }
+            
+            // _strategy = _strategyFactory.Create();
+            // _strategy.Startt();
             //gameStateEntity = gameStateFactory.CreateState(gameState);
-          //  gameStateEntity.Start();
+            //  gameStateEntity.Start();
         }
 
+        private StateFactory FindFactoryConnectedToState(GameState gameState)
+        {
+            foreach(KeyValuePair<IGameState, StateFactory> kvp in allStates)
+            {
+                if(kvp.Key.ConnectedState == gameState)
+                {
+                    return kvp.Value;
+                }
+            }    
+            return null;
+        }
+
+        private void Start() 
+        {
+            ChangeState(GameState.Calibration);
+        }
+        
+       
     }
 }

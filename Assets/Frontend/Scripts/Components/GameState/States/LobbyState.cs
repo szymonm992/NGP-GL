@@ -8,7 +8,12 @@ namespace Frontend.Scripts.Components
 {
     public class LobbyState : GameStateEntity, IGameState
     {
+        public GameState ConnectedState { get; set; }
 
+        public LobbyState(GameState st)
+        {
+            ConnectedState = st;
+        }
         public override void Initialize()
         {
         }

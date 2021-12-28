@@ -9,6 +9,7 @@ namespace Frontend.Scripts.Components
     public enum GameState
     {
         Unknown,
+
         [PlaceholderFactory(typeof(CalibrationState.Factory))]
         [GameStateEntity(typeof(CalibrationState))]
         Calibration,

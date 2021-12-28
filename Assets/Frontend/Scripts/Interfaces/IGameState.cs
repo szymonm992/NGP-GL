@@ -7,6 +7,7 @@ namespace Frontend.Scripts.Components
 {
     public interface IGameState
     {
+        public GameState ConnectedState { get; set; }
         void Startt();
     }
 }

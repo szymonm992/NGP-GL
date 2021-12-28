@@ -5,6 +5,7 @@ namespace Frontend.Scripts.Components
 {
     public abstract class GameStateEntity : IInitializable, ITickable, IDisposable
     {
+
         public virtual void Initialize()
         {
             // optionally overridden
@@ -24,5 +25,7 @@ namespace Frontend.Scripts.Components
         {
             // optionally overridden
         }
+     
+    
     }
 }

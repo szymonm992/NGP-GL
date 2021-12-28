@@ -8,14 +8,20 @@ namespace Frontend.Scripts.Components
 {
     public class CalibrationState : GameStateEntity,IGameState
     {
-        
+
+        public GameState ConnectedState { get; set; }
+
+        public CalibrationState(GameState st)
+        {
+            ConnectedState = st;
+        }
         public override void Initialize()
         {
         }
 
         public override void Start()
         {
-            Debug.Log("Calibration started...");
+            Debug.Log("Calibration started");
         }
 
         public override void Tick()
@@ -37,6 +43,7 @@ namespace Frontend.Scripts.Components
         }
 
     }
+    
     public class StateFactory : PlaceholderFactory<IGameState>
     {
     }
