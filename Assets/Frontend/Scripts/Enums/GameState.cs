@@ -12,6 +12,10 @@ namespace Frontend.Scripts.Components
         [PlaceholderFactory(typeof(CalibrationState.Factory))]
         [GameStateEntity(typeof(CalibrationState))]
         Calibration,
+
+        [PlaceholderFactory(typeof(LobbyState.Factory))]
+        [GameStateEntity(typeof(LobbyState))]
+        Lobby,
     }
 
    

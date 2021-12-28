@@ -23,5 +23,16 @@ namespace UInc.Core.Utilities
 
             return di.Bind(list);
         }
+
+        public class FactoryFromBinder2 : FactoryFromBinderBase
+        {
+            public FactoryFromBinder2(
+               DiContainer container, BindInfo bindInfo, FactoryBindInfo factoryBindInfo, Type type)
+               : base(container, type, bindInfo, factoryBindInfo)
+            {
+            }
+        }
     }
+
+
 }

@@ -7,6 +7,6 @@ namespace Frontend.Scripts.Components
 {
     public interface IGameState
     {
-   
+        void Startt();
     }
 }

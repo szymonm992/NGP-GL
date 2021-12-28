@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Frontend.Scripts.Components
 {
-    public class GameStateManager : MonoBehaviour
+    public class GameStateManager : IInitializable
     {
         private GameState currentGameState;
         private GameState previousGameState;
@@ -16,8 +16,18 @@ namespace Frontend.Scripts.Components
         public GameState CurrentGameState => currentGameState;
         public GameState PeeviousGameState => previousGameState;
 
-        [Inject]
-        public void Construct(GameStateFactory localGameStateFactory) => gameStateFactory = localGameStateFactory;
+        StateFactory[] stateFactory;
+        IGameState[] strategy;
+        public void Initialize()
+        {
+            ChangeState(GameState.Calibration);
+        }
+
+        public GameStateManager(StateFactory[] localStateFactory)
+        {
+            stateFactory = localStateFactory;
+        }
+
 
         private void Start() => ChangeState(GameState.Calibration);
 
@@ -32,9 +42,10 @@ namespace Frontend.Scripts.Components
             previousGameState = currentGameState;
 
             currentGameState = gameState;
-
-            gameStateEntity = gameStateFactory.CreateState(gameState);
-            gameStateEntity.Start();
+           // _strategy = _strategyFactory.Create();
+           // _strategy.Startt();
+            //gameStateEntity = gameStateFactory.CreateState(gameState);
+          //  gameStateEntity.Start();
         }
 
     }

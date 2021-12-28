@@ -38,5 +38,14 @@ namespace Zenject
 
             return new FactoryFromBinder<TConcrete>(BindContainer, BindInfo, FactoryBindInfo);
         }
+
+        public FactoryFromBinder2 To2(Type type)
+        {
+            BindInfo.ToChoice = ToChoices.Concrete;
+            BindInfo.ToTypes.Clear();
+            BindInfo.ToTypes.Add(type);
+
+            return new FactoryFromBinder2(BindContainer, BindInfo, FactoryBindInfo, type);
+        }
     }
 }

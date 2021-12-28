@@ -383,6 +383,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 500657712030660253, guid: 96f0ecfbec31ac9468102051300b1c99, type: 3}
+      propertyPath: _components.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3164349391087522846, guid: 96f0ecfbec31ac9468102051300b1c99, type: 3}
       propertyPath: m_Name
       value: DDOLObjects
@@ -431,7 +435,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8654328902675730723, guid: 96f0ecfbec31ac9468102051300b1c99, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 96f0ecfbec31ac9468102051300b1c99, type: 3}
 --- !u!1 &7078961615925870635 stripped
 GameObject:

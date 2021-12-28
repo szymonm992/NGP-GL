@@ -1,21 +1,42 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-namespace Frontend.Scripts
+using Zenject;
+using UnityEngine.Scripting;
+namespace Frontend.Scripts.Components
 {
-    public class LobbyState : MonoBehaviour
+    public class LobbyState : GameStateEntity, IGameState
     {
-        // Start is called before the first frame update
-        void Start()
+
+        public override void Initialize()
         {
-        
         }
 
-        // Update is called once per frame
-        void Update()
+        public override void Start()
         {
-        
+            Debug.Log("Lobby started...");
+        }
+
+        public override void Tick()
+        {
+        }
+
+        public override void Dispose()
+        {
+        }
+
+        public void Startt()
+        {
+            Debug.Log("Lobby started...");
+        }
+
+
+        public class Factory : PlaceholderFactory<LobbyState>
+        {
         }
     }
+
+
+
 }

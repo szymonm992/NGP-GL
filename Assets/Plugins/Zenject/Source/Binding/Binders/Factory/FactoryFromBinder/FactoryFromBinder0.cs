@@ -8,6 +8,17 @@ using ModestTree;
 
 namespace Zenject
 {
+
+
+    public class FactoryFromBinder2 : FactoryFromBinderBase
+    {
+        public FactoryFromBinder2(
+           DiContainer container, BindInfo bindInfo, FactoryBindInfo factoryBindInfo, Type type)
+           : base(container, type, bindInfo, factoryBindInfo)
+        {
+        }
+    }
+
     [NoReflectionBaking]
     public class FactoryFromBinder<TContract> : FactoryFromBinderBase
     {
@@ -16,6 +27,7 @@ namespace Zenject
             : base(container, typeof(TContract), bindInfo, factoryBindInfo)
         {
         }
+
 
         public ConditionCopyNonLazyBinder FromResolveGetter<TObj>(Func<TObj, TContract> method)
         {

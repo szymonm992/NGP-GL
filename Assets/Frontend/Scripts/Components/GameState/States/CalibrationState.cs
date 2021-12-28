@@ -26,11 +26,20 @@ namespace Frontend.Scripts.Components
         {
         }
 
+        public void Startt()
+        {
+            Debug.Log("Calibration started...");
+
+        }
+
         public class Factory : PlaceholderFactory<CalibrationState>
         {
         }
+
     }
-  
+    public class StateFactory : PlaceholderFactory<IGameState>
+    {
+    }
 
 
 

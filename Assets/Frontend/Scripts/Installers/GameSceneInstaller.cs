@@ -17,7 +17,7 @@ namespace Frontend.Scripts
         private void InstallGameStates()
         {
             Container.Bind<GameStateFactory>().AsSingle();
-
+             Container.BindInterfacesAndSelfTo<GameStateManager>().AsSingle();
             var fields = typeof(GameState).GetEnumValues();
             foreach(var fi in fields)
             {
@@ -30,14 +30,18 @@ namespace Frontend.Scripts
                     var baseClassType = state.GetTypeOfBaseClass();
 
 
-                    Debug.Log("Base type: " + baseClassType);
+                    //Debug.Log("Base type: " + baseClassType);
                     Container.BindInterfacesAndSelfTo2(baseClassType).AsSingle();
                     Debug.Log("State: " + state.ToString() + " has type of " + typeOfAttribute);
-                   // Container.BindFactory2<IGameState>(typeOfAttribute);
-
+                    Container.BindFactory<IGameState, StateFactory>().To2(baseClassType);
                 }
-        
+               // 
             }
+            //Container.BindFactory<IGameState, StateFactory>().To<CalibrationState>();
+            
+            
+            
+            
             //Container.BindInterfacesAndSelfTo<CalibrationState>().AsSingle();
             //Container.BindFactory<CalibrationState, CalibrationState.Factory>().WhenInjectedInto<GameStateFactory>();
         }
