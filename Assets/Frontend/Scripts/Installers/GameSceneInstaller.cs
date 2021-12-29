@@ -27,13 +27,9 @@ namespace Frontend.Scripts
                 if (hasBaseClassAttrib)
                 {
                     var baseClassType = state.GetTypeOfBaseClass();
-                    //Debug.Log("Base type: " + baseClassType);
                     Container.BindInterfacesAndSelfTo2(baseClassType).AsSingle();
-                    //Debug.Log("State: " + state.ToString() + " has type of " + typeOfAttribute);
                     Container.BindFactory<IGameState, StateFactory>().To2(baseClassType);
-
                     Container.BindInstance<GameState>(state).WhenInjectedInto(baseClassType);
-                    //Container.BindFactory2<IGameState>(typeOfAttribute).To2(baseClassType);
                 }
             }
         }

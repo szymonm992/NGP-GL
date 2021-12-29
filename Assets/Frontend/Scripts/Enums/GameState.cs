@@ -17,8 +17,6 @@ namespace Frontend.Scripts.Components
         Lobby,
     }
 
-   
-
     public static class GameStateHelper
     {
         public static Type GetTypeOfBaseClass(this GameState state)
