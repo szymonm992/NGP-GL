@@ -16,6 +16,7 @@ namespace Frontend.Scripts
         }
         private void InstallGameStates()
         {
+            Container.Bind<AsyncProcessor>().FromComponentInHierarchy().AsCached();
             Container.BindInterfacesAndSelfTo<GameStateManager>().AsSingle();
 
             var fields = typeof(GameState).GetEnumValues();

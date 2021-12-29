@@ -12,7 +12,7 @@ namespace Frontend.Scripts
       
         void Start()
         {
-            gameStateManager.ChangeState(GameState.Welcome);
+            gameStateManager.ChangeStateAfter(GameState.Welcome, 3f);
         }
 
         private void Update()

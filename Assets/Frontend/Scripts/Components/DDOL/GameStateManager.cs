@@ -10,6 +10,8 @@ namespace Frontend.Scripts.Components
 {
     public class GameStateManager
     {
+        [Inject] private AsyncProcessor asyncProcessor;
+
         private GameState currentGameState;
         private GameState previousGameState;
 
@@ -30,7 +32,11 @@ namespace Frontend.Scripts.Components
                 allStates.Add(localAllStates[i], localStateFactory[i]);
             }
         }
-
+        public void ChangeStateAfter(GameState gameState, float delayInSeconds)
+        {
+            Debug.Log("Started countdown");
+            asyncProcessor.StartNewCoroutine(()=> ChangeState(gameState), delayInSeconds);
+        }
         public void ChangeState(GameState gameState)
         {
             if(IsChangingState)
@@ -38,6 +44,7 @@ namespace Frontend.Scripts.Components
                 Debug.LogError("Cannot change state while the state is being changed already");
                 return;
             }
+
             IsChangingState = true;
             if (gameStateEntity != null)
             {
