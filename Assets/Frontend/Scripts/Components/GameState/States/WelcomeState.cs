@@ -17,7 +17,7 @@ namespace Frontend.Scripts.Components
         
         public void Start()
         {
-            Debug.Log("Calibration started...");
+            Debug.Log("Welcome started...");
         }
     }
 }

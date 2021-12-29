@@ -8,7 +8,7 @@ namespace Frontend.Scripts.Components
     public class AsyncProcessor : MonoBehaviour
     {
 
-        //Leave empty, this one we use to call the coroutines and other monobehvaiour things 
+        //Here we are calling all the monobehaviour things connected to state machine, e.g. coroutines
         public void StartNewCoroutine(Action callbackOnFinish, float delaySeconds)
         {
             StartCoroutine(WaitForAndLaunch(callbackOnFinish, delaySeconds));

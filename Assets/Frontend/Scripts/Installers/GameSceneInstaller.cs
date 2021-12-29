@@ -14,6 +14,7 @@ namespace Frontend.Scripts
             InstallGameStates();
             InstallMain();
         }
+
         private void InstallGameStates()
         {
             Container.Bind<AsyncProcessor>().FromComponentInHierarchy().AsCached();
@@ -33,6 +34,7 @@ namespace Frontend.Scripts
                 }
             }
         }
+
         private void InstallMain()
         {
             Container.Bind<SmartFoxConnection>().FromComponentInHierarchy().AsCached();

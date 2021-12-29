@@ -10,20 +10,21 @@ namespace Frontend.Scripts.Components
 {
     public class GameStateManager
     {
-        [Inject] private AsyncProcessor asyncProcessor;
+        [Inject] private readonly AsyncProcessor asyncProcessor;
+
+        private readonly Dictionary<IGameState, StateFactory> allStates = new Dictionary<IGameState, StateFactory>();
+        private readonly DiContainer diContainer;
 
         private GameState currentGameState;
         private GameState previousGameState;
 
         private GameStateEntity gameStateEntity = null;
 
-        private readonly Dictionary<IGameState, StateFactory> allStates = new Dictionary<IGameState, StateFactory>();
-        private readonly DiContainer diContainer;
-
         public GameState CurrentGameState => currentGameState;
         public GameState PeeviousGameState => previousGameState;
 
         public bool IsChangingState { get; private set; }
+
         public GameStateManager(DiContainer localDiContainer, StateFactory[] localStateFactory,IGameState[] localAllStates)
         {
             diContainer = localDiContainer;
@@ -32,11 +33,12 @@ namespace Frontend.Scripts.Components
                 allStates.Add(localAllStates[i], localStateFactory[i]);
             }
         }
-        public void ChangeStateAfter(GameState gameState, float delayInSeconds)
+
+        public void ChangeStateDelayed(GameState gameState, float delayInSeconds)
         {
-            Debug.Log("Started countdown");
             asyncProcessor.StartNewCoroutine(()=> ChangeState(gameState), delayInSeconds);
         }
+
         public void ChangeState(GameState gameState)
         {
             if(IsChangingState)
