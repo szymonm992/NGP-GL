@@ -8,10 +8,11 @@ namespace Frontend.Scripts.Components
 {
     public enum GameState
     {
+        [GameStateEntity(typeof(UnknownState))]
         Unknown,
 
-        [GameStateEntity(typeof(CalibrationState))]
-        Calibration,
+        [GameStateEntity(typeof(WelcomeState))]
+        Welcome,
 
         [GameStateEntity(typeof(LobbyState))]
         Lobby,

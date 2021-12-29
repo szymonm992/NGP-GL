@@ -8,17 +8,21 @@ namespace Frontend.Scripts
 {
     public class StateChanger : MonoBehaviour
     {
-        [Inject] GameStateManager manager;
-        // Start is called before the first frame update
+        [Inject] private readonly GameStateManager gameStateManager;
+      
         void Start()
         {
-            manager.ChangeState(GameState.Calibration);
+            gameStateManager.ChangeState(GameState.Welcome);
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
-        
+            if (gameStateManager.CurrentGameState == GameState.Welcome && !gameStateManager.IsChangingState)
+            {
+                Debug.Log("changing to lobby");
+                gameStateManager.ChangeState(GameState.Lobby);
+            }
+              
         }
     }
 }

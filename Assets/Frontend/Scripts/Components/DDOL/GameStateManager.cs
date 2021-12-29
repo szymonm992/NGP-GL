@@ -21,6 +21,7 @@ namespace Frontend.Scripts.Components
         public GameState CurrentGameState => currentGameState;
         public GameState PeeviousGameState => previousGameState;
 
+        public bool IsChangingState { get; private set; }
         public GameStateManager(DiContainer localDiContainer, StateFactory[] localStateFactory,IGameState[] localAllStates)
         {
             diContainer = localDiContainer;
@@ -32,6 +33,12 @@ namespace Frontend.Scripts.Components
 
         public void ChangeState(GameState gameState)
         {
+            if(IsChangingState)
+            {
+                Debug.LogError("Cannot change state while the state is being changed already");
+                return;
+            }
+            IsChangingState = true;
             if (gameStateEntity != null)
             {
                 gameStateEntity.Dispose();
@@ -48,7 +55,7 @@ namespace Frontend.Scripts.Components
                 IGameState currentIGameState = localFactory.Create();
                 gameStateEntity = (GameStateEntity)diContainer.Resolve(currentIGameState.GetType());
                 currentIGameState.Start();
-                
+                IsChangingState = false;
                 //Debug.Log("State was changed to: " + gameState);
             }
             else

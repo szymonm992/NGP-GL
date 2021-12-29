@@ -23,8 +23,7 @@ namespace Frontend.Scripts
             {
                 var state = (GameState)fi;
                 var field = typeof(GameState).GetField(state.ToString());
-                var hasBaseClassAttrib = field.IsDefined(typeof(GameStateEntityAttribute),false);
-                if (hasBaseClassAttrib)
+                if (field.IsDefined(typeof(GameStateEntityAttribute), false))
                 {
                     var baseClassType = state.GetTypeOfBaseClass();
                     Container.BindInterfacesAndSelfTo2(baseClassType).AsSingle();

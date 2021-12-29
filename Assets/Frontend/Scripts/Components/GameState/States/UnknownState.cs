@@ -6,18 +6,18 @@ using Zenject;
 using UnityEngine.Scripting;
 namespace Frontend.Scripts.Components
 {
-    public class CalibrationState : GameStateEntity, IGameState
+    public class UnknownState : GameStateEntity, IGameState
     {
         public GameState ConnectedState { get; set; }
 
-        public CalibrationState(GameState st)
+        public UnknownState(GameState st)
         {
             ConnectedState = st;
         }
-        
+
         public void Start()
         {
-            Debug.Log("Calibration started...");
+            Debug.Log("Unknown state");
         }
     }
 }
