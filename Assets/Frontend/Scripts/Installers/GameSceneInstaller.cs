@@ -1,10 +1,10 @@
 using UnityEngine;
 using Zenject;
 
-using Frontend.Scripts.Components;
-using System.Reflection;
 using System;
 
+using Frontend.Scripts.Models;
+using Frontend.Scripts.Components;
 namespace Frontend.Scripts
 {
     public class GameSceneInstaller : MonoInstaller
@@ -16,7 +16,6 @@ namespace Frontend.Scripts
         }
         private void InstallGameStates()
         {
-            Container.Bind<GameStateFactory>().AsSingle();
             Container.BindInterfacesAndSelfTo<GameStateManager>().AsSingle();
 
             var fields = typeof(GameState).GetEnumValues();
@@ -24,10 +23,9 @@ namespace Frontend.Scripts
             {
                 var state = (GameState)fi;
                 var field = typeof(GameState).GetField(state.ToString());
-                var hasFactoryAndBaseClass = field.IsDefined(typeof(PlaceholderFactoryAttribute), false) && field.IsDefined(typeof(GameStateEntityAttribute),false);
-                if (hasFactoryAndBaseClass)
+                var hasBaseClassAttrib = field.IsDefined(typeof(GameStateEntityAttribute),false);
+                if (hasBaseClassAttrib)
                 {
-                    var typeOfAttribute = state.GetTypeOfState();
                     var baseClassType = state.GetTypeOfBaseClass();
                     //Debug.Log("Base type: " + baseClassType);
                     Container.BindInterfacesAndSelfTo2(baseClassType).AsSingle();

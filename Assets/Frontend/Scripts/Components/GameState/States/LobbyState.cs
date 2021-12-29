@@ -6,7 +6,7 @@ using Zenject;
 using UnityEngine.Scripting;
 namespace Frontend.Scripts.Components
 {
-    public class LobbyState : GameStateEntity, IGameState
+    public class LobbyState :  GameStateEntity, IGameState
     {
         public GameState ConnectedState { get; set; }
 
@@ -14,31 +14,10 @@ namespace Frontend.Scripts.Components
         {
             ConnectedState = st;
         }
-        public override void Initialize()
-        {
-        }
 
-        public override void Start()
+        public void Start()
         {
             Debug.Log("Lobby started...");
-        }
-
-        public override void Tick()
-        {
-        }
-
-        public override void Dispose()
-        {
-        }
-
-        public void Startt()
-        {
-            Debug.Log("Lobby started...");
-        }
-
-
-        public class Factory : PlaceholderFactory<LobbyState>
-        {
         }
     }
 
