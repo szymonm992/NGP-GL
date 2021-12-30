@@ -53,6 +53,8 @@ namespace Frontend.Scripts.Components
                 return;
             }
 
+            if (currentGameState == gameState) return;
+
             IsChangingState = true;
             if (gameStateEntity != null)
             {

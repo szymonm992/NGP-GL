@@ -2,6 +2,7 @@ using Frontend.Scripts.Models;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Frontend.Scripts.Components
@@ -12,17 +13,16 @@ namespace Frontend.Scripts.Components
         
         [SerializeField] private WelcomeUI associatedUI;
 
-       
-        private void Start()
+
+        private void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;
+
+        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            gameStateManager.ChangeState(GameState.Welcome);
-        }
-
-
-        private void Update()
-        {
-            
-
+            if(scene.name == "Welcome")
+            {
+                associatedUI.ClearError();
+                gameStateManager.ChangeState(GameState.Welcome);
+            }
         }
     }
 }

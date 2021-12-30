@@ -22,12 +22,5 @@ namespace Frontend.Scripts.Models
        
     }
 
-    [Serializable]
-    public struct SelectableKVP
-    {
-        public string Name;
-        public Selectable UI_element;
-    }
-
    
 }
