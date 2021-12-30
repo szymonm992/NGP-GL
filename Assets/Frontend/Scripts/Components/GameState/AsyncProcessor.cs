@@ -18,7 +18,6 @@ namespace Frontend.Scripts.Components
         {
             yield return new WaitForSeconds(delaySeconds);
             callbackOnFinish?.Invoke();
-
         }
 
        
