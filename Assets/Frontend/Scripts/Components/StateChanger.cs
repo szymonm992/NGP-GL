@@ -12,9 +12,9 @@ namespace Frontend.Scripts
       
         private void Start()
         {
-            Debug.Log("delayed fuse of welcome state");
-            gameStateManager.ChangeStateDelayed(GameState.Welcome, 3f);
+            gameStateManager.ChangeState(GameState.Lobby);
         }
+
 
         private void Update()
         {

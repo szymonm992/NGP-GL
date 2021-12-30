@@ -23,7 +23,7 @@ namespace Frontend.Scripts.Components
         public GameState CurrentGameState => currentGameState;
         public GameState PeeviousGameState => previousGameState;
 
-        public bool IsChangingState { get; private set; }
+        public bool IsChangingState { get; set; }
 
         public GameStateManager(DiContainer localDiContainer, StateFactory[] localStateFactory,IGameState[] localAllStates)
         {
@@ -36,6 +36,12 @@ namespace Frontend.Scripts.Components
 
         public void ChangeStateDelayed(GameState gameState, float delayInSeconds)
         {
+            if (IsChangingState)
+            {
+                Debug.LogError("Cannot change state while the state is being changed already");
+                return;
+            }
+            IsChangingState = true;
             asyncProcessor.StartNewCoroutine(()=> ChangeState(gameState), delayInSeconds);
         }
 
