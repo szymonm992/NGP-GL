@@ -9,7 +9,7 @@ namespace Frontend.Scripts
     public class StateChanger : MonoBehaviour
     {
         [Inject] private readonly GameStateManager gameStateManager;
-      
+        
         private void Start()
         {
             gameStateManager.ChangeState(GameState.Lobby);
@@ -18,10 +18,11 @@ namespace Frontend.Scripts
 
         private void Update()
         {
+            /*
             if (gameStateManager.CurrentGameState == GameState.Welcome && !gameStateManager.IsChangingState)
             {
                 gameStateManager.ChangeState(GameState.Lobby);  
-            }
+            }*/
               
         }
     }
