@@ -9,6 +9,7 @@ using System;
 namespace Frontend.Scripts.Models
 {
     [System.Serializable]
+ 
     public abstract class AssociatedUI
     {
 
@@ -18,6 +19,10 @@ namespace Frontend.Scripts.Models
         {
         }
 
+        public SelectableKVP GetElement(string name)
+        {
+            return ui_elements.Where(element => element.Name == name).FirstOrDefault();
+        }
         public virtual void ToggleUI(bool val) => ui_elements.ForEach(btn => btn.UI_element.interactable = val);
        
     }

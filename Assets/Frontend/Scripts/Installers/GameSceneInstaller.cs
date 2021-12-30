@@ -38,6 +38,7 @@ namespace Frontend.Scripts
         private void InstallMain()
         {
             Container.Bind<SmartFoxConnection>().FromComponentInHierarchy().AsCached();
+            Container.Bind<FormValidator>().AsSingle();
         }
     }
 

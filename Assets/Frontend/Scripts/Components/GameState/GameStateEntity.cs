@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using Zenject;
 
 namespace Frontend.Scripts.Components
@@ -19,5 +20,8 @@ namespace Frontend.Scripts.Components
         {
             // optionally overridden
         }
+
+        public virtual void QuitGame() => Application.Quit();
+
     }
 }
