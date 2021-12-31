@@ -58,6 +58,5 @@ namespace Frontend.Scripts.Components
             manager.AssociatedUI.GetElement("btn_quit").ReturnAs<Button>().onClick.AddListener(QuitGame);
         }
 
-
     }
 }

@@ -20,7 +20,6 @@ namespace Frontend.Scripts.Components
     {
 
         [Inject] private WelcomeManager manager;
-        [Inject] private readonly FormValidator formValidator;
         [Inject] private readonly SmartFoxConnection smartFoxConnection;
         [Inject] private readonly ConnectionManager connectionManager;
         [Inject] private readonly AsyncProcessor asyncProcessor;
@@ -31,7 +30,8 @@ namespace Frontend.Scripts.Components
         private string loadedLogin;
         private string loadedPassword;
 
-        public SmartFox sfs;
+        private SmartFox sfs;
+
         public OnLoginState(GameState st)
         {
             ConnectedState = st;
@@ -40,20 +40,22 @@ namespace Frontend.Scripts.Components
         public override void Start()
         {
             base.Start();
+            ReadCredentials();
             StartLogin();
+        }
+
+        public void ReadCredentials()
+        {
+            this.loadedLogin = manager.AssociatedUI.GetElement("inp_login").ReturnAs<InputField>().text;
+            this.loadedPassword = manager.AssociatedUI.GetElement("inp_pwd").ReturnAs<InputField>().text;
         }
 
         public override void Tick()
         {
-            if (!this.IsActive) { return; }
+            if (!IsActive)  return; 
 
-            if (smartFoxConnection.IsInitialized && sfs == null)
-            {
-                sfs = smartFoxConnection.Connection;
-            }
             if (sfs != null)
             {
-                Debug.Log("df");
                 sfs.ProcessEvents();
             }
            
@@ -89,6 +91,7 @@ namespace Frontend.Scripts.Components
         {
             if ((bool)evt.Params["success"])
             {
+                smartFoxConnection.Connection = sfs;
                 sfs.Send(new LoginRequest(loadedLogin, loadedPassword, "GoldLeague"));
             }
             else

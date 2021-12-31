@@ -10,7 +10,7 @@ namespace Frontend.Scripts.Components
 {
     public class WelcomeManager : MonoBehaviour
     {
-        [Inject] private GameStateManager gameStateManager;
+        [Inject] private readonly GameStateManager gameStateManager;
         [SerializeField] private WelcomeUI associatedUI;
         public WelcomeUI AssociatedUI { get { return associatedUI; } }
     

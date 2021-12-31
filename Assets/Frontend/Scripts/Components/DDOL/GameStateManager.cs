@@ -20,7 +20,7 @@ namespace Frontend.Scripts.Components
 
         private GameState currentGameState;
         private GameState previousGameState;
-
+        
         private GameStateEntity gameStateEntity = null;
 
         public GameState CurrentGameState => currentGameState;
@@ -28,19 +28,6 @@ namespace Frontend.Scripts.Components
 
         public bool IsChangingState { get; set; }
 
-
-         
-
-       /*
-        public GameStateManager(DiContainer localDiContainer, StateFactory[] localStateFactory,IGameState[] localAllStates)
-        {
-            diContainer = localDiContainer;
-            for (int i=0; i< localAllStates.Length;i++)
-            {
-                allStates.Add(localAllStates[i], localStateFactory[i]);
-            }
-            Debug.Log(allStates.Count);
-        }*/
 
         public void ChangeStateDelayed(GameState gameState, float delayInSeconds)
         {
@@ -66,7 +53,6 @@ namespace Frontend.Scripts.Components
             IsChangingState = true;
             if (gameStateEntity != null)
             {
-          
                 gameStateEntity.Dispose();
                 gameStateEntity = null;
             }
