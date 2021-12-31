@@ -14,6 +14,9 @@ namespace Frontend.Scripts.Components
         [GameStateEntity(typeof(WelcomeState))]
         Welcome,
 
+        [GameStateEntity(typeof(OnLoginState))]
+        OnLogin,
+
         [GameStateEntity(typeof(LobbyState))]
         Lobby,
     }

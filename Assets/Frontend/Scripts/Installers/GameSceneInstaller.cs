@@ -18,8 +18,8 @@ namespace Frontend.Scripts
         private void InstallGameStates()
         {
             Container.Bind<AsyncProcessor>().FromComponentInHierarchy().AsCached();
-            Container.BindInterfacesAndSelfTo<GameStateManager>().AsSingle();
-
+            Container.BindInterfacesAndSelfTo<GameStateManager>().FromComponentInHierarchy().AsCached();
+            
             var fields = typeof(GameState).GetEnumValues();
             foreach(var fi in fields)
             {
@@ -38,7 +38,9 @@ namespace Frontend.Scripts
         private void InstallMain()
         {
             Container.Bind<SmartFoxConnection>().FromComponentInHierarchy().AsCached();
+            Container.Bind<ConnectionManager>().FromComponentInHierarchy().AsCached();
             Container.Bind<FormValidator>().AsSingle();
+            
         }
     }
 

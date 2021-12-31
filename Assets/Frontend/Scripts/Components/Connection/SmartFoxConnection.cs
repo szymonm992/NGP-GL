@@ -10,7 +10,14 @@ namespace Frontend.Scripts.Components
 	public class SmartFoxConnection : MonoBehaviour
 	{
 		private SmartFox sfs;
-		public SmartFox Connection {get => sfs;	set	{sfs = value;}}
+		public SmartFox Connection 
+		{
+			get => sfs;	
+			set
+			{
+				sfs = value;
+			}
+		}
 		
 		public bool IsInitialized
 		{

@@ -8,12 +8,15 @@ using Frontend.Scripts.Models;
 
 namespace Frontend.Scripts.Components
 {
-    public class GameStateManager
+    public class GameStateManager : MonoBehaviour, IInitializable
     {
         [Inject] private readonly AsyncProcessor asyncProcessor;
 
-        private readonly Dictionary<IGameState, StateFactory> allStates = new Dictionary<IGameState, StateFactory>();
-        private readonly DiContainer diContainer;
+        [Inject] private DiContainer diContainer;
+        [Inject] private StateFactory[] localStateFactory;
+        [Inject] private IGameState[] localAllStates;
+
+        private Dictionary<IGameState, StateFactory> allStates;
 
         private GameState currentGameState;
         private GameState previousGameState;
@@ -25,6 +28,10 @@ namespace Frontend.Scripts.Components
 
         public bool IsChangingState { get; set; }
 
+
+         
+
+       /*
         public GameStateManager(DiContainer localDiContainer, StateFactory[] localStateFactory,IGameState[] localAllStates)
         {
             diContainer = localDiContainer;
@@ -32,7 +39,8 @@ namespace Frontend.Scripts.Components
             {
                 allStates.Add(localAllStates[i], localStateFactory[i]);
             }
-        }
+            Debug.Log(allStates.Count);
+        }*/
 
         public void ChangeStateDelayed(GameState gameState, float delayInSeconds)
         {
@@ -92,6 +100,20 @@ namespace Frontend.Scripts.Components
                 }
             }    
             return null;
+        }
+
+        public void Initialize()
+        {
+            Debug.Log(diContainer == null);
+            localAllStates = diContainer.Resolve<IGameState[]>();
+            localStateFactory = diContainer.Resolve<StateFactory[]>();
+            Debug.Log(localAllStates.Length);
+            Debug.Log(localStateFactory.Length);
+            allStates = new Dictionary<IGameState, StateFactory>();
+            for (int i = 0; i < localAllStates.Length; i++)
+            {
+                allStates.Add(localAllStates[i], localStateFactory[i]);
+            }
         }
     }
 }

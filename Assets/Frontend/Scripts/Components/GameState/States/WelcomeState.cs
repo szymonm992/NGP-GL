@@ -7,57 +7,54 @@ using UnityEngine.Scripting;
 using System.Linq;
 using UnityEngine.UI;
 
+
+using Sfs2X;
+using Sfs2X.Util;
+using Sfs2X.Core;
+using Sfs2X.Requests;
+using Sfs2X.Entities.Data;
+
 namespace Frontend.Scripts.Components
 {
     public class WelcomeState : GameStateEntity, IGameState
     {
        
-        [Inject] private readonly WelcomeManager manager;
-        public GameState ConnectedState { get; set; }
+        [Inject] private WelcomeManager manager;
+        [Inject] private readonly FormValidator formValidator;
+   
+        public override GameState ConnectedState { get; set; }
 
+        private string loadedLogin;
+        private string loadedPassword;
 
-        private delegate void DisplayErrorDelegate(string content);
         public WelcomeState(GameState st)
         {
             ConnectedState = st;
         }
         
-        public void Start() => SubscribeEvents();
+        public override void Start() => SubscribeEvents();
+
 
         public void TryLogin()
         {
-            string login = manager.AssociatedUI.GetElement("inp_login").UI_element.ReturnAs<InputField>().text;
-            string password = manager.AssociatedUI.GetElement("inp_pwd").UI_element.ReturnAs<InputField>().text;
-            if (IsLoginFormValid(login, password, manager.AssociatedUI.DisplayError))
+            loadedLogin = manager.AssociatedUI.GetElement("inp_login").ReturnAs<InputField>().text;
+            loadedPassword = manager.AssociatedUI.GetElement("inp_pwd").ReturnAs<InputField>().text;
+            if (formValidator.IsLoginFormValid(loadedLogin, loadedPassword, manager.AssociatedUI.DisplayError))
             {
-                Debug.Log("Valid ones");
+                Debug.Log("Valid credentials client-side");
                 manager.AssociatedUI.ToggleUI(false);
+                gameStateManager.ChangeState(GameState.OnLogin);
             }
-        }
-        private bool IsLoginFormValid(string login, string password, DisplayErrorDelegate onInvalidCallback = null)
-        {
-            string error = "";
-
-            if (login.Length > 16)
-                error = "Podany login jest zbyt d³ugi!";
-            else if (login.Length < 4)
-                error = "Podany login jest zbyt krótki!";
-            else if(password.Length > 16)
-                error = "Podane has³o jest zbyt d³ugie!";
-            else if (password.Length < 4)
-                error = "Podane has³o jest zbyt krótkie!";
-            else
-                return true;
-
-            onInvalidCallback?.Invoke(error);
-            return false;
+            
         }
 
         private void SubscribeEvents()
         {
             Debug.Log("Welcome state started...");
-            manager.AssociatedUI.GetElement("btn_login").UI_element.ReturnAs<Button>().onClick.AddListener(TryLogin);
-            manager.AssociatedUI.GetElement("btn_quit").UI_element.ReturnAs<Button>().onClick.AddListener(QuitGame);
+            manager.AssociatedUI.GetElement("btn_login").ReturnAs<Button>().onClick.AddListener(TryLogin);
+            manager.AssociatedUI.GetElement("btn_quit").ReturnAs<Button>().onClick.AddListener(QuitGame);
         }
+
+
     }
 }

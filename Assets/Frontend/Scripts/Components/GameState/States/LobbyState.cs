@@ -8,14 +8,14 @@ namespace Frontend.Scripts.Components
 {
     public class LobbyState :  GameStateEntity, IGameState
     {
-        public GameState ConnectedState { get; set; }
+        public override GameState ConnectedState { get; set; }
 
         public LobbyState(GameState st)
         {
             ConnectedState = st;
         }
 
-        public void Start()
+        public override void Start()
         {
             Debug.Log("Lobby started...");
         }

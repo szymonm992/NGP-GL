@@ -7,6 +7,7 @@ namespace Frontend.Scripts.Components
 {
     public interface IGameState
     {
+        public bool IsActive { get; }
         public GameState ConnectedState { get; set; }
         void Start();
     }

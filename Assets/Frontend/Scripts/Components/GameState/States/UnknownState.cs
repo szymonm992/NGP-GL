@@ -8,14 +8,13 @@ namespace Frontend.Scripts.Components
 {
     public class UnknownState : GameStateEntity, IGameState
     {
-        public GameState ConnectedState { get; set; }
+        public override GameState ConnectedState { get; set; }
 
         public UnknownState(GameState st)
         {
             ConnectedState = st;
         }
-
-        public void Start()
+        public override void Start()
         {
             Debug.Log("Unknown state");
         }
