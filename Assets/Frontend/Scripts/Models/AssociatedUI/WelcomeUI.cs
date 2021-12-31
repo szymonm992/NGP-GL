@@ -17,22 +17,18 @@ namespace Frontend.Scripts.Models
             ClearError();
         }
         
+        /// <summary>
+        /// Return selectable by its name
+        /// </summary>
+        /// <param name="name">name of the element</param>
+        /// <returns></returns>
         public Selectable GetElement(string name)
         {
-            foreach (SelectableKVP btn in ui_elements)
-            {
-                if (btn.Name == name) return btn.UI_element;
-            }
-            return null;
+            return ui_elements.Where(selectable => selectable.Name == name).FirstOrDefault().UI_element;
         }
-   
-        
+    
         public void ClearError() => error_text.text = "";
-        public void DisplayError(string content)
-        {
-
-            error_text.text = content;
-        }
+        public void DisplayError(string content) => error_text.text = content;
        
     }
 }

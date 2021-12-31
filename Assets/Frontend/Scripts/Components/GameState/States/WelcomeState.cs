@@ -27,21 +27,31 @@ namespace Frontend.Scripts.Components
         private string loadedLogin;
         private string loadedPassword;
 
-        public WelcomeState(GameState st)
-        {
-            ConnectedState = st;
-        }
+        private InputField loginField;
+        private InputField passwordField;
+
+        public WelcomeState(GameState st) => ConnectedState = st;
 
         public override void Start()
         {
             base.Start();
             SubscribeEvents();
         }
+
+        public override void Tick()
+        {
+            if (!IsActive) return;
+
+            if(Input.GetKey(KeyCode.Tab))
+            {
+                FocusOnPasswordField();
+            }
+        }
+
         public void TryLogin()
         {
-            loadedLogin = manager.AssociatedUI.GetElement("inp_login").ReturnAs<InputField>().text;
-
-            loadedPassword = manager.AssociatedUI.GetElement("inp_pwd").ReturnAs<InputField>().text;
+            loadedLogin = loginField.text;
+            loadedPassword = passwordField.text;
             if (formValidator.IsLoginFormValid(loadedLogin, loadedPassword, manager.AssociatedUI.DisplayError))
             {
                 Debug.Log("Valid credentials client-side");
@@ -56,6 +66,17 @@ namespace Frontend.Scripts.Components
             Debug.Log("Welcome state started...");
             manager.AssociatedUI.GetElement("btn_login").ReturnAs<Button>().onClick.AddListener(TryLogin);
             manager.AssociatedUI.GetElement("btn_quit").ReturnAs<Button>().onClick.AddListener(QuitGame);
+
+            loginField = manager.AssociatedUI.GetElement("inp_login").ReturnAs<InputField>();
+            passwordField = manager.AssociatedUI.GetElement("inp_pwd").ReturnAs<InputField>();
+        }
+
+        private void FocusOnPasswordField()
+        {
+            if (loginField.isFocused)
+            {
+                passwordField.Select();
+            }
         }
 
     }

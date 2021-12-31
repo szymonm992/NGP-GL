@@ -24,7 +24,6 @@ namespace Frontend.Scripts.Components
         [Inject] private readonly ConnectionManager connectionManager;
         [Inject] private readonly AsyncProcessor asyncProcessor;
 
-
         public override GameState ConnectedState { get; set; }
 
         private string loadedLogin;
@@ -32,10 +31,7 @@ namespace Frontend.Scripts.Components
 
         private SmartFox sfs;
 
-        public OnLoginState(GameState st)
-        {
-            ConnectedState = st;
-        }
+        public OnLoginState(GameState st) => ConnectedState = st;
 
         public override void Start()
         {
@@ -74,6 +70,7 @@ namespace Frontend.Scripts.Components
             sfs.AddEventListener(SFSEvent.ROOM_JOIN_ERROR, OnRoomJoinError);
             sfs.AddEventListener(SFSEvent.ROOM_JOIN, OnRoomJoin);
             sfs.Connect(ConnectionManager.HOST, ConnectionManager.PORT);
+
             Debug.Log("Trying to connect...");
         }
         private void OnConnectionRetry(BaseEvent evt)
@@ -99,8 +96,6 @@ namespace Frontend.Scripts.Components
                 ResetSettings();
                 manager.AssociatedUI.DisplayError("Failed connecting to server!");
                 gameStateManager.ChangeState(GameState.Welcome);
-                this.Dispose();
-
             }
         }
 

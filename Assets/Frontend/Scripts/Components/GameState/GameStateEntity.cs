@@ -26,13 +26,11 @@ namespace Frontend.Scripts.Components
         /// Whenever we override we should remember about base (activation of state)
         /// </summary>
         public virtual void Dispose() => this.IsActive = false;
-
-
-        public virtual void QuitGame() => Application.Quit();
-
         /// <summary>
         /// Whenever we override we should remember about base (activation of state)
         /// </summary>
         public virtual void Start() => this.IsActive = true;
+
+        public virtual void QuitGame() => Application.Quit();
     }
 }

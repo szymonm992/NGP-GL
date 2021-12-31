@@ -12,7 +12,7 @@ namespace Frontend.Scripts.Components
     {
         [Inject] private readonly AsyncProcessor asyncProcessor;
 
-        [Inject] private DiContainer diContainer;
+        [Inject] private readonly DiContainer diContainer;
         [Inject] private StateFactory[] localStateFactory;
         [Inject] private IGameState[] localAllStates;
 
