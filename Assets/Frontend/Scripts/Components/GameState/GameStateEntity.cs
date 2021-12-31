@@ -6,9 +6,9 @@ namespace Frontend.Scripts.Components
 {
     public abstract class GameStateEntity : IInitializable, ITickable, IDisposable, IGameState
     {
-        [Inject] protected readonly GameStateManager gameStateManager;
-        protected bool isActive = false;
-        public bool IsActive => isActive;
+        [Inject] protected GameStateManager gameStateManager;
+  
+        public bool IsActive { get; set; }
 
         public virtual GameState ConnectedState { get; set; }
 
@@ -25,18 +25,12 @@ namespace Frontend.Scripts.Components
             // optionally overridden
         }
 
-        public virtual void Dispose()
-        {
-            isActive = false;
-            // optionally overridden
-        }
+        public virtual void Dispose() => this.IsActive = false;
+
 
         public virtual void QuitGame() => Application.Quit();
 
-        public virtual void Start()
-        {
-            isActive = true;
-            Debug.Log("active");
-        }
+        public virtual void Start() => this.IsActive = true;
+
     }
 }

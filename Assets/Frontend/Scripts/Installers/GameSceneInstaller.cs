@@ -17,8 +17,8 @@ namespace Frontend.Scripts
 
         private void InstallGameStates()
         {
-            Container.Bind<AsyncProcessor>().FromComponentInHierarchy().AsCached();
-            Container.BindInterfacesAndSelfTo<GameStateManager>().FromComponentInHierarchy().AsCached();
+            Container.Bind<AsyncProcessor>().FromComponentInHierarchy().AsCached().NonLazy();
+            Container.BindInterfacesAndSelfTo<GameStateManager>().FromComponentInHierarchy().AsCached().NonLazy();
             
             var fields = typeof(GameState).GetEnumValues();
             foreach(var fi in fields)
@@ -28,7 +28,8 @@ namespace Frontend.Scripts
                 if (field.IsDefined(typeof(GameStateEntityAttribute), false))
                 {
                     var baseClassType = state.GetTypeOfBaseClass();
-                    Container.BindInterfacesAndSelfTo2(baseClassType).AsSingle();
+                    Container.BindInterfacesAndSelfTo(baseClassType).AsSingle();
+                    //    Container.BindInterfacesAndSelfTo2(baseClassType).AsSingle().NonLazy();
                     Container.BindFactory<IGameState, StateFactory>().To2(baseClassType);
                     Container.BindInstance<GameState>(state).WhenInjectedInto(baseClassType);
                 }

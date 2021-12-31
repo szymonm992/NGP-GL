@@ -35,30 +35,26 @@ namespace Frontend.Scripts.Components
         public OnLoginState(GameState st)
         {
             ConnectedState = st;
-            isActive = false;
         }
 
         public override void Start()
         {
-            isActive = true;
-         
+            base.Start();
             StartLogin();
-            Debug.Log("fdfdsf"+this.isActive);
         }
 
         public override void Tick()
         {
-            Debug.Log(this.isActive);
-            if (!this.isActive) { return; }
+            if (!this.IsActive) { return; }
 
             if (smartFoxConnection.IsInitialized && sfs == null)
             {
                 sfs = smartFoxConnection.Connection;
             }
-            if (this.sfs != null)
+            if (sfs != null)
             {
-                this.sfs.ProcessEvents();
-                Debug.Log("sdad");
+                Debug.Log("df");
+                sfs.ProcessEvents();
             }
            
         }
@@ -66,11 +62,8 @@ namespace Frontend.Scripts.Components
         private void StartLogin()
         {
             Debug.Log("Onlogin state started...");
-            if(!smartFoxConnection.IsInitialized)
-            {
-                smartFoxConnection.Connection = new SmartFox { ThreadSafeMode = true };
-            }
-            sfs = smartFoxConnection.Connection;
+
+            sfs = new SmartFox { ThreadSafeMode = true };
             sfs.AddEventListener(SFSEvent.CONNECTION, OnConnection);
             sfs.AddEventListener(SFSEvent.CONNECTION_LOST, OnConnectionLost);
             sfs.AddEventListener(SFSEvent.CONNECTION_RETRY, OnConnectionRetry);

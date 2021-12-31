@@ -476,7 +476,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 193071764810198740, guid: 7188f2990d97a434db7a52c5c43e0484, type: 3}
       propertyPath: associatedUI.ui_elements.Array.data[2].Name
-      value: btn_quit
+      value: inp_pwd
+      objectReference: {fileID: 0}
+    - target: {fileID: 193071764810198740, guid: 7188f2990d97a434db7a52c5c43e0484, type: 3}
+      propertyPath: associatedUI.ui_elements.Array.data[3].Name
+      value: inp_login
       objectReference: {fileID: 0}
     - target: {fileID: 193071764810198740, guid: 7188f2990d97a434db7a52c5c43e0484, type: 3}
       propertyPath: associatedUI.ui_elements.Array.data[0].UI_element

@@ -66,6 +66,7 @@ namespace Frontend.Scripts.Components
             IsChangingState = true;
             if (gameStateEntity != null)
             {
+          
                 gameStateEntity.Dispose();
                 gameStateEntity = null;
             }
@@ -79,9 +80,9 @@ namespace Frontend.Scripts.Components
             {
                 IGameState currentIGameState = localFactory.Create();
                 gameStateEntity = (GameStateEntity)diContainer.Resolve(currentIGameState.GetType());
-                currentIGameState.Start();
+
+                gameStateEntity.Start();
                 IsChangingState = false;
-                //Debug.Log("State was changed to: " + gameState);
             }
             else
             {
@@ -104,11 +105,8 @@ namespace Frontend.Scripts.Components
 
         public void Initialize()
         {
-            Debug.Log(diContainer == null);
             localAllStates = diContainer.Resolve<IGameState[]>();
             localStateFactory = diContainer.Resolve<StateFactory[]>();
-            Debug.Log(localAllStates.Length);
-            Debug.Log(localStateFactory.Length);
             allStates = new Dictionary<IGameState, StateFactory>();
             for (int i = 0; i < localAllStates.Length; i++)
             {

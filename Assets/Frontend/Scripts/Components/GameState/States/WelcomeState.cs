@@ -31,13 +31,16 @@ namespace Frontend.Scripts.Components
         {
             ConnectedState = st;
         }
-        
-        public override void Start() => SubscribeEvents();
 
-
+        public override void Start()
+        {
+            base.Start();
+            SubscribeEvents();
+        }
         public void TryLogin()
         {
             loadedLogin = manager.AssociatedUI.GetElement("inp_login").ReturnAs<InputField>().text;
+
             loadedPassword = manager.AssociatedUI.GetElement("inp_pwd").ReturnAs<InputField>().text;
             if (formValidator.IsLoginFormValid(loadedLogin, loadedPassword, manager.AssociatedUI.DisplayError))
             {
