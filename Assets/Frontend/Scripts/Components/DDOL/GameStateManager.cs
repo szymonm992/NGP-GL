@@ -10,7 +10,7 @@ using Frontend.Scripts.Signals;
 
 namespace Frontend.Scripts.Components
 {
-    public class GameStateManager : MonoBehaviour, IInitializable
+    public class GameStateManager : MonoBehaviour
     {
         [Inject] private readonly AsyncProcessor asyncProcessor;
         [Inject] private readonly SignalBus signalBus;
@@ -82,7 +82,7 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        public void Initialize()
+        private void Start()
         {
             localAllStates = diContainer.Resolve<IGameState[]>();
             localStateFactory = diContainer.Resolve<StateFactory[]>();

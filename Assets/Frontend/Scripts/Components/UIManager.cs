@@ -7,11 +7,11 @@ using Frontend.Scripts.Signals;
 
 namespace Frontend.Scripts.Components
 {
-    public class UIManager : MonoBehaviour, IInitializable
+    public class UIManager : MonoBehaviour
     {
         [Inject] private readonly SignalBus signalBus;
 
-        public void Initialize()
+        private void Start()
         {
             signalBus.Subscribe<GameStateChangedSignal>(UpdateGameStateUI);
         }
