@@ -331,3 +331,217 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.017166 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\Administrator.QED\Documents\GitHub\NGP-GL\Library\PackageCache\com.unity.visualscripting@1.7.2\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\Administrator.QED\Documents\GitHub\NGP-GL\Library\PackageCache\com.unity.visualscripting@1.7.2\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Native extension for LinuxStandalone target not found
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.02 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.624 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1624ms)
+		BeginReloadAssembly (159ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (5ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (52ms)
+		EndReloadAssembly (1361ms)
+			LoadAssemblies (101ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (513ms)
+			ReleaseScriptCaches (2ms)
+			RebuildScriptCaches (40ms)
+			SetupLoadedEditorAssemblies (596ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (15ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (111ms)
+				ProcessInitializeOnLoadAttributes (386ms)
+				ProcessInitializeOnLoadMethodAttributes (72ms)
+				AfterProcessingInitializeOnLoad (10ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (10ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.16 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5343 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 34 unused Assets / (310.9 KB). Loaded Objects now: 5923.
+Memory consumption went from 201.6 MB to 201.3 MB.
+Total: 4.905200 ms (FindLiveObjects: 0.559800 ms CreateObjectMapping: 0.687000 ms MarkObjects: 3.588000 ms  DeleteObjects: 0.069300 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.012486 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\Administrator.QED\Documents\GitHub\NGP-GL\Library\PackageCache\com.unity.visualscripting@1.7.2\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\Administrator.QED\Documents\GitHub\NGP-GL\Library\PackageCache\com.unity.visualscripting@1.7.2\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Native extension for LinuxStandalone target not found
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.00 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.654 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1654ms)
+		BeginReloadAssembly (153ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (5ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (55ms)
+		EndReloadAssembly (1394ms)
+			LoadAssemblies (99ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (539ms)
+			ReleaseScriptCaches (2ms)
+			RebuildScriptCaches (38ms)
+			SetupLoadedEditorAssemblies (594ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (15ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (95ms)
+				ProcessInitializeOnLoadAttributes (393ms)
+				ProcessInitializeOnLoadMethodAttributes (80ms)
+				AfterProcessingInitializeOnLoad (9ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (11ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.34 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5343 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 34 unused Assets / (310.9 KB). Loaded Objects now: 5925.
+Memory consumption went from 201.7 MB to 201.3 MB.
+Total: 5.931700 ms (FindLiveObjects: 0.636500 ms CreateObjectMapping: 0.620200 ms MarkObjects: 4.588900 ms  DeleteObjects: 0.084600 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 183973.651224 seconds.
+  path: Assets/Frontend/Graphics/Models/Vehicles/T-55/t-55_collision_detail.fbx
+  artifactKey: Guid(e75c1bc2f23118142a86a8dc1b30f3ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Frontend/Graphics/Models/Vehicles/T-55/t-55_collision_detail.fbx using Guid(e75c1bc2f23118142a86a8dc1b30f3ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '74fe2cd9b8840d01b678d35ee99181d2') in 1.064460 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 21.293158 seconds.
+  path: Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/spalone_nadwozie_AlbedoTransparency.png
+  artifactKey: Guid(e121c105ec23c6e489cdf3a270a2143d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/spalone_nadwozie_AlbedoTransparency.png using Guid(e121c105ec23c6e489cdf3a270a2143d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '25baae0e91c87a9df44196f3562205ef') in 0.074810 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/spalone_podwozie_AlbedoTransparency.png
+  artifactKey: Guid(5f003c225c0a4f24a8b41c0b8e587c9e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/spalone_podwozie_AlbedoTransparency.png using Guid(5f003c225c0a4f24a8b41c0b8e587c9e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9805e95bb0f5f1c26ba1345dc3460643') in 0.018919 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000055 seconds.
+  path: Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/spalone_nadwozie_MetallicSmoothness.png
+  artifactKey: Guid(837597722ce48754097f901f64978c5f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/spalone_nadwozie_MetallicSmoothness.png using Guid(837597722ce48754097f901f64978c5f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6d84c0fbb4d41e983c3f3976969fbd92') in 0.026083 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000019 seconds.
+  path: Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/t_55_pod_export_podwozie_BaseColor.png
+  artifactKey: Guid(53560604bf71c0d4fbb200fb8b639b6a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/t_55_pod_export_podwozie_BaseColor.png using Guid(53560604bf71c0d4fbb200fb8b639b6a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b394b4f8e7efa9031204e7fdd895ff99') in 0.012592 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/spalone_podwozie_Normal.png
+  artifactKey: Guid(b7a4e48f6526fd44388bbeff943d0292) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/spalone_podwozie_Normal.png using Guid(b7a4e48f6526fd44388bbeff943d0292) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1b82e508e7f71324225a80bb00c83380') in 0.015579 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000021 seconds.
+  path: Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/t-55_alpha2.png
+  artifactKey: Guid(82e31cd629f43e44193b1542b7331995) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/t-55_alpha2.png using Guid(82e31cd629f43e44193b1542b7331995) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa5ea37e6edd1d7a6033f3fcd382d690') in 0.017672 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/spalone_podwozie_MetallicSmoothness.png
+  artifactKey: Guid(61ad9aa9202cdef4098d4be88f8c22ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/spalone_podwozie_MetallicSmoothness.png using Guid(61ad9aa9202cdef4098d4be88f8c22ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '96cc7ecba3adf611d11ec47a3079e1ab') in 0.016788 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/t-55_alpha.png
+  artifactKey: Guid(fbdb58703b7fdff41b8480621b8b6bc7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/t-55_alpha.png using Guid(fbdb58703b7fdff41b8480621b8b6bc7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8380cec7ccf0811def13677dca266e33') in 0.015714 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/T-55_upper.mat
+  artifactKey: Guid(c0556e974ac4dc24a9722335e0799709) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/T-55_upper.mat using Guid(c0556e974ac4dc24a9722335e0799709) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '722befcbbaf1a99124abecb143b4d4c9') in 0.061458 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/t55_upperside_burned.mat
+  artifactKey: Guid(dca7ff4344e98284da98cc2c10d4205d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/t55_upperside_burned.mat using Guid(dca7ff4344e98284da98cc2c10d4205d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cedf3456ebba5d401339dec488df5a89') in 0.033181 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/T55_wheel.mat
+  artifactKey: Guid(22ef3496855dd204eb2911f65c440e21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/T55_wheel.mat using Guid(22ef3496855dd204eb2911f65c440e21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8ee4ceff870ba60f1c0d585c9dc01203') in 0.026043 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000029 seconds.
+  path: Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/t_55_pod_export_nadwozie_Normal.png
+  artifactKey: Guid(e51b1e4c528b1cc498543c447f832624) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/t_55_pod_export_nadwozie_Normal.png using Guid(e51b1e4c528b1cc498543c447f832624) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '66d9e70e3d192dcd7c10a71547b3407e') in 0.021321 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/t_55_pod_export_podwozie_Normal.png
+  artifactKey: Guid(4988f9f194317cd489fba19ab479ca3c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/t_55_pod_export_podwozie_Normal.png using Guid(4988f9f194317cd489fba19ab479ca3c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c4ef51671c230aed836cf7c49bf52f99') in 0.020658 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/t_55_pod_export_podwozie_Metallic.png
+  artifactKey: Guid(71c862e0b2de44341b514f7c90d248e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/t_55_pod_export_podwozie_Metallic.png using Guid(71c862e0b2de44341b514f7c90d248e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5d7710ce14b1c9fcaed9932c8807ee6c') in 0.011549 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/T55_track_burned.mat
+  artifactKey: Guid(996a3ff3d4ff6f348a739349cab89443) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Frontend/Graphics/Models/Vehicles/T-55/Materials/T55_track_burned.mat using Guid(996a3ff3d4ff6f348a739349cab89443) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c46e08226ddc964857ca301851e9944e') in 0.020827 seconds 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0
