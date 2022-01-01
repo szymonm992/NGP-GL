@@ -5,6 +5,8 @@ using System;
 
 using Frontend.Scripts.Models;
 using Frontend.Scripts.Components;
+using Frontend.Scripts.Signals;
+
 namespace Frontend.Scripts
 {
     public class GameSceneInstaller : MonoInstaller
@@ -13,6 +15,7 @@ namespace Frontend.Scripts
         {
             InstallGameStates();
             InstallMain();
+            InstallSignals();
         }
 
         private void InstallGameStates()
@@ -36,11 +39,19 @@ namespace Frontend.Scripts
             }
         }
 
+        private void InstallSignals()
+        {
+            SignalBusInstaller.Install(Container);
+            Container.DeclareSignal<GameStateChangedSignal>();
+        }
+
         private void InstallMain()
         {
             Container.Bind<SmartFoxConnection>().FromComponentInHierarchy().AsCached();
             Container.Bind<ConnectionManager>().FromComponentInHierarchy().AsCached();
+            Container.BindInterfacesAndSelfTo<UIManager>().FromComponentInHierarchy().AsSingle();
             Container.Bind<FormValidator>().AsSingle();
+            
             
         }
     }

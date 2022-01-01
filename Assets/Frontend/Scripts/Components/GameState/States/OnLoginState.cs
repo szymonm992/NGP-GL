@@ -59,8 +59,6 @@ namespace Frontend.Scripts.Components
 
         private void StartLogin()
         {
-            Debug.Log("Onlogin state started...");
-
             sfs = new SmartFox { ThreadSafeMode = true };
             sfs.AddEventListener(SFSEvent.CONNECTION, OnConnection);
             sfs.AddEventListener(SFSEvent.CONNECTION_LOST, OnConnectionLost);

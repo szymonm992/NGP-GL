@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 using System.Linq;
+
 using Frontend.Scripts.Models;
+using Frontend.Scripts.Signals;
 
 namespace Frontend.Scripts.Components
 {
     public class GameStateManager : MonoBehaviour, IInitializable
     {
         [Inject] private readonly AsyncProcessor asyncProcessor;
+        [Inject] private readonly SignalBus signalBus;
 
         [Inject] private readonly DiContainer diContainer;
         [Inject] private StateFactory[] localStateFactory;
@@ -69,11 +72,25 @@ namespace Frontend.Scripts.Components
 
                 gameStateEntity.Start();
                 IsChangingState = false;
+
+                signalBus.Fire(new GameStateChangedSignal() { gameState = gameState } );
             }
             else
             {
                 Debug.LogError("Factory of state "+gameState+" was not found!");
                 return;
+            }
+        }
+
+        public void Initialize()
+        {
+            localAllStates = diContainer.Resolve<IGameState[]>();
+            localStateFactory = diContainer.Resolve<StateFactory[]>();
+
+            allStates = new Dictionary<IGameState, StateFactory>();
+            for (int i = 0; i < localAllStates.Length; i++)
+            {
+                allStates.Add(localAllStates[i], localStateFactory[i]);
             }
         }
 
@@ -89,15 +106,6 @@ namespace Frontend.Scripts.Components
             return null;
         }
 
-        public void Initialize()
-        {
-            localAllStates = diContainer.Resolve<IGameState[]>();
-            localStateFactory = diContainer.Resolve<StateFactory[]>();
-            allStates = new Dictionary<IGameState, StateFactory>();
-            for (int i = 0; i < localAllStates.Length; i++)
-            {
-                allStates.Add(localAllStates[i], localStateFactory[i]);
-            }
-        }
+        
     }
 }

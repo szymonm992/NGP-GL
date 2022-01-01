@@ -62,8 +62,6 @@ namespace Frontend.Scripts.Components
 
         private void SubscribeEvents()
         {
-            Debug.Log("Welcome state started...");
-
             manager.AssociatedUI.GetElement("btn_login").ReturnAs<Button>().onClick.AddListener(TryLogin);
             manager.AssociatedUI.GetElement("btn_quit").ReturnAs<Button>().onClick.AddListener(QuitGame);
 
