@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
-namespace Frontend.Scripts.Components
+namespace Frontend.Scripts.Enums
 {
     public enum GameState
     {
@@ -32,7 +32,7 @@ namespace Frontend.Scripts.Components
         }
     }
 
-    internal class GameStateEntityAttribute : Attribute
+    public class GameStateEntityAttribute : Attribute
     {
         public Type BaseClassType { get; private set; }
         public GameStateEntityAttribute(Type type)

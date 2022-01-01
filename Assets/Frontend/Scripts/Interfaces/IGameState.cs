@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
-
+using Frontend.Scripts.Enums;
 namespace Frontend.Scripts.Components
 {
     public interface IGameState

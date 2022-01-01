@@ -6,6 +6,7 @@ using System;
 using Frontend.Scripts.Models;
 using Frontend.Scripts.Components;
 using Frontend.Scripts.Signals;
+using Frontend.Scripts.Enums;
 
 namespace Frontend.Scripts
 {

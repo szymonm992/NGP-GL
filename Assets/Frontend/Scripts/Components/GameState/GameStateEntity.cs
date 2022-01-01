@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 using Zenject;
-
+using Frontend.Scripts.Enums;
 namespace Frontend.Scripts.Components
 {
     public abstract class GameStateEntity : IInitializable, ITickable, IDisposable, IGameState

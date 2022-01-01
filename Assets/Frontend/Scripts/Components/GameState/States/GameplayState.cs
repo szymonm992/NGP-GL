@@ -13,6 +13,7 @@ using Sfs2X.Util;
 using Sfs2X.Core;
 using Sfs2X.Requests;
 using Sfs2X.Entities.Data;
+using Frontend.Scripts.Enums;
 
 namespace Frontend.Scripts.Components
 {

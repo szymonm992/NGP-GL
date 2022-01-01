@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 using UnityEngine.Scripting;
+using Frontend.Scripts.Enums;
 namespace Frontend.Scripts.Components
 {
     public class LobbyState :  GameStateEntity, IGameState

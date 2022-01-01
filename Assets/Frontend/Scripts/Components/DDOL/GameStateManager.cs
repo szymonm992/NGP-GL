@@ -7,6 +7,7 @@ using System.Linq;
 
 using Frontend.Scripts.Models;
 using Frontend.Scripts.Signals;
+using Frontend.Scripts.Enums;
 
 namespace Frontend.Scripts.Components
 {

@@ -6,7 +6,7 @@ using Zenject;
 using UnityEngine.Scripting;
 using System.Linq;
 using UnityEngine.UI;
-
+using Frontend.Scripts.Enums;
 
 using Sfs2X;
 using Sfs2X.Util;
