@@ -19,7 +19,7 @@ namespace Frontend.Scripts.Components
     public class WelcomeState : GameStateEntity, IGameState
     {
        
-        [Inject] private WelcomeManager manager;
+        [Inject (Optional = true)] private WelcomeManager manager;
         [Inject] private readonly FormValidator formValidator;
    
         public override GameState ConnectedState { get; set; }

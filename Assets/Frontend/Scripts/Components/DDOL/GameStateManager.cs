@@ -82,7 +82,7 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        private void Start()
+        private void Awake()
         {
             localAllStates = diContainer.Resolve<IGameState[]>();
             localStateFactory = diContainer.Resolve<StateFactory[]>();
@@ -92,6 +92,7 @@ namespace Frontend.Scripts.Components
             {
                 allStates.Add(localAllStates[i], localStateFactory[i]);
             }
+            Debug.Log(allStates.Count);
         }
 
         private StateFactory FindFactoryConnectedToState(GameState gameState)

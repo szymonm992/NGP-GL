@@ -31,8 +31,8 @@ namespace Frontend.Scripts
                 if (field.IsDefined(typeof(GameStateEntityAttribute), false))
                 {
                     var baseClassType = state.GetTypeOfBaseClass();
+               
                     Container.BindInterfacesAndSelfTo(baseClassType).AsSingle();
-                    //Container.BindInterfacesAndSelfTo2(baseClassType).AsSingle().NonLazy();
                     Container.BindFactory<IGameState, StateFactory>().To2(baseClassType);
                     Container.BindInstance<GameState>(state).WhenInjectedInto(baseClassType);
                 }

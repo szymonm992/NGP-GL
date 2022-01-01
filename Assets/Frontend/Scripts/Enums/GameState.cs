@@ -19,6 +19,9 @@ namespace Frontend.Scripts.Components
 
         [GameStateEntity(typeof(LobbyState))]
         Lobby,
+
+        [GameStateEntity(typeof(GameplayState))]
+        Gameplay,
     }
 
     public static class GameStateHelper

@@ -19,7 +19,7 @@ namespace Frontend.Scripts.Components
     public class OnLoginState : GameStateEntity, IGameState
     {
 
-        [Inject] private WelcomeManager manager;
+        [Inject(Optional = true)] private WelcomeManager manager;
         [Inject] private readonly SmartFoxConnection smartFoxConnection;
         [Inject] private readonly ConnectionManager connectionManager;
         [Inject] private readonly AsyncProcessor asyncProcessor;
