@@ -93,7 +93,6 @@ namespace Frontend.Scripts.Components
             {
                 allStates.Add(localAllStates[i], localStateFactory[i]);
             }
-            Debug.Log(allStates.Count);
         }
 
         private StateFactory FindFactoryConnectedToState(GameState gameState)

@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 21132107}
   - component: {fileID: 21132106}
   m_Layer: 0
-  m_Name: wheels
+  m_Name: wheels_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -411,14 +411,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 45013716}
-  m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
-  m_LocalPosition: {x: 6, y: 1.5, z: 2.5}
+  m_LocalRotation: {x: 0.06162845, y: -0.70441604, z: 0.06162845, w: 0.70441604}
+  m_LocalPosition: {x: 12, y: 4.74, z: 14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 10, y: -90, z: 0}
 --- !u!114 &45013720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -582,7 +582,7 @@ GameObject:
   - component: {fileID: 476218560}
   - component: {fileID: 476218559}
   m_Layer: 0
-  m_Name: wheels
+  m_Name: wheels_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -601,7 +601,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 780038045}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!153 &476218559
 ConfigurableJoint:
@@ -983,7 +983,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 518944325}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.08, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.8, z: 3.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1018,6 +1018,8 @@ GameObject:
   m_Component:
   - component: {fileID: 780038045}
   - component: {fileID: 780038047}
+  - component: {fileID: 780038049}
+  - component: {fileID: 780038048}
   - component: {fileID: 780038046}
   m_Layer: 0
   m_Name: Tank_Controller
@@ -1034,16 +1036,16 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 780038044}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.5487313, y: 2.28, z: 13.05}
+  m_LocalPosition: {x: 4.5487313, y: 3.59, z: 14.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 518944330}
   - {fileID: 21132105}
-  - {fileID: 476218558}
-  - {fileID: 1094521226}
-  - {fileID: 1064589601}
   - {fileID: 1211444833}
+  - {fileID: 1094521226}
+  - {fileID: 476218558}
+  - {fileID: 1064589601}
   - {fileID: 966561573}
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -1060,7 +1062,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c37110991ec65fd4d9dafc257636de77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rig: {fileID: 0}
 --- !u!114 &780038047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1078,6 +1079,37 @@ MonoBehaviour:
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
+--- !u!114 &780038048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780038044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bec47b94e4c400040a608aef98720c74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectType: 0
+--- !u!114 &780038049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780038044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0166d8ff8d905b048b2448179e1f5d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _components:
+  - {fileID: 780038048}
+  _identifier: 
+  _useSceneContext: 0
+  _context: {fileID: 0}
+  _bindType: 2
 --- !u!1 &966561572
 GameObject:
   m_ObjectHideFlags: 0
@@ -1093,7 +1125,7 @@ GameObject:
   - component: {fileID: 966561575}
   - component: {fileID: 966561574}
   m_Layer: 0
-  m_Name: wheels (2)
+  m_Name: wheels_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1304,7 +1336,7 @@ GameObject:
   - component: {fileID: 1064589603}
   - component: {fileID: 1064589602}
   m_Layer: 0
-  m_Name: wheels
+  m_Name: wheels_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1323,7 +1355,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 780038045}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!153 &1064589602
 ConfigurableJoint:
@@ -1515,7 +1547,7 @@ GameObject:
   - component: {fileID: 1094521228}
   - component: {fileID: 1094521227}
   m_Layer: 0
-  m_Name: wheels
+  m_Name: wheels_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1726,7 +1758,7 @@ GameObject:
   - component: {fileID: 1211444835}
   - component: {fileID: 1211444834}
   m_Layer: 0
-  m_Name: wheels (1)
+  m_Name: wheels_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1745,7 +1777,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 780038045}
-  m_RootOrder: 5
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!153 &1211444834
 ConfigurableJoint:
@@ -2070,15 +2102,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1048927423268223227, guid: 9e789f1c8f9f9b14699c59f0e8719cb4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.7300897
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1048927423268223227, guid: 9e789f1c8f9f9b14699c59f0e8719cb4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.37236774
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1048927423268223227, guid: 9e789f1c8f9f9b14699c59f0e8719cb4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.415963
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1048927423268223227, guid: 9e789f1c8f9f9b14699c59f0e8719cb4, type: 3}
       propertyPath: m_LocalRotation.w

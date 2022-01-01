@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Frontend.Scripts.Components.VehicleSystem
+namespace Frontend.Scripts.Models.VehicleSystem
 {
-    public abstract class VehicleStatsBase 
+    public class VehicleStatsBase : MonoBehaviour
     {
+        
 
+        
     }
 }
