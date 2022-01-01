@@ -2,6 +2,7 @@ using Frontend.Scripts.Enums;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 using Frontend.Scripts.Models.VehicleSystem;
@@ -12,25 +13,52 @@ namespace Frontend.Scripts.Components.VehicleSystem
     {
 
         [Inject(Id = "mainRig")] private readonly Rigidbody rig;
-        [Inject] public IVehicleStats tankStats;
-        [Inject] public IPlayerInput playerInputs;
+
+        [Inject] public readonly IVehicleStats tankStats;
+        [Inject] public readonly IPlayerInput playerInputs;
+
+        [SerializeField] private Text speedometer;
+        [SerializeField] private Transform forcePosition;
+
+        #region LOCAL CONTROL VARIABLES
 
         private Vector2 inputs;
         private bool brake;
+        private float currentSpeed;
+        private float finalPower;
+        #endregion
 
         private void Start()
         {
+            finalPower = CalculateFinalPower();
+            Debug.Log(finalPower);
         }
 
         private void FixedUpdate()
         {
-            
+            ApplyForcesToEngine();
         }
 
         private void Update()
         {
             inputs = new Vector2(playerInputs.Horizontal, playerInputs.Vertical);
             brake = playerInputs.Brake;
+            currentSpeed = rig.velocity.magnitude * 4f;
+            speedometer.text = (currentSpeed).ToString("F0");
+        }
+
+        private float CalculateFinalPower()
+        {
+            float one = (tankStats.EngineHP / rig.drag);
+            float two = one / (rig.mass / 1000f);
+
+            return (two * rig.mass * 4);
+        }
+
+        private void ApplyForcesToEngine()
+        {
+            float evaluatedFromCurve = tankStats.EngineCurve.Evaluate(currentSpeed);
+            rig.AddForce(finalPower * evaluatedFromCurve * inputs.y * Time.deltaTime * transform.forward);
         }
     }
 }

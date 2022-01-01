@@ -10,5 +10,10 @@ namespace Frontend.Scripts
 
         public float MaxForwardSpeed { get; }
         public float MaxBackwardsSpeed { get; }
+
+        public float EngineHP { get; }
+        public float Drag { get; }
+
+        public AnimationCurve EngineCurve { get; }
     }
 }
