@@ -12,6 +12,6 @@ namespace Frontend.Scripts.Components
 
         public GameState ConnectedState { get; set; }
 
-        void Start();
+        public void Start();
     }
 }

@@ -18,7 +18,6 @@ namespace Frontend.Scripts.Components
         {
            associatedUI.ClearError();
            gameStateManager.ChangeState(GameState.Welcome);
-
         }
      
     }

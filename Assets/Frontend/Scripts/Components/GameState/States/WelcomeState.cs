@@ -58,12 +58,12 @@ namespace Frontend.Scripts.Components
                 manager.AssociatedUI.ToggleUI(false);
                 gameStateManager.ChangeState(GameState.OnLogin);
             }
-            
         }
 
         private void SubscribeEvents()
         {
             Debug.Log("Welcome state started...");
+
             manager.AssociatedUI.GetElement("btn_login").ReturnAs<Button>().onClick.AddListener(TryLogin);
             manager.AssociatedUI.GetElement("btn_quit").ReturnAs<Button>().onClick.AddListener(QuitGame);
 
