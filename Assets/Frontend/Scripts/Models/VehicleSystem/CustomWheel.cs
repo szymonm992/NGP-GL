@@ -12,9 +12,22 @@ namespace Frontend.Scripts
         public List<Collision> allCollisions = new();
 
         public bool IsColliding => allCollisions.Count > 0;
+
+       
         private void Start()
         {
             attachedCollider = GetComponent<MeshCollider>();
+        }
+
+        public bool HasContact()
+        {
+            Collision col = allCollisions[0];
+            return col.contactCount > 0;
+        }
+        public ContactPoint CollisionReturnCol()
+        {
+            Collision col = allCollisions[0];
+            return col.contacts[0];
         }
         private void OnDrawGizmos()
         {

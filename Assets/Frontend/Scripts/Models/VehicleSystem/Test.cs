@@ -8,9 +8,9 @@ namespace Frontend.Scripts
     {
         Rigidbody rig;
 
-        public float restLength, springTravel, springStiffness;
+        public float restLength, springTravel, springStiffness,damperStiffness;
 
-        private float minLength, maxLength, springLength, springForce;
+        private float minLength, maxLength,lastLength, springLength, springForce,damperForce,springVelocity;
 
         private Vector3 suspensionForce;
 
@@ -34,13 +34,26 @@ namespace Frontend.Scripts
             {
                 if (wheel.IsColliding)
                 {
-                    springLength = DistanceFromWheelC(wheel, wheel.allCollisions[0].contacts[0].point) - wheelRadius;
+                    if(wheel.HasContact())
+                    {
+                        ContactPoint cp = wheel.CollisionReturnCol();
 
-                    springForce = springStiffness * (restLength - springLength);
+                        lastLength = springLength;
+                        springLength = DistanceFromWheelC(wheel, cp.point) - wheelRadius;
+                        springLength = Mathf.Clamp(springLength, minLength, maxLength);
+                        springVelocity = (lastLength - springLength) / Time.fixedDeltaTime;
 
-                    suspensionForce = springForce * transform.up;
+                        springForce = springStiffness * (restLength - springLength);
 
-                    rig.AddForceAtPosition(suspensionForce, wheel.allCollisions[0].contacts[0].point);
+
+                        damperForce = damperStiffness * springVelocity;
+                        suspensionForce = (springForce + damperForce) * transform.up;
+
+                        rig.AddForceAtPosition(suspensionForce, wheel.allCollisions[0].contacts[0].point);
+
+                    }
+
+
                 }
             }
             
