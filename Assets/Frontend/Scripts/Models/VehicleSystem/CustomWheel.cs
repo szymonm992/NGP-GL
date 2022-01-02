@@ -6,37 +6,58 @@ namespace Frontend.Scripts
 {
     public class CustomWheel : MonoBehaviour
     {
-       [SerializeField] private MeshCollider collider;
+       [SerializeField] private MeshCollider attachedCollider;
 
         private bool isColliding = false;
-        private List<Collider> allColliders = new();
+        public List<Collision> allCollisions = new();
 
+        public bool IsColliding => isColliding;
         private void Start()
         {
-            collider = GetComponent<MeshCollider>();
+            attachedCollider = GetComponent<MeshCollider>();
         }
         private void OnDrawGizmos()
         {
             Gizmos.color = isColliding ? Color.blue : Color.green;
-            Gizmos.DrawWireMesh(collider.sharedMesh, 0, collider.transform.position, collider.transform.rotation, collider.transform.localScale);
+            Gizmos.DrawWireMesh(attachedCollider.sharedMesh, 0,
+                attachedCollider.transform.position,
+                attachedCollider.transform.rotation,
+                attachedCollider.transform.lossyScale);
+
+            if (allCollisions.Count>0)
+            {
+                foreach (Collision col in allCollisions)
+                {
+                    foreach (ContactPoint cp in col.contacts)
+                    {
+                        Gizmos.color = Color.red;
+
+                        Gizmos.DrawSphere(cp.point, .015f);
+                    }
+
+                }
+            }
+               
+                
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnCollisionEnter(Collision collision)
         {
-            allColliders.Add(other);
+            allCollisions.Add(collision);
             CheckColliding(ref isColliding);
         }
 
-        private void OnTriggerExit(Collider other)
+
+        private void OnCollisionExit(Collision collision)
         {
-            allColliders.Remove(other);
+            allCollisions.Remove(collision);
             CheckColliding(ref isColliding);
         }
         private void CheckColliding(ref bool isCol)
         {
-            if (isCol && allColliders.Count == 0)
+            if (isCol && allCollisions.Count == 0)
                 isCol = false;
-            else if (!isCol & allColliders.Count > 0)
+            else if (!isCol & allCollisions.Count > 0)
                 isCol = true;
         }
     }
