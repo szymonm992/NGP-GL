@@ -11,7 +11,7 @@ namespace Frontend.Scripts
         private bool isColliding = false;
         public List<Collision> allCollisions = new();
 
-        public bool IsColliding => isColliding;
+        public bool IsColliding => allCollisions.Count > 0;
         private void Start()
         {
             attachedCollider = GetComponent<MeshCollider>();
@@ -22,7 +22,7 @@ namespace Frontend.Scripts
             Gizmos.DrawWireMesh(attachedCollider.sharedMesh, 0,
                 attachedCollider.transform.position,
                 attachedCollider.transform.rotation,
-                attachedCollider.transform.lossyScale);
+                attachedCollider.transform.localScale);
 
             if (allCollisions.Count>0)
             {
@@ -44,21 +44,12 @@ namespace Frontend.Scripts
         private void OnCollisionEnter(Collision collision)
         {
             allCollisions.Add(collision);
-            CheckColliding(ref isColliding);
         }
 
 
         private void OnCollisionExit(Collision collision)
         {
             allCollisions.Remove(collision);
-            CheckColliding(ref isColliding);
-        }
-        private void CheckColliding(ref bool isCol)
-        {
-            if (isCol && allCollisions.Count == 0)
-                isCol = false;
-            else if (!isCol & allCollisions.Count > 0)
-                isCol = true;
         }
     }
 }
