@@ -37,7 +37,10 @@ namespace Frontend.Scripts.Components.VehicleSystem
         private void FixedUpdate()
         {
             ApplyForcesToEngine();
+            
         }
+
+
 
         private void Update()
         {
@@ -45,6 +48,7 @@ namespace Frontend.Scripts.Components.VehicleSystem
             brake = playerInputs.Brake;
             currentSpeed = rig.velocity.magnitude * 4f;
             speedometer.text = (currentSpeed).ToString("F0");
+            
         }
 
         private float CalculateFinalPower()
@@ -54,7 +58,6 @@ namespace Frontend.Scripts.Components.VehicleSystem
 
             return (two * rig.mass * 4);
         }
-
         private void ApplyForcesToEngine()
         {
             float evaluatedFromCurve = tankStats.EngineCurve.Evaluate(currentSpeed);
