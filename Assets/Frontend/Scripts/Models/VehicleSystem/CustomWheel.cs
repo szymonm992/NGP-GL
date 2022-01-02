@@ -8,16 +8,13 @@ namespace Frontend.Scripts
     {
        [SerializeField] private MeshCollider attachedCollider;
 
-        private bool isColliding = false;
-        public List<Collision> allCollisions = new();
+        public List<Collision> allCollisions = new List<Collision>();
 
-        public bool IsColliding => allCollisions.Count > 0;
 
-       
-        private void Start()
-        {
-            attachedCollider = GetComponent<MeshCollider>();
-        }
+        private bool isColliding;
+        public bool IsColliding => isColliding;
+
+      
 
         public bool HasContact()
         {
@@ -29,9 +26,17 @@ namespace Frontend.Scripts
             Collision col = allCollisions[0];
             return col.contacts[0];
         }
+        private void Start()
+        {
+        }
+
+        private void Update()
+        {
+            isColliding = allCollisions.Count > 0;
+        }
         private void OnDrawGizmos()
         {
-            Gizmos.color = isColliding ? Color.blue : Color.green;
+            Gizmos.color = isColliding ? Color.red : Color.blue;
             Gizmos.DrawWireMesh(attachedCollider.sharedMesh, 0,
                 attachedCollider.transform.position,
                 attachedCollider.transform.rotation,
@@ -56,7 +61,18 @@ namespace Frontend.Scripts
 
         private void OnCollisionEnter(Collision collision)
         {
+            if(collision.collider.transform.root != transform.root)
             allCollisions.Add(collision);
+            Debug.Log("fdsfs");
+        }
+        private void OnCollisionStay(Collision collision)
+        {
+            if(!allCollisions.Contains(collision))
+            {
+                if (collision.collider.transform.root != transform.root)
+                    allCollisions.Add(collision);
+            }
+           
         }
 
 
