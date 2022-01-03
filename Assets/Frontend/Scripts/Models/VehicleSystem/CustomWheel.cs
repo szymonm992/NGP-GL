@@ -23,7 +23,6 @@ namespace Frontend.Scripts
                 return allCollisions.ToArray();
             }
             return null;
-
         }
 
         private void Start()
@@ -37,6 +36,7 @@ namespace Frontend.Scripts
             {
                 rig.MovePosition(transform.position - transform.right * Time.deltaTime * 0.5f);
             }
+
         }
 
         private void Update()
@@ -62,6 +62,8 @@ namespace Frontend.Scripts
                 }
 
             }
+
+
         }
 
         private void OnCollisionEnter(Collision collision)
