@@ -72,7 +72,7 @@ namespace Frontend.Scripts
                 if (!allCollisions.Contains(collision.contacts[0]))
                 {
                     allCollisions.Add(collision.contacts[0]);
-                    isColliding = true;
+               
                 }
 
 
@@ -87,7 +87,7 @@ namespace Frontend.Scripts
                     if (!allCollisions.Contains(collision.contacts[0]))
                     {
                         allCollisions.Add(collision.contacts[0]);
-                        isColliding = true;
+                    
                     }
                 }
 
@@ -97,13 +97,8 @@ namespace Frontend.Scripts
 
         private void OnCollisionExit(Collision collision)
         {
-            if (collision.collider.transform.root != transform.root)
-            {
-
-                allCollisions.Clear();
-
-            }
-            isColliding = false;
+            
+          
         }
     }
 }
