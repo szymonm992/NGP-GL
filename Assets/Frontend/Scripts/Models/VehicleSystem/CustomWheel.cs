@@ -8,34 +8,45 @@ namespace Frontend.Scripts
     {
        [SerializeField] private MeshCollider attachedCollider;
 
-        public List<Collision> allCollisions = new List<Collision>();
-
+        public List<ContactPoint> allCollisions = new List<ContactPoint>();
+        Rigidbody rig;
 
         private bool isColliding;
         public bool IsColliding => isColliding;
 
-      
 
-        public Collision GetCollision()
+        public ContactPoint[] GetCollision()
         {
             if(allCollisions.Count>0)
             {
-                return allCollisions[0];
+                return allCollisions.ToArray();
             }
             return null;
             
         }
-        public Collision CollisionReturnCol()
-        {
-            return allCollisions[0];
-        }
+ 
         private void Start()
         {
+            rig = GetComponent<Rigidbody>();
+        }
+
+        private void FixedUpdate()
+        {
+            RaycastHit hit;
+
+            Vector3 capEnd1 = (transform.position + transform.up*0.19f) - transform.forward * .005f;
+            Vector3 capEnd2 = (transform.position + transform.up * 0.19f) + transform.forward * .005f;
+
+
+            isColliding = Physics.CapsuleCast(capEnd1, capEnd2, .15f, -transform.up*0.1f, out hit);
+
+
+           
         }
 
         private void Update()
         {
-            isColliding = allCollisions.Count > 0;
+           
         }
         private void OnDrawGizmos()
         {
@@ -46,47 +57,60 @@ namespace Frontend.Scripts
                 attachedCollider.transform.rotation,
                 attachedCollider.transform.lossyScale);
 
-            Collision col = GetCollision();
-            if(col != null)
+            ContactPoint[] col = GetCollision();
+            if(col != null && col.Length > 0)
             {
-                Gizmos.color = Color.white;
-                Gizmos.DrawWireSphere(col.contacts[0].point, .2f);
-                Debug.Log(col.contacts[0].point);
+                foreach(ContactPoint cp in col)
+                {
+                    Gizmos.color = Color.white;
+                    Gizmos.DrawWireSphere(cp.point, .02f);
+                }
+               
             }
         }
 
+        /*
+
         private void OnCollisionEnter(Collision collision)
         {
-            if (!allCollisions.Contains(collision))
+            if (collision.collider.transform.root != transform.root)
             {
-                if (collision.collider.transform.root != transform.root)
-                {
-                    allCollisions.Add(collision);
-                    isColliding = true;
-                }
-                    
+             
+                    if (!allCollisions.Contains(collision.contacts[0]))
+                    {
+                        allCollisions.Add(collision.contacts[0]);
+                        isColliding = true;
+                    }
+                
+
             }
         }
         private void OnCollisionStay(Collision collision)
         {
-            if(!allCollisions.Contains(collision))
+            if (collision.collider.transform.root != transform.root)
             {
-                if (collision.collider.transform.root != transform.root)
+                foreach (ContactPoint cp in collision.contacts)
                 {
-                    allCollisions.Add(collision);
-                    isColliding = true;
+                    if (!allCollisions.Contains(collision.contacts[0]))
+                    {
+                        allCollisions.Add(collision.contacts[0]);
+                        isColliding = true;
+                    }
                 }
-                    
+
             }
-           
         }
 
-
+        
         private void OnCollisionExit(Collision collision)
         {
-            allCollisions.Remove(collision);
-            if (allCollisions.Count == 0)
-                isColliding = false;
-        }
+            if (collision.collider.transform.root != transform.root)
+            {
+
+                allCollisions.Clear();
+                
+            }
+                    isColliding = false;
+        }*/
     }
 }
