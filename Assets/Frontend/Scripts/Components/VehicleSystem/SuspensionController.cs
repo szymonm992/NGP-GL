@@ -22,6 +22,7 @@ namespace Frontend.Scripts.Components.VehicleSystem
 
         #region LOCAL CONTROL VARIABLES
 
+        public ConfigurableJoint[] joints;
         private Vector2 inputs;
         private bool brake;
         private float currentSpeed;
@@ -36,12 +37,9 @@ namespace Frontend.Scripts.Components.VehicleSystem
 
         private void FixedUpdate()
         {
-            ApplyForcesToEngine();
+            ApplyForcesToWheels();
             
         }
-
-
-
         private void Update()
         {
             inputs = new Vector2(playerInputs.Horizontal, playerInputs.Vertical);
@@ -58,10 +56,14 @@ namespace Frontend.Scripts.Components.VehicleSystem
 
             return (two * rig.mass * 4);
         }
-        private void ApplyForcesToEngine()
+        private void ApplyForcesToWheels()
         {
-            float evaluatedFromCurve = tankStats.EngineCurve.Evaluate(currentSpeed);
-            rig.AddForce(finalPower * evaluatedFromCurve * inputs.y * Time.deltaTime * transform.forward);
+            foreach(ConfigurableJoint joint in joints)
+            {
+                float evaluatedFromCurve = tankStats.EngineCurve.Evaluate(currentSpeed);
+                rig.AddForceAtPosition(finalPower/6 * evaluatedFromCurve * inputs.y * Time.deltaTime * transform.forward, joint.transform.position);
+            }
+            
         }
     }
 }

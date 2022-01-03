@@ -6,7 +6,7 @@ namespace Frontend.Scripts
 {
     public class CustomWheel : MonoBehaviour
     {
-       [SerializeField] private MeshCollider attachedCollider;
+        [SerializeField] private MeshCollider attachedCollider;
 
         public List<ContactPoint> allCollisions = new List<ContactPoint>();
         Rigidbody rig;
@@ -14,17 +14,18 @@ namespace Frontend.Scripts
         private bool isColliding;
         public bool IsColliding => isColliding;
 
+        public bool move;
 
         public ContactPoint[] GetCollision()
         {
-            if(allCollisions.Count>0)
+            if (allCollisions.Count > 0)
             {
                 return allCollisions.ToArray();
             }
             return null;
-            
+
         }
- 
+
         private void Start()
         {
             rig = GetComponent<Rigidbody>();
@@ -32,21 +33,15 @@ namespace Frontend.Scripts
 
         private void FixedUpdate()
         {
-            RaycastHit hit;
-
-            Vector3 capEnd1 = (transform.position + transform.up*0.19f) - transform.forward * .005f;
-            Vector3 capEnd2 = (transform.position + transform.up * 0.19f) + transform.forward * .005f;
-
-
-            isColliding = Physics.CapsuleCast(capEnd1, capEnd2, .15f, -transform.up*0.1f, out hit);
-
-
-           
+            if (move)
+            {
+                rig.MovePosition(transform.position - transform.right * Time.deltaTime * 0.5f);
+            }
         }
 
         private void Update()
         {
-           
+            isColliding = allCollisions.Count > 0;
         }
         private void OnDrawGizmos()
         {
@@ -58,30 +53,28 @@ namespace Frontend.Scripts
                 attachedCollider.transform.lossyScale);
 
             ContactPoint[] col = GetCollision();
-            if(col != null && col.Length > 0)
+            if (col != null && col.Length > 0)
             {
-                foreach(ContactPoint cp in col)
+                foreach (ContactPoint cp in col)
                 {
                     Gizmos.color = Color.white;
                     Gizmos.DrawWireSphere(cp.point, .02f);
                 }
-               
+
             }
         }
-
-        /*
 
         private void OnCollisionEnter(Collision collision)
         {
             if (collision.collider.transform.root != transform.root)
             {
-             
-                    if (!allCollisions.Contains(collision.contacts[0]))
-                    {
-                        allCollisions.Add(collision.contacts[0]);
-                        isColliding = true;
-                    }
-                
+
+                if (!allCollisions.Contains(collision.contacts[0]))
+                {
+                    allCollisions.Add(collision.contacts[0]);
+                    isColliding = true;
+                }
+
 
             }
         }
@@ -101,16 +94,16 @@ namespace Frontend.Scripts
             }
         }
 
-        
+
         private void OnCollisionExit(Collision collision)
         {
             if (collision.collider.transform.root != transform.root)
             {
 
                 allCollisions.Clear();
-                
+
             }
-                    isColliding = false;
-        }*/
+            isColliding = false;
+        }
     }
 }
