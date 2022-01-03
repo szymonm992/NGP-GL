@@ -16,15 +16,18 @@ namespace Frontend.Scripts
 
       
 
-        public bool HasContact()
+        public Collision GetCollision()
         {
-            Collision col = allCollisions[0];
-            return col.contactCount > 0;
+            if(allCollisions.Count>0)
+            {
+                return allCollisions[0];
+            }
+            return null;
+            
         }
-        public ContactPoint CollisionReturnCol()
+        public Collision CollisionReturnCol()
         {
-            Collision col = allCollisions[0];
-            return col.contacts[0];
+            return allCollisions[0];
         }
         private void Start()
         {
@@ -36,41 +39,44 @@ namespace Frontend.Scripts
         }
         private void OnDrawGizmos()
         {
-            Gizmos.color = isColliding ? Color.red : Color.blue;
+            Gizmos.color = isColliding ? Color.blue : Color.green;
+
             Gizmos.DrawWireMesh(attachedCollider.sharedMesh, 0,
                 attachedCollider.transform.position,
                 attachedCollider.transform.rotation,
-                attachedCollider.transform.localScale);
+                attachedCollider.transform.lossyScale);
 
-            if (allCollisions.Count>0)
+            Collision col = GetCollision();
+            if(col != null)
             {
-                foreach (Collision col in allCollisions)
-                {
-                    foreach (ContactPoint cp in col.contacts)
-                    {
-                        Gizmos.color = Color.red;
-
-                        Gizmos.DrawSphere(cp.point, .015f);
-                    }
-
-                }
+                Gizmos.color = Color.white;
+                Gizmos.DrawWireSphere(col.contacts[0].point, .2f);
+                Debug.Log(col.contacts[0].point);
             }
-               
-                
         }
 
         private void OnCollisionEnter(Collision collision)
         {
-            if(collision.collider.transform.root != transform.root)
-            allCollisions.Add(collision);
-            Debug.Log("fdsfs");
+            if (!allCollisions.Contains(collision))
+            {
+                if (collision.collider.transform.root != transform.root)
+                {
+                    allCollisions.Add(collision);
+                    isColliding = true;
+                }
+                    
+            }
         }
         private void OnCollisionStay(Collision collision)
         {
             if(!allCollisions.Contains(collision))
             {
                 if (collision.collider.transform.root != transform.root)
+                {
                     allCollisions.Add(collision);
+                    isColliding = true;
+                }
+                    
             }
            
         }
@@ -79,6 +85,8 @@ namespace Frontend.Scripts
         private void OnCollisionExit(Collision collision)
         {
             allCollisions.Remove(collision);
+            if (allCollisions.Count == 0)
+                isColliding = false;
         }
     }
 }

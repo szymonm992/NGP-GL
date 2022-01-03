@@ -34,11 +34,8 @@ namespace Frontend.Scripts
             {
                 if (wheel.IsColliding)
                 {
-                    if(wheel.HasContact())
-                    {
-                        ContactPoint cp = wheel.CollisionReturnCol();
-
-                        lastLength = springLength;
+                    
+                        /*lastLength = springLength;
                         springLength = DistanceFromWheelC(wheel, cp.point) - wheelRadius;
                         springLength = Mathf.Clamp(springLength, minLength, maxLength);
                         springVelocity = (lastLength - springLength) / Time.fixedDeltaTime;
@@ -49,13 +46,14 @@ namespace Frontend.Scripts
                         damperForce = damperStiffness * springVelocity;
                         suspensionForce = (springForce + damperForce) * transform.up;
 
-                        rig.AddForceAtPosition(suspensionForce, wheel.allCollisions[0].contacts[0].point);
+                        rig.AddForceAtPosition(suspensionForce, wheel.allCollisions[0].contacts[0].point);*/
 
-                    }
+                    
 
 
                 }
             }
+
             
         }
 
