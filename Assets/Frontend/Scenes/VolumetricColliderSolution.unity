@@ -1237,8 +1237,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 418c5c18b50f8fb4c886572a5fb8da8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheelRadius: 0.15
-  suspensionTravelRadius: 0.15
+  wheelRadius: 0.2
+  suspensionTravelRadius: 0.2
   wheelMask:
     serializedVersion: 2
     m_Bits: 2147483647
@@ -1250,7 +1250,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1321858664}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 12.996, y: 0.002, z: 18.072}
+  m_LocalPosition: {x: 7.775, y: 0.725, z: 18.072}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1488,14 +1488,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1659785915}
-  m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 6.41, y: -0.17, z: 18.296}
+  m_LocalRotation: {x: 0.4417906, y: 0.6586548, z: 0.5521061, w: 0.25724265}
+  m_LocalPosition: {x: 6.413, y: 0.144, z: 18.296}
   m_LocalScale: {x: 1, y: 3, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -30, y: 107.333, z: 90}
 --- !u!1 &1674394417
 GameObject:
   m_ObjectHideFlags: 0

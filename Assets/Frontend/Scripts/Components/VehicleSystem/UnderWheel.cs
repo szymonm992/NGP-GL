@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Kit;
 namespace Frontend.Scripts
 {
     public class UnderWheel : MonoBehaviour
@@ -14,7 +14,7 @@ namespace Frontend.Scripts
         public LayerMask wheelMask;
         private void OnDrawGizmos()
         {
-            Gizmos.color = Color.cyan;
+            Gizmos.color = Color.white;
             Vector3 topBorder = transform.position + transform.up * suspensionTravelRadius;
             Vector3 bottomBorder = transform.position - transform.up * suspensionTravelRadius;
           
@@ -32,20 +32,32 @@ namespace Frontend.Scripts
             Ray rayTopToBottom = new Ray(topBorder, direction);
             Ray rayBottomToTop = new Ray(bottomBorder, -direction);
 
+            Vector3 sphereCenterPoint = bottomBorder;
+
             if(Physics.SphereCast(rayTopToBottom, wheelRadius, out rayHit, suspensionTravelRadius*2f, wheelMask) || 
                 (Physics.SphereCast(rayBottomToTop, wheelRadius, out rayHit, suspensionTravelRadius * 2f, wheelMask)))
             {
-                Gizmos.color = Color.blue;
-                Gizmos.DrawWireSphere(rayHit.point + (rayHit.point.y>transform.position.y ? -transform.up : transform.up) * wheelRadius, wheelRadius);
+                sphereCenterPoint = transform.position + direction * (rayHit.distance - wheelRadius);
 
                 Gizmos.color = Color.red;
-                Gizmos.DrawSphere(rayHit.point , .02f);
+                Gizmos.DrawSphere(rayHit.point, .03f);
+
+                Gizmos.color = Color.blue;
             }
             else
             {
                 Gizmos.color = Color.green;
-                Gizmos.DrawWireSphere(bottomBorder, wheelRadius);
             }
+
+            Gizmos.DrawWireSphere(sphereCenterPoint, wheelRadius);
+
         }
+
+
+
+
     }
+
+
+
 }
