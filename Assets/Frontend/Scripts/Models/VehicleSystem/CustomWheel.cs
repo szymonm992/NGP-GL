@@ -9,12 +9,13 @@ namespace Frontend.Scripts
         [SerializeField] private MeshCollider attachedCollider;
 
         public List<ContactPoint> allCollisions = new List<ContactPoint>();
-        Rigidbody rig;
 
         private bool isColliding;
         public bool IsColliding => isColliding;
 
-        public bool move;
+        private Dictionary<Collider, Vector3> hitPoint = new();
+        private List<Vector3> hitNormal = new();
+        
 
         public ContactPoint[] GetCollision()
         {
@@ -25,82 +26,84 @@ namespace Frontend.Scripts
             return null;
         }
 
-        private void Start()
-        {
-            rig = GetComponent<Rigidbody>();
-        }
-
-        private void FixedUpdate()
-        {
-            if (move)
-            {
-                rig.MovePosition(transform.position - transform.right * Time.deltaTime * 0.5f);
-            }
-
-        }
-
-        private void Update()
-        {
-            isColliding = allCollisions.Count > 0;
-        }
         private void OnDrawGizmos()
         {
-            Gizmos.color = isColliding ? Color.blue : Color.green;
+            Color gizmosColor = isColliding ? Color.blue : Color.green;
+            Gizmos.color = gizmosColor;
 
-            Gizmos.DrawWireMesh(attachedCollider.sharedMesh, 0,
-                attachedCollider.transform.position,
-                attachedCollider.transform.rotation,
-                attachedCollider.transform.lossyScale);
+           // Gizmos.DrawWireMesh(attachedCollider.sharedMesh, 0,
+           // attachedCollider.transform.position,
+           // attachedCollider.transform.rotation,
+           // attachedCollider.transform.lossyScale);
 
-            ContactPoint[] col = GetCollision();
-            if (col != null && col.Length > 0)
+
+            DebugExtension.DrawCircle(transform.position+transform.up * (transform.lossyScale.y),transform.up, gizmosColor, .15f);
+            DebugExtension.DrawCircle(transform.position - transform.up * (transform.lossyScale.y), transform.up, gizmosColor, .15f);
+
+            foreach (KeyValuePair<Collider, Vector3> cp in hitPoint)
             {
-                foreach (ContactPoint cp in col)
+                if (cp.Value != Vector3.zero)
                 {
-                    Gizmos.color = Color.white;
-                    Gizmos.DrawWireSphere(cp.point, .02f);
+                    Gizmos.color = Color.red;
+                    Gizmos.DrawSphere(cp.Value, .03f);
                 }
-
             }
-
-
+           
         }
+
+        private void AddCollision(Collision collision)
+        {
+            Collider col = collision.collider;
+            ContactPoint cp = collision.contacts[0];
+            if (!hitPoint.ContainsKey(col))
+            {
+                hitPoint.Add(col, cp.point);
+                // hitNormal.Add(cp.normal);
+            }
+            else if (hitPoint[col] != cp.point)
+            {
+                hitPoint[col] = cp.point;
+            }
+        }
+
+        private void DeleteCollision(Collision collision)
+        {
+            Collider col = collision.collider;
+
+            if (hitPoint.ContainsKey(col))
+            {
+                hitPoint.Remove(col);
+                // hitNormal.Remove(cp.normal);
+            }
+        }
+
+
+
+        #region EVENT TRIGGERS
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.collider.transform.root != transform.root)
-            {
+            AddCollision(collision);
 
-                if (!allCollisions.Contains(collision.contacts[0]))
-                {
-                    allCollisions.Add(collision.contacts[0]);
-               
-                }
-
-
-            }
+            if (!isColliding)
+                isColliding = true;
         }
         private void OnCollisionStay(Collision collision)
         {
-            if (collision.collider.transform.root != transform.root)
-            {
-                foreach (ContactPoint cp in collision.contacts)
-                {
-                    if (!allCollisions.Contains(collision.contacts[0]))
-                    {
-                        allCollisions.Add(collision.contacts[0]);
-                    
-                    }
-                }
+            AddCollision(collision);
 
-            }
+            if (!isColliding)
+            isColliding = true;
         }
-
 
         private void OnCollisionExit(Collision collision)
         {
-            
-          
+            DeleteCollision(collision);
+
+            if(hitPoint.Count == 0)
+            isColliding = false;
         }
+
+        #endregion
     }
 }

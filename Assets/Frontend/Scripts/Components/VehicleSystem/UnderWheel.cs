@@ -10,8 +10,13 @@ namespace Frontend.Scripts
 
        [SerializeField] private float wheelRadius = .15f;
         [SerializeField] private float suspensionTravelRadius = .15f;
+        [SerializeField] private float wheelThickness = .2f;
 
         public LayerMask wheelMask;
+
+        public Mesh mesh;
+
+
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.white;
@@ -42,14 +47,19 @@ namespace Frontend.Scripts
                 Gizmos.color = Color.red;
                 Gizmos.DrawSphere(rayHit.point, .03f);
             }
+            else
+            {
+                if(Physics.CheckSphere(topBorder, wheelRadius,wheelMask))
+                {
+                    sphereCenterPoint = topBorder;
+                }    
+            }
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(sphereCenterPoint, wheelRadius);
 
         }
 
-
-
-
+    
     }
 
 
