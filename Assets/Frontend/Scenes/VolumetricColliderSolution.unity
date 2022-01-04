@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e87be50a654c020429e6effb7238badf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attachedCollider: {fileID: 0}
+  enableHitPointGizmos: 1
 --- !u!64 &80523250
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -231,7 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e87be50a654c020429e6effb7238badf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attachedCollider: {fileID: 0}
+  enableHitPointGizmos: 1
 --- !u!64 &164706512
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e87be50a654c020429e6effb7238badf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attachedCollider: {fileID: 0}
+  enableHitPointGizmos: 1
 --- !u!54 &379341200
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -417,7 +417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e87be50a654c020429e6effb7238badf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attachedCollider: {fileID: 0}
+  enableHitPointGizmos: 1
 --- !u!64 &407767821
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -606,7 +606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e87be50a654c020429e6effb7238badf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attachedCollider: {fileID: 494286040}
+  enableHitPointGizmos: 1
 --- !u!64 &494286040
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -683,7 +683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e87be50a654c020429e6effb7238badf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attachedCollider: {fileID: 584269076}
+  enableHitPointGizmos: 1
 --- !u!64 &584269076
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1217,7 +1217,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1321858665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1298,7 +1298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e87be50a654c020429e6effb7238badf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attachedCollider: {fileID: 1345231394}
+  enableHitPointGizmos: 1
 --- !u!54 &1345231393
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1810,7 +1810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e87be50a654c020429e6effb7238badf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attachedCollider: {fileID: 1916425711}
+  enableHitPointGizmos: 1
 --- !u!64 &1916425711
 MeshCollider:
   m_ObjectHideFlags: 0

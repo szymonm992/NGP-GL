@@ -1,68 +1,62 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UInc.Core.Utilities;
 using UnityEngine;
 
 namespace Frontend.Scripts
 {
     public class CustomWheel : MonoBehaviour
     {
-        [SerializeField] private MeshCollider attachedCollider;
-
-        public List<ContactPoint> allCollisions = new List<ContactPoint>();
+        
+        [SerializeField] private bool enableHitPointGizmos = true;
 
         private bool isColliding;
         public bool IsColliding => isColliding;
 
-        private Dictionary<Collider, Vector3> hitPoint = new();
-        private List<Vector3> hitNormal = new();
-        
+        private Dictionary<Collider, Vector3> hitPoints = new();
 
-        public ContactPoint[] GetCollision()
+        public Vector3[] GetHitPoints()
         {
-            if (allCollisions.Count > 0)
-            {
-                return allCollisions.ToArray();
-            }
-            return null;
+            return hitPoints.Values.ToArray();
         }
+
 
         private void OnDrawGizmos()
         {
             Color gizmosColor = isColliding ? Color.blue : Color.green;
             Gizmos.color = gizmosColor;
 
-           // Gizmos.DrawWireMesh(attachedCollider.sharedMesh, 0,
-           // attachedCollider.transform.position,
-           // attachedCollider.transform.rotation,
-           // attachedCollider.transform.lossyScale);
-
 
             DebugExtension.DrawCircle(transform.position+transform.up * (transform.lossyScale.y),transform.up, gizmosColor, .15f);
             DebugExtension.DrawCircle(transform.position - transform.up * (transform.lossyScale.y), transform.up, gizmosColor, .15f);
 
-            foreach (KeyValuePair<Collider, Vector3> cp in hitPoint)
+            if(enableHitPointGizmos)
             {
-                if (cp.Value != Vector3.zero)
+                foreach (KeyValuePair<Collider, Vector3> cp in hitPoints)
                 {
-                    Gizmos.color = Color.red;
-                    Gizmos.DrawSphere(cp.Value, .03f);
+                    if (cp.Value != Vector3.zero)
+                    {
+                        Gizmos.color = Color.red;
+                        Gizmos.DrawSphere(cp.Value, .02f);
+                    }
                 }
             }
+            
            
         }
 
-        private void AddCollision(Collision collision)
+        private void AddOrUpdateCollision(Collision collision)
         {
             Collider col = collision.collider;
             ContactPoint cp = collision.contacts[0];
-            if (!hitPoint.ContainsKey(col))
+            if (!hitPoints.ContainsKey(col))
             {
-                hitPoint.Add(col, cp.point);
-                // hitNormal.Add(cp.normal);
+                hitPoints.Add(col, cp.point);
             }
-            else if (hitPoint[col] != cp.point)
+            else if (hitPoints[col] != cp.point)
             {
-                hitPoint[col] = cp.point;
+                hitPoints[col] = cp.point;
             }
         }
 
@@ -70,10 +64,9 @@ namespace Frontend.Scripts
         {
             Collider col = collision.collider;
 
-            if (hitPoint.ContainsKey(col))
+            if (hitPoints.ContainsKey(col))
             {
-                hitPoint.Remove(col);
-                // hitNormal.Remove(cp.normal);
+                hitPoints.Remove(col);
             }
         }
 
@@ -83,14 +76,14 @@ namespace Frontend.Scripts
 
         private void OnCollisionEnter(Collision collision)
         {
-            AddCollision(collision);
+            AddOrUpdateCollision(collision);
 
             if (!isColliding)
                 isColliding = true;
         }
         private void OnCollisionStay(Collision collision)
         {
-            AddCollision(collision);
+            AddOrUpdateCollision(collision);
 
             if (!isColliding)
             isColliding = true;
@@ -100,7 +93,7 @@ namespace Frontend.Scripts
         {
             DeleteCollision(collision);
 
-            if(hitPoint.Count == 0)
+            if(hitPoints.Count == 0)
             isColliding = false;
         }
 
