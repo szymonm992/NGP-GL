@@ -34,21 +34,15 @@ namespace Frontend.Scripts
 
             Vector3 sphereCenterPoint = bottomBorder;
 
-            if(Physics.SphereCast(rayTopToBottom, wheelRadius, out rayHit, suspensionTravelRadius*2f, wheelMask) || 
+            if (Physics.SphereCast(rayTopToBottom, wheelRadius, out rayHit, suspensionTravelRadius * 2f, wheelMask) ||
                 (Physics.SphereCast(rayBottomToTop, wheelRadius, out rayHit, suspensionTravelRadius * 2f, wheelMask)))
             {
                 sphereCenterPoint = transform.position + direction * (rayHit.distance - wheelRadius);
 
                 Gizmos.color = Color.red;
                 Gizmos.DrawSphere(rayHit.point, .03f);
-
-                Gizmos.color = Color.blue;
             }
-            else
-            {
-                Gizmos.color = Color.green;
-            }
-
+            Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(sphereCenterPoint, wheelRadius);
 
         }
