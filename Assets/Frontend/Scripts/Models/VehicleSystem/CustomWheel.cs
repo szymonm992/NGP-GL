@@ -78,24 +78,61 @@ namespace Frontend.Scripts
 
         private void OnCollisionEnter(Collision collision)
         {
-          
-            float distance = Vector3.Distance(transform.position, collision.contacts[0].point);
-            DebugExtension.DebugPoint(transform.position, Color.yellow, .02f);
-            float 
 
-            Debug.Break();
+            for(int i=0;i<collision.contactCount;i++)
+            {
+                DebugExtension.DebugPoint(collision.contacts[i].point, Color.yellow, 1f);
+                float distanceToEdge = Vector3.Distance(transform.position - transform.up * wheelThickness / 2, transform.position);
+                float distanceToPoint = Vector3.Distance(transform.position, collision.contacts[i].point);
 
-            AddOrUpdateCollision(collision);
+                if (distanceToPoint <= distanceToEdge)
+                {
+                    Debug.Log("DISTTANCE cof");
+                    AddOrUpdateCollision(collision);
 
-            if (!isColliding)
-                isColliding = true;
+                    if (!isColliding)
+                        isColliding = true;
+                    break;
+                }
+                else
+                {
+
+                    //TODO DWA DIR TO CONTACT I SPRAWDZANIE KTÓRY JEST BLIZEJ PUNKTU I DOT ROBIÆ Z TYM PUNKTEM A ( PLUSOWY I MINUSOWY)
+                    Vector3 dirToContact = collision.contacts[i].point - transform.position;
+                    
+
+                   
+                    Vector3 directionToEdge = transform.position - transform.up * wheelThickness / 2;
+                    float dp = (Vector3.Dot(dirToContact, directionToEdge));
+                   
+                    DebugExtension.DebugPoint(transform.position - transform.up * wheelThickness / 2, Color.yellow, .02f);
+                    if (dp <= distanceToEdge)
+                    {
+                        Debug.Log("CONFIRMED Dp is " + dp + " and distance is " + distanceToEdge);
+                        AddOrUpdateCollision(collision);
+
+                        if (!isColliding)
+                            isColliding = true;
+                        break;
+                    }
+                    else
+                    {
+                        Debug.Log("REJECTED Dp is " + dp + " and distance is "+ distanceToEdge);
+                    }
+                   
+                }
+            }
+            
+           
+
+
+            
+
+           
         }
         private void OnCollisionStay(Collision collision)
         {
-            AddOrUpdateCollision(collision);
-
-            if (!isColliding)
-            isColliding = true;
+            
         }
 
         private void OnCollisionExit(Collision collision)
