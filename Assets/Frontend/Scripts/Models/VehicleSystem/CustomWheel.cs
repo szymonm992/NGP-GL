@@ -10,7 +10,7 @@ namespace Frontend.Scripts
     {
         
         [SerializeField] private bool enableHitPointGizmos = true;
-
+        [SerializeField] private float wheelThickness = .08f;
         private bool isColliding;
         public bool IsColliding => isColliding;
 
@@ -27,9 +27,8 @@ namespace Frontend.Scripts
             Color gizmosColor = isColliding ? Color.blue : Color.green;
             Gizmos.color = gizmosColor;
 
-
-            DebugExtension.DrawCircle(transform.position+transform.up * (transform.lossyScale.y),transform.up, gizmosColor, .15f);
-            DebugExtension.DrawCircle(transform.position - transform.up * (transform.lossyScale.y), transform.up, gizmosColor, .15f);
+            DebugExtension.DrawCircle(transform.position+transform.up * (wheelThickness/2),transform.up, gizmosColor, transform.lossyScale.x/2);
+            DebugExtension.DrawCircle(transform.position - transform.up * (wheelThickness/2), transform.up, gizmosColor, transform.lossyScale.x / 2);
 
             if(enableHitPointGizmos)
             {
@@ -42,14 +41,17 @@ namespace Frontend.Scripts
                     }
                 }
             }
-            
-           
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(transform.position, transform.position+ transform.up*wheelThickness/2);
+            Gizmos.DrawLine(transform.position, transform.position- transform.up*wheelThickness/2);
         }
 
         private void AddOrUpdateCollision(Collision collision)
         {
             Collider col = collision.collider;
             ContactPoint cp = collision.contacts[0];
+            
             if (!hitPoints.ContainsKey(col))
             {
                 hitPoints.Add(col, cp.point);
@@ -76,6 +78,13 @@ namespace Frontend.Scripts
 
         private void OnCollisionEnter(Collision collision)
         {
+          
+            float distance = Vector3.Distance(transform.position, collision.contacts[0].point);
+            DebugExtension.DebugPoint(transform.position, Color.yellow, .02f);
+            float 
+
+            Debug.Break();
+
             AddOrUpdateCollision(collision);
 
             if (!isColliding)
