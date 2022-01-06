@@ -7,39 +7,35 @@ namespace Frontend.Scripts
     public class RaycastSuspension : MonoBehaviour
     {
 
-        #region REGION - Unity Editor Inspector Assignable Fields
 
         public Rigidbody rigidBody;
         public Transform steeringTransform;
         public Transform suspensionTransform;
         public Transform wheelTransform;
 
-        public float wheelRadius = 0.5f;
-        public float wheelMass = 1f;//used to simulate wheel rotational inertia for brakes and friction purposes
-        public float suspensionLength = 0.5f;
+        public float wheelRadius = 0.4f;
+        public float wheelMass = 50f;
+        public float suspensionLength = 0.25f;
         public float target = 0;
-        public float spring = 1000;
-        public float damper = 1500;
+        public float spring = 24000;
+        public float damper = 2500;
         public float maxMotorTorque = 0;
-        public float rpmLimit = 600f;
-        public float maxBrakeTorque = 0;
+        public float rpmLimit = 500f;
+        public float maxBrakeTorque = 3000;
         public float maxSteerAngle = 0;
-        public float throttleResponse = 2;
-        public float steeringResponse = 2;
-        public float brakeResponse = 2;
+        public float throttleResponse = 5;
+        public float steeringResponse = 10;
+        public float brakeResponse =10;
 
         public float springCurve = 0f;
         public float forwardFrictionCoefficient = 1f;
-        public float sideFrictionCoefficient = 1f;
+        public float sideFrictionCoefficient = 2f;
         public float surfaceFrictionCoefficient = 1f;
 
 
         public bool debug = false;
 
-        #endregion ENDREGION - Unity Editor Inspector Assignable Fields
 
-
-        #region REGION - Unity Editor Display-Only Variables
 
         [Header("Telemetry")]
         public Vector3 localVelocity;
@@ -53,9 +49,6 @@ namespace Frontend.Scripts
         public float fLat;
         public float comp;
 
-
-
-        #endregion ENDREGION - Unity Editor Display Variables
 
         private RWheelCollider wheelCollider;
 
@@ -81,10 +74,10 @@ namespace Frontend.Scripts
 
         private void InputHandling()
         {
-            float left = Input.GetAxis("Horizontal") < 0 ? -1 : 0;
-            float right = Input.GetAxis("Horizontal") > 0 ? 1 : 0;
-            float fwd = Input.GetAxis("Vertical") > 0 ? 1 : 0;
-            float rev = Input.GetAxis("Vertical") < 0 ? -1 : 0;
+
+            float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
+
 
             float brakeInput = 0;
             if (Input.GetAxis("Vertical") == 0)
@@ -95,20 +88,18 @@ namespace Frontend.Scripts
             {
                 brakeInput = 2;
             }
-            float forwardInput = fwd + rev;
-            float turnInput = left + right;
 
             float rpm = wheelCollider.rpm;
 
-            if (rpm >= rpmLimit && forwardInput > 0) { forwardInput = 0; }
-            else if (rpm <= -rpmLimit && forwardInput < 0) { forwardInput = 0; }
-            currentMotorTorque = Mathf.Lerp(currentMotorTorque, forwardInput * maxMotorTorque, throttleResponse * Time.fixedDeltaTime);
+            if (rpm >= rpmLimit && vertical > 0) { vertical = 0; }
+            else if (rpm <= -rpmLimit && vertical < 0) { vertical = 0; }
+            currentMotorTorque = Mathf.Lerp(currentMotorTorque, vertical * maxMotorTorque, throttleResponse * Time.fixedDeltaTime);
 
 
-            if (forwardInput == 0 && Mathf.Abs(currentMotorTorque) < 0.25f) { currentMotorTorque = 0f; }
-            currentSteer = Mathf.Lerp(currentSteer, turnInput * maxSteerAngle, steeringResponse * Time.fixedDeltaTime);
+            if (vertical == 0 && Mathf.Abs(currentMotorTorque) < 0.25f) { currentMotorTorque = 0f; }
+            currentSteer = Mathf.Lerp(currentSteer, horizontal * maxSteerAngle, steeringResponse * Time.fixedDeltaTime);
 
-            if (turnInput == 0 && Mathf.Abs(currentSteer) < 0.25f) { currentSteer = 0f; }
+            if (horizontal == 0 && Mathf.Abs(currentSteer) < 0.25f) { currentSteer = 0f; }
             currentBrakeTorque = Mathf.Lerp(currentBrakeTorque, brakeInput * maxBrakeTorque, brakeResponse * Time.fixedDeltaTime);
 
             if (brakeInput == 0 && currentBrakeTorque < 0.25f) { currentBrakeTorque = 0f; }

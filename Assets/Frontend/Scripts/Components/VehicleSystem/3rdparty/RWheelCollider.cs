@@ -374,7 +374,7 @@ namespace Frontend.Scripts
             }
         }
 
-        public void clearGroundedState()
+        public void ClearGroundedState()
         {
             grounded = false;
             vSpring = prevFSpring = fDamp = prevSuspensionCompression = currentSuspensionCompression = 0;
@@ -388,7 +388,7 @@ namespace Frontend.Scripts
 
         private void IntegrateForces()
         {
-            calcFrictionStandard();
+            CalcFrictionStandard();
             float fMult = 0.1f;
             if ((prevFLong < 0 && localForce.z > 0) || (prevFLong > 0 && localForce.z < 0))
             {
@@ -424,29 +424,14 @@ namespace Frontend.Scripts
             prevFLong = localForce.z;
             prevFLat = localForce.x;
         }
-
-        /// <summary>
-        /// Calculate an offset to the spring force that will negate the tendency to slide down hill caused by suspension forces.
-        ///   Seems to mostly work and brings drift down to sub-milimeter-per-second.
-        ///   Should be combined with some sort of spring/joint/constraint to complete the sticky-friction implementation.  
-        /// </summary>
-        /// <param name="hitNormal"></param>
-        /// <param name="springForce"></param>
-        /// <returns></returns>
         private Vector3 calcAG(Vector3 hitNormal, float springForce)
         {
             Vector3 agFix = new Vector3(0, 0, 0);
-            // this is the amount of suspension force that is misaligning the vehicle
-            // need to push uphill by this amount to keep the rigidbody centered along suspension axis
             float gravNormDot = Vector3.Dot(hitNormal, gNorm);
-            //this force should be applied in the 'uphill' direction
             float agForce = gravNormDot * springForce;
-            //calculate uphill direction from hitNorm and gNorm
-            // cross of the two gives the left/right of the hill
             Vector3 hitGravCross = Vector3.Cross(hitNormal, gNorm);
-            // cross the left/right with the hitNorm to derive the up/down-hill direction
+
             Vector3 upDown = Vector3.Cross(hitGravCross, hitNormal);
-            // and pray that all the rhs/lhs coordinates are correct...
             float slopeLatDot = Vector3.Dot(upDown, wR);
             agFix = agForce * slopeLatDot * wR * Mathf.Clamp(currentSideFrictionCoef, 0, 1);
             float vel = Mathf.Abs(localVelocity.z);
@@ -455,8 +440,6 @@ namespace Frontend.Scripts
                 float mult = 1f;
                 if (vel > 2)
                 {
-                    //if between 2m/s and 4/ms, lerp output force between them
-                    //zero ouput at or above 4m/s, max output at or below 2m/s, intermediate force output inbetween those values
                     vel -= 2;//clamp to range 0-2
                     vel *= 0.5f;//clamp to range 0-1
                     mult = 1 - vel;//invert to range 1-0; with 0 being for input velocity of 4
@@ -467,15 +450,8 @@ namespace Frontend.Scripts
             return agFix;
         }
 
-        /// <summary>
-        /// Integrate drive and brake torques into wheel velocity for when -not- grounded.
-        /// This allows for wheels to change velocity from user input while the vehicle is not in contact with the surface.
-        /// Not-yet-implemented are torques on the rigidbody due to wheel accelerations.
-        /// </summary>
         private void integrateUngroundedTorques()
         {
-            //velocity change due to motor; if brakes are engaged they can cancel this out the same tick
-            //acceleration is in radians/second; only operating on fixedDeltaTime seconds, so only update for that length of time
             currentAngularVelocity += currentMotorTorque * inertiaInverse * Time.fixedDeltaTime;
             if (currentAngularVelocity != 0)
             {
@@ -485,11 +461,8 @@ namespace Frontend.Scripts
             }
             if (currentAngularVelocity != 0)
             {
-                // maximum torque exerted by brakes onto wheel this frame
                 float wBrake = currentBrakeTorque * inertiaInverse * Time.fixedDeltaTime;
-                // clamp the max brake angular change to the current angular velocity
                 wBrake = Mathf.Min(Mathf.Abs(currentAngularVelocity), wBrake) * Mathf.Sign(currentAngularVelocity);
-                // and finally, integrate it into wheel angular velocity
                 currentAngularVelocity -= wBrake;
             }
         }
@@ -527,7 +500,7 @@ namespace Frontend.Scripts
             localForce.y = fSpring;
         }
 
-        private float calcLongSlip(float vLong, float vWheel)
+        private float CalcLongSlip(float vLong, float vWheel)
         {
             float sLong = 0;
             if (vLong == 0 && vWheel == 0) { return 0f; }//no slip present
@@ -538,7 +511,7 @@ namespace Frontend.Scripts
             return sLong;
         }
 
-        private float calcLatSlip(float vLong, float vLat)
+        private float CalcLatSlip(float vLong, float vLat)
         {
             float sLat = 0;
             if (vLat == 0)//vLat = 0, so there can be no sideways slip
@@ -556,104 +529,75 @@ namespace Frontend.Scripts
         }
 
 
-        public void calcFrictionStandard()
+        public void CalcFrictionStandard()
         {
-            currentAngularVelocity += currentMotorTorque * inertiaInverse * Time.fixedDeltaTime;//acceleration is in radians/second; only operating on 1 * fixedDeltaTime seconds, so only update for that length of time
+            currentAngularVelocity += currentMotorTorque * inertiaInverse * Time.fixedDeltaTime;
 
             //rolling resistance integration
             if (currentAngularVelocity != 0)
             {
-                float fRollResist = localForce.y * rollingResistanceCoefficient;//rolling resistance force in newtons
-                float tRollResist = fRollResist * wheelRadius;//rolling resistance as a torque
-                float wRollResist = tRollResist * inertiaInverse * Time.fixedDeltaTime;//rolling resistance angular velocity change
+                float fRollResist = localForce.y * rollingResistanceCoefficient;
+                float tRollResist = fRollResist * wheelRadius;
+                float wRollResist = tRollResist * inertiaInverse * Time.fixedDeltaTime;
                 wRollResist = Mathf.Min(wRollResist, Mathf.Abs(currentAngularVelocity)) * Mathf.Sign(currentAngularVelocity);
                 currentAngularVelocity -= wRollResist;
             }
 
-            //rotational resistance integration
             if (currentAngularVelocity != 0)
             {
-                //float fRotResist = currentAngularVelocity * rotationalResistanceCoefficient;
-                //float tRotResist = fRotResist * radiusInverse;
-                //float wRotResist = tRotResist * inertiaInverse * Time.fixedDeltaTime;
-                //currentAngularVelocity -= wRotResist;
                 currentAngularVelocity -= currentAngularVelocity * rotationalResistanceCoefficient * radiusInverse * inertiaInverse * Time.fixedDeltaTime;
             }
 
-            // maximum torque exerted by brakes onto wheel this frame as a change in angular velocity
             float wBrakeMax = currentBrakeTorque * inertiaInverse * Time.fixedDeltaTime;
-            // clamp the max brake angular change to the current angular velocity
             float wBrake = Mathf.Min(Mathf.Abs(currentAngularVelocity), wBrakeMax);
-            // sign it opposite of current wheel spin direction
-            // and finally, integrate it into wheel angular velocity
             currentAngularVelocity += wBrake * -Mathf.Sign(currentAngularVelocity);
-            // this is the remaining brake angular acceleration/torque that can be used to counteract wheel acceleration caused by traction friction
             float wBrakeDelta = wBrakeMax - wBrake;
 
             vWheel = currentAngularVelocity * wheelRadius;
-            sLong = calcLongSlip(localVelocity.z, vWheel);
-            sLat = calcLatSlip(localVelocity.z, localVelocity.x);
+            sLong = CalcLongSlip(localVelocity.z, vWheel);
+            sLat = CalcLatSlip(localVelocity.z, localVelocity.x);
             vWheelDelta = vWheel - localVelocity.z;
 
             float downforce = localForce.y + extSpringForce;
             float fLongMax = fwdFrictionCurve.evaluate(sLong) * downforce * currentFwdFrictionCoef * currentSurfaceFrictionCoef;
             float fLatMax = sideFrictionCurve.evaluate(sLat) * downforce * currentSideFrictionCoef * currentSurfaceFrictionCoef;
+
             // TODO - this should actually be limited by the amount of force necessary to arrest the velocity of this wheel in this frame
             // so limit max should be (abs(vLat) * sprungMass) / Time.fixedDeltaTime  (in newtons)
             localForce.x = fLatMax;
-            // using current down-force as a 'sprung-mass' to attempt to limit overshoot when bringing the velocity to zero
             if (localForce.x > Mathf.Abs(localVelocity.x) * downforce) { localForce.x = Mathf.Abs(localVelocity.x) * downforce; }
-            // if (fLat > sprungMass * Mathf.Abs(vLat) / Time.fixedDeltaTime) { fLat = sprungMass * Mathf.Abs(vLat) * Time.fixedDeltaTime; }
-            localForce.x *= -Mathf.Sign(localVelocity.x);// sign it opposite to the current vLat
+            localForce.x *= -Mathf.Sign(localVelocity.x);
 
-            //angular velocity delta between wheel and surface in radians per second; radius inverse used to avoid div operations
             float wDelta = vWheelDelta * radiusInverse;
-            //amount of torque needed to bring wheel to surface speed over one second
             float tDelta = wDelta * currentMomentOfInertia;
-            //newtons of force needed to bring wheel to surface speed over one second; radius inverse used to avoid div operations
-            // float fDelta = tDelta * radiusInverse; // unused
-            //absolute value of the torque needed to bring the wheel to road speed instantaneously/this frame
             float tTractMax = Mathf.Abs(tDelta) / Time.fixedDeltaTime;
-            //newtons needed to bring wheel to ground velocity this frame; radius inverse used to avoid div operations
             float fTractMax = tTractMax * radiusInverse;
-            //final maximum force value is the smallest of the two force values;
-            // if fTractMax is used the wheel will be brought to surface velocity,
-            // otherwise fLongMax is used and the wheel is still slipping but maximum traction force will be exerted
+
+
             fTractMax = Mathf.Min(fTractMax, fLongMax);
-            // convert the clamped traction value into a torque value and apply to the wheel
             float tractionTorque = fTractMax * wheelRadius * -Mathf.Sign(vWheelDelta);
-            // and set the longitudinal force to the force calculated for the wheel/surface torque
             localForce.z = fTractMax * Mathf.Sign(vWheelDelta);
-            //use wheel inertia to determine final wheel acceleration from torques; inertia inverse used to avoid div operations; convert to delta-time, as accel is normally radians/s
             float angularAcceleration = tractionTorque * inertiaInverse * Time.fixedDeltaTime;
-            //apply acceleration to wheel angular velocity
             currentAngularVelocity += angularAcceleration;
-            //second integration pass of brakes, to allow for locked-wheels after friction calculation
             if (Mathf.Abs(currentAngularVelocity) < wBrakeDelta)
             {
                 currentAngularVelocity = 0;
                 wBrakeDelta -= Mathf.Abs(currentAngularVelocity);
-                float fMax = Mathf.Max(0, Mathf.Abs(fLongMax) - Mathf.Abs(localForce.z));//remaining 'max' traction left
+                float fMax = Mathf.Max(0, Mathf.Abs(fLongMax) - Mathf.Abs(localForce.z));
                 float fMax2 = Mathf.Max(0, downforce * Mathf.Abs(localVelocity.z) - Mathf.Abs(localForce.z));
                 float fBrakeMax = Mathf.Min(fMax, fMax2);
                 localForce.z += fBrakeMax * -Mathf.Sign(localVelocity.z);
             }
             else
             {
-                currentAngularVelocity += -Mathf.Sign(currentAngularVelocity) * wBrakeDelta;//traction from this will be applied next frame from wheel slip, but we're integrating here basically for rendering purposes
+                currentAngularVelocity += -Mathf.Sign(currentAngularVelocity) * wBrakeDelta;
             }
 
-            combinatorialFriction(fLatMax, fLongMax, localForce.x, localForce.z, out localForce.x, out localForce.z);
+            FinalFriction(fLatMax, fLongMax, localForce.x, localForce.z, out localForce.x, out localForce.z);
             //TODO technically wheel angular velocity integration should not occur until after the force is capped here, otherwise things will get out of synch
         }
 
-        /// <summary>
-        /// Simple and effective; limit their sum to the absolute maximum friction that the tire 
-        /// can ever produce, as calculated by the (averaged=/) peak points of the friction curve. 
-        /// This keeps the total friction output below the max of the tire while allowing the greatest range of optimal output for both lat and long friction.
-        /// -Ideally- slip ratio would be brought into the calculation somewhere, but not sure how it should be used.
-        /// </summary>
-        private void combinatorialFriction(float latMax, float longMax, float fLat, float fLong, out float combLat, out float combLong)
+        private void FinalFriction(float latMax, float longMax, float fLat, float fLong, out float combLat, out float combLong)
         {
             float max = (fwdFrictionCurve.max + sideFrictionCurve.max) * 0.5f * (localForce.y + extSpringForce);
             float len = Mathf.Sqrt(fLat * fLat + fLong * fLong);
@@ -667,7 +611,6 @@ namespace Frontend.Scripts
             combLat = fLat;
             combLong = fLong;
         }
-
 
 
         public void DrawDebug()
