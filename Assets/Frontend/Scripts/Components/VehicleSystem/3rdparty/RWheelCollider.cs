@@ -7,10 +7,8 @@ namespace Frontend.Scripts
 {
     public class RWheelCollider : MonoBehaviour
     {
-        // Start is called before the first frame update
         #region REGION - Private variables
 
-        //private vars with either external get/set methods, or internal calculated fields from other fields get/set methods
         private GameObject wheel;
         private Rigidbody rigidBody;
         private float wheelMass = 1f;
@@ -27,78 +25,65 @@ namespace Frontend.Scripts
         private float currentMotorTorque = 0f;
         private float currentBrakeTorque = 0f;
         private float currentMomentOfInertia = 1.0f * 0.5f * 0.5f * 0.5f;//moment of inertia of wheel; used for mass in acceleration calculations regarding wheel angular velocity.  MOI of a solid cylinder = ((m*r*r)/2)
-        private int currentRaycastMask = ~(1 << 26);//default cast to all layers except 26; 1<<26 sets 26 to the layer; ~inverts all bits in the mask (26 = KSP WheelColliderIgnore layer)
-        private WheelFrictionCurve fwdFrictionCurve = new WheelFrictionCurve(0.06f, 1.2f, 0.065f, 1.25f, 0.7f);//current forward friction curve
-        private WheelFrictionCurve sideFrictionCurve = new WheelFrictionCurve(0.03f, 1.0f, 0.04f, 1.05f, 0.7f);//current sideways friction curve
-        private bool automaticUpdates = false;
+        private int currentRaycastMask = ~(1 << 26);
+        private WheelFrictionCurve fwdFrictionCurve = new WheelFrictionCurve(0.06f, 1.2f, 0.065f, 1.25f, 0.7f);
+        private WheelFrictionCurve sideFrictionCurve = new WheelFrictionCurve(0.03f, 1.0f, 0.04f, 1.05f, 0.7f);
         private bool suspensionNormalForce = false;
-        //set from get/set method
+
         private Vector3 gravity = new Vector3(0, -9.81f, 0);
-        //calced when the gravity vector is set
+
         private Vector3 gNorm = new Vector3(0, -1, 0);
-        private Action<Vector3> onImpactCallback;//simple blind callback for when the wheel changes from !grounded to grounded, the input variable is the wheel-local impact velocity
-        private Action<RWheelCollider> preUpdateCallback;//if automatic updates are enabled, this field may optionally be populated with a pre-update callback method; will be called directly prior to the wheels internal update code being processed
-        private Action<RWheelCollider> postUpdateCallback;//if automatic updates are enabled, this field may optionally be populated with a post-update callback method; will be called directly after the wheels internal update code processing.
+        private Action<Vector3> onImpactCallback;
 
         private float extSpringForce = 0f;
         private Vector3 extHitPoint = Vector3.zero;
         private Vector3 extHitNorm = Vector3.up;
-        private bool useExtHitPoint = false;
+
 
         private float rollingResistanceCoefficient = 0.005f;//tire-deformation based rolling-resistance; scaled by spring force, is a flat force that will be subtracted from wheel velocity every tick
         private float rotationalResistanceCoefficient = 0f;//bearing/friction based resistance; scaled by wheel rpm and 1/10 spring force
 
-        //private vars with external get methods (cannot be set, for data viewing/debug purposes only)
+
         private bool grounded = false;
 
-        //cached internal utility vars
-        private float inertiaInverse;//cached inertia inverse used to eliminate division operations from per-tick update code
-        private float radiusInverse;//cached radius inverse used to eliminate division operations from per-tick update code
-        private float massInverse;//cached mass inverse used to eliminate division operations from per-tick update code
+        private float inertiaInverse;
+        private float radiusInverse;
 
-        //internal friction model values
         private float prevFLong = 0f;
         private float prevFLat = 0f;
         private float prevFSpring;
         private float currentSuspensionCompression = 0f;
         private float prevSuspensionCompression = 0f;
-        private float currentAngularVelocity = 0f;//angular velocity of wheel; rotations in radians per second
-        private float vSpring;//linear velocity of spring in m/s, derived from prevCompression - currentCompression along suspension axis
-        private float fDamp;//force exerted by the damper this physics frame, in newtons
+        private float currentAngularVelocity = 0f;
+        private float vSpring;
+        private float fDamp;
 
-        //wheel axis directions are calculated each frame during update processing
-        private Vector3 wF, wR;//contact-patch forward and right directions
-        private Vector3 wheelUp;//wheel up (suspension) direction
-        private Vector3 wheelForward;//wheel forward direction (actual wheel, not contact patch)
-        private Vector3 wheelRight;//wheel right direction (actual wheel, not contact patch)
-        private Vector3 localVelocity;//the wheel local velocity at that contact patch
-        private Vector3 localForce;//the wheel(contact-patch?) local forces; x=lat, y=spring, z=long
-        private float vWheel;//linear velocity of the wheel at contact patch
-        private float vWheelDelta;//linear velocity delta between wheel and surface
-        private float sLong;//longitudinal slip ratio
-        private float sLat;//lateral slip ratio
-        private Vector3 hitPoint;//world-space position of contact patch
-        private Vector3 hitNormal;//world-coordinate hit-normal of the contact
-        private Collider hitCollider;//the collider that a hit was detected against
+        private Vector3 wF, wR;
+        private Vector3 wheelUp;
+        private Vector3 wheelForward;
+        private Vector3 wheelRight;
+        private Vector3 localVelocity;
+        private Vector3 localForce;
+        private float vWheel;
+        private float vWheelDelta;
+        private float sLong;
+        private float sLat;
+        private Vector3 hitPoint;
+        private Vector3 hitNormal;
+        private Collider hitCollider;
 
         #endregion ENDREGION - Private variables
 
         #region REGION - Public accessible API get/set methods
 
-        //get-set equipped field defs
 
-        /// <summary>
-        /// Get/Set the rigidbody that the WheelCollider applies forces to.  MUST be set manually after WheelCollider component is added to a GameObject.
-        /// </summary>
         public Rigidbody Rigidbody
         {
             get { return rigidBody; }
             set { rigidBody = value; }
         }
 
-        /// <summary>
-        /// Get/Set the current spring stiffness value.  This is the configurable value that influences the 'springForce' used in suspension calculations
-        /// </summary>
+     
         public float spring
         {
             get { return suspensionSpring; }
@@ -111,27 +96,18 @@ namespace Frontend.Scripts
             set { suspensionSpringExp = value; }
         }
 
-        /// <summary>
-        /// Get/Set the current damper resistance value.  This is the configurable value that influences the 'dampForce' used in suspension calculations
-        /// </summary>
         public float damper
         {
             get { return suspensionDamper; }
             set { suspensionDamper = value; }
         }
 
-        /// <summary>
-        /// Get/Set the current length of the suspension.  This is a ray that extends from the bottom of the wheel as positioned at the wheel collider
-        /// </summary>
         public float length
         {
             get { return suspensionLength; }
             set { suspensionLength = value; }
         }
 
-        /// <summary>
-        /// Get/Set the current wheel mass.  This determines wheel acceleration from torque (not vehicle acceleration; that is determined by down-force).  Lighter wheels will slip easier from brake and motor torque.
-        /// </summary>
         public float mass
         {
             get { return wheelMass; }
@@ -140,13 +116,8 @@ namespace Frontend.Scripts
                 wheelMass = value;
                 currentMomentOfInertia = wheelMass * wheelRadius * wheelRadius * 0.5f;
                 inertiaInverse = 1.0f / currentMomentOfInertia;
-                massInverse = 1.0f / wheelMass;
             }
         }
-
-        /// <summary>
-        /// Get/Set the wheel radius.  This determines the simulated size of the wheel, and along with mass determines the wheel moment-of-inertia which plays into wheel acceleration
-        /// </summary>
         public float radius
         {
             get { return wheelRadius; }
@@ -159,114 +130,71 @@ namespace Frontend.Scripts
             }
         }
 
-        /// <summary>
-        /// Get/Set the offset from hit-point along suspension vector where forces are applied.  1 = at wheel collider location, 0 = at hit location; inbetween values lerp between them.
-        /// </summary>
         public float forceApplicationOffset
         {
             get { return suspensionForceOffset; }
             set { suspensionForceOffset = Mathf.Clamp01(value); }
         }
 
-        /// <summary>
-        /// Get/Set the current forward friction curve.  This determines the maximum available traction force for a given slip ratio.  See the KSPWheelFrictionCurve class for more info.
-        /// </summary>
         public WheelFrictionCurve forwardFrictionCurve
         {
             get { return fwdFrictionCurve; }
             set { if (value != null) { fwdFrictionCurve = value; } }
         }
-
-        /// <summary>
-        /// Get/Set the current sideways friction curve.  This determines the maximum available traction force for a given slip ratio.  See the KSPWheelFrictionCurve class for more info.
-        /// </summary>
         public WheelFrictionCurve sidewaysFrictionCurve
         {
             get { return sideFrictionCurve; }
             set { if (value != null) { sideFrictionCurve = value; } }
         }
 
-        /// <summary>
-        /// Get/set the current forward friction coefficient; this is a direct multiple to the maximum available traction/force from forward friction<para/>
-        /// Higher values denote more friction, greater traction, and less slip
-        /// </summary>
         public float forwardFrictionCoefficient
         {
             get { return currentFwdFrictionCoef; }
             set { currentFwdFrictionCoef = value; }
         }
 
-        /// <summary>
-        /// Get/set the current sideways friction coefficient; this is a direct multiple to the maximum available traction/force from sideways friction<para/>
-        /// Higher values denote more friction, greater traction, and less slip
-        /// </summary>
         public float sideFrictionCoefficient
         {
             get { return currentSideFrictionCoef; }
             set { currentSideFrictionCoef = value; }
         }
 
-        /// <summary>
-        /// Get/set the current surface friction coefficient; this is a direct multiple to the maximum available traction for both forwards and sideways friction calculations<para/>
-        /// Higher values denote more friction, greater traction, and less slip
-        /// </summary>
         public float surfaceFrictionCoefficient
         {
             get { return currentSurfaceFrictionCoef; }
             set { currentSurfaceFrictionCoef = value; }
         }
 
-        /// <summary>
-        /// Rolling resistance coefficient.  Determines the drag/friction applied to the wheel based on tire deformation.  Applied as a flat term multiplied by wheel load; independent of wheel RPM or slip ratios.
-        /// </summary>
         public float rollingResistance
         {
             get { return rollingResistanceCoefficient; }
             set { rollingResistanceCoefficient = value; }
         }
 
-        /// <summary>
-        /// Rotational resistance factor -- drag and friction caused by bearings, axles, differentials, gearing, etc.  Scales linearly with wheel RPM; at zero rpm the torque will be zero, at max rpm the torque will be angularVelocity * rotationalResistance * deltaTime.
-        /// </summary>
         public float rotationalResistance
         {
             get { return rotationalResistanceCoefficient; }
             set { rotationalResistanceCoefficient = value; }
         }
 
-        /// <summary>
-        /// Get/set the actual brake torque to be used for wheel velocity update/calculations.  Should always be a positive value; sign of the value will be determined dynamically. <para/>
-        /// Any braking-response speed should be calculated in the external module before setting this value.
-        /// </summary>
         public float brakeTorque
         {
             get { return currentBrakeTorque; }
             set { currentBrakeTorque = Mathf.Abs(value); }
         }
 
-        /// <summary>
-        /// Get/set the current motor torque value to be applied to the wheels.  Can be negative for reversable motors / reversed wheels.<para/>
-        /// Any throttle-response/etc should be calculated in the external module before setting this value.
-        /// </summary>
         public float motorTorque
         {
             get { return currentMotorTorque; }
             set { currentMotorTorque = value; }
         }
 
-        /// <summary>
-        /// Get/set the current steering angle to be used by wheel friction code.<para/>
-        /// Any steering-response speed should be calculated in the external module before setting this value.
-        /// </summary>
         public float steeringAngle
         {
             get { return currentSteeringAngle; }
             set { currentSteeringAngle = value; }
         }
 
-        /// <summary>
-        /// Get/Set the gravity vector that should be used during calculations.  MUST be updated every frame that gravity differs from the previous frame or undesired and inconsistent functioning will result.
-        /// </summary>
         public Vector3 gravityVector
         {
             get { return gravity; }
@@ -274,62 +202,22 @@ namespace Frontend.Scripts
         }
 
 
-        /// <summary>
-        /// Get/Set if the WheelCollider should use its own FixedUpdate function or rely on external calling of the update method.
-        /// </summary>
-        public bool autoUpdateEnabled
-        {
-            get { return automaticUpdates; }
-            set { automaticUpdates = value; }
-        }
-
-        /// <summary>
-        /// Get/Set if wheel-collider should effect forces along suspension normal (true) or hit-normal (false, default).  Used by repulsors to enable motive repulsion.
-        /// </summary>
         public bool useSuspensionNormal
         {
             get { return suspensionNormalForce; }
             set { suspensionNormalForce = value; }
         }
 
-        /// <summary>
-        /// Seat the reference to the wheel-impact callback.  This method will be called when the wheel first contacts the surface, passing in the wheel-local impact velocity (impact force is unknown)
-        /// </summary>
-        /// <param name="callback"></param>
         public void setImpactCallback(Action<Vector3> callback)
         {
             onImpactCallback = callback;
         }
 
-        /// <summary>
-        /// Set the pre-update callback method to be called when automatic updates are used
-        /// </summary>
-        /// <param name="callback"></param>
-        public void setPreUpdateCallback(Action<RWheelCollider> callback)
-        {
-            preUpdateCallback = callback;
-        }
-
-        /// <summary>
-        /// Set the post-update callback method to be called when automatic updates are used
-        /// </summary>
-        /// <param name="callback"></param>
-        public void setPostUpdateCallback(Action<RWheelCollider> callback)
-        {
-            postUpdateCallback = callback;
-        }
-
-        /// <summary>
-        /// Return true/false if tire was grounded on the last suspension check
-        /// </summary>
         public bool isGrounded
         {
             get { return grounded; }
         }
 
-        /// <summary>
-        /// Wheel rotation in revloutions per minute, linked to angular velocity (changing one changes the other)
-        /// </summary>
         public float rpm
         {
             // wWheel / (pi*2) * 60f
@@ -338,9 +226,6 @@ namespace Frontend.Scripts
             set { currentAngularVelocity = value * 0.104719755f; }
         }
 
-        /// <summary>
-        /// angular velocity in radians per second, linked to rpm (changing one changes the other)
-        /// </summary>
         public float angularVelocity
         {
             get { return currentAngularVelocity; }
@@ -352,29 +237,17 @@ namespace Frontend.Scripts
             get { return currentAngularVelocity * wheelRadius; }
         }
 
-        /// <summary>
-        /// compression distance of the suspension system; 0 = max droop, max = max suspension length
-        /// </summary>
         public float compressionDistance
         {
             get { return currentSuspensionCompression; }
         }
 
-        /// <summary>
-        /// Get/Set the current raycast layer mask to be used by the wheel-collider ray/sphere-casting.<para/>
-        /// This determines which colliders will be checked against for suspension positioning/spring force calculation.
-        /// </summary>
         public int raycastMask
         {
             get { return currentRaycastMask; }
             set { currentRaycastMask = value; }
         }
 
-        /// <summary>
-        /// Return the per-render-frame rotation for the wheel mesh<para/>
-        /// this value can be used such as wheelMeshObject.transform.Rotate(Vector3.right, getWheelFrameRotation(), Space.Self)
-        /// </summary>
-        /// <returns></returns>
         public float perFrameRotation
         {
             // returns rpm * 0.16666_ * 360f * secondsPerFrame
@@ -382,128 +255,67 @@ namespace Frontend.Scripts
             get { return rpm * 6 * Time.deltaTime; }
         }
 
-        /// <summary>
-        /// The external additional down force to use for friction calculations.  Should be set by the vehicle controller in cases of bump-stop compression being reached, to emulate friction even when external colliders are providing the support/downforce.
-        /// </summary>
         public float externalSpringForce
         {
             get { return extSpringForce; }
             set { extSpringForce = value; }
         }
 
-        /// <summary>
-        /// If true, will use the 'externalHitPoint' as the suspension-sweep point.  (external hit point must be updated manually).
-        /// This setting overrides the internal suspension sweep.
-        /// </summary>
-        public bool useExternalHit
-        {
-            get { return useExtHitPoint; }
-            set { useExtHitPoint = value; }
-        }
-
-        /// <summary>
-        /// Get/Set the world-coordinate hit point of the wheel sweep.  This point -must- be along the suspension axis as if it were derived from a raycast.  Only used if 'useExternalHit == true'.
-        /// </summary>
         public Vector3 externalHitPoint
         {
             get { return extHitPoint; }
             set { extHitPoint = value; }
         }
 
-        /// <summary>
-        /// Get/Set the hit-normal used by the external hit point calculations.  Only used if 'useExternalHit == true'
-        /// </summary>
         public Vector3 externalHitNormal
         {
             get { return extHitNorm; }
             set { extHitNorm = value; }
         }
 
-        /// <summary>
-        /// Get the calculated moment-of-inertia for the wheel
-        /// </summary>
         public float momentOfInertia
         {
             get { return currentMomentOfInertia; }
         }
 
-        /// <summary>
-        /// Returns the last calculated value for spring force, in newtons; this is the force that is exerted on rigidoby along suspension axis<para/>
-        /// This already has dampForce applied to it; for raw spring force = springForce-dampForce
-        /// </summary>
         public float springForce
         {
             get { return localForce.y + extSpringForce; }
         }
-
-        /// <summary>
-        /// Returns the last calculated value for damper force, in newtons
-        /// </summary>
         public float dampForce
         {
             get { return fDamp; }
         }
 
-        /// <summary>
-        /// Returns the last calculated longitudinal (forwards) force exerted by the wheel on the rigidbody
-        /// </summary>
         public float longitudinalForce
         {
             get { return localForce.z; }
         }
-
-        /// <summary>
-        /// Returns the last calculated lateral (sideways) force exerted by the wheel on the rigidbody
-        /// </summary>
         public float lateralForce
         {
             get { return localForce.x; }
         }
-
-        /// <summary>
-        /// Returns the last caclulated longitudinal slip ratio; this is basically (vWheelDelta-vLong)/vLong with some error checking, clamped to a 0-1 value; does not infer slip direction, merely the ratio
-        /// </summary>
         public float longitudinalSlip
         {
             get { return sLong; }
         }
-
-        /// <summary>
-        /// Returns the last caclulated lateral slip ratio; this is basically vLat/vLong with some error checking, clamped to a 0-1 value; does not infer slip direction, merely the ratio
-        /// </summary>
         public float lateralSlip
         {
             get { return sLat; }
         }
-
-        /// <summary>
-        /// Returns the last calculated wheel-local velocity (velocity of the wheel, in the wheels' frame of reference)
-        /// </summary>
         public Vector3 wheelLocalVelocity
         {
             get { return localVelocity; }
         }
-
-        /// <summary>
-        /// Returns the last raycast collider hit.
-        /// </summary>
         public Collider contactColliderHit
         {
             get { return hitCollider; }
         }
 
-        /// <summary>
-        /// Returns the surface normal of the raycast collider that was hit
-        /// </summary>
         public Vector3 contactNormal
         {
             get { return hitNormal; }
         }
-
-        /// <summary>
-        /// Returns the -ray- hit position of the current compression value.
-        /// Will return incorrect results if wheel is not grounded (returns uncompressed position), or if used with sphere/capsule sweeps (returns the position as if it was a raycast used)
-        /// </summary>
         public Vector3 worldHitPos
         {
             get { return wheel.transform.position - wheel.transform.up * (suspensionLength - currentSuspensionCompression + wheelRadius); }
@@ -513,23 +325,11 @@ namespace Frontend.Scripts
 
         #region REGION - Update methods -- internal, external
 
-        public void FixedUpdate()
-        {
-            if (!automaticUpdates) { return; }
-            if (preUpdateCallback != null) { preUpdateCallback.Invoke(this); }
-            this.updateWheel();
-            if (postUpdateCallback != null) { postUpdateCallback.Invoke(this); }
-        }
 
-        /// <summary>
-        /// UpdateWheel() should be called by the controlling component/container on every FixedUpdate that this wheel should apply forces for.<para/>
-        /// Collider and physics integration can be disabled by simply no longer calling UpdateWheel
-        /// </summary>
-        public void updateWheel()
+        public void UpdateWheel()
         {
             if (rigidBody == null)
             {
-                //this.rigidBody = gameObject.GetComponentUpwards<Rigidbody>();
                 return;
             }
             if (this.wheel == null) { this.wheel = this.gameObject; }
@@ -539,7 +339,7 @@ namespace Frontend.Scripts
             prevSuspensionCompression = currentSuspensionCompression;
             prevFSpring = localForce.y;
             bool prevGrounded = grounded;
-            if (checkSuspensionContact())//suspension compression is calculated in the suspension contact check
+            if (CheckSuspensionCompression())//suspension compression is calculated in the suspension contact check
             {
                 //surprisingly, this seems to work extremely well...
                 //there will be the 'undefined' case where hitNormal==wheelForward (hitting a vertical wall)
@@ -718,30 +518,7 @@ namespace Frontend.Scripts
             }
         }
 
-        /// <summary>
-        /// Uses either ray- or sphere-cast to check for suspension contact with the ground, calculates current suspension compression, and caches the world-velocity at the contact point
-        /// </summary>
-        /// <returns></returns>
-        private bool checkSuspensionContact()
-        {
-            if (useExtHitPoint)
-            {
-                float dist = (extHitPoint - wheel.transform.position).magnitude;
-                currentSuspensionCompression = suspensionLength + wheelRadius - dist;
-                hitNormal = extHitNorm;
-                hitPoint = extHitPoint;
-                hitCollider = null;
-                grounded = true;
-                return true;
-            }
-            return suspensionSweepRaycast();
-        }
-
-        /// <summary>
-        /// Check suspension contact using a ray-cast; return true/false for if contact was detected
-        /// </summary>
-        /// <returns></returns>
-        private bool suspensionSweepRaycast()
+        private bool CheckSuspensionCompression()
         {
             RaycastHit hit;
             if (Physics.Raycast(wheel.transform.position, -wheel.transform.up, out hit, suspensionLength + wheelRadius, currentRaycastMask, QueryTriggerInteraction.Ignore))

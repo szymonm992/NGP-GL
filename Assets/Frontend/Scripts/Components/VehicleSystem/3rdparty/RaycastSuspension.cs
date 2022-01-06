@@ -33,7 +33,6 @@ namespace Frontend.Scripts
         public float sideFrictionCoefficient = 1f;
         public float surfaceFrictionCoefficient = 1f;
 
-        public bool tankSteer = false;
 
         public bool debug = false;
 
@@ -42,6 +41,7 @@ namespace Frontend.Scripts
 
         #region REGION - Unity Editor Display-Only Variables
 
+        [Header("Telemetry")]
         public Vector3 localVelocity;
         public Vector3 localAcceleration;
         public float rpm;
@@ -53,7 +53,7 @@ namespace Frontend.Scripts
         public float fLat;
         public float comp;
 
-        public bool suspLock = false;
+
 
         #endregion ENDREGION - Unity Editor Display Variables
 
@@ -76,7 +76,7 @@ namespace Frontend.Scripts
             mat.dynamicFriction = 0;
             mat.staticFriction = 0;
             sc.material = mat;
-            OnValidate();//manually call to set all current parameters into wheel collider object
+            OnValidate();
         }
 
         private void InputHandling()
@@ -91,26 +91,25 @@ namespace Frontend.Scripts
             float forwardInput = fwd + rev;
             float turnInput = left + right;
 
-            if (tankSteer)
-            {
-                forwardInput = forwardInput + turnInput;
-                if (forwardInput > 1) { forwardInput = 1; }
-                if (forwardInput < -1) { forwardInput = -1; }
-            }
             float rpm = wheelCollider.rpm;
+
             if (rpm >= rpmLimit && forwardInput > 0) { forwardInput = 0; }
             else if (rpm <= -rpmLimit && forwardInput < 0) { forwardInput = 0; }
             currentMotorTorque = Mathf.Lerp(currentMotorTorque, forwardInput * maxMotorTorque, throttleResponse * Time.fixedDeltaTime);
-            if (forwardInput == 0 && Mathf.Abs(currentMotorTorque) < 0.25) { currentMotorTorque = 0f; }
+
+
+            if (forwardInput == 0 && Mathf.Abs(currentMotorTorque) < 0.25f) { currentMotorTorque = 0f; }
             currentSteer = Mathf.Lerp(currentSteer, turnInput * maxSteerAngle, steeringResponse * Time.fixedDeltaTime);
-            if (turnInput == 0 && Mathf.Abs(currentSteer) < 0.25) { currentSteer = 0f; }
+
+            if (turnInput == 0 && Mathf.Abs(currentSteer) < 0.25f) { currentSteer = 0f; }
             currentBrakeTorque = Mathf.Lerp(currentBrakeTorque, brakeInput * maxBrakeTorque, brakeResponse * Time.fixedDeltaTime);
-            if (brakeInput == 0 && currentBrakeTorque < 0.25) { currentBrakeTorque = 0f; }
+
+            if (brakeInput == 0 && currentBrakeTorque < 0.25f) { currentBrakeTorque = 0f; }
         }
 
         public void FixedUpdate()
         {
-            Vector3 targetPos = suspLock ? transform.position - transform.up * suspensionLength : transform.position;
+            Vector3 targetPos = transform.position;
             Vector3 pos = bumpStopCollider.transform.position;
             Vector3 p = Vector3.Lerp(pos, targetPos, Time.fixedDeltaTime);
             bumpStopCollider.transform.position = p;
@@ -119,7 +118,7 @@ namespace Frontend.Scripts
             wheelCollider.motorTorque = currentMotorTorque;
             wheelCollider.steeringAngle = currentSteer;
             wheelCollider.brakeTorque = currentBrakeTorque;
-            wheelCollider.updateWheel();
+            wheelCollider.UpdateWheel();
             if (steeringTransform != null)
             {
                 steeringTransform.localRotation = Quaternion.AngleAxis(currentSteer, steeringTransform.up);
@@ -145,7 +144,7 @@ namespace Frontend.Scripts
             comp = wheelCollider.compressionDistance;
             if (debug)
             {
-                MonoBehaviour.print("s/d: " + fSpring + " : " + fDamp);
+                Debug.Log("spring: " + fSpring + " damper: " + fDamp);
             }
         }
 
@@ -172,11 +171,6 @@ namespace Frontend.Scripts
             }
         }
 
-        /// <summary>
-        /// Display a visual representation of the wheel in the editor. Unity has no inbuilt gizmo for 
-        /// circles, so a sphere is used. Unlike the original WC, I've represented the wheel at top and bottom 
-        /// of suspension travel
-        /// </summary>
         void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.green;

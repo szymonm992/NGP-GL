@@ -172,9 +172,9 @@ MonoBehaviour:
   steeringTransform: {fileID: 1108887460}
   suspensionTransform: {fileID: 0}
   wheelTransform: {fileID: 0}
-  wheelRadius: 0.4
+  wheelRadius: 0.35
   wheelMass: 50
-  suspensionLength: 0.25
+  suspensionLength: 0.35
   target: 0
   spring: 24000
   damper: 2500
@@ -189,7 +189,6 @@ MonoBehaviour:
   forwardFrictionCoefficient: 1
   sideFrictionCoefficient: 1
   surfaceFrictionCoefficient: 1
-  tankSteer: 0
   debug: 0
   localVelocity: {x: 0, y: 0, z: 0}
   localAcceleration: {x: 0, y: 0, z: 0}
@@ -201,7 +200,6 @@ MonoBehaviour:
   fLong: 0
   fLat: 0
   comp: 0
-  suspLock: 0
 --- !u!1 &45013716
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,9 +482,9 @@ MonoBehaviour:
   steeringTransform: {fileID: 1436816625}
   suspensionTransform: {fileID: 0}
   wheelTransform: {fileID: 0}
-  wheelRadius: 0.4
+  wheelRadius: 0.35
   wheelMass: 50
-  suspensionLength: 0.25
+  suspensionLength: 0.35
   target: 0
   spring: 24000
   damper: 2500
@@ -501,7 +499,6 @@ MonoBehaviour:
   forwardFrictionCoefficient: 1
   sideFrictionCoefficient: 1
   surfaceFrictionCoefficient: 1
-  tankSteer: 0
   debug: 0
   localVelocity: {x: 0, y: 0, z: 0}
   localAcceleration: {x: 0, y: 0, z: 0}
@@ -513,7 +510,6 @@ MonoBehaviour:
   fLong: 0
   fLat: 0
   comp: 0
-  suspLock: 0
 --- !u!1 &518752658
 GameObject:
   m_ObjectHideFlags: 0
@@ -1126,9 +1122,9 @@ MonoBehaviour:
   steeringTransform: {fileID: 1716909338}
   suspensionTransform: {fileID: 0}
   wheelTransform: {fileID: 0}
-  wheelRadius: 0.4
+  wheelRadius: 0.35
   wheelMass: 50
-  suspensionLength: 0.25
+  suspensionLength: 0.35
   target: 0
   spring: 24000
   damper: 2500
@@ -1143,7 +1139,6 @@ MonoBehaviour:
   forwardFrictionCoefficient: 1
   sideFrictionCoefficient: 1
   surfaceFrictionCoefficient: 1
-  tankSteer: 0
   debug: 0
   localVelocity: {x: 0, y: 0, z: 0}
   localAcceleration: {x: 0, y: 0, z: 0}
@@ -1155,7 +1150,6 @@ MonoBehaviour:
   fLong: 0
   fLat: 0
   comp: 0
-  suspLock: 0
 --- !u!1 &1094521225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1205,9 +1199,9 @@ MonoBehaviour:
   steeringTransform: {fileID: 633330751}
   suspensionTransform: {fileID: 0}
   wheelTransform: {fileID: 0}
-  wheelRadius: 0.4
+  wheelRadius: 0.35
   wheelMass: 50
-  suspensionLength: 0.25
+  suspensionLength: 0.35
   target: 0
   spring: 24000
   damper: 2500
@@ -1222,7 +1216,6 @@ MonoBehaviour:
   forwardFrictionCoefficient: 1
   sideFrictionCoefficient: 1
   surfaceFrictionCoefficient: 1
-  tankSteer: 0
   debug: 0
   localVelocity: {x: 0, y: 0, z: 0}
   localAcceleration: {x: 0, y: 0, z: 0}
@@ -1234,7 +1227,6 @@ MonoBehaviour:
   fLong: 0
   fLat: 0
   comp: 0
-  suspLock: 0
 --- !u!1 &1108887459
 GameObject:
   m_ObjectHideFlags: 0
