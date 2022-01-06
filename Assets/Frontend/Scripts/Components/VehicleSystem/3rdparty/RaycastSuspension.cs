@@ -8,7 +8,7 @@ namespace Frontend.Scripts
     {
 
         #region REGION - Unity Editor Inspector Assignable Fields
-       
+
         public Rigidbody rigidBody;
         public Transform steeringTransform;
         public Transform suspensionTransform;
@@ -86,8 +86,15 @@ namespace Frontend.Scripts
             float fwd = Input.GetAxis("Vertical") > 0 ? 1 : 0;
             float rev = Input.GetAxis("Vertical") < 0 ? -1 : 0;
 
-       
-            float brakeInput = Input.GetKey(KeyCode.Space) ? 1 : 0;
+            float brakeInput = 0;
+            if (Input.GetAxis("Vertical") == 0)
+            {
+                brakeInput = 1;
+            }
+            if(Input.GetKey(KeyCode.Space))
+            {
+                brakeInput = 2;
+            }
             float forwardInput = fwd + rev;
             float turnInput = left + right;
 

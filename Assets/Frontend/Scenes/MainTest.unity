@@ -172,22 +172,22 @@ MonoBehaviour:
   steeringTransform: {fileID: 1108887460}
   suspensionTransform: {fileID: 0}
   wheelTransform: {fileID: 0}
-  wheelRadius: 0.35
+  wheelRadius: 0.4
   wheelMass: 50
-  suspensionLength: 0.35
+  suspensionLength: 0.25
   target: 0
   spring: 24000
   damper: 2500
   maxMotorTorque: 1500
   rpmLimit: 500
-  maxBrakeTorque: 1500
+  maxBrakeTorque: 3000
   maxSteerAngle: 0
   throttleResponse: 5
   steeringResponse: 10
   brakeResponse: 10
   springCurve: 0
   forwardFrictionCoefficient: 1
-  sideFrictionCoefficient: 1
+  sideFrictionCoefficient: 2
   surfaceFrictionCoefficient: 1
   debug: 0
   localVelocity: {x: 0, y: 0, z: 0}
@@ -482,22 +482,22 @@ MonoBehaviour:
   steeringTransform: {fileID: 1436816625}
   suspensionTransform: {fileID: 0}
   wheelTransform: {fileID: 0}
-  wheelRadius: 0.35
+  wheelRadius: 0.4
   wheelMass: 50
-  suspensionLength: 0.35
+  suspensionLength: 0.25
   target: 0
   spring: 24000
   damper: 2500
   maxMotorTorque: 1500
   rpmLimit: 500
-  maxBrakeTorque: 1500
+  maxBrakeTorque: 3000
   maxSteerAngle: 0
   throttleResponse: 5
   steeringResponse: 10
   brakeResponse: 10
   springCurve: 0
   forwardFrictionCoefficient: 1
-  sideFrictionCoefficient: 1
+  sideFrictionCoefficient: 2
   surfaceFrictionCoefficient: 1
   debug: 0
   localVelocity: {x: 0, y: 0, z: 0}
@@ -890,7 +890,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 780038044}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c37110991ec65fd4d9dafc257636de77, type: 3}
   m_Name: 
@@ -1122,22 +1122,22 @@ MonoBehaviour:
   steeringTransform: {fileID: 1716909338}
   suspensionTransform: {fileID: 0}
   wheelTransform: {fileID: 0}
-  wheelRadius: 0.35
+  wheelRadius: 0.4
   wheelMass: 50
-  suspensionLength: 0.35
+  suspensionLength: 0.25
   target: 0
   spring: 24000
   damper: 2500
   maxMotorTorque: 0
   rpmLimit: 500
-  maxBrakeTorque: 1500
+  maxBrakeTorque: 3000
   maxSteerAngle: 20
   throttleResponse: 5
   steeringResponse: 10
   brakeResponse: 10
   springCurve: 0
   forwardFrictionCoefficient: 1
-  sideFrictionCoefficient: 1
+  sideFrictionCoefficient: 2
   surfaceFrictionCoefficient: 1
   debug: 0
   localVelocity: {x: 0, y: 0, z: 0}
@@ -1199,22 +1199,22 @@ MonoBehaviour:
   steeringTransform: {fileID: 633330751}
   suspensionTransform: {fileID: 0}
   wheelTransform: {fileID: 0}
-  wheelRadius: 0.35
+  wheelRadius: 0.4
   wheelMass: 50
-  suspensionLength: 0.35
+  suspensionLength: 0.25
   target: 0
   spring: 24000
   damper: 2500
   maxMotorTorque: 0
   rpmLimit: 500
-  maxBrakeTorque: 1500
+  maxBrakeTorque: 3000
   maxSteerAngle: 20
   throttleResponse: 5
   steeringResponse: 10
   brakeResponse: 10
   springCurve: 0
   forwardFrictionCoefficient: 1
-  sideFrictionCoefficient: 1
+  sideFrictionCoefficient: 2
   surfaceFrictionCoefficient: 1
   debug: 0
   localVelocity: {x: 0, y: 0, z: 0}

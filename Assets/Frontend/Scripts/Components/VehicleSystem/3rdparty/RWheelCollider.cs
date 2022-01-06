@@ -74,9 +74,6 @@ namespace Frontend.Scripts
 
         #endregion ENDREGION - Private variables
 
-        #region REGION - Public accessible API get/set methods
-
-
         public Rigidbody Rigidbody
         {
             get { return rigidBody; }
@@ -321,42 +318,32 @@ namespace Frontend.Scripts
             get { return wheel.transform.position - wheel.transform.up * (suspensionLength - currentSuspensionCompression + wheelRadius); }
         }
 
-        #endregion ENDREGION - Public accessible methods, API get/set methods
 
-        #region REGION - Update methods -- internal, external
-
+        private void FixedUpdate()
+        {
+            DrawDebug();
+        }
 
         public void UpdateWheel()
         {
-            if (rigidBody == null)
-            {
-                return;
-            }
+            if (rigidBody == null) return;
+
             if (this.wheel == null) { this.wheel = this.gameObject; }
+
             wheelForward = Quaternion.AngleAxis(currentSteeringAngle, wheel.transform.up) * wheel.transform.forward;
             wheelUp = wheel.transform.up;
             wheelRight = -Vector3.Cross(wheelForward, wheelUp);
             prevSuspensionCompression = currentSuspensionCompression;
             prevFSpring = localForce.y;
             bool prevGrounded = grounded;
-            if (CheckSuspensionCompression())//suspension compression is calculated in the suspension contact check
+            if (CheckSuspensionCompression())
             {
-                //surprisingly, this seems to work extremely well...
-                //there will be the 'undefined' case where hitNormal==wheelForward (hitting a vertical wall)
-                //but that collision would never be detected anyway, as well as the suspension force would be undefined/uncalculated
                 wR = Vector3.Cross(hitNormal, wheelForward);
                 wF = -Vector3.Cross(hitNormal, wR);
 
                 wF = wheelForward - hitNormal * Vector3.Dot(wheelForward, hitNormal);
                 wR = Vector3.Cross(hitNormal, wF);
-                //wR = wheelRight - hitNormal * Vector3.Dot(wheelRight, hitNormal);
 
-
-                //no idea if this is 'proper' for transforming velocity from world-space to wheel-space; but it seems to return the right results
-                //the 'other' way to do it would be to construct a quaternion for the wheel-space rotation transform and multiple
-                // vqLocal = qRotation * vqWorld * qRotationInverse;
-                // where vqWorld is a quaternion with a vector component of the world velocity and w==0
-                // the output being a quaternion with vector component of the local velocity and w==0
                 Vector3 worldVelocityAtHit = rigidBody.GetPointVelocity(hitPoint);
                 if (hitCollider != null && hitCollider.attachedRigidbody != null)
                 {
@@ -367,9 +354,9 @@ namespace Frontend.Scripts
                 localVelocity.x = Vector3.Dot(worldVelocityAtHit.normalized, wR) * mag;
                 localVelocity.y = Vector3.Dot(worldVelocityAtHit.normalized, hitNormal) * mag;
 
-                calcSpring();
-                integrateForces();
-                if (!prevGrounded && onImpactCallback != null)//if was not previously grounded, call-back with impact data; we really only know the impact velocity
+                CalculateSpring();
+                IntegrateForces();
+                if (!prevGrounded && onImpactCallback != null)
                 {
                     onImpactCallback.Invoke(localVelocity);
                 }
@@ -387,9 +374,6 @@ namespace Frontend.Scripts
             }
         }
 
-        /// <summary>
-        /// Should be called whenever the wheel collider is disabled -- clears out internal state data from the previous wheel hit
-        /// </summary>
         public void clearGroundedState()
         {
             grounded = false;
@@ -401,18 +385,10 @@ namespace Frontend.Scripts
             hitCollider = null;
         }
 
-        #endregion ENDREGION - Update methods -- internal, external
 
-        #region REGION - Private/internal update methods
-
-        /// <summary>
-        /// Integrate the torques and forces for a grounded wheel, using the pre-calculated fSpring downforce value.
-        /// </summary>
-        private void integrateForces()
+        private void IntegrateForces()
         {
             calcFrictionStandard();
-            //anti-jitter handling code; if lateral or long forces are oscillating, damp them on the rebound
-            //could possibly even zero them out for the rebound, but this method allows for some force
             float fMult = 0.1f;
             if ((prevFLong < 0 && localForce.z > 0) || (prevFLong > 0 && localForce.z < 0))
             {
@@ -536,21 +512,7 @@ namespace Frontend.Scripts
 
 
 
-        //TODO config specified 'wheel width'
-        //TODO config specified number of capsules
-        /// <summary>
-        /// less efficient and less optimal solution for skinny wheels, but avoids the edge cases caused by sphere colliders<para/>
-        /// uses 2 capsule-casts in a V shape downward for the wheel instead of a sphere; 
-        /// for some collisions the wheel may push into the surface slightly, up to about 1/3 radius.  
-        /// Could be expanded to use more capsules at the cost of performance, but at increased collision fidelity, by simulating more 'edges' of a n-gon circle.  
-        /// Sadly, unity lacks a collider-sweep function, or this could be a bit more efficient.
-        /// </summary>
-        /// <returns></returns>
-       
-
-        #region REGION - Friction model shared functions
-
-        private void calcSpring()
+        private void CalculateSpring()
         {
             //calculate damper force from the current compression velocity of the spring; damp force can be negative
             vSpring = (currentSuspensionCompression - prevSuspensionCompression) / Time.fixedDeltaTime;//per second velocity
@@ -565,12 +527,6 @@ namespace Frontend.Scripts
             localForce.y = fSpring;
         }
 
-        /// <summary>
-        /// Returns a slip ratio between 0 and 1, 0 being no slip, 1 being lots of slip
-        /// </summary>
-        /// <param name="vLong"></param>
-        /// <param name="vWheel"></param>
-        /// <returns></returns>
         private float calcLongSlip(float vLong, float vWheel)
         {
             float sLong = 0;
@@ -582,12 +538,6 @@ namespace Frontend.Scripts
             return sLong;
         }
 
-        /// <summary>
-        /// Returns a slip ratio between 0 and 1, 0 being no slip, 1 being lots of slip
-        /// </summary>
-        /// <param name="vLong"></param>
-        /// <param name="vLat"></param>
-        /// <returns></returns>
         private float calcLatSlip(float vLong, float vLat)
         {
             float sLat = 0;
@@ -605,15 +555,9 @@ namespace Frontend.Scripts
             return sLat;
         }
 
-        #endregion ENDREGION - Friction calculations methods based on alternate
-
-        #region REGION - Standard Friction Model
-        // based on : http://www.asawicki.info/Mirror/Car%20Physics%20for%20Games/Car%20Physics%20for%20Games.html
 
         public void calcFrictionStandard()
         {
-            //initial motor/brake torque integration, brakes integrated further after friction applied
-            //motor torque applied directly
             currentAngularVelocity += currentMotorTorque * inertiaInverse * Time.fixedDeltaTime;//acceleration is in radians/second; only operating on 1 * fixedDeltaTime seconds, so only update for that length of time
 
             //rolling resistance integration
@@ -724,25 +668,21 @@ namespace Frontend.Scripts
             combLong = fLong;
         }
 
-        #endregion ENDREGION - Standard Friction Model
 
 
-        public void drawDebug()
+        public void DrawDebug()
         {
             if (!grounded) { return; }
 
             Vector3 rayStart, rayEnd;
             Vector3 vOffset = rigidBody.velocity * Time.fixedDeltaTime;
 
-            //draw the force-vector line
             rayStart = hitPoint;
-            //because localForce isn't really a vector... its more 3 separate force-axis combinations...
             rayEnd = hitNormal * localForce.y;
             rayEnd += wR * localForce.x;
             rayEnd += wF * localForce.z;
             rayEnd += rayStart;
 
-            //rayEnd = rayStart + wheel.transform.TransformVector(localForce.normalized) * 2f;
             Debug.DrawLine(rayStart + vOffset, rayEnd + vOffset, Color.magenta);
 
             rayStart += wheel.transform.up * 0.1f;
@@ -752,8 +692,6 @@ namespace Frontend.Scripts
             rayEnd = rayStart + wR * 10f;
             Debug.DrawLine(rayStart + vOffset, rayEnd + vOffset, Color.red);
         }
-
-        #endregion ENDREGION - Private/internal update methods
 
     }
 }

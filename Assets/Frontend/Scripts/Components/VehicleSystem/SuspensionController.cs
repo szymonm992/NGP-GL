@@ -31,12 +31,11 @@ namespace Frontend.Scripts.Components.VehicleSystem
         private void Start()
         {
             finalPower = CalculateFinalPower();
-            Debug.Log(finalPower);
         }
 
         private void FixedUpdate()
         {
-            ApplyForcesToWheels();
+           
             
         }
         private void Update()
@@ -55,14 +54,6 @@ namespace Frontend.Scripts.Components.VehicleSystem
 
             return (two * rig.mass * 4);
         }
-        private void ApplyForcesToWheels()
-        {
-            foreach(ConfigurableJoint joint in joints)
-            {
-                float evaluatedFromCurve = tankStats.EnginePowerCurve.Evaluate(currentSpeed);
-                rig.AddForceAtPosition(finalPower/6 * evaluatedFromCurve * inputs.y * Time.deltaTime * transform.forward, joint.transform.position);
-            }
-            
-        }
+      
     }
 }
