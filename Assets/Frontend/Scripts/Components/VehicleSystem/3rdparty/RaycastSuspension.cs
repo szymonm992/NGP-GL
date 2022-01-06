@@ -7,73 +7,189 @@ namespace Frontend.Scripts
     public class RaycastSuspension : MonoBehaviour
     {
 
-        private Rigidbody rig; 
+        #region REGION - Unity Editor Inspector Assignable Fields
+       
+        public Rigidbody rigidBody;
+        public Transform steeringTransform;
+        public Transform suspensionTransform;
+        public Transform wheelTransform;
 
-        public float restLength;
-        public float springTravel;
-        public float springStiffness;
-        public float damperStiffness;
+        public float wheelRadius = 0.5f;
+        public float wheelMass = 1f;//used to simulate wheel rotational inertia for brakes and friction purposes
+        public float suspensionLength = 0.5f;
+        public float target = 0;
+        public float spring = 1000;
+        public float damper = 1500;
+        public float maxMotorTorque = 0;
+        public float rpmLimit = 600f;
+        public float maxBrakeTorque = 0;
+        public float maxSteerAngle = 0;
+        public float throttleResponse = 2;
+        public float steeringResponse = 2;
+        public float brakeResponse = 2;
 
-        private float minLength;
-        private float maxLength;
-        private float lastLength;
-        private float springLength;
-        private float springVelocity;
-        private float springForce;
-        private float damperForce;
-        private float verticalForce;
+        public float springCurve = 0f;
+        public float forwardFrictionCoefficient = 1f;
+        public float sideFrictionCoefficient = 1f;
+        public float surfaceFrictionCoefficient = 1f;
 
-        private Vector3 suspensionForce;
-        private Vector3 wheelVelocityLocal;
+        public bool tankSteer = false;
 
-        public float wheelRadius;
+        public bool debug = false;
 
-        private bool isColliding;
-        private void Start()
+        #endregion ENDREGION - Unity Editor Inspector Assignable Fields
+
+
+        #region REGION - Unity Editor Display-Only Variables
+
+        public Vector3 localVelocity;
+        public Vector3 localAcceleration;
+        public float rpm;
+        public float sLong;
+        public float sLat;
+        public float fSpring;
+        public float fDamp;
+        public float fLong;
+        public float fLat;
+        public float comp;
+
+        public bool suspLock = false;
+
+        #endregion ENDREGION - Unity Editor Display Variables
+
+        private RWheelCollider wheelCollider;
+
+        private float currentMotorTorque;
+        private float currentSteer;
+        private float currentBrakeTorque;
+
+        private GameObject bumpStopCollider;
+
+        public void Start()
         {
-            rig = transform.root.GetComponent<Rigidbody>();
-
-            minLength = restLength - springTravel;
-            maxLength = restLength + springTravel;
-            springLength = maxLength;
+            wheelCollider = gameObject.AddComponent<RWheelCollider>();
+            wheelCollider.Rigidbody = this.rigidBody;
+            bumpStopCollider = new GameObject("BSC-" + wheelCollider.name);
+            SphereCollider sc = bumpStopCollider.AddComponent<SphereCollider>();
+            PhysicMaterial mat = new PhysicMaterial("TEST");
+            mat.bounciness = 0.0f;
+            mat.dynamicFriction = 0;
+            mat.staticFriction = 0;
+            sc.material = mat;
+            OnValidate();//manually call to set all current parameters into wheel collider object
         }
 
-
-        private void Update()
+        private void InputHandling()
         {
-            Debug.DrawRay(transform.position-transform.up*springLength, -transform.up * wheelRadius, Color.blue);
-            Debug.DrawRay(transform.position, -transform.up * springLength, isColliding ? Color.green : Color.red);
-        }
-        private void FixedUpdate()
-        {
-            isColliding = (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, maxLength + wheelRadius));
+            float left = Input.GetAxis("Horizontal") < 0 ? -1 : 0;
+            float right = Input.GetAxis("Horizontal") > 0 ? 1 : 0;
+            float fwd = Input.GetAxis("Vertical") > 0 ? 1 : 0;
+            float rev = Input.GetAxis("Vertical") < 0 ? -1 : 0;
 
-            if(isColliding)
+       
+            float brakeInput = Input.GetKey(KeyCode.Space) ? 1 : 0;
+            float forwardInput = fwd + rev;
+            float turnInput = left + right;
+
+            if (tankSteer)
             {
-                lastLength = springLength;
-                springLength = hit.distance - wheelRadius;
-                springLength = Mathf.Clamp(springLength, minLength, maxLength);
-                springVelocity = (lastLength - springLength) / Time.fixedDeltaTime;
+                forwardInput = forwardInput + turnInput;
+                if (forwardInput > 1) { forwardInput = 1; }
+                if (forwardInput < -1) { forwardInput = -1; }
+            }
+            float rpm = wheelCollider.rpm;
+            if (rpm >= rpmLimit && forwardInput > 0) { forwardInput = 0; }
+            else if (rpm <= -rpmLimit && forwardInput < 0) { forwardInput = 0; }
+            currentMotorTorque = Mathf.Lerp(currentMotorTorque, forwardInput * maxMotorTorque, throttleResponse * Time.fixedDeltaTime);
+            if (forwardInput == 0 && Mathf.Abs(currentMotorTorque) < 0.25) { currentMotorTorque = 0f; }
+            currentSteer = Mathf.Lerp(currentSteer, turnInput * maxSteerAngle, steeringResponse * Time.fixedDeltaTime);
+            if (turnInput == 0 && Mathf.Abs(currentSteer) < 0.25) { currentSteer = 0f; }
+            currentBrakeTorque = Mathf.Lerp(currentBrakeTorque, brakeInput * maxBrakeTorque, brakeResponse * Time.fixedDeltaTime);
+            if (brakeInput == 0 && currentBrakeTorque < 0.25) { currentBrakeTorque = 0f; }
+        }
 
-                springForce = springStiffness * (restLength - springLength);
-                damperForce = damperStiffness * springVelocity;
+        public void FixedUpdate()
+        {
+            Vector3 targetPos = suspLock ? transform.position - transform.up * suspensionLength : transform.position;
+            Vector3 pos = bumpStopCollider.transform.position;
+            Vector3 p = Vector3.Lerp(pos, targetPos, Time.fixedDeltaTime);
+            bumpStopCollider.transform.position = p;
 
-                suspensionForce = (springForce + damperForce) * transform.up;
-
-                //local to world space calculation of velocity
-                wheelVelocityLocal = transform.InverseTransformDirection(rig.GetPointVelocity(hit.point));
-
-                verticalForce = Input.GetAxis("Vertical") * springForce;
-
-
-                rig.AddForceAtPosition(suspensionForce + (verticalForce * transform.forward) , hit.point);
+            InputHandling();
+            wheelCollider.motorTorque = currentMotorTorque;
+            wheelCollider.steeringAngle = currentSteer;
+            wheelCollider.brakeTorque = currentBrakeTorque;
+            wheelCollider.updateWheel();
+            if (steeringTransform != null)
+            {
+                steeringTransform.localRotation = Quaternion.AngleAxis(currentSteer, steeringTransform.up);
+            }
+            if (suspensionTransform != null)
+            {
+                suspensionTransform.position = gameObject.transform.position - (suspensionLength - wheelCollider.compressionDistance) * gameObject.transform.up;
+            }
+            if (wheelTransform != null)
+            {
+                wheelTransform.Rotate(wheelTransform.right, wheelCollider.perFrameRotation, Space.World);
+            }
+            Vector3 prevVel = localVelocity;
+            localVelocity = wheelCollider.wheelLocalVelocity;
+            localAcceleration = (prevVel - localVelocity) / Time.fixedDeltaTime;
+            fSpring = wheelCollider.springForce;
+            fDamp = wheelCollider.dampForce;
+            rpm = wheelCollider.rpm;
+            sLong = wheelCollider.longitudinalSlip;
+            sLat = wheelCollider.lateralSlip;
+            fLong = wheelCollider.longitudinalForce;
+            fLat = wheelCollider.lateralForce;
+            comp = wheelCollider.compressionDistance;
+            if (debug)
+            {
+                MonoBehaviour.print("s/d: " + fSpring + " : " + fDamp);
             }
         }
 
+        public void OnValidate()
+        {
+            if (wheelCollider != null)
+            {
+                wheelCollider.radius = wheelRadius;
+                wheelCollider.mass = wheelMass;
+                wheelCollider.length = suspensionLength;
+                wheelCollider.spring = spring;
+                wheelCollider.damper = damper;
+                wheelCollider.motorTorque = maxMotorTorque;
+                wheelCollider.brakeTorque = maxBrakeTorque;
+                wheelCollider.forwardFrictionCoefficient = forwardFrictionCoefficient;
+                wheelCollider.sideFrictionCoefficient = sideFrictionCoefficient;
+                wheelCollider.surfaceFrictionCoefficient = surfaceFrictionCoefficient;
 
+                SphereCollider sc = bumpStopCollider.GetComponent<SphereCollider>();
+                bumpStopCollider.layer = 26;
+                sc.radius = wheelRadius;
+                bumpStopCollider.transform.parent = gameObject.transform;
+                bumpStopCollider.transform.localPosition = Vector3.zero;
+            }
+        }
 
-
+        /// <summary>
+        /// Display a visual representation of the wheel in the editor. Unity has no inbuilt gizmo for 
+        /// circles, so a sphere is used. Unlike the original WC, I've represented the wheel at top and bottom 
+        /// of suspension travel
+        /// </summary>
+        void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(gameObject.transform.position, wheelRadius);
+            Vector3 pos2 = gameObject.transform.position + -gameObject.transform.up * suspensionLength;
+            if (wheelCollider != null) { pos2 += gameObject.transform.up * wheelCollider.compressionDistance; }
+            Gizmos.DrawWireSphere(pos2, wheelRadius);
+            Gizmos.DrawRay(gameObject.transform.position - gameObject.transform.up * wheelRadius, -gameObject.transform.up * suspensionLength);
+        }
 
     }
+
+
 }
+
 
