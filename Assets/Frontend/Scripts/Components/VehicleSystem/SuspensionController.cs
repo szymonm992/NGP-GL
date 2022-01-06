@@ -18,7 +18,6 @@ namespace Frontend.Scripts.Components.VehicleSystem
         [Inject] public readonly IPlayerInput playerInputs;
 
         [SerializeField] private Text speedometer;
-        [SerializeField] private Transform forcePosition;
 
         #region LOCAL CONTROL VARIABLES
 
@@ -60,7 +59,7 @@ namespace Frontend.Scripts.Components.VehicleSystem
         {
             foreach(ConfigurableJoint joint in joints)
             {
-                float evaluatedFromCurve = tankStats.EngineCurve.Evaluate(currentSpeed);
+                float evaluatedFromCurve = tankStats.EnginePowerCurve.Evaluate(currentSpeed);
                 rig.AddForceAtPosition(finalPower/6 * evaluatedFromCurve * inputs.y * Time.deltaTime * transform.forward, joint.transform.position);
             }
             

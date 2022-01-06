@@ -85,9 +85,9 @@ namespace Frontend.Scripts
                 float distanceToEdge = Vector3.Distance(transform.position - transform.up * wheelThickness / 2, transform.position);
                 float distanceToPoint = Vector3.Distance(transform.position, collision.contacts[i].point);
 
-                if (distanceToPoint <= distanceToEdge)
+                if (distanceToPoint <= 0.5f)
                 {
-                    Debug.Log("DISTTANCE cof");
+                    Debug.Log("DISTTANCE confirmed");
                     AddOrUpdateCollision(collision);
 
                     if (!isColliding)
@@ -97,18 +97,22 @@ namespace Frontend.Scripts
                 else
                 {
 
-                    //TODO DWA DIR TO CONTACT I SPRAWDZANIE KTÓRY JEST BLIZEJ PUNKTU I DOT ROBIÆ Z TYM PUNKTEM A ( PLUSOWY I MINUSOWY)
-                    Vector3 dirToContact = collision.contacts[i].point - transform.position;
                     
+                    Vector3 dirToContact = collision.contacts[i].point - transform.position;
+                    // TODO DWA DIR TO CONTACT I SPRAWDZANIE KTÓRY JEST BLIZEJ PUNKTU I DOT ROBIÆ Z TYM PUNKTEM A(PLUSOWY I MINUSOWY)
 
-                   
-                    Vector3 directionToEdge = transform.position - transform.up * wheelThickness / 2;
-                    float dp = (Vector3.Dot(dirToContact, directionToEdge));
+                    Vector3 directionToEdgeNegative = transform.position - transform.up * wheelThickness / 2;
+                    Vector3 directionToEdgePositive = transform.position + transform.up * wheelThickness / 2;
+
+                    Vector3 desiredDirectionToEdge = Vector3.Distance(collision.contacts[i].point, directionToEdgePositive) > Vector3.Distance(collision.contacts[i].point, directionToEdgeNegative)
+                        ? directionToEdgeNegative : directionToEdgePositive;
+
+                    float dotProduct = (Vector3.Dot(dirToContact, desiredDirectionToEdge));
                    
                     DebugExtension.DebugPoint(transform.position - transform.up * wheelThickness / 2, Color.yellow, .02f);
-                    if (dp <= distanceToEdge)
+                    if (dotProduct <= distanceToEdge)
                     {
-                        Debug.Log("CONFIRMED Dp is " + dp + " and distance is " + distanceToEdge);
+                        Debug.Log("CONFIRMED Dp is " + dotProduct + " and distance is " + distanceToEdge);
                         AddOrUpdateCollision(collision);
 
                         if (!isColliding)
@@ -117,7 +121,7 @@ namespace Frontend.Scripts
                     }
                     else
                     {
-                        Debug.Log("REJECTED Dp is " + dp + " and distance is "+ distanceToEdge);
+                        Debug.Log("REJECTED Dp is " + dotProduct + " and distance is "+ distanceToEdge);
                     }
                    
                 }
