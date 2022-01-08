@@ -20,8 +20,6 @@ namespace Frontend.Scripts.Components.VehicleSystem
         [SerializeField] private Text speedometer;
 
         #region LOCAL CONTROL VARIABLES
-
-        public ConfigurableJoint[] joints;
         private Vector2 inputs;
         private bool brake;
         private float currentSpeed;
@@ -52,7 +50,7 @@ namespace Frontend.Scripts.Components.VehicleSystem
             float one = (tankStats.EngineHP / rig.drag);
             float two = one / (rig.mass / 1000f);
 
-            return (two * rig.mass * 4);
+            return (two * rig.mass * 4f);
         }
       
     }

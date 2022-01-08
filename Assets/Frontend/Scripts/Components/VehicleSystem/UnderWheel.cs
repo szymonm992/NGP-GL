@@ -6,60 +6,61 @@ namespace Frontend.Scripts
 {
     public class UnderWheel : MonoBehaviour
     {
-        private bool isColliding;
-
-       [SerializeField] private float wheelRadius = .15f;
-        [SerializeField] private float suspensionTravelRadius = .15f;
-        [SerializeField] private float wheelThickness = .2f;
-
-        public LayerMask wheelMask;
-
-        public Mesh mesh;
+        [SerializeField] private Rigidbody rig;
 
 
-        private void OnDrawGizmos()
+        public float restLength;
+        public float springTravel;
+        public float springStiffness;
+        public float damperStiffness;
+
+        private float minLength;
+        private float maxLength;
+        private float lastLength;
+        private float springLength;
+        private float springVelocity;
+        private float springForce;
+        private float damperForce;
+
+        private Vector3 suspensionForce;
+
+        public float wheelRadius;
+
+       
+
+        private void Start()
         {
-            Gizmos.color = Color.white;
-            Vector3 topBorder = transform.position + transform.up * suspensionTravelRadius;
-            Vector3 bottomBorder = transform.position - transform.up * suspensionTravelRadius;
-          
+           
+            minLength = restLength - springTravel;
+            maxLength = restLength + springTravel;
 
-            Gizmos.DrawLine(topBorder - transform.forward * .03f, topBorder + transform.forward * .03f);
-            Gizmos.DrawLine(bottomBorder - transform.forward * .03f, bottomBorder + transform.forward * .03f);
-            Gizmos.DrawSphere(transform.position, .02f);
+            springLength = maxLength;
+        }
 
-            Gizmos.DrawLine(topBorder, bottomBorder);
+        private void FixedUpdate()
+        {
+            bool isColliding = Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, maxLength + wheelRadius);
 
-            Vector3 direction = -transform.up;
-
-            RaycastHit rayHit;
-
-            Ray rayTopToBottom = new Ray(topBorder, direction);
-            Ray rayBottomToTop = new Ray(bottomBorder, -direction);
-
-            Vector3 sphereCenterPoint = bottomBorder;
-
-            if (Physics.SphereCast(rayTopToBottom, wheelRadius, out rayHit, suspensionTravelRadius * 2f, wheelMask) ||
-                (Physics.SphereCast(rayBottomToTop, wheelRadius, out rayHit, suspensionTravelRadius * 2f, wheelMask)))
+            if(isColliding)
             {
-                sphereCenterPoint = transform.position + direction * (rayHit.distance - wheelRadius);
+                lastLength = springLength;
+                springLength = hit.distance - wheelRadius;
+                springLength = Mathf.Clamp(springLength, minLength, maxLength);
 
-                Gizmos.color = Color.red;
-                Gizmos.DrawSphere(rayHit.point, .03f);
+                springVelocity = (lastLength - springLength) / Time.fixedDeltaTime;
+                springForce = springStiffness * (restLength - springLength);
+                damperForce = damperStiffness * springVelocity;
+
+                suspensionForce = (springForce + damperForce) * transform.up;
+
+                rig.AddForceAtPosition(suspensionForce, hit.point);
+
             }
-            else
-            {
-                if(Physics.CheckSphere(topBorder, wheelRadius,wheelMask))
-                {
-                    sphereCenterPoint = topBorder;
-                }    
-            }
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(sphereCenterPoint, wheelRadius);
+
+            Debug.DrawRay(transform.position, -transform.up * springLength, isColliding ? Color.green : Color.red);
 
         }
 
-    
     }
 
 
