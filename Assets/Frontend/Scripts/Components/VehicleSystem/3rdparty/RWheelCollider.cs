@@ -25,7 +25,6 @@ namespace Frontend.Scripts
         private float currentMotorTorque = 0f;
         private float currentBrakeTorque = 0f;
         private float currentMomentOfInertia = 1.0f * 0.5f * 0.5f * 0.5f;//moment of inertia of wheel; used for mass in acceleration calculations regarding wheel angular velocity.  MOI of a solid cylinder = ((m*r*r)/2)
-        private int currentRaycastMask = ~(1 << 26);
         private WheelFrictionCurve fwdFrictionCurve = new WheelFrictionCurve(0.06f, 1.2f, 0.065f, 1.25f, 0.7f);
         private WheelFrictionCurve sideFrictionCurve = new WheelFrictionCurve(0.03f, 1.0f, 0.04f, 1.05f, 0.7f);
         private bool suspensionNormalForce = false;
@@ -70,7 +69,6 @@ namespace Frontend.Scripts
         private float sLat;
         private Vector3 hitPoint;
         private Vector3 hitNormal;
-        private Collider hitCollider;
 
         #endregion ENDREGION - Private variables
 
@@ -239,12 +237,6 @@ namespace Frontend.Scripts
             get { return currentSuspensionCompression; }
         }
 
-        public int raycastMask
-        {
-            get { return currentRaycastMask; }
-            set { currentRaycastMask = value; }
-        }
-
         public float perFrameRotation
         {
             // returns rpm * 0.16666_ * 360f * secondsPerFrame
@@ -304,11 +296,6 @@ namespace Frontend.Scripts
         {
             get { return localVelocity; }
         }
-        public Collider contactColliderHit
-        {
-            get { return hitCollider; }
-        }
-
         public Vector3 contactNormal
         {
             get { return hitNormal; }
@@ -318,7 +305,10 @@ namespace Frontend.Scripts
             get { return wheel.transform.position - wheel.transform.up * (suspensionLength - currentSuspensionCompression + wheelRadius); }
         }
 
-
+        private void Start()
+        {
+            currentSuspensionCompression = suspensionLength + wheelRadius; 
+        }
         private void FixedUpdate()
         {
             DrawDebug();
@@ -333,6 +323,7 @@ namespace Frontend.Scripts
             wheelForward = Quaternion.AngleAxis(currentSteeringAngle, wheel.transform.up) * wheel.transform.forward;
             wheelUp = wheel.transform.up;
             wheelRight = -Vector3.Cross(wheelForward, wheelUp);
+            
             prevSuspensionCompression = currentSuspensionCompression;
             prevFSpring = localForce.y;
             bool prevGrounded = grounded;
@@ -345,10 +336,7 @@ namespace Frontend.Scripts
                 wR = Vector3.Cross(hitNormal, wF);
 
                 Vector3 worldVelocityAtHit = rigidBody.GetPointVelocity(hitPoint);
-                if (hitCollider != null && hitCollider.attachedRigidbody != null)
-                {
-                    worldVelocityAtHit -= hitCollider.attachedRigidbody.GetPointVelocity(hitPoint);
-                }
+               
                 float mag = worldVelocityAtHit.magnitude;
                 localVelocity.z = Vector3.Dot(worldVelocityAtHit.normalized, wF) * mag;
                 localVelocity.x = Vector3.Dot(worldVelocityAtHit.normalized, wR) * mag;
@@ -369,7 +357,6 @@ namespace Frontend.Scripts
                 localForce = Vector3.zero;
                 hitNormal = Vector3.zero;
                 hitPoint = Vector3.zero;
-                hitCollider = null;
                 localVelocity = Vector3.zero;
             }
         }
@@ -382,7 +369,6 @@ namespace Frontend.Scripts
             hitNormal = Vector3.up;
             hitPoint = Vector3.zero;
             localVelocity = Vector3.zero;
-            hitCollider = null;
         }
 
 
@@ -417,10 +403,7 @@ namespace Frontend.Scripts
                 forcePoint = hitPoint + wheel.transform.up * (suspensionForceOffset * offsetDist);
             }
             rigidBody.AddForceAtPosition(calculatedForces, forcePoint, ForceMode.Force);
-            if (hitCollider != null && hitCollider.attachedRigidbody != null && !hitCollider.attachedRigidbody.isKinematic)
-            {
-                hitCollider.attachedRigidbody.AddForceAtPosition(-calculatedForces, forcePoint, ForceMode.Force);
-            }
+
             prevFLong = localForce.z;
             prevFLat = localForce.x;
         }
@@ -433,7 +416,7 @@ namespace Frontend.Scripts
 
             Vector3 upDown = Vector3.Cross(hitGravCross, hitNormal);
             float slopeLatDot = Vector3.Dot(upDown, wR);
-            agFix = agForce * slopeLatDot * wR * Mathf.Clamp(currentSideFrictionCoef, 0, 1);
+            agFix = agForce * Mathf.Clamp(currentSideFrictionCoef, 0, 1) * slopeLatDot * wR;
             float vel = Mathf.Abs(localVelocity.z);
             if (brakeTorque > 0 && Mathf.Abs(motorTorque) < brakeTorque && vel < 4)
             {
@@ -445,7 +428,11 @@ namespace Frontend.Scripts
                     mult = 1 - vel;//invert to range 1-0; with 0 being for input velocity of 4
                 }
                 float slopeLongDot = Vector3.Dot(upDown, wF);
-                agFix += agForce * slopeLongDot * wF * Mathf.Clamp(currentFwdFrictionCoef, 0, 1) * mult;
+                agFix += agForce * Mathf.Clamp(currentFwdFrictionCoef, 0, 1) * mult * slopeLongDot * wF;
+            }
+            else
+            {
+                Debug.Log("sad" +brakeTorque);
             }
             return agFix;
         }
@@ -470,11 +457,10 @@ namespace Frontend.Scripts
         private bool CheckSuspensionCompression()
         {
             RaycastHit hit;
-            if (Physics.Raycast(wheel.transform.position, -wheel.transform.up, out hit, suspensionLength + wheelRadius, currentRaycastMask, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(wheel.transform.position, -wheel.transform.up, out hit, suspensionLength + wheelRadius))
             {
                 currentSuspensionCompression = suspensionLength + wheelRadius - hit.distance;
                 hitNormal = hit.normal;
-                hitCollider = hit.collider;
                 hitPoint = hit.point;
                 grounded = true;
                 return true;

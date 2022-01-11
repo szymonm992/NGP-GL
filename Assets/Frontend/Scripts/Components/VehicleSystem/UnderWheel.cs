@@ -8,11 +8,12 @@ namespace Frontend.Scripts
     {
         [SerializeField] private Rigidbody rig;
 
+        public float wheelRadius;
 
         public float restLength;
         public float springTravel;
-        public float springStiffness;
-        public float damperStiffness;
+        public float spring;
+        public float damper;
 
         private float minLength;
         private float maxLength;
@@ -22,11 +23,17 @@ namespace Frontend.Scripts
         private float springForce;
         private float damperForce;
 
+        private float speed;
+
         private Vector3 suspensionForce;
 
-        public float wheelRadius;
 
-       
+
+
+
+
+        private bool isColliding;
+        public bool IsColliding => isColliding;
 
         private void Start()
         {
@@ -37,29 +44,43 @@ namespace Frontend.Scripts
             springLength = maxLength;
         }
 
+        private void OnDrawGizmos()
+        {
+            /*
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(transform.position, transform.position + transform.up * -springLength);
+            Gizmos.color = Color.red;
+          
+            Gizmos.DrawWireSphere(transform.position + transform.up * -springLength, wheelRadius);*/
+        }
         private void FixedUpdate()
         {
-            bool isColliding = Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, maxLength + wheelRadius);
+            speed = rig.velocity.magnitude * 4f;
+
+            isColliding = Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, maxLength + wheelRadius);
 
             if(isColliding)
             {
                 lastLength = springLength;
                 springLength = hit.distance - wheelRadius;
+
+               
                 springLength = Mathf.Clamp(springLength, minLength, maxLength);
 
                 springVelocity = (lastLength - springLength) / Time.fixedDeltaTime;
-                springForce = springStiffness * (restLength - springLength);
-                damperForce = damperStiffness * springVelocity;
+                springForce = spring * (restLength - springLength);
+                damperForce = damper * springVelocity;
 
                 suspensionForce = (springForce + damperForce) * transform.up;
 
-                rig.AddForceAtPosition(suspensionForce, hit.point);
+                var fx = Input.GetAxis("Vertical") * springForce;
+
+                rig.AddForceAtPosition(suspensionForce  + (fx * transform.forward), hit.point);
 
             }
 
-            Debug.DrawRay(transform.position, -transform.up * springLength, isColliding ? Color.green : Color.red);
-
         }
+
 
     }
 

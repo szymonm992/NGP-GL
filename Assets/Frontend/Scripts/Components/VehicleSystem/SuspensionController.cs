@@ -18,6 +18,7 @@ namespace Frontend.Scripts.Components.VehicleSystem
         [Inject] public readonly IPlayerInput playerInputs;
 
         [SerializeField] private Text speedometer;
+        [SerializeField] private Transform centerOfMass;
 
         #region LOCAL CONTROL VARIABLES
         private Vector2 inputs;
@@ -26,14 +27,19 @@ namespace Frontend.Scripts.Components.VehicleSystem
         private float finalPower;
         #endregion
 
+        [SerializeField] private UnderWheel[] wheelColliders;
+
+        public float Speed => currentSpeed;
+
         private void Start()
         {
             finalPower = CalculateFinalPower();
+            rig.centerOfMass = centerOfMass.localPosition;
         }
 
         private void FixedUpdate()
         {
-           
+            ApplyMotorPower();
             
         }
         private void Update()
@@ -44,6 +50,17 @@ namespace Frontend.Scripts.Components.VehicleSystem
             speedometer.text = (currentSpeed).ToString("F0");
             
         }
+        private void ApplyMotorPower()
+        {
+            if (wheelColliders.Length == 0) return;
+
+            foreach(UnderWheel wheel in wheelColliders)
+            {
+
+            }
+        }
+
+        
 
         private float CalculateFinalPower()
         {
@@ -52,6 +69,17 @@ namespace Frontend.Scripts.Components.VehicleSystem
 
             return (two * rig.mass * 4f);
         }
-      
+
+        private void OnDrawGizmos()
+        {
+            if(Application.isPlaying)
+            {
+                //drawing center of mass
+                Gizmos.color = Color.green;
+                Gizmos.DrawSphere(transform.position + centerOfMass.localPosition, .2f);
+            }
+            
+        }
+
     }
 }
