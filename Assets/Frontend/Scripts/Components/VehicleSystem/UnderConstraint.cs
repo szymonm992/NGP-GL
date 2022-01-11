@@ -126,12 +126,17 @@ namespace Frontend.Scripts
 
         void OnDrawGizmos()
         {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(gameObject.transform.position, wheelRadius);
+            Gizmos.color = Color.cyan;
+            //DebugExtension.DrawPoint(gameObject.transform.position, Color.cyan, .5f);
+           
+            Gizmos.DrawSphere(gameObject.transform.position, .07f);
             Vector3 pos2 = gameObject.transform.position + -gameObject.transform.up * suspensionLength;
+            Gizmos.DrawSphere(pos2, .07f);
+            Gizmos.color = Color.green;
             if (wheelCollider != null) { pos2 += gameObject.transform.up * wheelCollider.compressionDistance; }
+            Gizmos.DrawSphere(pos2,.08f);
             Gizmos.DrawWireSphere(pos2, wheelRadius);
-            Gizmos.DrawRay(gameObject.transform.position - gameObject.transform.up * wheelRadius, -gameObject.transform.up * suspensionLength);
+            //Gizmos.DrawRay(gameObject.transform.position - gameObject.transform.up * wheelRadius, -gameObject.transform.up * suspensionLength);
         }
 
     }

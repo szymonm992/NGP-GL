@@ -171,12 +171,13 @@ namespace Frontend.Scripts
 
         void OnDrawGizmosSelected()
         {
+            /*
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(gameObject.transform.position, wheelRadius);
             Vector3 pos2 = gameObject.transform.position + -gameObject.transform.up * suspensionLength;
             if (wheelCollider != null) { pos2 += gameObject.transform.up * wheelCollider.compressionDistance; }
             Gizmos.DrawWireSphere(pos2, wheelRadius);
-            Gizmos.DrawRay(gameObject.transform.position - gameObject.transform.up * wheelRadius, -gameObject.transform.up * suspensionLength);
+            Gizmos.DrawRay(gameObject.transform.position - gameObject.transform.up * wheelRadius, -gameObject.transform.up * suspensionLength);*/
         }
 
     }
