@@ -120,7 +120,6 @@ namespace Frontend.Scripts
                 wheelCollider.forwardFrictionCoefficient = forwardFrictionCoefficient;
                 wheelCollider.sideFrictionCoefficient = sideFrictionCoefficient;
                 wheelCollider.surfaceFrictionCoefficient = surfaceFrictionCoefficient;
-
             }
         }
 
@@ -129,12 +128,16 @@ namespace Frontend.Scripts
             Gizmos.color = Color.cyan;
             //DebugExtension.DrawPoint(gameObject.transform.position, Color.cyan, .5f);
            
-            Gizmos.DrawSphere(gameObject.transform.position, .07f);
-            Vector3 pos2 = gameObject.transform.position + -gameObject.transform.up * suspensionLength;
+            Gizmos.DrawSphere(transform.position, .07f);
+            Vector3 pos2 = transform.position + -transform.up * suspensionLength;
             Gizmos.DrawSphere(pos2, .07f);
-            Gizmos.color = Color.green;
-            if (wheelCollider != null) { pos2 += gameObject.transform.up * wheelCollider.compressionDistance; }
-            Gizmos.DrawSphere(pos2,.08f);
+            Gizmos.DrawLine(transform.position, pos2);
+            if (wheelCollider != null) {
+                Gizmos.color = wheelCollider.isGrounded ? Color.green : Color.red;
+                pos2 += transform.up * wheelCollider.compressionDistance;
+            }
+            else Gizmos.color = Color.red;
+            Gizmos.DrawSphere(pos2,.05f);
             Gizmos.DrawWireSphere(pos2, wheelRadius);
             //Gizmos.DrawRay(gameObject.transform.position - gameObject.transform.up * wheelRadius, -gameObject.transform.up * suspensionLength);
         }
