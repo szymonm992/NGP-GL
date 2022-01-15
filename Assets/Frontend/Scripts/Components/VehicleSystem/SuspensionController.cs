@@ -76,7 +76,7 @@ namespace Frontend.Scripts.Components.VehicleSystem
             {
                 //drawing center of mass
                 Gizmos.color = Color.green;
-                Gizmos.DrawSphere(transform.position + centerOfMass.localPosition, .2f);
+                Gizmos.DrawSphere(rig.worldCenterOfMass, .2f);
             }
             
         }

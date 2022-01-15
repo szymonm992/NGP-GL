@@ -58,11 +58,11 @@ namespace Frontend.Scripts
             float brakeInput = 0;
             if (Input.GetAxis("Vertical") == 0)
             {
-                brakeInput = 1;
+                brakeInput = 1f;
             }
             if (Input.GetKey(KeyCode.Space))
             {
-                brakeInput = 2;
+                brakeInput = 2f;
             }
 
             float rpm = wheelCollider.rpm;
@@ -120,6 +120,7 @@ namespace Frontend.Scripts
                 wheelCollider.forwardFrictionCoefficient = forwardFrictionCoefficient;
                 wheelCollider.sideFrictionCoefficient = sideFrictionCoefficient;
                 wheelCollider.surfaceFrictionCoefficient = surfaceFrictionCoefficient;
+           
             }
         }
 
