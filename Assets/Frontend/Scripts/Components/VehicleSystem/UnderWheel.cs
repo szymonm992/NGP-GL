@@ -75,6 +75,14 @@ namespace Frontend.Scripts.Components
 
         private Rigidbody rig;
 
+        
+        [SerializeField] private UnderWheelDebug debugSettings = new UnderWheelDebug()
+        {
+            DrawGizmos = true,
+            DrawMode = UnderWheelDebugMode.All
+        };
+
+        [Header("Settings")]
         [SerializeField] private float wheelRadius = 0.35f;
         [SerializeField] private float mass = 20f;
         [SerializeField] private float suspensionTravel = 0.3f;
@@ -215,24 +223,32 @@ namespace Frontend.Scripts.Components
 
         private void OnDrawGizmos()
         {
-            if(rig!=null)
+            
+            bool drawCurrently = (debugSettings.DrawGizmos) && (debugSettings.DrawMode == UnderWheelDebugMode.All)
+                || (debugSettings.DrawMode == UnderWheelDebugMode.EditorOnly && !Application.isPlaying) 
+                || (debugSettings.DrawMode == UnderWheelDebugMode.PlaymodeOnly && Application.isPlaying);
+            if(drawCurrently)
             {
-                Gizmos.color = Color.yellow;
-                Handles.color = isGrounded ? Color.green : Color.red;
+                if (rig != null)
+                {
+                    Gizmos.color = Color.yellow;
+                    Handles.color = isGrounded ? Color.green : Color.red;
 
-                GetWorldPosition(out Vector3 position, out Quaternion rotation);
+                    GetWorldPosition(out Vector3 position, out Quaternion rotation);
 
-                Handles.DrawWireDisc(position, transform.right, wheelRadius);
-               
-                Gizmos.DrawLine(transform.position, transform.position - (rig.transform.up * suspensionTravel));
+                    Handles.DrawWireDisc(position, transform.right, wheelRadius);
 
-                var force = (finalForce - normalForce * transform.up) / 1000f;
-                Gizmos.DrawLine(transform.position, transform.position + force);
+                    Handles.DrawDottedLine(transform.position, transform.position - (rig.transform.up * suspensionTravel), 1.2f);
 
-                Gizmos.color = isGrounded ? Color.green : Color.red;
-                Gizmos.DrawSphere(position, .05f);
-            }
+                    var force = (finalForce - normalForce * transform.up) / 1000f;
+                    Gizmos.DrawLine(transform.position, transform.position + force);
+
+                    Gizmos.color = isGrounded ? Color.green : Color.red;
+                    Gizmos.DrawSphere(position, .05f);
+                }
+            } 
         }
+
     }
 
 

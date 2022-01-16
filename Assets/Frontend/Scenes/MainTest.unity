@@ -891,6 +891,18 @@ PrefabInstance:
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6045872297809150989, guid: 4add81a416482f040b7a940abed3ac8d, type: 3}
+      propertyPath: debugSettings.drawMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6045872297809150989, guid: 4add81a416482f040b7a940abed3ac8d, type: 3}
+      propertyPath: debugSettings.drawGizmos
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6045872297809150989, guid: 4add81a416482f040b7a940abed3ac8d, type: 3}
+      propertyPath: ForwardFriction.stiffness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6045872297809150989, guid: 4add81a416482f040b7a940abed3ac8d, type: 3}
       propertyPath: ForwardFriction.extremumSlip
       value: 0.8
       objectReference: {fileID: 0}
@@ -927,6 +939,18 @@ PrefabInstance:
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6045872298881541838, guid: 4add81a416482f040b7a940abed3ac8d, type: 3}
+      propertyPath: debugSettings.drawMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6045872298881541838, guid: 4add81a416482f040b7a940abed3ac8d, type: 3}
+      propertyPath: debugSettings.drawGizmos
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6045872298881541838, guid: 4add81a416482f040b7a940abed3ac8d, type: 3}
+      propertyPath: ForwardFriction.stiffness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6045872298881541838, guid: 4add81a416482f040b7a940abed3ac8d, type: 3}
       propertyPath: ForwardFriction.extremumSlip
       value: 0.8
       objectReference: {fileID: 0}
@@ -961,6 +985,18 @@ PrefabInstance:
     - target: {fileID: 6045872298963341658, guid: 4add81a416482f040b7a940abed3ac8d, type: 3}
       propertyPath: rollingResistance
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6045872298963341658, guid: 4add81a416482f040b7a940abed3ac8d, type: 3}
+      propertyPath: debugSettings.drawMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6045872298963341658, guid: 4add81a416482f040b7a940abed3ac8d, type: 3}
+      propertyPath: debugSettings.drawGizmos
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6045872298963341658, guid: 4add81a416482f040b7a940abed3ac8d, type: 3}
+      propertyPath: ForwardFriction.stiffness
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6045872298963341658, guid: 4add81a416482f040b7a940abed3ac8d, type: 3}
       propertyPath: ForwardFriction.extremumSlip
@@ -1056,7 +1092,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6045872299264539194, guid: 4add81a416482f040b7a940abed3ac8d, type: 3}
       propertyPath: m_Mass
-      value: 1500
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 6045872299264539194, guid: 4add81a416482f040b7a940abed3ac8d, type: 3}
       propertyPath: m_Interpolate
@@ -1081,6 +1117,18 @@ PrefabInstance:
     - target: {fileID: 6045872299515792566, guid: 4add81a416482f040b7a940abed3ac8d, type: 3}
       propertyPath: rollingResistance
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6045872299515792566, guid: 4add81a416482f040b7a940abed3ac8d, type: 3}
+      propertyPath: debugSettings.drawMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6045872299515792566, guid: 4add81a416482f040b7a940abed3ac8d, type: 3}
+      propertyPath: debugSettings.drawGizmos
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6045872299515792566, guid: 4add81a416482f040b7a940abed3ac8d, type: 3}
+      propertyPath: ForwardFriction.stiffness
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6045872299515792566, guid: 4add81a416482f040b7a940abed3ac8d, type: 3}
       propertyPath: ForwardFriction.extremumSlip
