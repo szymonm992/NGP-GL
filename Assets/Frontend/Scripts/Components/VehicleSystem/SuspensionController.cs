@@ -52,14 +52,18 @@ namespace Frontend.Scripts.Components.VehicleSystem
 
         private void UpdateWheels()
         {
+            float averageRPM = 0;
             if (wheelColliders.Length > 0)
             {
                 foreach (UnderWheel wheelCollider in wheelColliders)
                 {
                     wheelCollider.MotorTorque = 0;
                     wheelCollider.BrakeTorque = brake ? tankStats.BrakeTorque : 0;
+                    averageRPM += wheelCollider.RPM;
                 }
+                averageRPM /= wheelColliders.Length;
             }
+           // Debug.Log("Average RPM is " + averageRPM);
         }
 
         private float CalculateFinalPower()

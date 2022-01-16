@@ -131,6 +131,14 @@ namespace Frontend.Scripts.Components
             set { this.brakeTorque = Mathf.Abs(value); }
         }
 
+        public float RPM
+        {
+            // wWheel / (pi*2) * 60f
+            // all values converted to combined constants
+            get { return angularVelocity * 9.549296585f; }
+            set { angularVelocity = value * 0.104719755f; }
+        }
+
         #region Telemetry/readonly
         private float angularVelocity = 0f;
         private float tireRotation = 0f;
