@@ -77,18 +77,18 @@ namespace Frontend.Scripts.Components
 
         private Rigidbody rig;
 
-        
         [SerializeField] private UnderWheelDebug debugSettings = new UnderWheelDebug()
         {
             DrawGizmos = true,
+            DrawOnDisable = false,
             DrawMode = UnderWheelDebugMode.All,
             DrawForce = true
         };
 
         [Header("Settings")]
+        [SerializeField] [Range(0.1f, 1f)] private float suspensionTravel = 0.3f;
         [SerializeField] private float wheelRadius = 0.35f;
         [SerializeField] private float mass = 20f;
-        [SerializeField] private float suspensionTravel = 0.3f;
         [SerializeField] private float spring = 20000f;
         [SerializeField] private float damper = 2000f;
         [SerializeField] private float rollingResistance = 0.01f;
@@ -100,6 +100,16 @@ namespace Frontend.Scripts.Components
             AsymptoteSlip = 0.8f,
             AsymptoteValue = 0.5f,
             Stiffness = 1f
+        };
+
+        [SerializeField]
+        private UnderFrictionCurve SidewaysFriction = new UnderFrictionCurve()
+        {
+            ExtremumSlip = 15f,
+            ExtremumValue = 1f,
+            AsymptoteSlip = 30f,
+            AsymptoteValue = 0.75f,
+            Stiffness = 2f
         };
 
         private float motorTorque = 0f;
@@ -129,6 +139,7 @@ namespace Frontend.Scripts.Components
         private float slipAngle = 0f;
         private float previousSuspensionDistance = 0f;
         private float normalForce = 0f;
+        private float compression = 0f;
 
         private Vector3 finalForce;
         private Vector3 tirePosition;
@@ -167,6 +178,7 @@ namespace Frontend.Scripts.Components
         private void Start()
         {
             previousSuspensionDistance = suspensionTravel;
+            compression = suspensionTravel;
             tirePosition = GetTirePosition();
         }
 
@@ -175,6 +187,10 @@ namespace Frontend.Scripts.Components
             if(!rig)
             {
                 rig = transform.GetComponentInParent<Rigidbody>();
+            }
+            if(compression == 0f)
+            {
+                compression = suspensionTravel;
             }
         }
 
@@ -207,10 +223,12 @@ namespace Frontend.Scripts.Components
             isGrounded = Physics.Raycast(new Ray(transform.position, -rig.transform.up), out RaycastHit hit, wheelRadius + suspensionTravel);
             if(isGrounded)
             {
+                compression = hit.distance-wheelRadius;
                 return hit.point + (rig.transform.up * wheelRadius);
             }
             else
             {
+                compression = suspensionTravel;
                 return transform.position - (rig.transform.up * suspensionTravel);
             }
         }
@@ -230,7 +248,7 @@ namespace Frontend.Scripts.Components
             bool drawCurrently = (debugSettings.DrawGizmos) && (debugSettings.DrawMode == UnderWheelDebugMode.All)
                 || (debugSettings.DrawMode == UnderWheelDebugMode.EditorOnly && !Application.isPlaying) 
                 || (debugSettings.DrawMode == UnderWheelDebugMode.PlaymodeOnly && Application.isPlaying);
-            if(drawCurrently)
+            if(drawCurrently && (debugSettings.DrawOnDisable && !this.enabled) || (this.enabled))
             {
                 if (rig != null)
                 {
@@ -240,9 +258,15 @@ namespace Frontend.Scripts.Components
 
                     Handles.DrawWireDisc(position, transform.right, wheelRadius);
 
-                    Handles.DrawDottedLine(transform.position, transform.position - (rig.transform.up * suspensionTravel), 1.2f);
+                    Handles.DrawDottedLine(transform.position, transform.position - (rig.transform.up * compression), 1.1f);
 
-                    if(debugSettings.DrawForce)
+                    //Vector3 upper = position + (rig.transform.up * suspensionTravel);
+                   
+                    //upper border visualisation
+                    //Handles.DrawWireArc(upper, transform.right, -transform.forward, 180, wheelRadius);
+             
+                  
+                    if (debugSettings.DrawForce)
                     {
                         var force = (finalForce - normalForce * transform.up) / 1000f;
                         Gizmos.color = Color.blue;
@@ -250,7 +274,7 @@ namespace Frontend.Scripts.Components
                     }
 
                     Gizmos.color = isGrounded ? Color.green : Color.red;
-                    Gizmos.DrawSphere(position, .05f);
+                    Gizmos.DrawSphere(position, .03f);
                 }
             } 
         }

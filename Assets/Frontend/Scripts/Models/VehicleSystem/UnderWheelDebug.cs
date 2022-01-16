@@ -10,6 +10,7 @@ namespace Frontend.Scripts.Models
     {
         [Header("Gizmos")]
         [SerializeField] private bool drawGizmos;
+        [SerializeField] private bool drawOnDisable;
         [SerializeField] private UnderWheelDebugMode drawMode;
 
         [Header("Force")]
@@ -29,6 +30,15 @@ namespace Frontend.Scripts.Models
             set
             {
                 this.drawGizmos = value;
+            }
+        }
+        
+        public bool DrawOnDisable
+        {
+            get => drawOnDisable;
+            set
+            {
+                this.drawOnDisable = value;
             }
         }
 
