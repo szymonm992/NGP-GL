@@ -1,15 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Frontend.Scripts.Enums;
+
 namespace Frontend.Scripts.Models
 {
  
     [Serializable]
     public class UnderWheelDebug
     {
-       [SerializeField] private bool drawGizmos;
-       [SerializeField] private UnderWheelDebugMode drawMode;
+        [Header("Gizmos")]
+        [SerializeField] private bool drawGizmos;
+        [SerializeField] private UnderWheelDebugMode drawMode;
+
+        [Header("Force")]
+        [SerializeField] private bool drawForce;
 
         public UnderWheelDebugMode DrawMode
         {
@@ -25,6 +29,15 @@ namespace Frontend.Scripts.Models
             set
             {
                 this.drawGizmos = value;
+            }
+        }
+
+        public bool DrawForce
+        {
+            get => drawForce;
+            set
+            {
+                this.drawForce = value;
             }
         }
     }

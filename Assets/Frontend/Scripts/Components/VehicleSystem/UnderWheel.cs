@@ -1,8 +1,10 @@
-using Frontend.Scripts.Models;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+
+using Frontend.Scripts.Enums;
+using Frontend.Scripts.Models;
 
 namespace Frontend.Scripts.Components
 {
@@ -79,7 +81,8 @@ namespace Frontend.Scripts.Components
         [SerializeField] private UnderWheelDebug debugSettings = new UnderWheelDebug()
         {
             DrawGizmos = true,
-            DrawMode = UnderWheelDebugMode.All
+            DrawMode = UnderWheelDebugMode.All,
+            DrawForce = true
         };
 
         [Header("Settings")]
@@ -231,7 +234,6 @@ namespace Frontend.Scripts.Components
             {
                 if (rig != null)
                 {
-                    Gizmos.color = Color.yellow;
                     Handles.color = isGrounded ? Color.green : Color.red;
 
                     GetWorldPosition(out Vector3 position, out Quaternion rotation);
@@ -240,8 +242,12 @@ namespace Frontend.Scripts.Components
 
                     Handles.DrawDottedLine(transform.position, transform.position - (rig.transform.up * suspensionTravel), 1.2f);
 
-                    var force = (finalForce - normalForce * transform.up) / 1000f;
-                    Gizmos.DrawLine(transform.position, transform.position + force);
+                    if(debugSettings.DrawForce)
+                    {
+                        var force = (finalForce - normalForce * transform.up) / 1000f;
+                        Gizmos.color = Color.blue;
+                        Gizmos.DrawLine(transform.position, transform.position + force);
+                    }
 
                     Gizmos.color = isGrounded ? Color.green : Color.red;
                     Gizmos.DrawSphere(position, .05f);
