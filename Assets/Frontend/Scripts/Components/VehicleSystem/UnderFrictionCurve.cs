@@ -6,11 +6,12 @@ namespace Frontend.Scripts.Models
     [Serializable]
     public class UnderFrictionCurve
     {
-        private float asymptoteSlip;
-        private float asymptoteValue;
-        private float extremumSlip;
-        private float extremumValue;
-        private float stiffness;
+        
+        [SerializeField] private float extremumSlip;
+        [SerializeField] private float extremumValue;
+        [SerializeField] private float asymptoteSlip;
+        [SerializeField] private float asymptoteValue;
+        [SerializeField] private float stiffness;
 
         public float AsymptoteSlip
         {

@@ -39,8 +39,6 @@ namespace Frontend.Scripts.Components.VehicleSystem
 
         private void FixedUpdate()
         {
-            ApplyMotorPower();
-            
         }
         private void Update()
         {
@@ -50,17 +48,6 @@ namespace Frontend.Scripts.Components.VehicleSystem
             speedometer.text = (currentSpeed).ToString("F0");
             
         }
-        private void ApplyMotorPower()
-        {
-            if (wheelColliders.Length == 0) return;
-
-            foreach(UnderWheel wheel in wheelColliders)
-            {
-
-            }
-        }
-
-        
 
         private float CalculateFinalPower()
         {

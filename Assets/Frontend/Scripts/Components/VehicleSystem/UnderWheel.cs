@@ -80,6 +80,16 @@ namespace Frontend.Scripts.Components
         [SerializeField] private float suspensionTravel = 0.3f;
         [SerializeField] private float spring = 20000f;
         [SerializeField] private float damper = 2000f;
+        [SerializeField] private float rollingResistance = 0.01f;
+
+        [SerializeField] private UnderFrictionCurve ForwardFriction = new UnderFrictionCurve()
+        {
+            ExtremumSlip = 0.4f,
+            ExtremumValue = 1f,
+            AsymptoteSlip = 0.8f,
+            AsymptoteValue = 0.5f,
+            Stiffness = 1f
+        };
 
         private float motorTorque = 0f;
         private float brakeTorque = 0f;
@@ -131,10 +141,20 @@ namespace Frontend.Scripts.Components
             Vector3 newVelocity = (newPosition - tirePosition) / Time.fixedDeltaTime;
             tirePosition = newPosition;
             normalForce = GetSuspensionForce(tirePosition) + mass * Mathf.Abs(Physics.gravity.y);
+
+            float longitudalSpeed = Vector3.Dot(newVelocity, transform.forward);
+            float lateralSpeed = Vector3.Dot(newVelocity, -transform.right);
+
+            float longitudalForce = GetLongitudalForce(normalForce, longitudalSpeed);
+
+            finalForce = normalForce * rig.transform.up + rig.transform.forward * longitudalForce; 
+
+            if (isGrounded)
+                rig.AddForceAtPosition(finalForce, tirePosition);
         }
+
         private void Start()
         {
-            
             previousSuspensionDistance = suspensionTravel;
             tirePosition = GetTirePosition();
         }
@@ -147,14 +167,30 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        private float GetSuspensionForce(Vector3 tirePosition)
+        private float GetSuspensionForce(Vector3 localTirePosition)
         {
-            float distance = Vector3.Distance(transform.position - rig.transform.up * suspensionTravel, tirePosition);
+            float distance = Vector3.Distance(transform.position - rig.transform.up * suspensionTravel, localTirePosition);
             float springForce = spring * distance;
             float damperForce = damper * ((distance - previousSuspensionDistance) / Time.fixedDeltaTime);
             previousSuspensionDistance = distance;
-            return springForce * damperForce;
+            return springForce + damperForce;
         }
+
+        private float GetLongitudalForce(float localNormalForce, float localLongitudalSpeed)
+        {
+            float delta = CalculateSlipDelta(differentialSlipRatio, localLongitudalSpeed);
+            differentialSlipRatio += delta * Time.fixedDeltaTime;
+            return Mathf.Sign(DampenForLowSpeeds(differentialSlipRatio, delta, localLongitudalSpeed, 0.02f))
+                * localNormalForce * ForwardFriction.Evaluate(differentialSlipRatio);
+        }
+
+        private float CalculateSlipDelta(float localDifferentialSleepRatio, float localLongitudalSpeed)
+        {
+            float longitudalAngularSpeed = angularVelocity * wheelRadius;
+            float slipDelta = (longitudalAngularSpeed - localLongitudalSpeed) - Mathf.Abs(localLongitudalSpeed) * localDifferentialSleepRatio;
+            return slipDelta / RelaxationLengthLongitudal;
+        }
+
         private Vector3 GetTirePosition()
         {
             isGrounded = Physics.Raycast(new Ray(transform.position, -rig.transform.up), out RaycastHit hit, wheelRadius + suspensionTravel);
@@ -168,7 +204,14 @@ namespace Frontend.Scripts.Components
             }
         }
 
-
+        private float DampenForLowSpeeds(float value, float delta, float speed, float tau)
+        {
+            if(speed > 0.15f)
+            {
+                tau = 0f;
+            }
+            return value + tau * delta;
+        }
 
         private void OnDrawGizmos()
         {
@@ -180,14 +223,15 @@ namespace Frontend.Scripts.Components
                 GetWorldPosition(out Vector3 position, out Quaternion rotation);
 
                 Handles.DrawWireDisc(position, transform.right, wheelRadius);
-
+               
                 Gizmos.DrawLine(transform.position, transform.position - (rig.transform.up * suspensionTravel));
 
                 var force = (finalForce - normalForce * transform.up) / 1000f;
                 Gizmos.DrawLine(transform.position, transform.position + force);
+
+                Gizmos.color = isGrounded ? Color.green : Color.red;
+                Gizmos.DrawSphere(position, .05f);
             }
-            
-            
         }
     }
 
