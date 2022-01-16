@@ -14,14 +14,10 @@ namespace Frontend.Scripts.Models.VehicleSystem
 
         [Header("Engine")]
         [SerializeField] private float engineHP;
+        [SerializeField] private float brakeTorque;
         [SerializeField] private float drag;
 
-        [Header("Suspension")]
-        [SerializeField] private float suspensionSpring;
-        [SerializeField] private float suspensionDamper;
         
-        
-
 
         [Header("Curves")]
         [SerializeField] private AnimationCurve engineCurve;
@@ -42,13 +38,10 @@ namespace Frontend.Scripts.Models.VehicleSystem
         #region ENGINE
 
         public float EngineHP => engineHP;
+        public float BrakeTorque => brakeTorque;
         public float Drag => drag;
 
         public AnimationCurve EnginePowerCurve => engineCurve;
-
-        public float SuspensionSpring => suspensionSpring;
-
-        public float SuspensionDamper =>  suspensionDamper;
 
         #endregion
     }

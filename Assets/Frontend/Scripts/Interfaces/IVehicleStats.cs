@@ -10,7 +10,6 @@ namespace Frontend.Scripts
 
         public string TankName { get; }
 
-
         #endregion
 
 
@@ -27,9 +26,8 @@ namespace Frontend.Scripts
         public float EngineHP { get; }
         public float Drag { get; }
 
-        public float SuspensionSpring { get; }
-        public float SuspensionDamper { get; }
 
+        public float BrakeTorque { get; }
         public AnimationCurve EnginePowerCurve { get; }
 
         #endregion

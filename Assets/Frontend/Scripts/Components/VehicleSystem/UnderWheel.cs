@@ -92,6 +92,7 @@ namespace Frontend.Scripts.Components
         [SerializeField] private float spring = 20000f;
         [SerializeField] private float damper = 2000f;
         [SerializeField] private float rollingResistance = 0.01f;
+        [SerializeField] private float inertia = 3f;
 
         [SerializeField] private UnderFrictionCurve ForwardFriction = new UnderFrictionCurve()
         {
@@ -157,6 +158,21 @@ namespace Frontend.Scripts.Components
             rotation = transform.rotation * localTireRotation;
         }
 
+        public Vector3 GetTirePosition()
+        {
+            isGrounded = Physics.Raycast(new Ray(transform.position, -rig.transform.up), out RaycastHit hit, wheelRadius + suspensionTravel);
+            if (isGrounded)
+            {
+                compression = hit.distance - wheelRadius;
+                return hit.point + (rig.transform.up * wheelRadius);
+            }
+            else
+            {
+                compression = suspensionTravel;
+                return transform.position - (rig.transform.up * suspensionTravel);
+            }
+        }
+
         private void FixedUpdate()
         {
             Vector3 newPosition = GetTirePosition();
@@ -173,6 +189,8 @@ namespace Frontend.Scripts.Components
 
             if (isGrounded)
                 rig.AddForceAtPosition(finalForce, tirePosition);
+
+            UpdateAngularVelocity(longitudalForce);
         }
 
         private void Start()
@@ -218,21 +236,32 @@ namespace Frontend.Scripts.Components
             return slipDelta / RelaxationLengthLongitudal;
         }
 
-        private Vector3 GetTirePosition()
+        private void UpdateAngularVelocity(float longitudalForce)
         {
-            isGrounded = Physics.Raycast(new Ray(transform.position, -rig.transform.up), out RaycastHit hit, wheelRadius + suspensionTravel);
-            if(isGrounded)
+            float rollingResistanceForce = angularVelocity * wheelRadius * rollingResistance * normalForce;
+            float torqueFromTireForce = (rollingResistanceForce + longitudalForce) * wheelRadius;
+            float angularAcceleration = (motorTorque - Mathf.Sign(angularVelocity) * brakeTorque - torqueFromTireForce) / inertia;
+            if(WillBrakesLock(angularAcceleration, torqueFromTireForce))
             {
-                compression = hit.distance-wheelRadius;
-                return hit.point + (rig.transform.up * wheelRadius);
+                angularVelocity = 0;
+                return;
             }
-            else
-            {
-                compression = suspensionTravel;
-                return transform.position - (rig.transform.up * suspensionTravel);
-            }
+            angularVelocity += angularAcceleration * Time.fixedDeltaTime;
+            tireRotation = (tireRotation + angularVelocity * Time.fixedDeltaTime) % (2 * Mathf.PI);
         }
 
+        private bool WillBrakesLock(float angularAcceleration, float torqueFromTireForce)
+        {
+            if(brakeTorque < Mathf.Abs(motorTorque - torqueFromTireForce))
+            {
+                return false;
+            }
+            if(brakeTorque > 0f && Mathf.Sign(angularVelocity) != Mathf.Sign(angularVelocity + angularAcceleration * Time.fixedDeltaTime))
+            {
+                return true;
+            }
+            return false;
+        }
         private float DampenForLowSpeeds(float value, float delta, float speed, float tau)
         {
             if(speed > 0.15f)
@@ -248,6 +277,7 @@ namespace Frontend.Scripts.Components
             bool drawCurrently = (debugSettings.DrawGizmos) && (debugSettings.DrawMode == UnderWheelDebugMode.All)
                 || (debugSettings.DrawMode == UnderWheelDebugMode.EditorOnly && !Application.isPlaying) 
                 || (debugSettings.DrawMode == UnderWheelDebugMode.PlaymodeOnly && Application.isPlaying);
+
             if(drawCurrently && (debugSettings.DrawOnDisable && !this.enabled) || (this.enabled))
             {
                 if (rig != null)
@@ -261,7 +291,6 @@ namespace Frontend.Scripts.Components
                     Handles.DrawDottedLine(transform.position, transform.position - (rig.transform.up * compression), 1.1f);
 
                     //Vector3 upper = position + (rig.transform.up * suspensionTravel);
-                   
                     //upper border visualisation
                     //Handles.DrawWireArc(upper, transform.right, -transform.forward, 180, wheelRadius);
              
