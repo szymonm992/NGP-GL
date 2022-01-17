@@ -133,10 +133,8 @@ namespace Frontend.Scripts.Components
 
         public float RPM
         {
-            // wWheel / (pi*2) * 60f
-            // all values converted to combined constants
-            get { return angularVelocity * 9.549296585f; }
-            set { angularVelocity = value * 0.104719755f; }
+            // multiplied by physics speed multiplier
+            get { return Mathf.Abs(angularVelocity * 4f * 9.549296585f); }
         }
 
         #region Telemetry/readonly
@@ -191,9 +189,12 @@ namespace Frontend.Scripts.Components
             float longitudalSpeed = Vector3.Dot(newVelocity, transform.forward);
             float lateralSpeed = Vector3.Dot(newVelocity, -transform.right);
 
+            float lateralForce = GetLateralForce(normalForce, lateralSpeed, longitudalSpeed);
             float longitudalForce = GetLongitudalForce(normalForce, longitudalSpeed);
 
-            finalForce = normalForce * rig.transform.up + rig.transform.forward * longitudalForce; 
+            finalForce = normalForce * rig.transform.up 
+                + rig.transform.forward * longitudalForce
+                +rig.transform.right * lateralForce; 
 
             if (isGrounded)
                 rig.AddForceAtPosition(finalForce, tirePosition);
@@ -237,6 +238,20 @@ namespace Frontend.Scripts.Components
                 * localNormalForce * ForwardFriction.Evaluate(differentialSlipRatio);
         }
 
+        private float GetLateralForce(float normalForce, float lateralSpeed, float longitudalSpeed)
+        {
+            slipAngle = CalculatSlipAngle(longitudalSpeed, lateralSpeed);
+            float coefficient = SidewaysFriction.Evaluate(slipAngle);
+            coefficient *= Mathf.Sqrt(1 - Mathf.Pow(ForwardFriction.Evaluate(differentialSlipRatio) / ForwardFriction.ExtremumValue, 2));
+            return Mathf.Sign(slipAngle) * coefficient * normalForce;
+        }
+        private float CalculatSlipAngle(float longitudalSpeed, float lateralSpeed)
+        {
+            float delta = lateralSpeed - Mathf.Abs(longitudalSpeed) * differentialTanOfSlipAngle;
+            delta /= RelaxationLengthLateral;
+            differentialTanOfSlipAngle += delta * Time.fixedDeltaTime;
+            return Mathf.Atan(DampenForLowSpeeds(differentialTanOfSlipAngle, delta, lateralSpeed, 0.1f)) * Mathf.Rad2Deg;   
+        }
         private float CalculateSlipDelta(float localDifferentialSleepRatio, float localLongitudalSpeed)
         {
             float longitudalAngularSpeed = angularVelocity * wheelRadius;

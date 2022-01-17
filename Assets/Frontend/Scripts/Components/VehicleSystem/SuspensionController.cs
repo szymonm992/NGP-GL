@@ -22,9 +22,10 @@ namespace Frontend.Scripts.Components.VehicleSystem
 
         #region LOCAL CONTROL VARIABLES
         private Vector2 inputs;
-        private bool brake;
-        private float currentSpeed;
-        private float finalPower;
+        private float combinedInput = 0f;
+        private bool brake = false;
+        private float currentSpeed = 0f;
+        private float finalPower = 0f;
         #endregion
 
         [SerializeField] private UnderWheel[] wheelColliders;
@@ -41,6 +42,7 @@ namespace Frontend.Scripts.Components.VehicleSystem
         private void Update()
         {
             inputs = new Vector2(playerInputs.Horizontal, playerInputs.Vertical);
+            combinedInput = Mathf.Abs(playerInputs.Horizontal) + Mathf.Abs(playerInputs.Vertical);
             brake = playerInputs.Brake;
             currentSpeed = rig.velocity.magnitude * 4f;
             speedometer.text = (currentSpeed).ToString("F0");
@@ -58,14 +60,26 @@ namespace Frontend.Scripts.Components.VehicleSystem
                 foreach (UnderWheel wheelCollider in wheelColliders)
                 {
                     wheelCollider.MotorTorque = 0;
-                    wheelCollider.BrakeTorque = brake ? tankStats.BrakeTorque : 0;
+                    Brakes(wheelCollider);
                     averageRPM += wheelCollider.RPM;
                 }
                 averageRPM /= wheelColliders.Length;
             }
-           // Debug.Log("Average RPM is " + averageRPM);
+            Debug.Log("Average RPM is " + averageRPM);
         }
 
+
+        private void Brakes(UnderWheel wheelCollider)
+        {
+            bool anyInput = combinedInput > 0;
+
+            if (brake)
+                wheelCollider.BrakeTorque = tankStats.BrakeTorque * 2f;
+            else if (anyInput && !brake)
+                wheelCollider.BrakeTorque = 0;
+            else
+                wheelCollider.BrakeTorque = tankStats.BrakeTorque;
+        }
         private float CalculateFinalPower()
         {
             float one = (tankStats.EngineHP / rig.drag);
