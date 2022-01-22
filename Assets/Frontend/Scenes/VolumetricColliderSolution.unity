@@ -171,6 +171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableHitPointGizmos: 1
   wheelThickness: 0.08
+  cylinderCapUpper: {fileID: 0}
+  cylinderCapDown: {fileID: 0}
 --- !u!64 &494286040
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -201,6 +203,37 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &573307509
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 573307510}
+  m_Layer: 0
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &573307510
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573307509}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1916425709}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &584269073
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,6 +282,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableHitPointGizmos: 1
   wheelThickness: 0.08
+  cylinderCapUpper: {fileID: 0}
+  cylinderCapDown: {fileID: 0}
 --- !u!64 &584269076
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -572,6 +607,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 876469389}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1085171694
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1085171695}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1085171695
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085171694}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1916425709}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1268069986
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,18 +780,35 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1321858664}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 418c5c18b50f8fb4c886572a5fb8da8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugSettings:
+    drawGizmos: 1
+    drawOnDisable: 0
+    drawMode: 0
+    drawForce: 1
+  suspensionTravel: 0.3
   wheelRadius: 0.2
-  suspensionTravelRadius: 0.2
-  wheelThickness: 1
-  wheelMask:
-    serializedVersion: 2
-    m_Bits: 2147483647
-  mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 3}
+  mass: 20
+  spring: 20000
+  damper: 2000
+  rollingResistance: 0.01
+  inertia: 3
+  ForwardFriction:
+    extremumSlip: 0.4
+    extremumValue: 1
+    asymptoteSlip: 0.8
+    asymptoteValue: 0.5
+    stiffness: 1
+  SidewaysFriction:
+    extremumSlip: 15
+    extremumValue: 1
+    asymptoteSlip: 30
+    asymptoteValue: 0.75
+    stiffness: 2
 --- !u!4 &1321858666
 Transform:
   m_ObjectHideFlags: 0
@@ -789,6 +872,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableHitPointGizmos: 1
   wheelThickness: 0.08
+  cylinderCapUpper: {fileID: 0}
+  cylinderCapDown: {fileID: 0}
 --- !u!54 &1345231393
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1194,7 +1279,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1916425709
 Transform:
   m_ObjectHideFlags: 0
@@ -1206,7 +1291,9 @@ Transform:
   m_LocalPosition: {x: 9.882, y: 0.593, z: 17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1085171695}
+  - {fileID: 573307510}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 90}
@@ -1224,6 +1311,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableHitPointGizmos: 1
   wheelThickness: 0.8
+  cylinderCapUpper: {fileID: 1085171695}
+  cylinderCapDown: {fileID: 573307510}
 --- !u!64 &1916425711
 MeshCollider:
   m_ObjectHideFlags: 0

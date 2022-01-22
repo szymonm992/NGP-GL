@@ -159,7 +159,7 @@ namespace Frontend.Scripts.Components
 
         public void GetWorldPosition(out Vector3 position, out Quaternion rotation)
         {
-            var localTireRotation = Quaternion.Euler(tireRotation * Mathf.Rad2Deg, 0, 0);
+            var localTireRotation = Quaternion.Euler(tireRotation * Mathf.Rad2Deg, 0f, 0f);
             position = GetTirePosition();
             rotation = transform.rotation * localTireRotation;
         }
@@ -191,6 +191,7 @@ namespace Frontend.Scripts.Components
 
             float lateralForce = GetLateralForce(normalForce, lateralSpeed, longitudalSpeed);
             float longitudalForce = GetLongitudalForce(normalForce, longitudalSpeed);
+
 
             finalForce = normalForce * rig.transform.up 
                 + rig.transform.forward * longitudalForce
@@ -242,7 +243,7 @@ namespace Frontend.Scripts.Components
         {
             slipAngle = CalculatSlipAngle(longitudalSpeed, lateralSpeed);
             float coefficient = SidewaysFriction.Evaluate(slipAngle);
-            coefficient *= Mathf.Sqrt(1 - Mathf.Pow(ForwardFriction.Evaluate(differentialSlipRatio) / ForwardFriction.ExtremumValue, 2));
+            coefficient *= Mathf.Sqrt(1f- Mathf.Pow(ForwardFriction.Evaluate(differentialSlipRatio) / ForwardFriction.ExtremumValue, 2f));
             return Mathf.Sign(slipAngle) * coefficient * normalForce;
         }
         private float CalculatSlipAngle(float longitudalSpeed, float lateralSpeed)
@@ -266,11 +267,11 @@ namespace Frontend.Scripts.Components
             float angularAcceleration = (motorTorque - Mathf.Sign(angularVelocity) * brakeTorque - torqueFromTireForce) / inertia;
             if(WillBrakesLock(angularAcceleration, torqueFromTireForce))
             {
-                angularVelocity = 0;
+                angularVelocity = 0f;
                 return;
             }
             angularVelocity += angularAcceleration * Time.fixedDeltaTime;
-            tireRotation = (tireRotation + angularVelocity * Time.fixedDeltaTime) % (2 * Mathf.PI);
+            tireRotation = (tireRotation + angularVelocity * Time.fixedDeltaTime) % (2f * Mathf.PI);
         }
 
         private bool WillBrakesLock(float angularAcceleration, float torqueFromTireForce)

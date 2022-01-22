@@ -35,7 +35,11 @@ namespace Frontend.Scripts.Components.VehicleSystem
         private void Start()
         {
             finalPower = CalculateFinalPower();
-            rig.centerOfMass = centerOfMass.localPosition;
+            if(centerOfMass!=null)
+            {
+                rig.centerOfMass = centerOfMass.localPosition;
+            }
+            
         }
 
         
@@ -65,7 +69,7 @@ namespace Frontend.Scripts.Components.VehicleSystem
                 }
                 averageRPM /= wheelColliders.Length;
             }
-            Debug.Log("Average RPM is " + averageRPM);
+            //Debug.Log("Average RPM is " + averageRPM);
         }
 
 

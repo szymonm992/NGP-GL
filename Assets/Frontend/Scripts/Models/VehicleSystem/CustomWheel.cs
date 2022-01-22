@@ -11,17 +11,23 @@ namespace Frontend.Scripts
         
         [SerializeField] private bool enableHitPointGizmos = true;
         [SerializeField] private float wheelThickness = .08f;
+        [SerializeField] private float radius = .5f;
         private bool isColliding;
         public bool IsColliding => isColliding;
 
         private Dictionary<Collider, Vector3> hitPoints = new();
 
+        public Transform cylinderCapUpper, cylinderCapDown;
+        public Transform pointToCheck;
         public Vector3[] GetHitPoints()
         {
             return hitPoints.Values.ToArray();
         }
 
-
+        private void Start()
+        {
+            Debug.Log(IsPointInsideCylinder(pointToCheck.position, cylinderCapUpper.position, cylinderCapDown.position, radius));
+        }
         private void OnDrawGizmos()
         {
             Color gizmosColor = isColliding ? Color.blue : Color.green;
@@ -79,15 +85,15 @@ namespace Frontend.Scripts
         private void OnCollisionEnter(Collision collision)
         {
 
-            for(int i=0;i<collision.contactCount;i++)
+     
+        }
+        private void OnCollisionStay(Collision collision)
+        {
+            for (int i = 0; i < collision.contactCount; i++)
             {
-                DebugExtension.DebugPoint(collision.contacts[i].point, Color.yellow, 1f);
-                float distanceToEdge = Vector3.Distance(transform.position - transform.up * wheelThickness / 2, transform.position);
-                float distanceToPoint = Vector3.Distance(transform.position, collision.contacts[i].point);
-
-                if (distanceToPoint <= 0.5f)
+                Vector3 point = collision.contacts[i].point + (transform.position - collision.contacts[i].point)*.05f;
+                if (IsPointInsideCylinder(point, cylinderCapUpper.position, cylinderCapDown.position, radius))
                 {
-                    Debug.Log("DISTTANCE confirmed");
                     AddOrUpdateCollision(collision);
 
                     if (!isColliding)
@@ -96,47 +102,9 @@ namespace Frontend.Scripts
                 }
                 else
                 {
-
-                    
-                    Vector3 dirToContact = collision.contacts[i].point - transform.position;
-                    // TODO DWA DIR TO CONTACT I SPRAWDZANIE KTÓRY JEST BLIZEJ PUNKTU I DOT ROBIÆ Z TYM PUNKTEM A(PLUSOWY I MINUSOWY)
-
-                    Vector3 directionToEdgeNegative = transform.position - transform.up * wheelThickness / 2;
-                    Vector3 directionToEdgePositive = transform.position + transform.up * wheelThickness / 2;
-
-                    Vector3 desiredDirectionToEdge = Vector3.Distance(collision.contacts[i].point, directionToEdgePositive) > Vector3.Distance(collision.contacts[i].point, directionToEdgeNegative)
-                        ? directionToEdgeNegative : directionToEdgePositive;
-
-                    float dotProduct = (Vector3.Dot(dirToContact, desiredDirectionToEdge));
-                   
-                    DebugExtension.DebugPoint(transform.position - transform.up * wheelThickness / 2, Color.yellow, .02f);
-                    if (dotProduct <= distanceToEdge)
-                    {
-                        Debug.Log("CONFIRMED Dp is " + dotProduct + " and distance is " + distanceToEdge);
-                        AddOrUpdateCollision(collision);
-
-                        if (!isColliding)
-                            isColliding = true;
-                        break;
-                    }
-                    else
-                    {
-                        Debug.Log("REJECTED Dp is " + dotProduct + " and distance is "+ distanceToEdge);
-                    }
-                   
+                    DebugExtension.DebugPoint(collision.contacts[i].point, Color.yellow, 1f);
                 }
             }
-            
-           
-
-
-            
-
-           
-        }
-        private void OnCollisionStay(Collision collision)
-        {
-            
         }
 
         private void OnCollisionExit(Collision collision)
@@ -148,5 +116,23 @@ namespace Frontend.Scripts
         }
 
         #endregion
+
+        private bool IsPointInsideCylinder(Vector3 p, Vector3 a, Vector3 b, float r)
+        {
+            Vector3 ba = b - a;
+            Vector3 pa = p - a;
+            float m = ba.x * ba.x + ba.y * ba.y + ba.z * ba.z;
+            float n = pa.x * ba.x + pa.y * ba.y + pa.z * ba.z;
+            Vector3 k = pa * m - ba * n;
+            float x = Mathf.Sqrt(k.x * k.x + k.y * k.y + k.z * k.z) - r * m;
+            float y = Mathf.Abs(n - m * 0.5f) - m * 0.5f;
+            float x2 = x * x;
+            float y2 = y * y * m;
+            float d = (Mathf.Max(x, y) < 0.0f) ? -Mathf.Min(x2, y2) : (((x > 0.0f) ? x2 : 0.0f) + ((y > 0.0f) ? y2 : 0.0f));
+            return ((Mathf.Sign(d) * Mathf.Sqrt(Mathf.Abs(d)) / m) < 0.0f);
+        }
     }
+
+
+
 }
