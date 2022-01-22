@@ -10,23 +10,25 @@ namespace Frontend.Scripts
     {
         
         [SerializeField] private bool enableHitPointGizmos = true;
-        [SerializeField] private float wheelThickness = .08f;
+        [SerializeField] private float wheelThickness = .8f;
         [SerializeField] private float radius = .5f;
         private bool isColliding;
         public bool IsColliding => isColliding;
 
         private Dictionary<Collider, Vector3> hitPoints = new();
+        private (Vector3, Vector3) cylinderCaps;
 
-        public Transform cylinderCapUpper, cylinderCapDown;
-        public Transform pointToCheck;
         public Vector3[] GetHitPoints()
         {
             return hitPoints.Values.ToArray();
         }
-
-        private void Start()
+        private void OnValidate()
         {
-            Debug.Log(IsPointInsideCylinder(pointToCheck.position, cylinderCapUpper.position, cylinderCapDown.position, radius));
+            CreateCylinder();
+        }
+        private void CreateCylinder()
+        {
+            UpdateCylinder();
         }
         private void OnDrawGizmos()
         {
@@ -36,7 +38,10 @@ namespace Frontend.Scripts
             DebugExtension.DrawCircle(transform.position+transform.up * (wheelThickness/2),transform.up, gizmosColor, transform.lossyScale.x/2);
             DebugExtension.DrawCircle(transform.position - transform.up * (wheelThickness/2), transform.up, gizmosColor, transform.lossyScale.x / 2);
 
-            if(enableHitPointGizmos)
+            Gizmos.DrawSphere(cylinderCaps.Item1, .03f);
+            Gizmos.DrawSphere(cylinderCaps.Item2, .03f);
+
+            if (enableHitPointGizmos)
             {
                 foreach (KeyValuePair<Collider, Vector3> cp in hitPoints)
                 {
@@ -51,6 +56,9 @@ namespace Frontend.Scripts
             Gizmos.color = Color.blue;
             Gizmos.DrawLine(transform.position, transform.position+ transform.up*wheelThickness/2);
             Gizmos.DrawLine(transform.position, transform.position- transform.up*wheelThickness/2);
+
+
+            
         }
 
         private void AddOrUpdateCollision(Collision collision)
@@ -78,21 +86,19 @@ namespace Frontend.Scripts
             }
         }
 
-
+        private void UpdateCylinder()
+        {
+            cylinderCaps = new(transform.position + transform.up * wheelThickness/2, transform.position - transform.up * wheelThickness/2);
+        }
 
         #region EVENT TRIGGERS
 
-        private void OnCollisionEnter(Collision collision)
-        {
-
-     
-        }
-        private void OnCollisionStay(Collision collision)
+        private void CheckCollision(Collision collision)
         {
             for (int i = 0; i < collision.contactCount; i++)
             {
-                Vector3 point = collision.contacts[i].point + (transform.position - collision.contacts[i].point)*.05f;
-                if (IsPointInsideCylinder(point, cylinderCapUpper.position, cylinderCapDown.position, radius))
+                Vector3 point = collision.contacts[i].point + (transform.position - collision.contacts[i].point) * .05f;
+                if (IsPointInsideCylinder(point, cylinderCaps.Item1, cylinderCaps.Item2, radius))
                 {
                     AddOrUpdateCollision(collision);
 
@@ -107,6 +113,25 @@ namespace Frontend.Scripts
             }
         }
 
+        private void Update()
+        {
+           if(transform.hasChanged)
+            {
+                UpdateCylinder();
+            }
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+       
+            CheckCollision(collision);
+        }
+        private void OnCollisionStay(Collision collision)
+        {
+ 
+            CheckCollision(collision);
+        }
+
         private void OnCollisionExit(Collision collision)
         {
             DeleteCollision(collision);
@@ -116,7 +141,6 @@ namespace Frontend.Scripts
         }
 
         #endregion
-
         private bool IsPointInsideCylinder(Vector3 p, Vector3 a, Vector3 b, float r)
         {
             Vector3 ba = b - a;
@@ -131,6 +155,7 @@ namespace Frontend.Scripts
             float d = (Mathf.Max(x, y) < 0.0f) ? -Mathf.Min(x2, y2) : (((x > 0.0f) ? x2 : 0.0f) + ((y > 0.0f) ? y2 : 0.0f));
             return ((Mathf.Sign(d) * Mathf.Sqrt(Mathf.Abs(d)) / m) < 0.0f);
         }
+
     }
 
 
