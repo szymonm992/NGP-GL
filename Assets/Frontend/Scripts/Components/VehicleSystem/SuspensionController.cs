@@ -35,14 +35,14 @@ namespace Frontend.Scripts.Components.VehicleSystem
         private void Start()
         {
             finalPower = CalculateFinalPower();
-            if(centerOfMass!=null)
+            if (centerOfMass != null)
             {
                 rig.centerOfMass = centerOfMass.localPosition;
             }
-            
+
         }
 
-        
+
         private void Update()
         {
             inputs = new Vector2(playerInputs.Horizontal, playerInputs.Vertical);
@@ -52,7 +52,7 @@ namespace Frontend.Scripts.Components.VehicleSystem
             speedometer.text = (currentSpeed).ToString("F0");
 
             UpdateWheels();
-            
+
         }
 
 
@@ -94,14 +94,13 @@ namespace Frontend.Scripts.Components.VehicleSystem
 
         private void OnDrawGizmos()
         {
-            if(Application.isPlaying)
+            if (Application.isPlaying)
             {
                 //drawing center of mass
                 Gizmos.color = Color.green;
                 Gizmos.DrawSphere(rig.worldCenterOfMass, .2f);
             }
-            
-        }
 
+        }
     }
 }

@@ -172,7 +172,6 @@ MonoBehaviour:
   enableHitPointGizmos: 1
   wheelThickness: 0.08
   radius: 0.5
-  pointToCheck: {fileID: 0}
 --- !u!64 &494286040
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -283,7 +282,6 @@ MonoBehaviour:
   enableHitPointGizmos: 1
   wheelThickness: 0.08
   radius: 0.5
-  pointToCheck: {fileID: 0}
 --- !u!64 &584269076
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -904,7 +902,6 @@ MonoBehaviour:
   enableHitPointGizmos: 1
   wheelThickness: 0.08
   radius: 0.5
-  pointToCheck: {fileID: 0}
 --- !u!54 &1345231393
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1326,7 +1323,6 @@ MonoBehaviour:
   enableHitPointGizmos: 1
   wheelThickness: 0.8
   radius: 0.5
-  pointToCheck: {fileID: 1158562292}
 --- !u!64 &1916425711
 MeshCollider:
   m_ObjectHideFlags: 0

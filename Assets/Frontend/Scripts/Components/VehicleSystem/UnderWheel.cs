@@ -181,6 +181,8 @@ namespace Frontend.Scripts.Components
 
         private void FixedUpdate()
         {
+           
+
             Vector3 newPosition = GetTirePosition();
             Vector3 newVelocity = (newPosition - tirePosition) / Time.fixedDeltaTime;
             tirePosition = newPosition;
@@ -195,10 +197,10 @@ namespace Frontend.Scripts.Components
 
             finalForce = normalForce * rig.transform.up 
                 + rig.transform.forward * longitudalForce
-                +rig.transform.right * lateralForce; 
+                +rig.transform.right * lateralForce;
+            if (!isGrounded) return;
 
-            if (isGrounded)
-                rig.AddForceAtPosition(finalForce, tirePosition);
+            rig.AddForceAtPosition(finalForce, tirePosition);
 
             UpdateAngularVelocity(longitudalForce);
         }

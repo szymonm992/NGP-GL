@@ -61,18 +61,18 @@ namespace Frontend.Scripts
             
         }
 
-        private void AddOrUpdateCollision(Collision collision)
+        private void AddOrUpdateCollision(Collision collision, Vector3 point)
         {
             Collider col = collision.collider;
             ContactPoint cp = collision.contacts[0];
             
             if (!hitPoints.ContainsKey(col))
             {
-                hitPoints.Add(col, cp.point);
+                hitPoints.Add(col, point);
             }
-            else if (hitPoints[col] != cp.point)
+            else if (hitPoints[col] != point)
             {
-                hitPoints[col] = cp.point;
+                hitPoints[col] = point;
             }
         }
 
@@ -95,12 +95,14 @@ namespace Frontend.Scripts
 
         private void CheckCollision(Collision collision)
         {
+            Debug.Log(collision.contacts.Length);
+
             for (int i = 0; i < collision.contactCount; i++)
             {
                 Vector3 point = collision.contacts[i].point + (transform.position - collision.contacts[i].point) * .05f;
                 if (IsPointInsideCylinder(point, cylinderCaps.Item1, cylinderCaps.Item2, radius))
                 {
-                    AddOrUpdateCollision(collision);
+                    AddOrUpdateCollision(collision, collision.contacts[i].point);
 
                     if (!isColliding)
                         isColliding = true;
