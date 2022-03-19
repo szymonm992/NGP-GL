@@ -9,12 +9,20 @@ using Frontend.Scripts.Enums;
 namespace Frontend.Scripts
 {
     [System.Serializable]
-    public struct DriveElement
+    public class DriveElement
     {
-        
-        public Transform forceAtPos;
-        public Transform detetion;
+        public Rigidbody wheelRigidbody;
 
+        private Transform forceAtPos;
+        private Transform stepDetector;
+
+        public Transform ForceAtPosition => forceAtPos;
+        public Transform StepDetector => stepDetector;
+        public void Initialize()
+        {
+            this.forceAtPos = wheelRigidbody.transform.Find("forceAtPosition");
+            this.stepDetector = wheelRigidbody.transform.Find("stepDetector");
+        }
     }
     public class DriveController : MonoBehaviour
     {
@@ -25,9 +33,7 @@ namespace Frontend.Scripts
 
         [Header("Suspension")]
         public Transform groundCheck;
-        public Transform fricAt;
         public Transform CentreOfMass;
-        public Transform ForceAtPos;
         public DriveElement[] driveElements;
 
         [Header("Car Stats")]
@@ -93,6 +99,11 @@ namespace Frontend.Scripts
         {
             grounded = false;
             rig.centerOfMass = CentreOfMass.localPosition;
+
+            foreach(DriveElement de in driveElements)
+            {
+                de.Initialize();
+            }
         }
 
         void FixedUpdate()
@@ -154,11 +165,11 @@ namespace Frontend.Scripts
 
             foreach (DriveElement de in driveElements)
             {
-                Ray ray = new Ray(de.detetion.position, de.detetion.forward);
+                Ray ray = new Ray(de.StepDetector.position, de.StepDetector.forward);
                 if (Physics.Raycast(ray, out RaycastHit hit, stepDetectiongRange))
                 {
-                    de.forceAtPos.parent.GetComponent<Rigidbody>().AddForceAtPosition(stepUp * de.forceAtPos.parent.up + de.forceAtPos.parent.forward, 
-                        de.forceAtPos.parent.position - de.forceAtPos.parent.up);
+                    de.wheelRigidbody.AddForceAtPosition(stepUp * de.wheelRigidbody.transform.up + de.wheelRigidbody.transform.forward, 
+                        de.wheelRigidbody.transform.position - de.wheelRigidbody.transform.up);
                     Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
                 }
                 else
@@ -174,7 +185,8 @@ namespace Frontend.Scripts
             {
                 foreach(DriveElement de in driveElements)
                 {
-                    rig.AddForceAtPosition(rig.transform.forward * speedValue/driveElements.Length * engineCurve.Evaluate(currentSpeed), de.forceAtPos.position);
+                    rig.AddForceAtPosition(rig.transform.forward * speedValue/driveElements.Length 
+                        * engineCurve.Evaluate(currentSpeed), de.ForceAtPosition.position);
                 }
                 
             }
@@ -182,7 +194,8 @@ namespace Frontend.Scripts
             {
                 foreach (DriveElement de in driveElements)
                 {
-                    rig.AddForceAtPosition(rig.transform.forward * speedValue / driveElements.Length * engineCurve.Evaluate(currentSpeed), de.forceAtPos.position);
+                    rig.AddForceAtPosition(rig.transform.forward * speedValue / driveElements.Length
+                        * engineCurve.Evaluate(currentSpeed), de.ForceAtPosition.position);
                 }
             }
         }
@@ -212,7 +225,8 @@ namespace Frontend.Scripts
                 frictionAngle = (-Vector3.Angle(rig.transform.up, Vector3.up) / 90f) + 1;
                 foreach(DriveElement de in driveElements)
                 {
-                    rig.AddForceAtPosition(rig.transform.right * fricValue/driveElements.Length * frictionAngle * 100 * -carVelocity.normalized.x, de.forceAtPos.position);
+                    rig.AddForceAtPosition(rig.transform.right * fricValue/driveElements.Length * frictionAngle 
+                        * 100f * -carVelocity.normalized.x, de.ForceAtPosition.position);
                 }
                 
             }
@@ -266,14 +280,16 @@ namespace Frontend.Scripts
                 float frictionAngle = (-Vector3.Angle(rig.transform.up, Vector3.up) / 90f) + 1;
                 foreach (DriveElement de in driveElements)
                 {
-                    rig.AddForceAtPosition(Vector3.ProjectOnPlane(rig.transform.right, Vector3.up) * fricValue/driveElements.Length * frictionAngle * 100 * -carVelocity.normalized.x, de.forceAtPos.position);
+                    rig.AddForceAtPosition(Vector3.ProjectOnPlane(rig.transform.right, Vector3.up) 
+                        * fricValue/driveElements.Length * frictionAngle * 100 * -carVelocity.normalized.x, de.ForceAtPosition.position);
                 }
             }
 
             //brake
             if (carVelocity.z > 1f)
             {
-                rig.AddForceAtPosition(Vector3.ProjectOnPlane(rig.transform.forward, Vector3.up) * -brakeInput, groundCheck.position);
+                rig.AddForceAtPosition(Vector3.ProjectOnPlane(rig.transform.forward, Vector3.up) 
+                    * -brakeInput, groundCheck.position);
             }
             if (carVelocity.z < -1f)
             {

@@ -320,7 +320,7 @@ GameObject:
   m_Component:
   - component: {fileID: 57003819}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: stepDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -466,7 +466,7 @@ GameObject:
   m_Component:
   - component: {fileID: 252463274}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: stepDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -497,7 +497,7 @@ GameObject:
   m_Component:
   - component: {fileID: 283314024}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: forceAtPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -528,7 +528,7 @@ GameObject:
   m_Component:
   - component: {fileID: 297013624}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: stepDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -559,7 +559,7 @@ GameObject:
   m_Component:
   - component: {fileID: 323129296}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: forceAtPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -590,7 +590,7 @@ GameObject:
   m_Component:
   - component: {fileID: 391696053}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: forceAtPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -884,7 +884,7 @@ GameObject:
   m_Component:
   - component: {fileID: 626116944}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: forceAtPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1150,7 +1150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 836556498}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: stepDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1181,7 +1181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 854286250}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: stepDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1212,7 +1212,7 @@ GameObject:
   m_Component:
   - component: {fileID: 908598536}
   m_Layer: 0
-  m_Name: groundcheck
+  m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1817,37 +1817,6 @@ Transform:
   m_Father: {fileID: 780038045}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1348773896
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1348773897}
-  m_Layer: 0
-  m_Name: GameObject (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1348773897
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1348773896}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.67, z: 0}
-  m_LocalScale: {x: 1, y: 1.25, z: 0.2631579}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1870175059348565731}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1436816624
 GameObject:
   m_ObjectHideFlags: 0
@@ -1968,7 +1937,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1530395861}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: forceAtPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2290,7 +2259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1708550045}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: stepDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2549,7 +2518,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1936547154}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: forceAtPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2899,37 +2868,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &1870175058370843600
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1870175058370843603}
-  m_Layer: 0
-  m_Name: ForcePosition
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1870175058370843603
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1870175058370843600}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.96, z: 0}
-  m_LocalScale: {x: 1, y: 1.25, z: 0.2631579}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1870175059348565731}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1870175059277283953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3131,8 +3069,6 @@ Transform:
   - {fileID: 8319394829906168619}
   - {fileID: 1870175059277283966}
   - {fileID: 908598536}
-  - {fileID: 1348773897}
-  - {fileID: 1870175058370843603}
   m_Father: {fileID: 1870175059626440500}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4473,7 +4409,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8319394829906168619}
   m_Layer: 0
-  m_Name: cm
+  m_Name: COM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4534,22 +4470,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedometer: {fileID: 1800989400}
   groundCheck: {fileID: 908598536}
-  fricAt: {fileID: 1348773897}
   CentreOfMass: {fileID: 8319394829906168619}
-  ForceAtPos: {fileID: 1870175058370843603}
   driveElements:
-  - forceAtPos: {fileID: 283314024}
-    detetion: {fileID: 57003819}
-  - forceAtPos: {fileID: 391696053}
-    detetion: {fileID: 854286250}
-  - forceAtPos: {fileID: 1936547154}
-    detetion: {fileID: 1708550045}
-  - forceAtPos: {fileID: 626116944}
-    detetion: {fileID: 252463274}
-  - forceAtPos: {fileID: 323129296}
-    detetion: {fileID: 297013624}
-  - forceAtPos: {fileID: 1530395861}
-    detetion: {fileID: 836556498}
+  - wheelRigidbody: {fileID: 1870175058263492901}
+  - wheelRigidbody: {fileID: 3246501328818608154}
+  - wheelRigidbody: {fileID: 3246501328936577013}
+  - wheelRigidbody: {fileID: 1870175059390815337}
+  - wheelRigidbody: {fileID: 3246501330718584666}
+  - wheelRigidbody: {fileID: 3246501330691864926}
   speed: 10000
   turn: 3000
   brake: 2000
