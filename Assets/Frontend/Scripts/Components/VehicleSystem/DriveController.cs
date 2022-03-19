@@ -12,6 +12,7 @@ namespace Frontend.Scripts
     {
 
         public Transform forceAtPos;
+        public Transform detetion;
 
     }
     public class DriveController : MonoBehaviour
@@ -35,7 +36,8 @@ namespace Frontend.Scripts
         public float friction = 70f;
         public float dragAmount = 4f;
         public float TurnAngle = 30f;
-
+        public float stepUp = 2000f;
+        public float stepDetectiongRange = .2f;
         public float maxRayLength = 0.8f, slerpTime = 0.2f;
         [HideInInspector]
         public bool grounded;
@@ -108,6 +110,22 @@ namespace Frontend.Scripts
             //grounded check
             if (Physics.Raycast(groundCheck.position, -rig.transform.up, out hit, maxRayLength) && AirVehicle == false)
             {
+
+                foreach (DriveElement de in driveElements)
+                {
+                    Ray ray = new Ray(de.detetion.position, de.detetion.forward);
+                    if (Physics.Raycast(ray, out RaycastHit hit, stepDetectiongRange))
+                    {
+                        de.forceAtPos.parent.GetComponent<Rigidbody>().AddForceAtPosition(stepUp * de.forceAtPos.parent.up + de.forceAtPos.parent.forward, de.forceAtPos.parent.position - de.forceAtPos.parent.up);
+                        Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
+                    }
+                    else
+                    {
+                        Debug.DrawRay(ray.origin, ray.direction * stepDetectiongRange, Color.red);
+                    }
+                }
+
+
                 accelarationLogic();
                 turningLogic();
                 frictionLogic();
@@ -136,6 +154,7 @@ namespace Frontend.Scripts
                 AirController();
             }
 
+           
         }
 
 
