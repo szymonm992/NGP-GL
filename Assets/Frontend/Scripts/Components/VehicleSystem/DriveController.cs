@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 using Frontend.Scripts.Models.VehicleSystem;
 using Frontend.Scripts.Enums;
@@ -20,7 +21,7 @@ namespace Frontend.Scripts
 
         [Inject] public readonly IVehicleStats tankStats;
         [Inject] public readonly IPlayerInput playerInputs;
-
+        [SerializeField] private Text speedometer;
 
         [Header("Suspension")]
         public Transform groundCheck;
@@ -79,7 +80,9 @@ namespace Frontend.Scripts
             combinedInput = Mathf.Abs(playerInputs.Horizontal) + Mathf.Abs(playerInputs.Vertical);
             currentSpeed = rig.velocity.magnitude * 4f;
             isBraking = playerInputs.Brake;
-            if(!isBraking)
+            speedometer.text = (currentSpeed).ToString("F0");
+
+            if (!isBraking)
             {
                 isBraking = combinedInput == 0;
             }
@@ -179,7 +182,7 @@ namespace Frontend.Scripts
             {
                 foreach (DriveElement de in driveElements)
                 {
-                    rig.AddForceAtPosition(rig.transform.forward * speedValue/2 / driveElements.Length * engineCurve.Evaluate(currentSpeed), de.forceAtPos.position);
+                    rig.AddForceAtPosition(rig.transform.forward * speedValue / driveElements.Length * engineCurve.Evaluate(currentSpeed), de.forceAtPos.position);
                 }
             }
         }
