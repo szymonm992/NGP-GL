@@ -61,16 +61,10 @@ namespace Frontend.Scripts
         private float speedValue, fricValue, turnValue, brakeInput;
         [HideInInspector]
         public Vector3 carVelocity;
-        [HideInInspector]
-        public RaycastHit hit;
 
-        [Header("Other Settings")]
-    
-        public bool airDrag;
-        public bool AirVehicle = false;
-        public float UpForce;
+
+
         private float frictionAngle;
-
 
         #region LOCAL CONTROL VARIABLES
         private Vector2 inputs;
@@ -78,6 +72,7 @@ namespace Frontend.Scripts
         private bool isBraking = false;
         private float currentSpeed = 0f;
         private float finalPower = 0f;
+        float actualBrake = 0f;
         #endregion
 
         private void Update()
@@ -86,12 +81,12 @@ namespace Frontend.Scripts
             combinedInput = Mathf.Abs(playerInputs.Horizontal) + Mathf.Abs(playerInputs.Vertical);
             currentSpeed = rig.velocity.magnitude * 4f;
             isBraking = playerInputs.Brake;
-            speedometer.text = (currentSpeed).ToString("F0");
-
+            
             if (!isBraking)
             {
                 isBraking = combinedInput == 0;
             }
+            speedometer.text = currentSpeed.ToString("F0");
         }
 
 
@@ -106,7 +101,7 @@ namespace Frontend.Scripts
             }
         }
 
-        void FixedUpdate()
+        private void FixedUpdate()
         {
             carVelocity = rig.transform.InverseTransformDirection(rig.velocity); //local velocity of car
 
@@ -122,16 +117,14 @@ namespace Frontend.Scripts
             turnValue = turnInput * turnCurve.Evaluate(carVelocity.magnitude / 100);
 
             //grounded check
-            if (Physics.Raycast(groundCheck.position, -rig.transform.up, out hit, maxRayLength) && AirVehicle == false)
+            if (Physics.Raycast(groundCheck.position, -rig.transform.up, out RaycastHit hit, maxRayLength))
             {
 
                 StepUp();
-
-
-                accelarationLogic();
-                turningLogic();
-                frictionLogic();
-                brakeLogic();
+                Acceleration();
+                Turning();
+                Friction();
+                Brake();
                
                 rig.angularDrag = dragAmount;
 
@@ -140,23 +133,14 @@ namespace Frontend.Scripts
 
                 rig.centerOfMass = Vector3.zero;
             }
-            else if (!Physics.Raycast(groundCheck.position, -rig.transform.up, out hit, maxRayLength) && AirVehicle == false)
+            else if (!Physics.Raycast(groundCheck.position, -rig.transform.up, out hit, maxRayLength))
             {
                 grounded = false;
                 rig.drag = 0.1f;
                 rig.centerOfMass = CentreOfMass.localPosition;
-                if (!airDrag)
-                {
-                    rig.angularDrag = 0.1f;
-                }
+                rig.angularDrag = 0.1f;
             }
 
-            if (AirVehicle == true)
-            {
-                AirController();
-            }
-
-           
         }
 
         private void StepUp()
@@ -178,7 +162,7 @@ namespace Frontend.Scripts
                 }
             }
         }
-        public void accelarationLogic()
+        private void Acceleration()
         {
             //speed control
             if (inputs.y > 0.1f)
@@ -200,7 +184,7 @@ namespace Frontend.Scripts
             }
         }
 
-        public void turningLogic()
+        private void Turning()
         {
             //turning
             if (carVelocity.z > 0.1f)
@@ -217,7 +201,7 @@ namespace Frontend.Scripts
             }
         }
 
-        public void frictionLogic()
+        private void Friction()
         {
             //Friction
             if (carVelocity.magnitude > 1)
@@ -232,9 +216,8 @@ namespace Frontend.Scripts
             }
         }
 
-        public void brakeLogic()
+        private void Brake()
         {
-            //brake
             if (carVelocity.z > 1f)
             {
                 rig.AddForceAtPosition(rig.transform.forward * -brakeInput, groundCheck.position);
@@ -243,6 +226,8 @@ namespace Frontend.Scripts
             {
                 rig.AddForceAtPosition(rig.transform.forward * brakeInput, groundCheck.position);
             }
+
+
             if (carVelocity.magnitude < 1)
             {
                 rig.drag = 5f;
@@ -252,62 +237,6 @@ namespace Frontend.Scripts
                 rig.drag = 0.1f;
             }
         }
-
-        public void AirController()
-        {
-            rig.useGravity = false;
-            var forwardDir = Vector3.ProjectOnPlane(rig.transform.forward, Vector3.up);
-
-
-            float upForceValue = (-Physics.gravity.y / Time.deltaTime) + UpForce;
-            rig.AddForce(rig.transform.up * upForceValue * Time.deltaTime);
-
-            //speed control
-            if (inputs.y > 0.1f)
-            {
-                rig.AddForceAtPosition(forwardDir * speedValue, groundCheck.position);
-            }
-            if (inputs.y < -0.1f)
-            {
-                rig.AddForceAtPosition(forwardDir * speedValue / 2, groundCheck.position);
-            }
-
-            rig.AddTorque(Vector3.up * turnValue);
-
-            //friction(drag) 
-            if (carVelocity.magnitude > 1)
-            {
-                float frictionAngle = (-Vector3.Angle(rig.transform.up, Vector3.up) / 90f) + 1;
-                foreach (DriveElement de in driveElements)
-                {
-                    rig.AddForceAtPosition(Vector3.ProjectOnPlane(rig.transform.right, Vector3.up) 
-                        * fricValue/driveElements.Length * frictionAngle * 100 * -carVelocity.normalized.x, de.ForceAtPosition.position);
-                }
-            }
-
-            //brake
-            if (carVelocity.z > 1f)
-            {
-                rig.AddForceAtPosition(Vector3.ProjectOnPlane(rig.transform.forward, Vector3.up) 
-                    * -brakeInput, groundCheck.position);
-            }
-            if (carVelocity.z < -1f)
-            {
-                rig.AddForceAtPosition(Vector3.ProjectOnPlane(rig.transform.forward, Vector3.up) * brakeInput, groundCheck.position);
-            }
-            if (carVelocity.magnitude < 1)
-            {
-                rig.drag = 5f;
-            }
-            else
-            {
-                rig.drag = 1f;
-            }
-
-
-        }
-
-
     }
     
 }
