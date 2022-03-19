@@ -10,7 +10,7 @@ namespace Frontend.Scripts
     [System.Serializable]
     public struct DriveElement
     {
-
+        
         public Transform forceAtPos;
         public Transform detetion;
 
@@ -111,19 +111,7 @@ namespace Frontend.Scripts
             if (Physics.Raycast(groundCheck.position, -rig.transform.up, out hit, maxRayLength) && AirVehicle == false)
             {
 
-                foreach (DriveElement de in driveElements)
-                {
-                    Ray ray = new Ray(de.detetion.position, de.detetion.forward);
-                    if (Physics.Raycast(ray, out RaycastHit hit, stepDetectiongRange))
-                    {
-                        de.forceAtPos.parent.GetComponent<Rigidbody>().AddForceAtPosition(stepUp * de.forceAtPos.parent.up + de.forceAtPos.parent.forward, de.forceAtPos.parent.position - de.forceAtPos.parent.up);
-                        Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
-                    }
-                    else
-                    {
-                        Debug.DrawRay(ray.origin, ray.direction * stepDetectiongRange, Color.red);
-                    }
-                }
+                StepUp();
 
 
                 accelarationLogic();
@@ -157,7 +145,25 @@ namespace Frontend.Scripts
            
         }
 
+        private void StepUp()
+        {
+            if (combinedInput == 0) return;
 
+            foreach (DriveElement de in driveElements)
+            {
+                Ray ray = new Ray(de.detetion.position, de.detetion.forward);
+                if (Physics.Raycast(ray, out RaycastHit hit, stepDetectiongRange))
+                {
+                    de.forceAtPos.parent.GetComponent<Rigidbody>().AddForceAtPosition(stepUp * de.forceAtPos.parent.up + de.forceAtPos.parent.forward, 
+                        de.forceAtPos.parent.position - de.forceAtPos.parent.up);
+                    Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
+                }
+                else
+                {
+                    Debug.DrawRay(ray.origin, ray.direction * stepDetectiongRange, Color.red);
+                }
+            }
+        }
         public void accelarationLogic()
         {
             //speed control
