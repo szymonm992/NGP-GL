@@ -46,8 +46,8 @@ namespace Frontend.Scripts
         public float stepUp = 2000f;
         public float stepDetectiongRange = .2f;
         public float maxRayLength = 0.8f, slerpTime = 0.2f;
-        [HideInInspector]
-        public bool grounded;
+        
+        
 
         [Header("Curves")]
         public AnimationCurve frictionCurve;
@@ -59,59 +59,46 @@ namespace Frontend.Scripts
         [Inject(Id = "mainRig")] private readonly Rigidbody rig;
 
         private float speedValue, fricValue, turnValue, brakeInput;
-        [HideInInspector]
-        public Vector3 carVelocity;
-
-
-
-        private float frictionAngle;
-
+       
         #region LOCAL CONTROL VARIABLES
-        private Vector2 inputs;
+        private Vector2 inputs = Vector2.zero;
+        private Vector3 carVelocity = Vector2.zero;
         private float combinedInput = 0f;
         private bool isBraking = false;
         private float currentSpeed = 0f;
-        private float finalPower = 0f;
-        float actualBrake = 0f;
+        private int wheelsAmount=0;
+        private float terrainAngle=0f;
+        private bool grounded = false;
         #endregion
 
         private void Update()
         {
-            inputs = new Vector2(playerInputs.Horizontal, playerInputs.Vertical);
-            combinedInput = Mathf.Abs(playerInputs.Horizontal) + Mathf.Abs(playerInputs.Vertical);
-            currentSpeed = rig.velocity.magnitude * 4f;
-            isBraking = playerInputs.Brake;
-            
-            if (!isBraking)
-            {
-                isBraking = combinedInput == 0;
-            }
+            ReadInputs();
             speedometer.text = currentSpeed.ToString("F0");
         }
 
 
         private void Awake()
         {
-            grounded = false;
             rig.centerOfMass = CentreOfMass.localPosition;
 
             foreach(DriveElement de in driveElements)
             {
                 de.Initialize();
             }
+            wheelsAmount = driveElements.Length;
         }
 
         private void FixedUpdate()
         {
             carVelocity = rig.transform.InverseTransformDirection(rig.velocity); //local velocity of car
 
-            //inputs
             float turnInput = turn * inputs.x * Time.fixedDeltaTime * 1000;
             float speedInput = speed * inputs.y * Time.fixedDeltaTime * 1000;
+
             if (isBraking)
                 brakeInput = brake * Time.fixedDeltaTime * 1000;
 
-            //helping veriables
             speedValue = speedInput * speedCurve.Evaluate(Mathf.Abs(carVelocity.z) / 100);
             fricValue = friction * frictionCurve.Evaluate(carVelocity.magnitude / 100);
             turnValue = turnInput * turnCurve.Evaluate(carVelocity.magnitude / 100);
@@ -143,6 +130,20 @@ namespace Frontend.Scripts
 
         }
 
+        private void ReadInputs()
+        {
+            isBraking = playerInputs.Brake;
+
+            inputs = new Vector2(playerInputs.Horizontal, playerInputs.Vertical);
+            combinedInput = Mathf.Abs(playerInputs.Horizontal) + Mathf.Abs(playerInputs.Vertical);
+            currentSpeed = rig.velocity.magnitude * 4f;
+
+            if (!isBraking)
+            {
+                isBraking = combinedInput == 0;
+            }
+        }
+
         private void StepUp()
         {
             if (combinedInput == 0) return;
@@ -169,7 +170,7 @@ namespace Frontend.Scripts
             {
                 foreach(DriveElement de in driveElements)
                 {
-                    rig.AddForceAtPosition(rig.transform.forward * speedValue/driveElements.Length 
+                    rig.AddForceAtPosition(rig.transform.forward * speedValue/wheelsAmount 
                         * engineCurve.Evaluate(currentSpeed), de.ForceAtPosition.position);
                 }
                 
@@ -178,7 +179,7 @@ namespace Frontend.Scripts
             {
                 foreach (DriveElement de in driveElements)
                 {
-                    rig.AddForceAtPosition(rig.transform.forward * speedValue / driveElements.Length
+                    rig.AddForceAtPosition(rig.transform.forward * speedValue / wheelsAmount
                         * engineCurve.Evaluate(currentSpeed), de.ForceAtPosition.position);
                 }
             }
@@ -206,10 +207,10 @@ namespace Frontend.Scripts
             //Friction
             if (carVelocity.magnitude > 1)
             {
-                frictionAngle = (-Vector3.Angle(rig.transform.up, Vector3.up) / 90f) + 1;
+                terrainAngle = (-Vector3.Angle(rig.transform.up, Vector3.up) / 90f) + 1;
                 foreach(DriveElement de in driveElements)
                 {
-                    rig.AddForceAtPosition(rig.transform.right * fricValue/driveElements.Length * frictionAngle 
+                    rig.AddForceAtPosition(rig.transform.right * fricValue/wheelsAmount * terrainAngle
                         * 100f * -carVelocity.normalized.x, de.ForceAtPosition.position);
                 }
                 
