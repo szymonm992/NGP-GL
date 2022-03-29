@@ -6,44 +6,15 @@ using Zenject;
 using Frontend.Scripts.Models.VehicleSystem;
 using Frontend.Scripts.Enums;
 
-namespace Frontend.Scripts
+namespace Frontend.Scripts.Components
 {
-    [System.Serializable]
-    public class DriveElement
-    {
-        [SerializeField] private Rigidbody wheelRigidbody;
-        [SerializeField] private DriveAxisInfo axisInfo;
-       
-        private Transform forceAtPos;
-        private Transform stepDetector;
-        private Transform visualWheel;
-        public Rigidbody WheelRigidbody => wheelRigidbody;
-        public DriveAxisInfo AxisInfo => axisInfo;
-        public Transform ForceAtPosition => forceAtPos;
-        public Transform StepDetector => stepDetector;
-        public Transform VisualWheel => visualWheel;
-        public void Initialize()
-        {
-            this.forceAtPos = wheelRigidbody.transform.Find("forceAtPosition");
-            this.stepDetector = wheelRigidbody.transform.Find("stepDetector");
-            this.visualWheel = wheelRigidbody.transform.Find("visual");
-        }
-    }
-    [System.Serializable]
-    public struct DriveAxisInfo
-    {
-        public DriveAxisSite DriveAxisSite;
-    }
-
-    public enum DriveAxisSite
-    {
-        Left,
-        Right
-    }
-    public class DriveController : MonoBehaviour
+   
+    
+   
+    public class DriveController : MonoBehaviour, IInitializable
     {
 
-        [Inject] public readonly IVehicleStats tankStats;
+        [Inject] public readonly CarStats carStats;
         [Inject] public readonly IPlayerInput playerInputs;
 
         [Header("GUI")]
@@ -55,21 +26,8 @@ namespace Frontend.Scripts
 
         [Space]
         [SerializeField] private DriveElement[] driveElements;
-
-        [Header("Car Stats")]
-        [SerializeField] private float maxSpeed = 75f;
-        [SerializeField] private float speed = 200f;
-        [SerializeField] private float turn = 100f;
-        [SerializeField] private float brake = 150;
-        [SerializeField] private float friction = 70f;
-        [SerializeField] private float dragAmount = 4f;
-        [SerializeField] private float TurnAngle = 30f;
-        [SerializeField] private float stepUp = 2000f;
-        [SerializeField] private float stepDetectiongRange = .2f;
-        [SerializeField] private float maxRayLength = 0.8f, slerpTime = 0.2f;
+        [SerializeField] private float groundingRayLength = 0.8f;
         
-        
-
         [Header("Curves")]
         [SerializeField] private AnimationCurve frictionCurve;
         [SerializeField] private AnimationCurve speedCurve;
@@ -84,47 +42,58 @@ namespace Frontend.Scripts
         #region LOCAL CONTROL VARIABLES
         private Vector2 inputs = Vector2.zero;
         private Vector3 carVelocity = Vector2.zero;
-        private float combinedInput = 0f;
-        private bool isBraking = false;
+        
         private float currentSpeed = 0f;
+        private float terrainAngle = 0f;
+        private float combinedInput = 0f;
+        private float currentSpeedRatio = 0f;
+
         private int wheelsAmount=0;
-        private float terrainAngle=0f;
+
+        private bool isBraking = false;
         private bool grounded = false;
+        private bool isSetup=false;
         #endregion
 
         private void Update()
         {
+            if (!isSetup) return;
             ReadInputs();
             speedometer.text = currentSpeed.ToString("F0");
         }
-
-
-        private void Awake()
+        public void Initialize()
         {
-            rig.centerOfMass = centerOfMass.localPosition;
+            if (centerOfMass)
+            {
+                rig.centerOfMass = centerOfMass.localPosition;
+            }
 
-            foreach(DriveElement de in driveElements)
+
+            foreach (DriveElement de in driveElements)
             {
                 de.Initialize();
             }
             wheelsAmount = driveElements.Length;
+            isSetup = true;
         }
+
 
         private void FixedUpdate()
         {
+            if (!isSetup) return;
             carVelocity = rig.transform.InverseTransformDirection(rig.velocity); //local velocity of car
 
-            float turnInput = turn * inputs.x * Time.fixedDeltaTime * 1000;
-            float speedInput = speed * inputs.y * Time.fixedDeltaTime * 1000;
+            float turnInput = carStats.TurnPower * inputs.x * Time.fixedDeltaTime * 1000;
+            float speedInput = carStats.EnginePower * inputs.y * Time.fixedDeltaTime * 1000;
 
             if (isBraking)
-                brakeInput = brake * Time.fixedDeltaTime * 1000;
+                brakeInput = carStats.BrakePower * Time.fixedDeltaTime * 1000;
 
             speedValue = speedInput * speedCurve.Evaluate(Mathf.Abs(carVelocity.z) / 100);
-            fricValue = friction * frictionCurve.Evaluate(carVelocity.magnitude / 100);
+            fricValue = carStats.FrictionPower * frictionCurve.Evaluate(carVelocity.magnitude / 100);
             turnValue = turnInput * turnCurve.Evaluate(carVelocity.magnitude / 100);
 
-            if (Physics.Raycast(groundCheck.position, -rig.transform.up, out RaycastHit hit, maxRayLength))
+            if (Physics.Raycast(groundCheck.position, -rig.transform.up, out RaycastHit hit, groundingRayLength))
             {
                 StepUp();
                 Acceleration();
@@ -132,14 +101,14 @@ namespace Frontend.Scripts
                 Friction();
                 Brake();
                
-                rig.angularDrag = dragAmount;
+                rig.angularDrag = carStats.Drag;
 
                 Debug.DrawLine(groundCheck.position, hit.point, Color.green);
                 grounded = true;
 
                 rig.centerOfMass = Vector3.zero;
             }
-            else if (!Physics.Raycast(groundCheck.position, -rig.transform.up, out hit, maxRayLength))
+            else if (!Physics.Raycast(groundCheck.position, -rig.transform.up, out hit, groundingRayLength))
             {
                 grounded = false;
                 rig.drag = 0.1f;
@@ -155,7 +124,9 @@ namespace Frontend.Scripts
 
             inputs = new Vector2(playerInputs.Horizontal, playerInputs.Vertical);
             combinedInput = Mathf.Abs(playerInputs.Horizontal) + Mathf.Abs(playerInputs.Vertical);
+
             currentSpeed = rig.velocity.magnitude * 4f;
+            currentSpeedRatio = currentSpeed / carStats.MaxForwardSpeed;
 
             if (!isBraking)
             {
@@ -170,15 +141,15 @@ namespace Frontend.Scripts
             foreach (DriveElement de in driveElements)
             {
                 Ray ray = new Ray(de.StepDetector.position, de.StepDetector.forward);
-                if (Physics.Raycast(ray, out RaycastHit hit, stepDetectiongRange))
+                if (Physics.Raycast(ray, out RaycastHit hit, carStats.StepUpRayLength))
                 {
-                    de.WheelRigidbody.AddForceAtPosition(stepUp * de.WheelRigidbody.transform.up + de.WheelRigidbody.transform.forward, 
+                    de.WheelRigidbody.AddForceAtPosition(carStats.StepUpForce * de.WheelRigidbody.transform.up + de.WheelRigidbody.transform.forward, 
                         de.WheelRigidbody.transform.position - de.WheelRigidbody.transform.up);
                     Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
                 }
                 else
                 {
-                    Debug.DrawRay(ray.origin, ray.direction * stepDetectiongRange, Color.red);
+                    Debug.DrawRay(ray.origin, ray.direction * carStats.StepUpRayLength, Color.red);
                 }
             }
         }
@@ -262,12 +233,64 @@ namespace Frontend.Scripts
             if (combinedInput == 0) return;
             foreach(DriveElement de in driveElements)
             {
-                float dir = playerInputs.Vertical > 0 ? 1 : -1f;
+                float dir = playerInputs.Vertical > 0 ? -1 : 1f;
                 Vector3 rotateAroundAxis = -de.VisualWheel.right;
-                de.VisualWheel.RotateAround(de.VisualWheel.position, rotateAroundAxis, dir * currentSpeed/maxSpeed * 10f);
+
+                if(de.CanSteer)
+                {
+                    de.VisualWheel.localRotation = Quaternion.RotateTowards(de.VisualWheel.localRotation,
+                    Quaternion.Euler(de.VisualWheel.localRotation.eulerAngles.x, ClampAngle(carStats.TurnAngle * playerInputs.Horizontal, -carStats.TurnAngle + 5f, carStats.TurnAngle - 5f), de.VisualWheel.localRotation.eulerAngles.z),
+                    Time.deltaTime*180f);
+                }
+
+                de.MeshTransform.RotateAround(de.VisualWheel.position, rotateAroundAxis, dir * currentSpeedRatio * 10f);
             }
         }
 
+
+        public  float ClampAngle(float angle, float min, float max)
+        {
+            angle = Mathf.Repeat(angle, 360);
+            min = Mathf.Repeat(min, 360);
+            max = Mathf.Repeat(max, 360);
+            bool inverse = false;
+            var tmin = min;
+            var tangle = angle;
+            if (min > 180)
+            {
+                inverse = !inverse;
+                tmin -= 180;
+            }
+            if (angle > 180)
+            {
+                inverse = !inverse;
+                tangle -= 180;
+            }
+            var result = !inverse ? tangle > tmin : tangle < tmin;
+            if (!result)
+                angle = min;
+
+            inverse = false;
+            tangle = angle;
+            var tmax = max;
+            if (angle > 180)
+            {
+                inverse = !inverse;
+                tangle -= 180;
+            }
+            if (max > 180)
+            {
+                inverse = !inverse;
+                tmax -= 180;
+            }
+
+            result = !inverse ? tangle < tmax : tangle > tmax;
+            if (!result)
+                angle = max;
+            return angle;
+        }
+
+       
     }
 
 }

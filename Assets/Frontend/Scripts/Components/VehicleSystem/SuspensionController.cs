@@ -14,7 +14,7 @@ namespace Frontend.Scripts.Components.VehicleSystem
 
         [Inject(Id = "mainRig")] private readonly Rigidbody rig;
 
-        [Inject] public readonly IVehicleStats tankStats;
+        [Inject] public readonly TankStats tankStats;
         [Inject] public readonly IPlayerInput playerInputs;
 
         [SerializeField] private Text speedometer;
