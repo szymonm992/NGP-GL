@@ -5560,3 +5560,250 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 968.549501 seconds.
+  path: Assets/Frontend/Prefabs/Buggy_controller.prefab
+  artifactKey: Guid(2f2d9fe99662a1e49a122cbe851b1b02) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Frontend/Prefabs/Buggy_controller.prefab using Guid(2f2d9fe99662a1e49a122cbe851b1b02) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '17aafe0919f2178815d48833bfe1bae9') in 0.282378 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 3.608234 seconds.
+  path: Assets/Frontend/Scripts/Components/VehicleSystem/SuspensionController.cs
+  artifactKey: Guid(c37110991ec65fd4d9dafc257636de77) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Frontend/Scripts/Components/VehicleSystem/SuspensionController.cs using Guid(c37110991ec65fd4d9dafc257636de77) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '72045e69ef881fdc24028ff4a1b47c94') in 0.001793 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.020449 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\Administrator.QED\Documents\GitHub\NGP-GL\Library\PackageCache\com.unity.visualscripting@1.7.2\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\Administrator.QED\Documents\GitHub\NGP-GL\Library\PackageCache\com.unity.visualscripting@1.7.2\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Native extension for LinuxStandalone target not found
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.29 ms, found 6 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.718 seconds
+Domain Reload Profiling:
+	ReloadAssembly (2719ms)
+		BeginReloadAssembly (230ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (11ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (80ms)
+		EndReloadAssembly (2333ms)
+			LoadAssemblies (144ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (846ms)
+			ReleaseScriptCaches (4ms)
+			RebuildScriptCaches (69ms)
+			SetupLoadedEditorAssemblies (930ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (20ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (140ms)
+				ProcessInitializeOnLoadAttributes (659ms)
+				ProcessInitializeOnLoadMethodAttributes (96ms)
+				AfterProcessingInitializeOnLoad (13ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (24ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.34 ms, found 6 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5940 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 44 unused Assets / (381.6 KB). Loaded Objects now: 7042.
+Memory consumption went from 244.0 MB to 243.7 MB.
+Total: 5.942400 ms (FindLiveObjects: 0.827800 ms CreateObjectMapping: 0.667600 ms MarkObjects: 4.289300 ms  DeleteObjects: 0.155800 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 57.595601 seconds.
+  path: Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AboutPage@32x.png
+  artifactKey: Guid(f6f048125c21440218c781f481346589) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AboutPage@32x.png using Guid(f6f048125c21440218c781f481346589) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cc962c2dbc938c335b1ca24c3b193206') in 0.142824 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignCenters_Pro@32x.png
+  artifactKey: Guid(3b7d833555c9e40048ba772bee4e95da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignCenters_Pro@32x.png using Guid(3b7d833555c9e40048ba772bee4e95da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4194d49ff23397ca959af65e25b4afda') in 0.017601 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignCenters_Pro@64x.png
+  artifactKey: Guid(f4da19d5850d84d02b662f2d263c39b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignCenters_Pro@64x.png using Guid(f4da19d5850d84d02b662f2d263c39b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a586f89790e3a8eb541eb846a527ca0e') in 0.029002 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/Animation@16x.png
+  artifactKey: Guid(b9863fedd583c4c318d83f3b422cfa9e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/Animation@16x.png using Guid(b9863fedd583c4c318d83f3b422cfa9e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9b8ea15290ea1d2695f948f2a7aed04b') in 0.017055 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignMiddles@32x.png
+  artifactKey: Guid(3253fb55219dc490ebf6e8c63ee3376b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignMiddles@32x.png using Guid(3253fb55219dc490ebf6e8c63ee3376b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'beb926b1f8b1f70c91563e0a16f75b38') in 0.018944 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Packages/com.unity.inputsystem/InputSystem/Editor/Icons/Add Binding@4x.png
+  artifactKey: Guid(862c5ca31844d4a6d9aa804af982ce65) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.inputsystem/InputSystem/Editor/Icons/Add Binding@4x.png using Guid(862c5ca31844d4a6d9aa804af982ce65) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ab603a2b913e8dbb3a71bf21218e29f7') in 0.015268 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Packages/com.unity.inputsystem/InputSystem/Editor/AssetEditor/Resources/pro/actionTreeBackground.png
+  artifactKey: Guid(c4b66e31395c54087a2fbc13ae7e0f3c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.inputsystem/InputSystem/Editor/AssetEditor/Resources/pro/actionTreeBackground.png using Guid(c4b66e31395c54087a2fbc13ae7e0f3c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fb63270498fdeb429e5dc4ab88ef2514') in 0.013665 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignRightEdges_Pro@64x.png
+  artifactKey: Guid(f2de911a5582043f8b2a334ae0088322) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignRightEdges_Pro@64x.png using Guid(f2de911a5582043f8b2a334ae0088322) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '622c9321a93fb93d7cdaa3a54276d2b1') in 0.018909 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000046 seconds.
+  path: Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignLeftEdges_Pro@64x.png
+  artifactKey: Guid(6fefb1fc045984bd9bd18ee632b0478e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignLeftEdges_Pro@64x.png using Guid(6fefb1fc045984bd9bd18ee632b0478e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e8eca0501f10c60834783be117400ebe') in 0.016089 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000052 seconds.
+  path: Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignLeftEdges_Pro@16x.png
+  artifactKey: Guid(587389441507f458aa1cda43ff948fe3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignLeftEdges_Pro@16x.png using Guid(587389441507f458aa1cda43ff948fe3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f8cf2f71270b3329061192ef0429e314') in 0.017090 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000040 seconds.
+  path: Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignCenters_Pro@16x.png
+  artifactKey: Guid(dc0c11ade5ba44bafbb1a28a2b3af4c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignCenters_Pro@16x.png using Guid(dc0c11ade5ba44bafbb1a28a2b3af4c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '441ed4f428fe5b8a615e8cee2e02a49b') in 0.016896 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignTopEdges@16x.png
+  artifactKey: Guid(bc11215cb400a4af39500a6124a17865) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignTopEdges@16x.png using Guid(bc11215cb400a4af39500a6124a17865) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dfc3e95d8e2cdbff712b5dd8b861e4db') in 0.019697 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignTopEdges@64x.png
+  artifactKey: Guid(db8f439ce4c82420d982c88a7fd41f31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignTopEdges@64x.png using Guid(db8f439ce4c82420d982c88a7fd41f31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6acec6b8c818de5365dce9d77fff1c1f') in 0.015628 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000038 seconds.
+  path: Packages/com.unity.collab-proxy/Editor/Collaborate/Assets/Icons/added-file-light@2x.png
+  artifactKey: Guid(ec2e3aa6d0ab8ce4eac29b56d65d61d5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.collab-proxy/Editor/Collaborate/Assets/Icons/added-file-light@2x.png using Guid(ec2e3aa6d0ab8ce4eac29b56d65d61d5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a1c67c1990ad18dc6658c3b51fea85ea') in 0.017098 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignCenters@32x.png
+  artifactKey: Guid(d4bc671e4f59e47a2990c9de9e279a3b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignCenters@32x.png using Guid(d4bc671e4f59e47a2990c9de9e279a3b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eb0a39bb1a9dc7ffca776cc019f63420') in 0.014878 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignCenters@64x.png
+  artifactKey: Guid(8f74f1fe81e024190a338b37765769d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignCenters@64x.png using Guid(8f74f1fe81e024190a338b37765769d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '77dcbe7a531657be7900a8e5098b3ec2') in 0.017600 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000041 seconds.
+  path: Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignTopEdges_Pro@16x.png
+  artifactKey: Guid(b9a9b518ce4dc40f4b45ffdbc8e5ac6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignTopEdges_Pro@16x.png using Guid(b9a9b518ce4dc40f4b45ffdbc8e5ac6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ef777a8a308a05e1f82228b3f5a8ced9') in 0.014685 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000037 seconds.
+  path: Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignTopEdges@32x.png
+  artifactKey: Guid(b825b7dd739ac468c8e4f5574882e05b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignTopEdges@32x.png using Guid(b825b7dd739ac468c8e4f5574882e05b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '892cf54df5dba307b298704f1b38d92a') in 0.018311 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Packages/com.unity.inputsystem/InputSystem/Editor/AssetEditor/Resources/personal/actionTreeBackground.png
+  artifactKey: Guid(ce5f11cd993284c4f9c54f854bdc8c9c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.inputsystem/InputSystem/Editor/AssetEditor/Resources/personal/actionTreeBackground.png using Guid(ce5f11cd993284c4f9c54f854bdc8c9c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ca0a7a5973fd9f80c7ec8689b408378a') in 0.014641 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignMiddles_Pro@64x.png
+  artifactKey: Guid(3c65bb78022d94ef290bb660f4b58b79) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignMiddles_Pro@64x.png using Guid(3c65bb78022d94ef290bb660f4b58b79) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '37fbd5057ab15872b920feb41c791fc5') in 0.015954 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignLeftEdges@64x.png
+  artifactKey: Guid(8cba85d094d7f4711a50c61837c88805) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignLeftEdges@64x.png using Guid(8cba85d094d7f4711a50c61837c88805) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9fc57c91096596fb2c40d95a81e2d761') in 0.014437 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignMiddles@64x.png
+  artifactKey: Guid(cfc8d5f9b86864735b5a468e0c47b790) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignMiddles@64x.png using Guid(cfc8d5f9b86864735b5a468e0c47b790) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5f89001b61914341683c602ff5887486') in 0.015194 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000029 seconds.
+  path: Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignLeftEdges_Pro@32x.png
+  artifactKey: Guid(7593deb8647c443c585dcd8615a242e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignLeftEdges_Pro@32x.png using Guid(7593deb8647c443c585dcd8615a242e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cc97cadcfabf9c50b129bf3512217049') in 0.014735 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000040 seconds.
+  path: Packages/com.unity.collab-proxy/Editor/Collaborate/Assets/Icons/added-file-dark.png
+  artifactKey: Guid(1a4f52b613391cd449af3ad2e44affeb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.collab-proxy/Editor/Collaborate/Assets/Icons/added-file-dark.png using Guid(1a4f52b613391cd449af3ad2e44affeb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '87339a8f504c613de449d29bd63247d2') in 0.015354 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000047 seconds.
+  path: Packages/com.unity.collab-proxy/Editor/Collaborate/Assets/Icons/added-file-dark@2x.png
+  artifactKey: Guid(c223e0c507e2c6549a2cb97441b62cbe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.collab-proxy/Editor/Collaborate/Assets/Icons/added-file-dark@2x.png using Guid(c223e0c507e2c6549a2cb97441b62cbe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '64d0da5642653dd4a2bd6180c10ab9e8') in 0.016364 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000042 seconds.
+  path: Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignRightEdges@32x.png
+  artifactKey: Guid(ed8d0dca5500a454b9d883395060a90b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignRightEdges@32x.png using Guid(ed8d0dca5500a454b9d883395060a90b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '871f1e8480a3f12020c454fa43414805') in 0.015880 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignRightEdges_Pro@16x.png
+  artifactKey: Guid(5305d904675fe4ff1ada081786e8bbf6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignRightEdges_Pro@16x.png using Guid(5305d904675fe4ff1ada081786e8bbf6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8e3bfcb5f56afc5c5343db062c486b00') in 0.015349 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignBottomEdges@64x.png
+  artifactKey: Guid(d5dc2fbdd2d67491c993d7b01266ddad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignBottomEdges@64x.png using Guid(d5dc2fbdd2d67491c993d7b01266ddad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b2653c055ac027837434548545f9b964') in 0.014829 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000032 seconds.
+  path: Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignMiddles@16x.png
+  artifactKey: Guid(ca528f844be0c412f8989fd091d33053) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.visualscripting/Editor/VisualScripting.Core/EditorAssetResources/AlignMiddles@16x.png using Guid(ca528f844be0c412f8989fd091d33053) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '25a8a4dd79aa365f9bc549b82ebcbf5a') in 0.017779 seconds 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0

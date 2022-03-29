@@ -11,11 +11,13 @@ namespace Frontend.Scripts.Components
    
     
    
-    public class DriveController : MonoBehaviour, IInitializable
+    public class CarController : MonoBehaviour, IInitializable
     {
 
         [Inject] public readonly CarStats carStats;
         [Inject] public readonly IPlayerInput playerInputs;
+
+        [Inject(Id = "mainRig")] private readonly Rigidbody rig;
 
         [Header("GUI")]
         [SerializeField] private Text speedometer;
@@ -26,17 +28,8 @@ namespace Frontend.Scripts.Components
 
         [Space]
         [SerializeField] private DriveElement[] driveElements;
-        [SerializeField] private float groundingRayLength = 0.8f;
+        [SerializeField] private float groundingRayLength = 2f;
         
-        [Header("Curves")]
-        [SerializeField] private AnimationCurve frictionCurve;
-        [SerializeField] private AnimationCurve speedCurve;
-        [SerializeField] private AnimationCurve turnCurve;
-        [SerializeField] private AnimationCurve engineCurve;
-
-
-        [Inject(Id = "mainRig")] private readonly Rigidbody rig;
-
         private float speedValue, fricValue, turnValue, brakeInput;
        
         #region LOCAL CONTROL VARIABLES
@@ -89,9 +82,9 @@ namespace Frontend.Scripts.Components
             if (isBraking)
                 brakeInput = carStats.BrakePower * Time.fixedDeltaTime * 1000;
 
-            speedValue = speedInput * speedCurve.Evaluate(Mathf.Abs(carVelocity.z) / 100);
-            fricValue = carStats.FrictionPower * frictionCurve.Evaluate(carVelocity.magnitude / 100);
-            turnValue = turnInput * turnCurve.Evaluate(carVelocity.magnitude / 100);
+            speedValue = speedInput * carStats.SpeedCurve.Evaluate(Mathf.Abs(carVelocity.z) / 100);
+            fricValue = carStats.FrictionPower * carStats.FrictionCurve.Evaluate(carVelocity.magnitude / 100);
+            turnValue = turnInput * carStats.TurningCurve.Evaluate(carVelocity.magnitude / 100);
 
             if (Physics.Raycast(groundCheck.position, -rig.transform.up, out RaycastHit hit, groundingRayLength))
             {
@@ -155,13 +148,12 @@ namespace Frontend.Scripts.Components
         }
         private void Acceleration()
         {
-            //speed control
             if (inputs.y > 0.1f)
             {
                 foreach(DriveElement de in driveElements)
                 {
                     rig.AddForceAtPosition(rig.transform.forward * speedValue/wheelsAmount 
-                        * engineCurve.Evaluate(currentSpeed), de.ForceAtPosition.position);
+                        * carStats.EngineCurve.Evaluate(currentSpeed), de.ForceAtPosition.position);
                 }
                 
             }
@@ -170,7 +162,7 @@ namespace Frontend.Scripts.Components
                 foreach (DriveElement de in driveElements)
                 {
                     rig.AddForceAtPosition(rig.transform.forward * speedValue / wheelsAmount
-                        * engineCurve.Evaluate(currentSpeed), de.ForceAtPosition.position);
+                        * carStats.EngineCurve.Evaluate(currentSpeed), de.ForceAtPosition.position);
                 }
             }
         }
@@ -178,15 +170,15 @@ namespace Frontend.Scripts.Components
         private void Turning()
         {
             //turning
-            if (carVelocity.z > 0.1f)
+            if (carVelocity.z > 0.2f)
             {
                 rig.AddTorque(rig.transform.up * turnValue);
             }
-            else if (inputs.y > 0.1f)
+            else if (inputs.y > 0.2f)
             {
                 rig.AddTorque(rig.transform.up * turnValue);
             }
-            if (carVelocity.z < -0.1f && inputs.y < -0.1f)
+            if (carVelocity.z < -0.2f && inputs.y < -0.2f)
             {
                 rig.AddTorque(rig.transform.up * -turnValue);
             }
