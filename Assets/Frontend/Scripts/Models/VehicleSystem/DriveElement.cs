@@ -10,12 +10,14 @@ namespace Frontend.Scripts.Models.VehicleSystem
         [SerializeField] private Rigidbody wheelRigidbody;
         [SerializeField] private DriveAxisInfo axisInfo;
         [SerializeField] private bool canSteer;
+        [SerializeField] private bool drive=true; //determines whether the wheel is drivable
 
         private Transform forceAtPos;
         private Transform stepDetector;
         private Transform visualWheel;
         private Transform meshTransform;
         private Collider collider;
+        public bool Drive => drive;
         public bool CanSteer => canSteer;
         public Rigidbody WheelRigidbody => wheelRigidbody;
         public DriveAxisInfo AxisInfo => axisInfo;

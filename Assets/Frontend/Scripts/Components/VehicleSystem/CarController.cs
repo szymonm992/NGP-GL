@@ -29,10 +29,10 @@ namespace Frontend.Scripts.Components
         [Space]
         [SerializeField] private DriveElement[] driveElements;
         [SerializeField] private float groundingRayLength = 2f;
-        
-        private float speedValue, fricValue, turnValue, brakeInput;
-       
+
         #region LOCAL CONTROL VARIABLES
+        private float speedValue, fricValue, turnValue, brakeInput;
+
         private Vector2 inputs = Vector2.zero;
         private Vector3 carVelocity = Vector2.zero;
         
@@ -148,10 +148,12 @@ namespace Frontend.Scripts.Components
         }
         private void Acceleration()
         {
+           
             if (inputs.y > 0.1f)
             {
                 foreach(DriveElement de in driveElements)
                 {
+                    if (!de.Drive) continue;
                     rig.AddForceAtPosition(rig.transform.forward * speedValue/wheelsAmount 
                         * carStats.EngineCurve.Evaluate(currentSpeed), de.ForceAtPosition.position);
                 }
@@ -161,6 +163,8 @@ namespace Frontend.Scripts.Components
             {
                 foreach (DriveElement de in driveElements)
                 {
+                    if (!de.Drive) continue;
+
                     rig.AddForceAtPosition(rig.transform.forward * speedValue / wheelsAmount
                         * carStats.EngineCurve.Evaluate(currentSpeed), de.ForceAtPosition.position);
                 }
