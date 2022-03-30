@@ -5,13 +5,14 @@ using UnityEngine.UI;
 using Zenject;
 using Frontend.Scripts.Models.VehicleSystem;
 using Frontend.Scripts.Enums;
+using Frontend.Scripts.Interfaces;
 
 namespace Frontend.Scripts.Components
 {
    
     
    
-    public class CarController : MonoBehaviour, IInitializable
+    public class CarController : MonoBehaviour, IInitializable, IVehicleController
     {
 
         [Inject] public readonly CarStats carStats;
@@ -33,18 +34,17 @@ namespace Frontend.Scripts.Components
         #region LOCAL CONTROL VARIABLES
         private float speedValue, fricValue, turnValue, brakeInput;
 
-        private Vector2 inputs = Vector2.zero;
         private Vector3 carVelocity = Vector2.zero;
         
         private float currentSpeed = 0f;
         private float terrainAngle = 0f;
-        private float combinedInput = 0f;
+        
         private float currentSpeedRatio = 0f;
 
         private int wheelsAmount=0;
 
-        private bool isBraking = false;
         private bool grounded = false;
+        private bool isLocalBraking = false;
         private bool isSetup=false;
         #endregion
 
@@ -52,7 +52,11 @@ namespace Frontend.Scripts.Components
         {
             if (!isSetup) return;
             ReadInputs();
-            speedometer.text = currentSpeed.ToString("F0");
+            grounded = IsGrounded();
+
+            VisualEffects();
+
+            
         }
         public void Initialize()
         {
@@ -70,66 +74,67 @@ namespace Frontend.Scripts.Components
             isSetup = true;
         }
 
+        public bool IsGrounded()
+        {
+            return Physics.Raycast(groundCheck.position, -rig.transform.up, out RaycastHit hit, groundingRayLength);
+        }
 
         private void FixedUpdate()
         {
             if (!isSetup) return;
+
+            PhysicsCalculations();
+
+            if (grounded)
+            {
+                StepUp();
+                Friction();
+                Brake();
+            }
+            
+            
+        }
+
+        private void PhysicsCalculations()
+        {
             carVelocity = rig.transform.InverseTransformDirection(rig.velocity); //local velocity of car
 
-            float turnInput = carStats.TurnPower * inputs.x * Time.fixedDeltaTime * 1000;
-            float speedInput = carStats.EnginePower * inputs.y * Time.fixedDeltaTime * 1000;
+            float turnInput = carStats.TurnPower * playerInputs.Horizontal * Time.fixedDeltaTime * 1000;
+            float speedInput = carStats.EnginePower * playerInputs.Vertical * Time.fixedDeltaTime * 1000;
 
-            if (isBraking)
+            if (isLocalBraking)
                 brakeInput = carStats.BrakePower * Time.fixedDeltaTime * 1000;
 
             speedValue = speedInput * carStats.SpeedCurve.Evaluate(Mathf.Abs(carVelocity.z) / 100);
             fricValue = carStats.FrictionPower * carStats.FrictionCurve.Evaluate(carVelocity.magnitude / 100);
             turnValue = turnInput * carStats.TurningCurve.Evaluate(carVelocity.magnitude / 100);
 
-            if (Physics.Raycast(groundCheck.position, -rig.transform.up, out RaycastHit hit, groundingRayLength))
+            if (grounded)
             {
-                StepUp();
-                Acceleration();
-                Turning();
-                Friction();
-                Brake();
-               
                 rig.angularDrag = carStats.Drag;
-
-                Debug.DrawLine(groundCheck.position, hit.point, Color.green);
-                grounded = true;
-
-                rig.centerOfMass = Vector3.zero;
             }
-            else if (!Physics.Raycast(groundCheck.position, -rig.transform.up, out hit, groundingRayLength))
+            else
             {
-                grounded = false;
                 rig.drag = 0.1f;
                 rig.centerOfMass = centerOfMass.localPosition;
                 rig.angularDrag = 0.1f;
             }
-            VisualEffects();
         }
-
         private void ReadInputs()
         {
-            isBraking = playerInputs.Brake;
-
-            inputs = new Vector2(playerInputs.Horizontal, playerInputs.Vertical);
-            combinedInput = Mathf.Abs(playerInputs.Horizontal) + Mathf.Abs(playerInputs.Vertical);
 
             currentSpeed = rig.velocity.magnitude * 4f;
             currentSpeedRatio = currentSpeed / carStats.MaxForwardSpeed;
 
-            if (!isBraking)
+            if (!playerInputs.Brake)
             {
-                isBraking = combinedInput == 0;
+                isLocalBraking = playerInputs.CombinedInput == 0;
             }
         }
 
         private void StepUp()
         {
-            if (combinedInput == 0) return;
+            if (playerInputs.CombinedInput == 0) return;
 
             foreach (DriveElement de in driveElements)
             {
@@ -149,7 +154,7 @@ namespace Frontend.Scripts.Components
         private void Acceleration()
         {
            
-            if (inputs.y > 0.1f)
+            if (playerInputs.Vertical > 0.1f)
             {
                 foreach(DriveElement de in driveElements)
                 {
@@ -159,7 +164,7 @@ namespace Frontend.Scripts.Components
                 }
                 
             }
-            if (inputs.y < -0.1f)
+            if (playerInputs.Vertical < -0.1f)
             {
                 foreach (DriveElement de in driveElements)
                 {
@@ -171,22 +176,6 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        private void Turning()
-        {
-            //turning
-            if (carVelocity.z > 0.2f)
-            {
-                rig.AddTorque(rig.transform.up * turnValue);
-            }
-            else if (inputs.y > 0.2f)
-            {
-                rig.AddTorque(rig.transform.up * turnValue);
-            }
-            if (carVelocity.z < -0.2f && inputs.y < -0.2f)
-            {
-                rig.AddTorque(rig.transform.up * -turnValue);
-            }
-        }
 
         private void Friction()
         {
@@ -226,25 +215,53 @@ namespace Frontend.Scripts.Components
         }
         private void VisualEffects()
         {
-            if (combinedInput == 0) return;
             foreach(DriveElement de in driveElements)
             {
                 float dir = playerInputs.Vertical > 0 ? -1 : 1f;
                 Vector3 rotateAroundAxis = -de.VisualWheel.right;
 
-                if(de.CanSteer)
+                de.MeshTransform.RotateAround(de.VisualWheel.position, rotateAroundAxis, dir * currentSpeedRatio * 10f);
+                if (de.CanSteer)
                 {
                     de.VisualWheel.localRotation = Quaternion.RotateTowards(de.VisualWheel.localRotation,
-                    Quaternion.Euler(de.VisualWheel.localRotation.eulerAngles.x, ClampAngle(carStats.TurnAngle * playerInputs.Horizontal, -carStats.TurnAngle + 5f, carStats.TurnAngle - 5f), de.VisualWheel.localRotation.eulerAngles.z),
+                    Quaternion.Euler(de.VisualWheel.localRotation.eulerAngles.x, ClampAngle(carStats.TurnAngle * playerInputs.Horizontal, -carStats.TurnAngle, carStats.TurnAngle), de.VisualWheel.localRotation.eulerAngles.z),
                     Time.deltaTime*180f);
                 }
 
-                de.MeshTransform.RotateAround(de.VisualWheel.position, rotateAroundAxis, dir * currentSpeedRatio * 10f);
+               
             }
+            speedometer.text = currentSpeed.ToString("F0");
         }
 
 
-        public  float ClampAngle(float angle, float min, float max)
+        
+        public void TurningLogic()
+        {
+            if (!grounded || !isSetup) return;
+            //turning
+            if (carVelocity.z > 0.2f)
+            {
+                rig.AddTorque(rig.transform.up * turnValue);
+            }
+            else if (playerInputs.Vertical > 0.2f)
+            {
+                rig.AddTorque(rig.transform.up * turnValue);
+            }
+            if (carVelocity.z < -0.2f && playerInputs.Vertical < -0.2f)
+            {
+                rig.AddTorque(rig.transform.up * -turnValue);
+            }
+        }
+
+        public void MovementLogic()
+        {
+            if (!grounded || !isSetup) return;
+
+            Acceleration();
+        }
+
+
+        public float ClampAngle(float angle, float min, float max)
         {
             angle = Mathf.Repeat(angle, 360);
             min = Mathf.Repeat(min, 360);
@@ -286,7 +303,6 @@ namespace Frontend.Scripts.Components
             return angle;
         }
 
-       
     }
 
 }

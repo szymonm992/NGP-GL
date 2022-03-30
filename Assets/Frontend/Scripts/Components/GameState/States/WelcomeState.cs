@@ -7,6 +7,7 @@ using UnityEngine.Scripting;
 using System.Linq;
 using UnityEngine.UI;
 using Frontend.Scripts.Enums;
+using Frontend.Scripts.Interfaces;
 
 using Sfs2X;
 using Sfs2X.Util;

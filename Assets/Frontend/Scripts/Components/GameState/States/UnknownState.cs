@@ -5,6 +5,8 @@ using UnityEngine;
 using Zenject;
 using UnityEngine.Scripting;
 using Frontend.Scripts.Enums;
+using Frontend.Scripts.Interfaces;
+
 namespace Frontend.Scripts.Components
 {
     public class UnknownState : GameStateEntity, IGameState

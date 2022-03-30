@@ -14,6 +14,7 @@ using Sfs2X.Core;
 using Sfs2X.Requests;
 using Sfs2X.Entities.Data;
 using Frontend.Scripts.Enums;
+using Frontend.Scripts.Interfaces;
 
 namespace Frontend.Scripts.Components
 {

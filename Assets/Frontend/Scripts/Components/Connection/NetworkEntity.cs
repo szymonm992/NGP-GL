@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Frontend.Scripts.Enums;
+using Frontend.Scripts.Interfaces;
 
 namespace Frontend.Scripts.Components
 {

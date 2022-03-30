@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 using Frontend.Scripts.Enums;
-namespace Frontend.Scripts.Components
+namespace Frontend.Scripts.Interfaces
 {
     public interface IGameState
     {
