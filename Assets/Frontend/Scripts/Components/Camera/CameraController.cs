@@ -14,7 +14,7 @@ namespace Frontend.Scripts.Components
     public class CameraController : MonoBehaviour, IInitializable
     {
         [Inject] private readonly Camera controlledCamera;
-        [Inject] private readonly ICameraEventBroadcaster cameraEventsBroadcaster;
+        [Inject] private readonly SignalBus signalBus;
 
         private GameObjectContext currentContext;
         private VehicleStatsBase parameters;
@@ -73,15 +73,15 @@ namespace Frontend.Scripts.Components
 
         public void Initialize()
         {
-            cameraEventsBroadcaster.OnCameraTargetBound += AssignController;
+            signalBus.Subscribe<Signals.BattleSignals.OnCameraBound>(AssignController);
         }
-        public void AssignController(GameObjectContext context, Vector3 startingEA)
+        public void AssignController(Signals.BattleSignals.OnCameraBound onCameraBound)
         {
             //assigning controller with null ctrl argument means that  we reassigning the target and player died
-            currentContext = context;
-            playerObject = context.transform.GetChild(0).gameObject;
-            parameters = context.Container.Resolve<VehicleStatsBase>();
-            FurtherAssigningLogic(startingEA);
+            currentContext = onCameraBound.context;
+            playerObject = onCameraBound.context.transform.GetChild(0).gameObject;
+            parameters = onCameraBound.context.Container.Resolve<VehicleStatsBase>();
+            FurtherAssigningLogic(onCameraBound.startingEulerAngles);
         }
 
 

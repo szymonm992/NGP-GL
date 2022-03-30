@@ -21,8 +21,7 @@ namespace Frontend.Scripts.Components
     public class GameplayState : GameStateEntity, IGameState
     {
         [Inject(Optional = true)] private GameplayManager manager;
-        [Inject] private readonly ICameraEventBroadcaster cameraEventBroadcaster;
-
+        [Inject] private readonly SignalBus signalBus;
         public override GameState ConnectedState { get; set; }
 
         public GameplayState(GameState st) => ConnectedState = st;
@@ -31,7 +30,8 @@ namespace Frontend.Scripts.Components
         {
             base.Start();
 
-            cameraEventBroadcaster.NotifyCameraTargetBound(manager.playerContext, manager.playerContext.gameObject.transform.eulerAngles);
+            signalBus.Fire(new Signals.BattleSignals.OnCameraBound() 
+            { context = manager.playerContext, startingEulerAngles = manager.playerContext.gameObject.transform.eulerAngles });
 
             Debug.Log("Gameplay started");
         }

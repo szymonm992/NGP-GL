@@ -45,6 +45,8 @@ namespace Frontend.Scripts
         {
             SignalBusInstaller.Install(Container);
             Container.DeclareSignal<GameStateChangedSignal>();
+
+            Container.DeclareSignal<Signals.BattleSignals.OnCameraBound>();
         }
 
         private void InstallMain()
@@ -54,7 +56,6 @@ namespace Frontend.Scripts
             Container.BindInterfacesAndSelfTo<UIManager>().FromComponentInHierarchy().AsSingle();
             Container.Bind<FormValidator>().AsSingle();
 
-            Container.BindInterfacesAndSelfTo<GameEventBroadcaster>().AsSingle();
         }
     }
 
