@@ -30,7 +30,9 @@ namespace Frontend.Scripts.Models.VehicleSystem
         [SerializeField] protected AnimationCurve speedCurve;
         [SerializeField] protected AnimationCurve frictionCurve;
 
-   
+        [Header("Combat")]
+        [SerializeField] protected float gunDepression;
+        [SerializeField] protected float gunElevation;
 
         #region MAIN
         //main
@@ -61,6 +63,12 @@ namespace Frontend.Scripts.Models.VehicleSystem
         public AnimationCurve SpeedCurve => speedCurve;
         public AnimationCurve FrictionCurve => frictionCurve;
 
+        #endregion
+
+        #region COMBAT
+
+        public float GunDepression => gunDepression;
+        public float GunElevation => gunElevation;
         #endregion
     }
 }

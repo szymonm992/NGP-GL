@@ -21,7 +21,7 @@ namespace Frontend.Scripts.Components
     public class GameplayState : GameStateEntity, IGameState
     {
         [Inject(Optional = true)] private GameplayManager manager;
-
+        [Inject] private readonly CameraController controller;
         public override GameState ConnectedState { get; set; }
 
         public GameplayState(GameState st) => ConnectedState = st;
@@ -29,6 +29,7 @@ namespace Frontend.Scripts.Components
         public override void Start()
         {
             base.Start();
+            controller.AssignController(manager.playerContext, manager.playerContext.gameObject.transform.eulerAngles);
             Debug.Log("Gameplay started");
         }
 

@@ -12,7 +12,7 @@ namespace Frontend.Scripts.Components
     public class GameplayManager : MonoBehaviour
     {
         [Inject(Optional = true)] private readonly GameStateManager gameStateManager;
-
+        public GameObjectContext playerContext;
 
         private void Start()
         {
