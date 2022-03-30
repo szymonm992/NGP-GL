@@ -16,6 +16,33 @@ namespace Frontend.Scripts.Components
         [Inject] private readonly Camera controlledCamera;
         [Inject] private readonly SignalBus signalBus;
 
+
+        [Header("General Settings")]
+        // offset kursora od œrodka ekranu w górê, w pikselach
+        [SerializeField] int crosshairOffset = 75;
+
+        [SerializeField] float sensitivityX = 1f;
+        [SerializeField] float sensitivityY = 1f;
+
+        [Header("Orbit Camera")]
+        [SerializeField] private float orbitMinDist = 2f;
+        [SerializeField] private float orbitMaxDist = 17f;
+        [SerializeField] private float orbitVertMinRange = -30f;
+        [SerializeField] private float orbitVertMaxRange = 60f;
+        [SerializeField] private float orbitFov = 60f;
+        [SerializeField] private float orbitDistInterp = 1f;
+        [SerializeField] private float orbitZoomStep = 3f;
+
+        [Header("Sniping Camera")]
+        [SerializeField] private float snipingFov = 60f;
+        [SerializeField] private float snipingMaxZoom = 1.7f;
+        [SerializeField] private float snipingMinZoom = 1.1f;
+        [SerializeField] private float snipingZoomInterp = 1f;
+        [SerializeField] private float snipingZoomStep = 0.2f;
+        [SerializeField] private float snipingSensScale = 0.2f;
+        [SerializeField] private float snipingMaxSensScale = 0.15f;
+
+
         private GameObjectContext currentContext;
         private VehicleStatsBase parameters;
 
@@ -25,46 +52,17 @@ namespace Frontend.Scripts.Components
         private Transform snipingFollowPoint;
         private GameObject playerObject;
 
-
-        [Header("General Settings")]
-        // offset kursora od œrodka ekranu w górê, w pikselach
-        public int crosshairOffset = 75;
-
-        public float sensitivityX = 1f;
-        public float sensitivityY = 1f;
-
-        [Header("Orbit Camera")]
-        public float orbitMinDist = 2f;
-        public float orbitMaxDist = 17f;
-        public float orbitVertMinRange = -30f;
-        public float orbitVertMaxRange = 60f;
-        public float orbitFov = 60f;
-        public float orbitDistInterp = 1f;
-        public float orbitZoomStep = 3f;
-
-        [Header("Sniping Camera")]
-        public float snipingFov = 60f;
-        public float snipingMaxZoom = 1.7f;
-        public float snipingMinZoom = 1.1f;
-        public float snipingZoomInterp = 1f;
-        public float snipingZoomStep = 0.2f;
-        public float snipingSensScale = 0.2f;
-        public float snipingMaxSensScale = 0.15f;
-
-       
-
+        private float desiredOrbitDist;
+        private float desiredSnipingZoom;
         private float orbitDist;
         private float snipingZoom;
 
         private bool isSniping = false;
-        [HideInInspector()]
-        public Vector3 targetPosition;
-
-        private float desiredOrbitDist;
-        private float desiredSnipingZoom;
-
+        
+        private Vector3 targetPosition;
         private Vector3 orbitFollowPos;
         private Vector3 snipingFollowPos;
+
         private Quaternion oldSnipingFollowRot;
 
         private GameObject currentObject, lastOBject;
@@ -75,6 +73,8 @@ namespace Frontend.Scripts.Components
         {
             signalBus.Subscribe<Signals.BattleSignals.OnCameraBound>(AssignController);
         }
+
+        
         public void AssignController(Signals.BattleSignals.OnCameraBound onCameraBound)
         {
             //assigning controller with null ctrl argument means that  we reassigning the target and player died
@@ -100,7 +100,10 @@ namespace Frontend.Scripts.Components
 
         }
 
-
+        private void OnDestroy()
+        {
+            signalBus.Unsubscribe<Signals.BattleSignals.OnCameraBound>(AssignController);
+        }
 
         private void LateUpdate()
         {
