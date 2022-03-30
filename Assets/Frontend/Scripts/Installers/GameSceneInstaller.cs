@@ -53,6 +53,8 @@ namespace Frontend.Scripts
             Container.Bind<ConnectionManager>().FromComponentInHierarchy().AsCached();
             Container.BindInterfacesAndSelfTo<UIManager>().FromComponentInHierarchy().AsSingle();
             Container.Bind<FormValidator>().AsSingle();
+
+            Container.BindInterfacesAndSelfTo<GameEventBroadcaster>().AsSingle();
         }
     }
 

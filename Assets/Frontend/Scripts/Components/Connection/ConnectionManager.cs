@@ -15,7 +15,8 @@ namespace Frontend.Scripts.Components
     {
 
         [Inject] private readonly SmartFoxConnection smartFoxConnection;
-        public const string HOST = "185.157.80.18";
+        //public const string HOST = "185.157.80.18";
+        public const string HOST = "127.0.0.1";
         public const int PORT = 9933;
 
         public void SendRoomJoinRequest(string cmd, ISFSObject data)

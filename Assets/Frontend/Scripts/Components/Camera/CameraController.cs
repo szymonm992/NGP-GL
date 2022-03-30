@@ -6,12 +6,15 @@ using UnityEngine;
 using Zenject;
 
 using Frontend.Scripts.Models.VehicleSystem;
+using Frontend.Scripts.Models;
+using Frontend.Scripts.Interfaces;
 
 namespace Frontend.Scripts.Components
 {
-    public class CameraController : MonoBehaviour
+    public class CameraController : MonoBehaviour, IInitializable
     {
         [Inject] private readonly Camera controlledCamera;
+        [Inject] private readonly ICameraEventBroadcaster cameraEventsBroadcaster;
 
         private GameObjectContext currentContext;
         private VehicleStatsBase parameters;
@@ -68,7 +71,10 @@ namespace Frontend.Scripts.Components
 
         private bool turrentRotationLock = false, isAlive = true, blockCtrl = false;
 
-        #region STARTING OVERLOAD (ASSIGNING FUNCTION)
+        public void Initialize()
+        {
+            cameraEventsBroadcaster.OnCameraTargetBound += AssignController;
+        }
         public void AssignController(GameObjectContext context, Vector3 startingEA)
         {
             //assigning controller with null ctrl argument means that  we reassigning the target and player died
@@ -93,7 +99,7 @@ namespace Frontend.Scripts.Components
             transform.root.rotation = Quaternion.Euler(startingEA);
 
         }
-        #endregion
+
 
 
         private void LateUpdate()

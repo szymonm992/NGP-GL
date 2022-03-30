@@ -224,7 +224,7 @@ namespace Frontend.Scripts.Components
                 if (de.CanSteer)
                 {
                     de.VisualWheel.localRotation = Quaternion.RotateTowards(de.VisualWheel.localRotation,
-                    Quaternion.Euler(de.VisualWheel.localRotation.eulerAngles.x, ClampAngle(carStats.TurnAngle * playerInputs.Horizontal, -carStats.TurnAngle, carStats.TurnAngle), de.VisualWheel.localRotation.eulerAngles.z),
+                    Quaternion.Euler(de.VisualWheel.localRotation.eulerAngles.x, ClampAngle(carStats.TurnAngle * playerInputs.Horizontal, -carStats.TurnAngle+5f, carStats.TurnAngle-5f), de.VisualWheel.localRotation.eulerAngles.z),
                     Time.deltaTime*180f);
                 }
 
