@@ -136,17 +136,28 @@ namespace Frontend.Scripts.Components
         {
             if (playerInputs.CombinedInput == 0) return;
 
+           
             foreach (DriveElement de in driveElements)
             {
                 Ray ray = new Ray(de.StepDetector.position, de.StepDetector.forward);
                 if (Physics.Raycast(ray, out RaycastHit hit, carStats.StepUpRayLength))
                 {
-                    de.WheelRigidbody.AddForceAtPosition(carStats.StepUpForce * de.WheelRigidbody.transform.up + de.WheelRigidbody.transform.forward, 
-                        de.WheelRigidbody.transform.position - de.WheelRigidbody.transform.up);
+                    //de.WheelRigidbody.AddForceAtPosition(carStats.StepUpForce * de.WheelRigidbody.transform.up + de.WheelRigidbody.transform.forward, 
+                    //  de.WheelRigidbody.transform.position - de.WheelRigidbody.transform.up);
+
+                    // de.WheelRigidbody.AddForceAtPosition((rig.transform.up-rig.transform.forward) * -Physics.gravity.y, de.WheelRigidbody.transform.position - de.WheelRigidbody.transform.up, ForceMode.Acceleration);
+                    Vector3 positionAtForce = de.WheelRigidbody.transform.position;
+                    Vector3 force = (rig.transform.up * carStats.StepUpMultiplier);
+                    de.WheelRigidbody.AddForceAtPosition(force, positionAtForce, ForceMode.Acceleration);
+                    Ray rayf = new Ray(positionAtForce, force);
+
+                    Debug.DrawRay(rayf.origin, rayf.direction * carStats.StepUpMultiplier);
+
                     Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
                 }
                 else
                 {
+                   
                     Debug.DrawRay(ray.origin, ray.direction * carStats.StepUpRayLength, Color.red);
                 }
             }

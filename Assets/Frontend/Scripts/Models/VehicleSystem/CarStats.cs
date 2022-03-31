@@ -9,10 +9,10 @@ namespace Frontend.Scripts.Models.VehicleSystem
     {
 
         [Header("Step up")]
-        [SerializeField] private float stepUpForce;
+        [SerializeField] private float stepUpMultiplier=1440f;
         [SerializeField] private float stepUpRayLength;
 
-        public float StepUpForce => stepUpForce;
+        public float StepUpMultiplier => stepUpMultiplier;
         public float StepUpRayLength => stepUpRayLength;
     }
 }
