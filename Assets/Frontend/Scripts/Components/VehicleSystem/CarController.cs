@@ -199,9 +199,20 @@ namespace Frontend.Scripts.Components
                         * 100f * -carVelocity.normalized.x, de.ForceAtPosition.position);
                     Debug.DrawRay(rig.transform.position, rig.transform.up, Color.red);
                 }
-                de.Collider.material.frictionCombine = playerInputs.CombinedInput > 0 ? PhysicMaterialCombine.Minimum : PhysicMaterialCombine.Average;
-                de.Collider.material.dynamicFriction = currentEvalation;
-                de.Collider.material.staticFriction = currentEvalation;
+                if(!isLocalBraking)
+                {
+                    de.Collider.material.frictionCombine = playerInputs.CombinedInput > 0 ? PhysicMaterialCombine.Minimum : PhysicMaterialCombine.Average;
+                    de.Collider.material.dynamicFriction = currentEvalation;
+                    de.Collider.material.staticFriction = currentEvalation;
+                }
+                else
+                {
+                    float brakeEval = carStats.TireFrictionCurve.Evaluate(0);
+                    de.Collider.material.frictionCombine = PhysicMaterialCombine.Average;
+                    de.Collider.material.dynamicFriction = brakeEval;
+                    de.Collider.material.staticFriction = brakeEval;
+                }
+                
             }
                 
             
