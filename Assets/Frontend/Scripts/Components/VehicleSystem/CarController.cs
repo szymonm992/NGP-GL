@@ -186,8 +186,6 @@ namespace Frontend.Scripts.Components
 
         private void Friction()
         {
-            //Friction
-            
             terrainAngle = (-Vector3.Angle(rig.transform.up, Vector3.up) / 90f) + 1;
             float currentEvalation = carStats.TireFrictionCurve.Evaluate(currentSpeed);
                
