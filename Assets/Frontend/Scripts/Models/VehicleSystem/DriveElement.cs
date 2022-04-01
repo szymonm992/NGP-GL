@@ -28,7 +28,7 @@ namespace Frontend.Scripts.Models.VehicleSystem
         public Collider Collider => collider;
         public void Initialize()
         {
-            this.collider = wheelRigidbody?.gameObject.GetComponent<Collider>();
+            this.collider = wheelRigidbody?.transform.Find("collider").GetComponent<Collider>();
             this.forceAtPos = wheelRigidbody?.transform.Find("forceAtPosition");
             this.stepDetector = wheelRigidbody?.transform.Find("stepDetector");
             this.visualWheel = wheelRigidbody?.transform.Find("visual");

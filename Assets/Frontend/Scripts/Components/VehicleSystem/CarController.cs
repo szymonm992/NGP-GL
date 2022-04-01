@@ -130,6 +130,10 @@ namespace Frontend.Scripts.Components
             {
                 isLocalBraking = playerInputs.CombinedInput == 0;
             }
+            else
+            {
+                isLocalBraking = playerInputs.Brake;
+            }
         }
 
         private void StepUp()
@@ -183,27 +187,41 @@ namespace Frontend.Scripts.Components
         private void Friction()
         {
             //Friction
-            if (carVelocity.magnitude > 1)
+            
+            terrainAngle = (-Vector3.Angle(rig.transform.up, Vector3.up) / 90f) + 1;
+            float currentEvalation = carStats.TireFrictionCurve.Evaluate(currentSpeed);
+               
+            foreach (DriveElement de in driveElements)
             {
-                terrainAngle = (-Vector3.Angle(rig.transform.up, Vector3.up) / 90f) + 1;
-                foreach(DriveElement de in driveElements)
+                if (carVelocity.magnitude > 1f)
                 {
                     rig.AddForceAtPosition(rig.transform.right * fricValue/wheelsAmount * terrainAngle
                         * 100f * -carVelocity.normalized.x, de.ForceAtPosition.position);
+                    Debug.DrawRay(rig.transform.position, rig.transform.up, Color.red);
                 }
-                
+                de.Collider.material.frictionCombine = playerInputs.CombinedInput > 0 ? PhysicMaterialCombine.Minimum : PhysicMaterialCombine.Average;
+                de.Collider.material.dynamicFriction = currentEvalation;
+                de.Collider.material.staticFriction = currentEvalation;
             }
+                
+            
         }
 
         private void Brake()
         {
             if (carVelocity.z > 1f)
             {
-                rig.AddForceAtPosition(rig.transform.forward * -brakeInput, groundCheck.position);
+                foreach (DriveElement de in driveElements)
+                {
+                    rig.AddForceAtPosition(rig.transform.forward * -brakeInput / wheelsAmount, de.ForceAtPosition.position);
+                }
             }
             if (carVelocity.z < -1f)
             {
-                rig.AddForceAtPosition(rig.transform.forward * brakeInput, groundCheck.position);
+                foreach (DriveElement de in driveElements)
+                {
+                    rig.AddForceAtPosition(rig.transform.forward * brakeInput/wheelsAmount, de.ForceAtPosition.position);
+                }
             }
 
 
