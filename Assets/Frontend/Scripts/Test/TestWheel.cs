@@ -18,6 +18,7 @@ namespace Frontend.Scripts
 
         public bool isLeft = false;
         public bool canSteer = false;
+        public bool canDrive = false;
         public float steerAngle = 0f;
         private float wheelAngle = 0f;
 
@@ -28,6 +29,7 @@ namespace Frontend.Scripts
         private float springVelocity;
         private float springForce;
         private float damperForce;
+        private float wheelCompression;
 
         private Vector3 suspensionForce;
         private Vector3 wheelWorldPosition;
@@ -37,8 +39,11 @@ namespace Frontend.Scripts
         private float debugLength;
 
         private Vector3 lastPosition;
-        private Vector3 wheelVelocityLocal;
-        private float Fx, Fy;
+
+        public float SpringForce => springForce;
+        public float WheelCompression => wheelCompression;
+        public bool IsGrounded => isGrounded;
+        public RaycastHit Hit => hit;
 
         private void OnValidate()
         {
@@ -67,6 +72,8 @@ namespace Frontend.Scripts
 
             debugLength  = (springLength + wheelRadius);
             wheelWorldPosition = transform.position - transform.up * debugLength;
+
+            wheelCompression = debugLength;
         }
 
         private void FixedUpdate()
@@ -74,12 +81,14 @@ namespace Frontend.Scripts
             isGrounded = Physics.SphereCast(transform.position,wheelRadius, -transform.up, out hit, maxLength + wheelRadius);
             if (isGrounded)
             {
+                wheelCompression = hit.distance;
                 ApplySpringForces();
                 ApplyFrictionForces();
             }
             else
             {
                 debugLength = (maxLength + wheelRadius);
+                wheelCompression = debugLength;
                 wheelWorldPosition = transform.position - transform.up * debugLength;
             }
         }   
@@ -95,13 +104,7 @@ namespace Frontend.Scripts
 
             suspensionForce = (springForce + damperForce) * transform.up;
 
-            wheelVelocityLocal = transform.InverseTransformDirection(rig.GetPointVelocity(hit.point));
-
-           
-            Fx = Input.GetAxis("Vertical") * springForce/2f;
-            Fy = wheelVelocityLocal.x * springForce;
-
-            rig.AddForceAtPosition(suspensionForce + (Fx*transform.forward) + (Fy * -transform.right) , hit.point);
+            rig.AddForceAtPosition(suspensionForce, hit.point);
 
             debugLength = (springLength + wheelRadius);
             wheelWorldPosition = hit.point + transform.up * wheelRadius;
@@ -121,6 +124,12 @@ namespace Frontend.Scripts
 
         private void OnDrawGizmos()
         {
+            #if UNITY_EDITOR
+            if(!Application.isPlaying && lastPosition != transform.position)
+            {
+                OnValidate();
+            }
+            #endif
             Gizmos.color = Color.blue;
             Gizmos.DrawSphere(transform.position, 0.04f);
             Gizmos.DrawSphere(wheelWorldPosition, 0.04f);
@@ -128,57 +137,19 @@ namespace Frontend.Scripts
             Gizmos.color = isGrounded ? Color.green : Color.red;
 
             Gizmos.DrawWireSphere(wheelWorldPosition, wheelRadius);
-            Gizmos.DrawLine(transform.position, transform.position - transform.up * debugLength);
+         //   Gizmos.DrawLine(transform.position, transform.position - transform.up * debugLength);
+
+            Handles.color = isGrounded ? Color.green : Color.red;
+            Handles.DrawDottedLine(transform.position, transform.position - (transform.up * wheelCompression), 1.1f);
+
             Gizmos.DrawSphere(hit.point, 0.04f);
+            #if UNITY_EDITOR
+            lastPosition = transform.position;
+            #endif
         }
 
+        #region ALTERNATIVE DRIVE
         /*
-        [SerializeField] private Transform[] wheelTransforms;
-        [SerializeField] private Rigidbody rig;
-
-        [SerializeField] private float suspensionRestDist = 0.3f;
-        [SerializeField] private float springStrength = 200000f;
-        [SerializeField] private float springDamper = 2000f;
-        [SerializeField] private float wheelDiameter = 0.6f;
-        [SerializeField] private float tireGripFactor = 1f;
-        [SerializeField] private float tireMass = 250f;
-        [SerializeField] private float carTopSpeed = 20f;
-        private float inputY, inputX;
-
-        [SerializeField] private AnimationCurve powerCurve;
-
-        private void Update()
-        {
-            inputY = Input.GetAxis("Vertical") * carTopSpeed * 10f;    
-        }
-
-        private void FixedUpdate()
-        {
-            foreach(var wheel in wheelTransforms)
-            {
-                bool rayDidHit = CheckRayHit(wheel, out float tireDistance);
-                if(rayDidHit)
-                {
-                    #region SPRING
-                    Vector3 springDir = wheel.up;
-
-                    Vector3 tireVelocity = rig.GetPointVelocity(wheel.position);
-
-                    float offset = suspensionRestDist - tireDistance;
-
-                    float vel = Vector3.Dot(springDir, tireVelocity);
-
-                    float force = (offset * springStrength) - (vel * springDamper);
-
-                    rig.AddForceAtPosition(springDir * force, wheel.position);
-                    #endregion
-                    Driving(wheel, inputY);
-                    Steering(wheel);
-                    
-                }
-            }
-        }
-
         private void Driving(Transform wheel,float input)
         {
             Vector3 accelDir = wheel.forward;
@@ -191,35 +162,9 @@ namespace Frontend.Scripts
                 float availableTorque = powerCurve.Evaluate(normalizedSpeed) * input;
                 rig.AddForceAtPosition(accelDir * availableTorque, wheel.position);
             }
-        }
-
-        private void Steering( Transform wheel)
-        {
-            Vector3 steeringDir = wheel.right;
-
-            Vector3 tireVel = rig.GetPointVelocity(wheel.position);
-
-            float steeringVel = Vector3.Dot(steeringDir, tireVel);
-
-            float desiredVelChange = -steeringVel * tireGripFactor;
-
-            float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
-
-            rig.AddForceAtPosition(steeringDir * tireMass * desiredAccel, wheel.position);
-        }
-        private bool CheckRayHit(Transform wheel, out float distance)
-        {
-            distance = 0;
-            Ray ray = new Ray(wheel.position + wheel.up * wheelDiameter/2f, -wheel.up);
-            
-            if (Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, wheelDiameter))
-            {
-                distance = hit.distance/2f;
-                Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
-                return true;
-            }
-            Debug.DrawRay(ray.origin, ray.direction* wheelDiameter, Color.red);
-            return false;
         }*/
+        #endregion
+
+
     }
 }
