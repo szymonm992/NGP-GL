@@ -258,9 +258,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spring:
     strength: 36000
-    maxLength: 1.5
+    maxLength: 1
     tireGripFactor: 1
-    tireMass: 40
+    tireMass: 20
     force: 0
     velocity: 0
     preLength: 0
@@ -273,7 +273,7 @@ MonoBehaviour:
     overExtended: 0
     bottomedOutForce: 0
   damper:
-    unitBumpForce: 400
+    unitBumpForce: 100
     unitReboundForce: 2000
     force: 0
     maxForce: 0
@@ -285,14 +285,14 @@ MonoBehaviour:
   parentRigidbody: {fileID: 362861518}
   grounded: 0
   canDrive: 1
-  driveForce: 10000
+  driveForce: 7000
   inputX: 0
   inputY: 0
   absoluteInputY: 0
   absoluteInputX: 0
   isBrake: 0
   currentLongitudalGrip: 0
-  isLeft: 0
+  isLeft: 1
   canSteer: 0
   steerAngle: 0
 --- !u!1 &191571512
@@ -579,9 +579,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spring:
     strength: 36000
-    maxLength: 1.5
+    maxLength: 1
     tireGripFactor: 1
-    tireMass: 40
+    tireMass: 20
     force: 0
     velocity: 0
     preLength: 0
@@ -594,7 +594,7 @@ MonoBehaviour:
     overExtended: 0
     bottomedOutForce: 0
   damper:
-    unitBumpForce: 400
+    unitBumpForce: 100
     unitReboundForce: 2000
     force: 0
     maxForce: 0
@@ -606,15 +606,15 @@ MonoBehaviour:
   parentRigidbody: {fileID: 362861518}
   grounded: 0
   canDrive: 1
-  driveForce: 10000
+  driveForce: 7000
   inputX: 0
   inputY: 0
   absoluteInputY: 0
   absoluteInputX: 0
   isBrake: 0
   currentLongitudalGrip: 0
-  isLeft: 0
-  canSteer: 0
+  isLeft: 1
+  canSteer: 1
   steerAngle: 0
 --- !u!1 &362861515
 GameObject:
@@ -1354,9 +1354,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spring:
     strength: 36000
-    maxLength: 1.5
+    maxLength: 1
     tireGripFactor: 1
-    tireMass: 40
+    tireMass: 20
     force: 0
     velocity: 0
     preLength: 0
@@ -1369,7 +1369,7 @@ MonoBehaviour:
     overExtended: 0
     bottomedOutForce: 0
   damper:
-    unitBumpForce: 400
+    unitBumpForce: 100
     unitReboundForce: 2000
     force: 0
     maxForce: 0
@@ -1381,7 +1381,7 @@ MonoBehaviour:
   parentRigidbody: {fileID: 362861518}
   grounded: 0
   canDrive: 1
-  driveForce: 10000
+  driveForce: 7000
   inputX: 0
   inputY: 0
   absoluteInputY: 0
@@ -1516,8 +1516,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.8, y: 1.6675249, z: 6.357049}
-  m_Center: {x: 0.019086808, y: 1.107319, z: -0.22104655}
+  m_Size: {x: 2.8, y: 1.2, z: 6.357049}
+  m_Center: {x: 0.019086808, y: 0.86, z: -0.22104655}
 --- !u!1 &983098743
 GameObject:
   m_ObjectHideFlags: 0
@@ -2155,9 +2155,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spring:
     strength: 36000
-    maxLength: 1.5
+    maxLength: 1
     tireGripFactor: 1
-    tireMass: 40
+    tireMass: 20
     force: 0
     velocity: 0
     preLength: 0
@@ -2170,7 +2170,7 @@ MonoBehaviour:
     overExtended: 0
     bottomedOutForce: 0
   damper:
-    unitBumpForce: 400
+    unitBumpForce: 100
     unitReboundForce: 2000
     force: 0
     maxForce: 0
@@ -2182,7 +2182,7 @@ MonoBehaviour:
   parentRigidbody: {fileID: 362861518}
   grounded: 0
   canDrive: 1
-  driveForce: 10000
+  driveForce: 7000
   inputX: 0
   inputY: 0
   absoluteInputY: 0
@@ -2190,7 +2190,7 @@ MonoBehaviour:
   isBrake: 0
   currentLongitudalGrip: 0
   isLeft: 0
-  canSteer: 0
+  canSteer: 1
   steerAngle: 0
 --- !u!1 &1372180339
 GameObject:
