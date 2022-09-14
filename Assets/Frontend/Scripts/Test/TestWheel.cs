@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace Frontend.Scripts
+namespace Frontend.Scripts.Components
 {
     public class TestWheel : MonoBehaviour
     {
-        [SerializeField] private float restLength;
-        [SerializeField] private float springTravel;
-        [SerializeField] private float springStiffness;
-        [SerializeField] private float damperStiffness;
-        [SerializeField] private float wheelRadius;
-        [SerializeField] private float tireMass = 20f;
+        [SerializeField] private float restLength = 0.6f;
+        [SerializeField] private float springTravel = 0.2f;
+        [SerializeField] private float springStiffness = 80000f;
+        [SerializeField] private float damperStiffness = 4000f;
+        [SerializeField] private float wheelRadius = 0.6f;
+        [SerializeField] private float tireMass = 40f;
         [Range(0,1f)]
         [SerializeField] private float tireGripFactor = 1f;
+        [SerializeField] private LayerMask groundMask;
 
         public bool isLeft = false;
         public bool canSteer = false;
@@ -40,8 +41,11 @@ namespace Frontend.Scripts
 
         private Vector3 lastPosition;
 
+        public float WheelRadius => wheelRadius;
         public float SpringForce => springForce;
+        public float SpringLength => springLength;
         public float WheelCompression => wheelCompression;
+        public float TireMass => tireMass;
         public bool IsGrounded => isGrounded;
         public RaycastHit Hit => hit;
 
@@ -78,7 +82,7 @@ namespace Frontend.Scripts
 
         private void FixedUpdate()
         {
-            isGrounded = Physics.SphereCast(transform.position,wheelRadius, -transform.up, out hit, maxLength + wheelRadius);
+            isGrounded = Physics.SphereCast(transform.position,wheelRadius, -transform.up, out hit, maxLength + wheelRadius,groundMask);
             if (isGrounded)
             {
                 wheelCompression = hit.distance;
@@ -107,7 +111,9 @@ namespace Frontend.Scripts
             rig.AddForceAtPosition(suspensionForce, hit.point);
 
             debugLength = (springLength + wheelRadius);
-            wheelWorldPosition = hit.point + transform.up * wheelRadius;
+            wheelWorldPosition  = new Vector3(transform.position.x,
+                hit.point.y + wheelRadius,
+                transform.position.z);
         }
 
         private void ApplyFrictionForces()
@@ -124,28 +130,31 @@ namespace Frontend.Scripts
 
         private void OnDrawGizmos()
         {
+            /*
             #if UNITY_EDITOR
             if(!Application.isPlaying && lastPosition != transform.position)
             {
                 OnValidate();
             }
-            #endif
+
+            Handles.color = Color.blue;
+            Handles.DrawDottedLine(transform.position, transform.position - (transform.up * wheelCompression), 1.1f);
             Gizmos.color = Color.blue;
+
             Gizmos.DrawSphere(transform.position, 0.04f);
             Gizmos.DrawSphere(wheelWorldPosition, 0.04f);
 
             Gizmos.color = isGrounded ? Color.green : Color.red;
 
             Gizmos.DrawWireSphere(wheelWorldPosition, wheelRadius);
-         //   Gizmos.DrawLine(transform.position, transform.position - transform.up * debugLength);
+            //   Gizmos.DrawLine(transform.position, transform.position - transform.up * debugLength);
 
-            Handles.color = isGrounded ? Color.green : Color.red;
-            Handles.DrawDottedLine(transform.position, transform.position - (transform.up * wheelCompression), 1.1f);
+            
 
             Gizmos.DrawSphere(hit.point, 0.04f);
-            #if UNITY_EDITOR
             lastPosition = transform.position;
             #endif
+            */
         }
 
         #region ALTERNATIVE DRIVE
