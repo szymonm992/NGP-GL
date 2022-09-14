@@ -7,23 +7,23 @@ namespace Frontend.Scripts.Components
     public class AntiRollBar : MonoBehaviour
     {
         [SerializeField] private Rigidbody rig;
-        public TestWheel wheelL;
-        public TestWheel wheelR;
+        public HoverSpring wheelL;
+        public HoverSpring wheelR;
         public float antiRollVal = 5000f;
 
         void Update()
         {
             float travelL = 1.0f;
             float travelR = 1.0f;
-            bool groundedL = wheelL.IsGrounded;
+            bool groundedL = wheelL.grounded;
             if (groundedL)
             {
-                travelL = (-wheelL.transform.InverseTransformPoint(wheelL.Hit.point).y - wheelL.WheelRadius) / wheelL.SpringLength;
+                travelL = (-wheelL.transform.InverseTransformPoint(wheelL.hit.point).y - 0.3f) / wheelL.spring.compressionLength;
             }
-            bool groundedR = wheelR.IsGrounded;
+            bool groundedR = wheelR.grounded;
             if (groundedR)
             {
-                travelR = (-wheelR.transform.InverseTransformPoint(wheelR.Hit.point).y - wheelR.WheelRadius) / wheelR.SpringLength;
+                travelR = (-wheelR.transform.InverseTransformPoint(wheelR.hit.point).y - 0.3f) / wheelR.spring.compressionLength;
 
 
             }

@@ -8,7 +8,7 @@ namespace Frontend.Scripts.Components
     {
         [SerializeField] private HoverSpring[] allWheels;
         [SerializeField] private Rigidbody rig;
-        [SerializeField] private float driveForce;
+        [SerializeField] private Transform com;
 
         private float inputX, inputY;
         private float absoluteInputY, absoluteInputX;
@@ -19,6 +19,10 @@ namespace Frontend.Scripts.Components
         public float currentLongitudalGrip;
         public HoverSpring[] AllWheels => allWheels;
 
+        private void Awake()
+        {
+            rig.centerOfMass = com.localPosition;
+        }
         private void Update()
         {
             isBrake = Input.GetKey(KeyCode.Space);
