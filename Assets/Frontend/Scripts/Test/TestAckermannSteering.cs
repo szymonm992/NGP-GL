@@ -6,6 +6,7 @@ namespace Frontend.Scripts.Components
 {
     public class TestAckermannSteering : MonoBehaviour
     {
+
         [SerializeField] private TestSuspension suspensionController;
 
         [SerializeField] private float wheelBase;
@@ -36,7 +37,8 @@ namespace Frontend.Scripts.Components
                 ackermannAngleRight = 0;
             }
 
-            foreach(TestWheel wheel in suspensionController.AllWheels)
+            
+            foreach(var wheel in suspensionController.AllWheels)
             {
                 if(wheel.canSteer)
                 {

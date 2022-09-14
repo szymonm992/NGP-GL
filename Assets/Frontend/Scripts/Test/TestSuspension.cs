@@ -6,8 +6,9 @@ namespace Frontend.Scripts.Components
 {
     public class TestSuspension : MonoBehaviour
     {
-        [SerializeField] private TestWheel[] allWheels;
+        [SerializeField] private HoverSpring[] allWheels;
         [SerializeField] private Rigidbody rig;
+        [SerializeField] private float driveForce;
 
         private float inputX, inputY;
         private float absoluteInputY, absoluteInputX;
@@ -16,7 +17,7 @@ namespace Frontend.Scripts.Components
         private float Fx, Fy;
         public bool isBrake;
         public float currentLongitudalGrip;
-        public TestWheel[] AllWheels => allWheels;
+        public HoverSpring[] AllWheels => allWheels;
 
         private void Update()
         {
@@ -26,25 +27,33 @@ namespace Frontend.Scripts.Components
 
             absoluteInputY = Mathf.Abs(inputY);
             absoluteInputX = Mathf.Abs(inputX);
+
+            foreach (var wheel in allWheels)
+            {
+                wheel.inputX = inputX;
+                wheel.inputY = inputY;
+                wheel.absoluteInputX = absoluteInputX;
+                wheel.absoluteInputY = absoluteInputY;
+            }
         }
         private void FixedUpdate()
         {
-            Accelerate();
-            Brakes();
+            //Accelerate();
+           // Brakes();
         }
-
+        /*
         private void Accelerate()
         {
-            foreach (TestWheel wheel in allWheels)
+            foreach (var wheel in allWheels)
             {
                 if (wheel.canDrive & wheel.IsGrounded && !isBrake)
                 {
-                    wheelVelocityLocal = transform.InverseTransformDirection(rig.GetPointVelocity(wheel.Hit.point));
+                    wheelVelocityLocal = transform.InverseTransformDirection(rig.GetPointVelocity(wheel.hit.point));
 
-                    Fx = inputY * wheel.SpringForce / 2;
-                    Fy = wheelVelocityLocal.x * wheel.SpringForce;
+                    Fx = inputY * driveForce/2;
+                    Fy = wheelVelocityLocal.x * driveForce;
 
-                    rig.AddForceAtPosition((Fx * wheel.transform.forward) + (Fy * -wheel.transform.right), wheel.Hit.point);
+                    rig.AddForceAtPosition((Fx * wheel.transform.forward) + (Fy * -wheel.transform.right), wheel.hit.point);
                 }
 
             }
@@ -54,7 +63,7 @@ namespace Frontend.Scripts.Components
         private void Brakes()
         {
              currentLongitudalGrip = isBrake ? 1f : (absoluteInputY > 0 ? 0 : 0.5f);
-            foreach (TestWheel wheel in allWheels)
+            foreach (var wheel in allWheels)
             {
                
                 if (wheel.IsGrounded)
@@ -66,10 +75,10 @@ namespace Frontend.Scripts.Components
                     float desiredVelChange = -steeringVel * currentLongitudalGrip;
                     float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
 
-                    rig.AddForceAtPosition(forwardDir * wheel.TireMass * desiredAccel, wheel.transform.position);
+                    rig.AddForceAtPosition(forwardDir * wheel.spring.tireMass * desiredAccel, wheel.transform.position);
                 }
             }
 
-        }
+        }*/
     }
 }

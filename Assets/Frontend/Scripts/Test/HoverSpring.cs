@@ -10,7 +10,26 @@ namespace Frontend.Scripts.Components
 		public Hit hit;
 		public GameObject parent;
 		public Rigidbody parentRigidbody;
-		private bool grounded = false;
+		public bool grounded = false;
+		public bool canDrive=true;
+
+		public float driveForce = 0;
+
+
+
+		public float inputX, inputY;
+		public float absoluteInputY, absoluteInputX;
+		private Vector3 wheelVelocityLocal;
+		private float Fx, Fy;
+		public bool isBrake;
+		public float currentLongitudalGrip;
+
+
+
+		public bool isLeft = false;
+		public bool canSteer = false;
+		public float steerAngle = 0f;
+		private float wheelAngle = 0f;
 
 		private void Awake()
 		{
@@ -23,11 +42,17 @@ namespace Frontend.Scripts.Components
 			HitUpdate();
 			SuspensionUpdate();
 			ForceUpdate();
-			grounded = false;
-			Debug.Log("sdsds");
 		}
 
-		private void HitUpdate()
+
+        private void Update()
+        {
+			wheelAngle = Mathf.Lerp(wheelAngle, steerAngle, Time.deltaTime * 8f);
+			transform.localRotation = Quaternion.Euler(transform.localRotation.x,
+				transform.localRotation.y + wheelAngle,
+				transform.localRotation.z);
+		}
+        private void HitUpdate()
 		{
 			float rayLength = spring.maxLength;
 			grounded = Physics.Raycast(transform.position, -transform.up * rayLength, out hit.rayHit, rayLength);
@@ -51,6 +76,36 @@ namespace Frontend.Scripts.Components
 			float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
 
 			parentRigidbody.AddForceAtPosition(steeringDir * spring.tireMass * desiredAccel, hit.point);
+		}
+
+		private void Accelerate()
+		{
+
+				if (canDrive && !isBrake)
+				{
+					wheelVelocityLocal = transform.InverseTransformDirection(parentRigidbody.GetPointVelocity(hit.point));
+
+					Fx = inputY * driveForce / 2;
+					Fy = wheelVelocityLocal.x * driveForce;
+
+					parentRigidbody.AddForceAtPosition((Fx * transform.forward) + (Fy * -transform.right), hit.point);
+				}
+
+
+		}
+
+		private void Brakes()
+		{
+			currentLongitudalGrip = isBrake ? 1f : (absoluteInputY > 0 ? 0 : 0.5f);
+
+					Vector3 forwardDir = transform.forward;
+					Vector3 tireVel = parentRigidbody.GetPointVelocity(transform.position);
+
+					float steeringVel = Vector3.Dot(forwardDir, tireVel);
+					float desiredVelChange = -steeringVel * currentLongitudalGrip;
+					float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
+
+					parentRigidbody.AddForceAtPosition(forwardDir * spring.tireMass * desiredAccel, transform.position);
 		}
 
 		private void SuspensionUpdate()
@@ -108,8 +163,6 @@ namespace Frontend.Scripts.Components
 		private void ForceUpdate()
 		{
 			if (!grounded) return;
-			Vector3 hitPoint = hit.point;
-			Vector3 hitNormal = hit.normal;
 
 			float suspensionForceMagnitude = Mathf.Clamp(spring.force + damper.force, 0.0f, Mathf.Infinity);
 
@@ -119,7 +172,10 @@ namespace Frontend.Scripts.Components
 
 			parentRigidbody.AddForceAtPosition(totalForce, transform.position);
 
+			Accelerate();
+			Brakes();
 			ApplyFrictionForces();
+
 		}
 
 		#region Class

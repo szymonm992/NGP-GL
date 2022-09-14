@@ -283,6 +283,18 @@ MonoBehaviour:
     sidewaysDir: {x: 0, y: 0, z: 0}
   parent: {fileID: 362861515}
   parentRigidbody: {fileID: 362861518}
+  grounded: 0
+  canDrive: 1
+  driveForce: 10000
+  inputX: 0
+  inputY: 0
+  absoluteInputY: 0
+  absoluteInputX: 0
+  isBrake: 0
+  currentLongitudalGrip: 0
+  isLeft: 0
+  canSteer: 0
+  steerAngle: 0
 --- !u!1 &191571512
 GameObject:
   m_ObjectHideFlags: 0
@@ -592,6 +604,18 @@ MonoBehaviour:
     sidewaysDir: {x: 0, y: 0, z: 0}
   parent: {fileID: 362861515}
   parentRigidbody: {fileID: 362861518}
+  grounded: 0
+  canDrive: 1
+  driveForce: 10000
+  inputX: 0
+  inputY: 0
+  absoluteInputY: 0
+  absoluteInputX: 0
+  isBrake: 0
+  currentLongitudalGrip: 0
+  isLeft: 0
+  canSteer: 0
+  steerAngle: 0
 --- !u!1 &362861515
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,11 +651,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allWheels:
-  - {fileID: 1334971818}
-  - {fileID: 292481737}
-  - {fileID: 889998904}
-  - {fileID: 16642664}
+  - {fileID: 1334971819}
+  - {fileID: 292481738}
+  - {fileID: 889998905}
+  - {fileID: 16642665}
   rig: {fileID: 362861518}
+  driveForce: 0
   isBrake: 0
   currentLongitudalGrip: 0
 --- !u!4 &362861517
@@ -1354,6 +1379,18 @@ MonoBehaviour:
     sidewaysDir: {x: 0, y: 0, z: 0}
   parent: {fileID: 362861515}
   parentRigidbody: {fileID: 362861518}
+  grounded: 0
+  canDrive: 1
+  driveForce: 10000
+  inputX: 0
+  inputY: 0
+  absoluteInputY: 0
+  absoluteInputX: 0
+  isBrake: 0
+  currentLongitudalGrip: 0
+  isLeft: 0
+  canSteer: 0
+  steerAngle: 0
 --- !u!1 &911723013
 GameObject:
   m_ObjectHideFlags: 0
@@ -2143,6 +2180,18 @@ MonoBehaviour:
     sidewaysDir: {x: 0, y: 0, z: 0}
   parent: {fileID: 362861515}
   parentRigidbody: {fileID: 362861518}
+  grounded: 0
+  canDrive: 1
+  driveForce: 10000
+  inputX: 0
+  inputY: 0
+  absoluteInputY: 0
+  absoluteInputX: 0
+  isBrake: 0
+  currentLongitudalGrip: 0
+  isLeft: 0
+  canSteer: 0
+  steerAngle: 0
 --- !u!1 &1372180339
 GameObject:
   m_ObjectHideFlags: 0
