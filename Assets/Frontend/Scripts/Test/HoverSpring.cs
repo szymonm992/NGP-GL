@@ -175,7 +175,7 @@ namespace Frontend.Scripts.Components
 			totalForce.y = suspensionForceMagnitude * hitInfo.Normal.y;
 			totalForce.z = suspensionForceMagnitude * hitInfo.Normal.z;
 
-			rig.AddForceAtPosition(totalForce, transform.position);
+			rig.AddForceAtPosition(totalForce, hitInfo.Point);
 		}
 
         private void OnDrawGizmos()

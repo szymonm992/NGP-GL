@@ -194,7 +194,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 16642663}
-  - component: {fileID: 16642664}
   - component: {fileID: 16642665}
   m_Layer: 0
   m_Name: bl
@@ -218,32 +217,6 @@ Transform:
   m_Father: {fileID: 926665318}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &16642664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 16642662}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76d67db88f2dcba4f8dfd3c7b1b3d455, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  restLength: 0.6
-  springTravel: 0.2
-  springStiffness: 80000
-  damperStiffness: 4000
-  wheelRadius: 0.6
-  tireMass: 40
-  tireGripFactor: 1
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 64
-  isLeft: 1
-  canSteer: 0
-  canDrive: 1
-  steerAngle: 0
 --- !u!114 &16642665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,10 +229,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648f0e65a697eae4e92e7d2bf36787b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheelRadius: 0.5
+  wheelRadius: 0.6
   springInfo:
     springStrength: 30000
-    suspensionLength: 1.55
+    suspensionLength: 1.7
     tireGripFactor: 1
     tireMass: 20
   damperInfo:
@@ -496,7 +469,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 292481736}
-  - component: {fileID: 292481737}
   - component: {fileID: 292481738}
   m_Layer: 0
   m_Name: fl
@@ -520,32 +492,6 @@ Transform:
   m_Father: {fileID: 926665318}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &292481737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 292481735}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76d67db88f2dcba4f8dfd3c7b1b3d455, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  restLength: 0.6
-  springTravel: 0.2
-  springStiffness: 80000
-  damperStiffness: 4000
-  wheelRadius: 0.6
-  tireMass: 40
-  tireGripFactor: 1
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 64
-  isLeft: 1
-  canSteer: 1
-  canDrive: 1
-  steerAngle: 0
 --- !u!114 &292481738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -558,10 +504,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648f0e65a697eae4e92e7d2bf36787b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheelRadius: 0.5
+  wheelRadius: 0.6
   springInfo:
     springStrength: 30000
-    suspensionLength: 1.55
+    suspensionLength: 1.7
     tireGripFactor: 1
     tireMass: 20
   damperInfo:
@@ -633,7 +579,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 362861515}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 32.61, y: 0.98, z: 16.72}
+  m_LocalPosition: {x: 32.61, y: 1.09, z: 16.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1288,7 +1234,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 889998903}
-  - component: {fileID: 889998904}
   - component: {fileID: 889998905}
   m_Layer: 0
   m_Name: br
@@ -1312,32 +1257,6 @@ Transform:
   m_Father: {fileID: 926665318}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &889998904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 889998902}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76d67db88f2dcba4f8dfd3c7b1b3d455, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  restLength: 0.6
-  springTravel: 0.2
-  springStiffness: 80000
-  damperStiffness: 4000
-  wheelRadius: 0.6
-  tireMass: 40
-  tireGripFactor: 1
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 64
-  isLeft: 0
-  canSteer: 0
-  canDrive: 1
-  steerAngle: 0
 --- !u!114 &889998905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1350,10 +1269,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648f0e65a697eae4e92e7d2bf36787b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheelRadius: 0.5
+  wheelRadius: 0.6
   springInfo:
     springStrength: 30000
-    suspensionLength: 1.55
+    suspensionLength: 1.7
     tireGripFactor: 1
     tireMass: 20
   damperInfo:
@@ -2070,7 +1989,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1334971817}
-  - component: {fileID: 1334971818}
   - component: {fileID: 1334971819}
   m_Layer: 0
   m_Name: fr
@@ -2094,32 +2012,6 @@ Transform:
   m_Father: {fileID: 926665318}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1334971818
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1334971816}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76d67db88f2dcba4f8dfd3c7b1b3d455, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  restLength: 0.6
-  springTravel: 0.2
-  springStiffness: 80000
-  damperStiffness: 4000
-  wheelRadius: 0.6
-  tireMass: 40
-  tireGripFactor: 1
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 64
-  isLeft: 0
-  canSteer: 1
-  canDrive: 1
-  steerAngle: 0
 --- !u!114 &1334971819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2132,10 +2024,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648f0e65a697eae4e92e7d2bf36787b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheelRadius: 0.5
+  wheelRadius: 0.6
   springInfo:
     springStrength: 30000
-    suspensionLength: 1.55
+    suspensionLength: 1.7
     tireGripFactor: 1
     tireMass: 20
   damperInfo:
