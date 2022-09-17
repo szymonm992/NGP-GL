@@ -13,18 +13,24 @@ namespace Frontend.Scripts.Components
         [SerializeField] private HoverSpring[] allWheels;
         [SerializeField] private Rigidbody rig;
         [SerializeField] private Transform com;
-        [SerializeField] private float driveForce = 3000f;
         [SerializeField] private Text velocityText;
         [SerializeField] private AnimationCurve comSteeringCurve;
+        [SerializeField] private AnimationCurve angleBasedComSteeringCurve;
+        [SerializeField] private AnimationCurve enginePowerCurve;
+        [SerializeField] private float maximumComLowering = -1.4f;
 
         private float inputX, inputY;
         private float absoluteInputY, absoluteInputX;
         private float currentSpeed;
-
+        private float horizontalAngle = 0;
+        private float currentDriveForce = 0;
+        public float angleVelocityCombinatedEvaluation;
+       
         private Vector3 wheelVelocityLocal;
         private float Fx, Fy;
         public bool isBrake;
         public float currentLongitudalGrip;
+
         public HoverSpring[] AllWheels => allWheels;
 
         public void PassInputs(float inputX, float inputY, float absoluteX, float absoluteY)
@@ -54,16 +60,28 @@ namespace Frontend.Scripts.Components
 
         private void FixedUpdate()
         {
+            EvaluateDriveParams();
             Accelerate();
             Brakes();
             ApplyFrictionForces();
             AntirollCOM();
             currentSpeed = rig.velocity.magnitude * 3.6f;
+            horizontalAngle = Mathf.Abs( 90f - Vector3.Angle(Vector3.up, transform.right));
+        }
+
+        private void EvaluateDriveParams()
+        {
+            currentDriveForce = enginePowerCurve.Evaluate(currentSpeed);
         }
 
         private void AntirollCOM()
         {
-            rig.centerOfMass = (com.localPosition + new Vector3(0, comSteeringCurve.Evaluate(currentSpeed), 0));
+            //rig.centerOfMass = (com.localPosition + new Vector3(0, comSteeringCurve.Evaluate(currentSpeed), 0));
+
+            float evaluatedByAngle = angleBasedComSteeringCurve.Evaluate(horizontalAngle);
+            float evaluatedByVelocity = comSteeringCurve.Evaluate(currentSpeed);
+            angleVelocityCombinatedEvaluation = Mathf.Clamp(evaluatedByAngle + evaluatedByVelocity, + maximumComLowering, 0);
+            rig.centerOfMass = (com.localPosition + new Vector3(0, angleVelocityCombinatedEvaluation, 0));
         }
 
         private void Accelerate()
@@ -74,8 +92,8 @@ namespace Frontend.Scripts.Components
                 {
                     wheelVelocityLocal = wheel.transform.InverseTransformDirection(rig.GetPointVelocity(wheel.HitInfo.Point));
 
-                    Fx = inputY * driveForce;
-                    Fy = wheelVelocityLocal.x * driveForce;
+                    Fx = inputY * currentDriveForce;
+                    Fy = wheelVelocityLocal.x * currentDriveForce;
 
                     rig.AddForceAtPosition((Fx * wheel.transform.forward) + (Fy * -wheel.transform.right), wheel.HitInfo.Point);
                 }

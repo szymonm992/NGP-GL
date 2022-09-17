@@ -84,8 +84,8 @@ namespace Frontend.Scripts.Components
 
 		private void HitUpdate()
 		{
-			//isGrounded = Physics.Raycast(transform.position, -transform.up, out hitInfo.rayHit, springInfo.SuspensionLength);
-			isGrounded = Physics.SphereCast(transform.position,wheelRadius, -transform.up, out hitInfo.rayHit, springInfo.SuspensionLength, layerMask);
+			isGrounded = Physics.Raycast(transform.position, -transform.up, out hitInfo.rayHit, springInfo.SuspensionLength);
+			//isGrounded = Physics.SphereCast(transform.position,wheelRadius, -transform.up, out hitInfo.rayHit, springInfo.SuspensionLength, layerMask);
 	
 			if (IsGrounded)
 			{
@@ -100,10 +100,6 @@ namespace Frontend.Scripts.Components
 			tireWorldPosition = transform.position - transform.up * (isGrounded ? length : springInfo.SuspensionLength);
 
 		}
-
-		
-
-		
 
 		private void SuspensionUpdate()
 		{
@@ -186,14 +182,14 @@ namespace Frontend.Scripts.Components
 			if (isGrounded)
             {
 				Gizmos.color = Color.white;
-				Gizmos.DrawWireSphere(transform.position - transform.up * (springAndCenterDistance), wheelRadius);
-				Gizmos.DrawSphere(hitInfo.Point, 0.08f);
+				//Gizmos.DrawWireSphere(transform.position - transform.up * (springAndCenterDistance), wheelRadius);
+				Gizmos.DrawSphere(hitInfo.Point, 0.1f);
 				Handles.DrawLine(transform.position, transform.position - (transform.up * length), 1.6f);
 			}
 			else
             {
 				Gizmos.color = Color.red;
-				Gizmos.DrawWireSphere(transform.position - transform.up * (springInfo.SuspensionLength - wheelRadius), wheelRadius);
+				//Gizmos.DrawWireSphere(transform.position - transform.up * (springInfo.SuspensionLength - wheelRadius), wheelRadius);
 				Handles.DrawLine(transform.position, transform.position - (transform.up * (springInfo.SuspensionLength)), 1.6f);
 			}
 			

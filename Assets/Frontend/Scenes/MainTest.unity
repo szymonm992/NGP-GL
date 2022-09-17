@@ -610,7 +610,6 @@ MonoBehaviour:
   - {fileID: 16642665}
   rig: {fileID: 362861518}
   com: {fileID: 2086476557}
-  driveForce: 3000
   velocityText: {fileID: 1728332547}
   comSteeringCurve:
     serializedVersion: 2
@@ -625,7 +624,7 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 12
+      time: 15
       value: 0
       inSlope: -0
       outSlope: -0.021269409
@@ -635,18 +634,18 @@ MonoBehaviour:
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 29.94535
-      value: -0.8484516
-      inSlope: -0.034479268
-      outSlope: -0.034479268
+      value: -0.84
+      inSlope: -0.03369627
+      outSlope: -0.03369627
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 60
-      value: -1.5
-      inSlope: -0.021678789
-      outSlope: -0.021678789
+      time: 80
+      value: -1.4
+      inSlope: -0.011187772
+      outSlope: -0.011187772
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -654,6 +653,73 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  angleBasedComSteeringCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: -0.015555555
+      outSlope: -0.015555555
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 90
+      value: -1.4
+      inSlope: -0.015555555
+      outSlope: -0.015555555
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  enginePowerCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 3000
+      inSlope: -4.0846148
+      outSlope: -4.0846148
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 45.68317
+      value: 2813.4019
+      inSlope: -4.0846148
+      outSlope: 2.5974061
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.26563126
+    - serializedVersion: 3
+      time: 60
+      value: 2200
+      inSlope: -64.240746
+      outSlope: -110
+      tangentMode: 65
+      weightedMode: 0
+      inWeight: 0.055335935
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 80
+      value: 0
+      inSlope: -110
+      outSlope: -110
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  angleVelocityCombinatedEvaluation: 0
   isBrake: 0
   currentLongitudalGrip: 0
 --- !u!4 &362861517
