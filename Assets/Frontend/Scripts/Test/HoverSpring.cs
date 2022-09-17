@@ -9,13 +9,10 @@ namespace Frontend.Scripts.Components
 {
 	public class HoverSpring : MonoBehaviour
 	{
-		
-
 		[SerializeField] private float wheelRadius = 0.33f;
 		[SerializeField] private SpringInfo springInfo;
 		[SerializeField] private DamperInfo damperInfo;
 		[SerializeField] private LayerMask layerMask;
-		
 
 		private HitInfo hitInfo;
 		private float force;
@@ -33,6 +30,7 @@ namespace Frontend.Scripts.Components
 		private float steerAngle;
 		private float springAndCenterDistance;
 		private Vector3 totalForce;
+		private Vector3 tireWorldPosition;
 
 		public bool canDrive = true;
 		public bool isLeft = false;
@@ -52,6 +50,8 @@ namespace Frontend.Scripts.Components
 		public HitInfo HitInfo => hitInfo;
 		public float CompressionLength => compressionLength;
 		public bool IsGrounded => isGrounded;
+
+		public Vector3 GetTireWorldPosition => tireWorldPosition;
 
 		public float SteerAngle
         {
@@ -97,6 +97,7 @@ namespace Frontend.Scripts.Components
 					Debug.DrawRay(hitInfo.Point, hitInfo.sidewaysDir, Color.magenta);
 				}
 			}
+			tireWorldPosition = transform.position - transform.up * (isGrounded ? length : springInfo.SuspensionLength);
 
 		}
 
@@ -187,13 +188,13 @@ namespace Frontend.Scripts.Components
 				Gizmos.color = Color.white;
 				Gizmos.DrawWireSphere(transform.position - transform.up * (springAndCenterDistance), wheelRadius);
 				Gizmos.DrawSphere(hitInfo.Point, 0.08f);
-				Handles.DrawLine(transform.position, transform.position - (transform.up * springAndCenterDistance), 1.6f);
+				Handles.DrawLine(transform.position, transform.position - (transform.up * length), 1.6f);
 			}
 			else
             {
 				Gizmos.color = Color.red;
 				Gizmos.DrawWireSphere(transform.position - transform.up * (springInfo.SuspensionLength - wheelRadius), wheelRadius);
-				Handles.DrawLine(transform.position, transform.position - (transform.up * (springInfo.SuspensionLength - wheelRadius)), 1.6f);
+				Handles.DrawLine(transform.position, transform.position - (transform.up * (springInfo.SuspensionLength)), 1.6f);
 			}
 			
             
