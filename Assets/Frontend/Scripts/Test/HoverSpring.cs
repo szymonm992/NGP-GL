@@ -84,8 +84,8 @@ namespace Frontend.Scripts.Components
 
 		private void HitUpdate()
 		{
-			isGrounded = Physics.Raycast(transform.position, -transform.up, out hitInfo.rayHit, springInfo.SuspensionLength);
-			//isGrounded = Physics.SphereCast(transform.position,wheelRadius, -transform.up, out hitInfo.rayHit, springInfo.SuspensionLength, layerMask);
+			//isGrounded = Physics.Raycast(transform.position, -transform.up, out hitInfo.rayHit, springInfo.SuspensionLength);
+			isGrounded = Physics.SphereCast(transform.position,wheelRadius, -transform.up, out hitInfo.rayHit, springInfo.SuspensionLength, layerMask);
 	
 			if (IsGrounded)
 			{
