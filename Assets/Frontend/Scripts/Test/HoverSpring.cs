@@ -14,6 +14,7 @@ namespace Frontend.Scripts.Components
 		[SerializeField] private float wheelRadius = 0.33f;
 		[SerializeField] private SpringInfo springInfo;
 		[SerializeField] private DamperInfo damperInfo;
+		[SerializeField] private LayerMask layerMask;
 		
 
 		private HitInfo hitInfo;
@@ -83,10 +84,9 @@ namespace Frontend.Scripts.Components
 
 		private void HitUpdate()
 		{
-			float rayLength = springInfo.SuspensionLength;
-			isGrounded = Physics.Raycast(transform.position, -transform.up * rayLength, out hitInfo.rayHit, rayLength);
-			//isGrounded = Physics.SphereCast(transform.position,wheelRadius, -transform.up, out hitInfo.rayHit, rayLength);
-
+			isGrounded = Physics.Raycast(transform.position, -transform.up, out hitInfo.rayHit, springInfo.SuspensionLength);
+			//isGrounded = Physics.SphereCast(transform.position,wheelRadius, -transform.up, out hitInfo.rayHit, springInfo.SuspensionLength, layerMask);
+	
 			if (IsGrounded)
 			{
 				hitInfo.forwardDir = Vector3.Normalize(Vector3.Cross(hitInfo.Normal, -transform.right));
@@ -180,19 +180,22 @@ namespace Frontend.Scripts.Components
 
         private void OnDrawGizmos()
         {
-			if(isGrounded)
+			Gizmos.DrawSphere(transform.position, 0.1f);
+			Handles.color = Color.white;
+			if (isGrounded)
             {
-				Gizmos.color = Color.green;
+				Gizmos.color = Color.white;
 				Gizmos.DrawWireSphere(transform.position - transform.up * (springAndCenterDistance), wheelRadius);
 				Gizmos.DrawSphere(hitInfo.Point, 0.08f);
-				Handles.color = Color.blue;
-				Handles.DrawDottedLine(transform.position, transform.position - (transform.up * springAndCenterDistance), 1.6f);
+				Handles.DrawLine(transform.position, transform.position - (transform.up * springAndCenterDistance), 1.6f);
 			}
 			else
             {
 				Gizmos.color = Color.red;
 				Gizmos.DrawWireSphere(transform.position - transform.up * (springInfo.SuspensionLength - wheelRadius), wheelRadius);
+				Handles.DrawLine(transform.position, transform.position - (transform.up * (springInfo.SuspensionLength - wheelRadius)), 1.6f);
 			}
+			
             
         }
     }
