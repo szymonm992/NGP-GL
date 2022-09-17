@@ -15,27 +15,22 @@ namespace Frontend.Scripts.Components
         {
             float travelL = 1.0f;
             float travelR = 1.0f;
-            bool groundedL = wheelL.grounded;
+            bool groundedL = wheelL.IsGrounded;
             if (groundedL)
             {
-                travelL = (-wheelL.transform.InverseTransformPoint(wheelL.hit.point).y - 0.3f) / wheelL.spring.compressionLength;
+                travelL = (-wheelL.transform.InverseTransformPoint(wheelL.HitInfo.Point).y - 0.3f) / wheelL.CompressionLength;
             }
-            bool groundedR = wheelR.grounded;
+            bool groundedR = wheelR.IsGrounded;
             if (groundedR)
             {
-                travelR = (-wheelR.transform.InverseTransformPoint(wheelR.hit.point).y - 0.3f) / wheelR.spring.compressionLength;
-
-
+                travelR = (-wheelR.transform.InverseTransformPoint(wheelR.HitInfo.Point).y - 0.3f) / wheelR.CompressionLength;
             }
 
             float antiRollForce = (travelL - travelR) * antiRollVal;
 
-
-
             if (groundedL)
 
                 rig.AddForceAtPosition(wheelL.transform.up * -antiRollForce,
-
                        wheelL.transform.position);
 
             if (groundedR)

@@ -199,7 +199,7 @@ GameObject:
   m_Layer: 0
   m_Name: bl
   m_TagString: Untagged
-  m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -211,7 +211,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 16642662}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 0.37999988, z: -2}
+  m_LocalPosition: {x: -1, y: 0.56999993, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -256,45 +256,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648f0e65a697eae4e92e7d2bf36787b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spring:
-    strength: 30000
-    maxLength: 1.3
+  wheelRadius: 0.5
+  springInfo:
+    springStrength: 30000
+    suspensionLength: 1.5
     tireGripFactor: 1
     tireMass: 20
-    force: 0
-    velocity: 0
-    preLength: 0
-    length: 0
-    compressionLength: 0
-    preOverflow: 0
-    overflow: 0
-    overflowVelocity: 0
-    bottomedOut: 0
-    overExtended: 0
-    bottomedOutForce: 0
-  damper:
+  damperInfo:
     unitBumpForce: 400
     unitReboundForce: 1800
-    force: 0
-    maxForce: 0
-  hit:
-    numCtp: 0
-    forwardDir: {x: 0, y: 0, z: 0}
-    sidewaysDir: {x: 0, y: 0, z: 0}
-  parent: {fileID: 362861515}
-  parentRigidbody: {fileID: 362861518}
-  grounded: 0
   canDrive: 1
-  driveForce: 6000
-  inputX: 0
-  inputY: 0
-  absoluteInputY: 0
-  absoluteInputX: 0
-  isBrake: 0
-  currentLongitudalGrip: 0
   isLeft: 1
   canSteer: 0
-  steerAngle: 0
+  debugSettings:
+    drawGizmos: 1
+    drawOnDisable: 0
+    drawMode: 0
+    drawForce: 1
 --- !u!1 &191571512
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,7 +498,7 @@ GameObject:
   m_Layer: 0
   m_Name: fl
   m_TagString: Untagged
-  m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -532,7 +510,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 292481735}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 0.38, z: 2}
+  m_LocalPosition: {x: -1, y: 0.57, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -577,45 +555,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648f0e65a697eae4e92e7d2bf36787b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spring:
-    strength: 30000
-    maxLength: 1.3
+  wheelRadius: 0.5
+  springInfo:
+    springStrength: 30000
+    suspensionLength: 1.5
     tireGripFactor: 1
     tireMass: 20
-    force: 0
-    velocity: 0
-    preLength: 0
-    length: 0
-    compressionLength: 0
-    preOverflow: 0
-    overflow: 0
-    overflowVelocity: 0
-    bottomedOut: 0
-    overExtended: 0
-    bottomedOutForce: 0
-  damper:
+  damperInfo:
     unitBumpForce: 400
     unitReboundForce: 1800
-    force: 0
-    maxForce: 0
-  hit:
-    numCtp: 0
-    forwardDir: {x: 0, y: 0, z: 0}
-    sidewaysDir: {x: 0, y: 0, z: 0}
-  parent: {fileID: 362861515}
-  parentRigidbody: {fileID: 362861518}
-  grounded: 0
   canDrive: 1
-  driveForce: 6000
-  inputX: 0
-  inputY: 0
-  absoluteInputY: 0
-  absoluteInputX: 0
-  isBrake: 0
-  currentLongitudalGrip: 0
   isLeft: 1
   canSteer: 1
-  steerAngle: 0
+  debugSettings:
+    drawGizmos: 1
+    drawOnDisable: 0
+    drawMode: 0
+    drawForce: 1
 --- !u!1 &362861515
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,6 +615,8 @@ MonoBehaviour:
   - {fileID: 16642665}
   rig: {fileID: 362861518}
   com: {fileID: 2086476557}
+  driveForce: 3000
+  velocityText: {fileID: 1728332547}
   isBrake: 0
   currentLongitudalGrip: 0
 --- !u!4 &362861517
@@ -1329,7 +1287,7 @@ GameObject:
   m_Layer: 0
   m_Name: br
   m_TagString: Untagged
-  m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1341,7 +1299,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 889998902}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0.38, z: -2}
+  m_LocalPosition: {x: 1, y: 0.57000005, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1386,45 +1344,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648f0e65a697eae4e92e7d2bf36787b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spring:
-    strength: 30000
-    maxLength: 1.3
+  wheelRadius: 0.5
+  springInfo:
+    springStrength: 30000
+    suspensionLength: 1.5
     tireGripFactor: 1
     tireMass: 20
-    force: 0
-    velocity: 0
-    preLength: 0
-    length: 0
-    compressionLength: 0
-    preOverflow: 0
-    overflow: 0
-    overflowVelocity: 0
-    bottomedOut: 0
-    overExtended: 0
-    bottomedOutForce: 0
-  damper:
+  damperInfo:
     unitBumpForce: 400
     unitReboundForce: 1800
-    force: 0
-    maxForce: 0
-  hit:
-    numCtp: 0
-    forwardDir: {x: 0, y: 0, z: 0}
-    sidewaysDir: {x: 0, y: 0, z: 0}
-  parent: {fileID: 362861515}
-  parentRigidbody: {fileID: 362861518}
-  grounded: 0
   canDrive: 1
-  driveForce: 6000
-  inputX: 0
-  inputY: 0
-  absoluteInputY: 0
-  absoluteInputX: 0
-  isBrake: 0
-  currentLongitudalGrip: 0
   isLeft: 0
   canSteer: 0
-  steerAngle: 0
+  debugSettings:
+    drawGizmos: 1
+    drawOnDisable: 0
+    drawMode: 0
+    drawForce: 1
 --- !u!1 &911723013
 GameObject:
   m_ObjectHideFlags: 0
@@ -2130,7 +2066,7 @@ GameObject:
   m_Layer: 0
   m_Name: fr
   m_TagString: Untagged
-  m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2142,7 +2078,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1334971816}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0.38, z: 2}
+  m_LocalPosition: {x: 1, y: 0.57000005, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2187,45 +2123,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648f0e65a697eae4e92e7d2bf36787b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spring:
-    strength: 30000
-    maxLength: 1.3
+  wheelRadius: 0.5
+  springInfo:
+    springStrength: 30000
+    suspensionLength: 1.5
     tireGripFactor: 1
     tireMass: 20
-    force: 0
-    velocity: 0
-    preLength: 0
-    length: 0
-    compressionLength: 0
-    preOverflow: 0
-    overflow: 0
-    overflowVelocity: 0
-    bottomedOut: 0
-    overExtended: 0
-    bottomedOutForce: 0
-  damper:
+  damperInfo:
     unitBumpForce: 400
     unitReboundForce: 1800
-    force: 0
-    maxForce: 0
-  hit:
-    numCtp: 0
-    forwardDir: {x: 0, y: 0, z: 0}
-    sidewaysDir: {x: 0, y: 0, z: 0}
-  parent: {fileID: 362861515}
-  parentRigidbody: {fileID: 362861518}
-  grounded: 0
   canDrive: 1
-  driveForce: 6000
-  inputX: 0
-  inputY: 0
-  absoluteInputY: 0
-  absoluteInputX: 0
-  isBrake: 0
-  currentLongitudalGrip: 0
   isLeft: 0
   canSteer: 1
-  steerAngle: 0
+  debugSettings:
+    drawGizmos: 1
+    drawOnDisable: 0
+    drawMode: 0
+    drawForce: 1
 --- !u!1 &1372180339
 GameObject:
   m_ObjectHideFlags: 0
@@ -2932,6 +2846,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 10, y: 90, z: 0}
+--- !u!114 &1728332547 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5351831411207673511, guid: 9e789f1c8f9f9b14699c59f0e8719cb4, type: 3}
+  m_PrefabInstance: {fileID: 7200623150865602636}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1753281416
 GameObject:
   m_ObjectHideFlags: 0

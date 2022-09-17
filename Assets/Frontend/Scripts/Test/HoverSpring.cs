@@ -1,49 +1,77 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Frontend.Scripts.Models;
+using Frontend.Scripts.Enums;
+using UnityEditor;
+
 namespace Frontend.Scripts.Components
 {
 	public class HoverSpring : MonoBehaviour
 	{
-		public Spring spring;
-		public Damper damper;
-		public Hit hit;
-		public GameObject parent;
-		public Rigidbody parentRigidbody;
-		public bool grounded = false;
+		
+
+		[SerializeField] private float wheelRadius = 0.33f;
+		[SerializeField] private SpringInfo springInfo;
+		[SerializeField] private DamperInfo damperInfo;
+		
+
+		private HitInfo hitInfo;
+		private float force;
+		private float velocity;
+		private float preLength, length;
+		private float compressionLength;
+		private float preOverflow, overflow, overflowVelocity;
+		private bool bottomedOut, overExtended;
+		private float bottomedOutForce;
+
+		private Rigidbody rig;
+		
+		private bool isGrounded = false;
+		private float wheelAngle = 0f;
+		private float steerAngle;
+		private float springAndCenterDistance;
+		private Vector3 totalForce;
+
 		public bool canDrive = true;
-
-		public float driveForce = 0;
-
-
-
-		public float inputX, inputY;
-		public float absoluteInputY, absoluteInputX;
-		private Vector3 wheelVelocityLocal;
-		private float Fx, Fy;
-		public bool isBrake;
-		public float currentLongitudalGrip;
-
-
-
 		public bool isLeft = false;
 		public bool canSteer = false;
-		public float steerAngle = 0f;
-		private float wheelAngle = 0f;
+
+		[SerializeField]
+		private UnderWheelDebug debugSettings = new UnderWheelDebug()
+		{
+			DrawGizmos = true,
+			DrawOnDisable = false,
+			DrawMode = UnderWheelDebugMode.All,
+			DrawForce = true
+		};
+
+		public SpringInfo SpringInfo => springInfo;
+		public DamperInfo DamperInfo => damperInfo;
+		public HitInfo HitInfo => hitInfo;
+		public float CompressionLength => compressionLength;
+		public bool IsGrounded => isGrounded;
+
+		public float SteerAngle
+        {
+			get => steerAngle;
+            set { this.steerAngle = value; }
+        }
+
+
 
 		private void Awake()
 		{
-			if (parent == null) parent = FindParent();
-			if (parent != null) parentRigidbody = parent.GetComponent<Rigidbody>();
+			rig = transform.root.GetComponent<Rigidbody>();
+			hitInfo = new HitInfo();
 		}
 
-		void FixedUpdate()
+		private void FixedUpdate()
 		{
 			HitUpdate();
 			SuspensionUpdate();
 			ForceUpdate();
 		}
-
 
 		private void Update()
 		{
@@ -52,197 +80,121 @@ namespace Frontend.Scripts.Components
 				transform.localRotation.y + wheelAngle,
 				transform.localRotation.z);
 		}
+
 		private void HitUpdate()
 		{
-			float rayLength = spring.maxLength;
-			grounded = Physics.Raycast(transform.position, -transform.up * rayLength, out hit.rayHit, rayLength);
-			Debug.DrawRay(transform.position, -transform.up * rayLength, Color.yellow);
-			if (grounded)
+			float rayLength = springInfo.SuspensionLength;
+			isGrounded = Physics.Raycast(transform.position, -transform.up * rayLength, out hitInfo.rayHit, rayLength);
+			//isGrounded = Physics.SphereCast(transform.position,wheelRadius, -transform.up, out hitInfo.rayHit, rayLength);
+
+			if (IsGrounded)
 			{
-				hit.forwardDir = Vector3.Normalize(Vector3.Cross(hit.normal, -transform.right));
-				hit.sidewaysDir = Quaternion.AngleAxis(90f, hit.normal) * hit.forwardDir;
-				Debug.DrawRay(hit.point, hit.forwardDir, Color.blue);
-				Debug.DrawRay(hit.point, hit.sidewaysDir, Color.magenta);
-			}
-		}
-
-		private void ApplyFrictionForces()
-		{
-			Vector3 steeringDir = transform.right;
-			Vector3 tireVel = parentRigidbody.GetPointVelocity(transform.position);
-
-			float steeringVel = Vector3.Dot(steeringDir, tireVel);
-			float desiredVelChange = -steeringVel * spring.tireGripFactor;
-			float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
-
-			parentRigidbody.AddForceAtPosition(steeringDir * spring.tireMass * desiredAccel, hit.point);
-		}
-
-		private void Accelerate()
-		{
-
-			if (canDrive && !isBrake)
-			{
-				wheelVelocityLocal = transform.InverseTransformDirection(parentRigidbody.GetPointVelocity(hit.point));
-
-				Fx = inputY * driveForce / 2;
-				Fy = wheelVelocityLocal.x * driveForce;
-
-				parentRigidbody.AddForceAtPosition((Fx * transform.forward) + (Fy * -transform.right), hit.point);
+				hitInfo.forwardDir = Vector3.Normalize(Vector3.Cross(hitInfo.Normal, -transform.right));
+				hitInfo.sidewaysDir = Quaternion.AngleAxis(90f, hitInfo.Normal) * hitInfo.forwardDir;
+				if(debugSettings.DrawForce)
+                {
+					Debug.DrawRay(hitInfo.Point, hitInfo.forwardDir, Color.blue);
+					Debug.DrawRay(hitInfo.Point, hitInfo.sidewaysDir, Color.magenta);
+				}
 			}
 
-
 		}
 
-		private void Brakes()
-		{
-			currentLongitudalGrip = isBrake ? 1f : (absoluteInputY > 0 ? 0 : 0.7f);
+		
 
-			Vector3 forwardDir = transform.forward;
-			Vector3 tireVel = parentRigidbody.GetPointVelocity(transform.position);
-
-			float steeringVel = Vector3.Dot(forwardDir, tireVel);
-			float desiredVelChange = -steeringVel * currentLongitudalGrip;
-			float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
-
-			parentRigidbody.AddForceAtPosition(forwardDir * spring.tireMass * desiredAccel, transform.position);
-		}
+		
 
 		private void SuspensionUpdate()
 		{
-			spring.preOverflow = spring.overflow;
-			spring.overflow = 0f;
-			if (grounded && Vector3.Dot(hit.normal, transform.up) > 0.1f)
+			preOverflow = overflow;
+			overflow = 0f;
+			if (IsGrounded && Vector3.Dot(hitInfo.Normal, transform.up) > 0.1f)
 			{
-				spring.bottomedOut = spring.overExtended = false;
+				bottomedOut = overExtended = false;
 
-				spring.length = transform.position.y - hit.point.y;
+				length = transform.position.y - hitInfo.Point.y;
 
-				if (spring.length < 0f)
+				if (length < 0f)
 				{
-					spring.overflow = -spring.length;
-					spring.length = 0f;
-					spring.bottomedOut = true;
+					overflow = -length;
+					length = 0f;
+					bottomedOut = true;
 				}
-				else if (spring.length > spring.maxLength)
+				else if (length > springInfo.SuspensionLength)
 				{
-					grounded = false;
-					spring.length = spring.maxLength;
-					spring.overExtended = true;
+					isGrounded = false;
+					length = springInfo.SuspensionLength;
+					overExtended = true;
 				}
 			}
 			else
 			{
-				spring.length = Mathf.Lerp(spring.length, spring.maxLength, Time.fixedDeltaTime * 8f);
+				length = Mathf.Lerp(length, springInfo.SuspensionLength, Time.fixedDeltaTime * 8f);
 			}
 
-			spring.velocity = (spring.length - spring.preLength) / Time.fixedDeltaTime;
-			spring.compressionLength = spring.maxLength - spring.length;
-			spring.force = spring.strength * spring.compressionLength;
+			springAndCenterDistance = length - wheelRadius;
+			velocity = (length - preLength) / Time.fixedDeltaTime;
+			compressionLength = springInfo.SuspensionLength - length;
+			force = springInfo.SpringStrength * compressionLength;
 
-			spring.overflowVelocity = 0f;
-			if (spring.overflow > 0)
+			overflowVelocity = 0f;
+			if (overflow > 0)
 			{
-				spring.overflowVelocity = (spring.overflow - spring.preOverflow) / Time.fixedDeltaTime;
-				spring.bottomedOutForce = parentRigidbody.mass * -Physics.gravity.y * Mathf.Clamp(spring.overflowVelocity, 0f, Mathf.Infinity) * 0.0225f;
-				parentRigidbody.AddForceAtPosition(spring.bottomedOutForce * transform.up, transform.position, ForceMode.Impulse);
+				overflowVelocity = (overflow - preOverflow) / Time.fixedDeltaTime;
+				bottomedOutForce = rig.mass * -Physics.gravity.y * Mathf.Clamp(overflowVelocity, 0f, Mathf.Infinity) * 0.0225f;
+				rig.AddForceAtPosition(bottomedOutForce * transform.up, transform.position, ForceMode.Impulse);
 			}
 			else
 			{
-				damper.maxForce = spring.length < spring.preLength ? damper.unitBumpForce : damper.unitReboundForce;
-				if (spring.length <= spring.preLength)
-					damper.force = damper.unitBumpForce * 4f * spring.velocity;
+				damperInfo.MaxForce = length < preLength ? damperInfo.UnitBumpForce : damperInfo.UnitReboundForce;
+				if (length <= preLength)
+                {
+					damperInfo.FinalForce = damperInfo.UnitBumpForce * 4f * velocity;
+				}				
 				else
-					damper.force = -damper.unitReboundForce * 4f * spring.velocity;
+                {
+					damperInfo.FinalForce = -damperInfo.UnitReboundForce * 4f * velocity;
+				}
+					
 			}
 
-			spring.preLength = spring.length;
+			preLength = length;
 		}
 
-		private Vector3 totalForce;
+		
 		private void ForceUpdate()
 		{
-			if (!grounded) return;
-
-			float suspensionForceMagnitude = Mathf.Clamp(spring.force + damper.force, 0.0f, Mathf.Infinity);
-
-			totalForce.x = suspensionForceMagnitude * hit.normal.x;
-			totalForce.y = suspensionForceMagnitude * hit.normal.y;
-			totalForce.z = suspensionForceMagnitude * hit.normal.z;
-
-			parentRigidbody.AddForceAtPosition(totalForce, transform.position);
-
-			Accelerate();
-			Brakes();
-			ApplyFrictionForces();
-
-		}
-
-		#region Class
-		[System.Serializable]
-		public class Hit
-		{
-			public RaycastHit rayHit;
-			public int numCtp;
-			public Vector3 forwardDir;
-			public Vector3 sidewaysDir;
-
-			public Vector3 point
+			if (!IsGrounded)
 			{
-				get
-				{
-					return rayHit.point;
-				}
+				return;
 			}
-			public Vector3 normal
-			{
-				get
-				{
-					return rayHit.normal;
-				}
+
+			float suspensionForceMagnitude = Mathf.Clamp(force + damperInfo.FinalForce, 0.0f, Mathf.Infinity);
+
+			totalForce.x = suspensionForceMagnitude * hitInfo.Normal.x;
+			totalForce.y = suspensionForceMagnitude * hitInfo.Normal.y;
+			totalForce.z = suspensionForceMagnitude * hitInfo.Normal.z;
+
+			rig.AddForceAtPosition(totalForce, transform.position);
+		}
+
+        private void OnDrawGizmos()
+        {
+			if(isGrounded)
+            {
+				Gizmos.color = Color.green;
+				Gizmos.DrawWireSphere(transform.position - transform.up * (springAndCenterDistance), wheelRadius);
+				Gizmos.DrawSphere(hitInfo.Point, 0.08f);
+				Handles.color = Color.blue;
+				Handles.DrawDottedLine(transform.position, transform.position - (transform.up * springAndCenterDistance), 1.6f);
 			}
-		}
-		[System.Serializable]
-		public class Spring
-		{
-			public float strength = 21000f;
-			public float maxLength = 0.3f;
-			[Range(0, 1f)]
-			public float tireGripFactor = 1f;
-			public float tireMass = 40f;
-			[HideInInspector] public float force;
-			[HideInInspector] public float velocity;
-			[HideInInspector] public float preLength, length;
-			[HideInInspector] public float compressionLength;
-			[HideInInspector] public float preOverflow, overflow, overflowVelocity;
-			[HideInInspector] public bool bottomedOut, overExtended;
-			[HideInInspector] public float bottomedOutForce;
-		}
-		[System.Serializable]
-		public class Damper
-		{
-			public float unitBumpForce = 800.0f;
-			public float unitReboundForce = 1000.0f;
-			[HideInInspector] public float force;
-			[HideInInspector] public float maxForce;
-		}
-		#endregion
-		private GameObject FindParent()
-		{
-			Transform t = transform;
-			while (t != null)
-			{
-				if (t.GetComponent<Rigidbody>())
-				{
-					return t.gameObject;
-				}
-				else
-				{
-					t = t.parent;
-				}
+			else
+            {
+				Gizmos.color = Color.red;
+				Gizmos.DrawWireSphere(transform.position - transform.up * (springInfo.SuspensionLength - wheelRadius), wheelRadius);
 			}
-			return null;
-		}
-	}
+            
+        }
+    }
 }
 

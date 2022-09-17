@@ -44,11 +44,11 @@ namespace Frontend.Scripts.Components
                 {
                     if (wheel.isLeft)
                     {
-                        wheel.steerAngle = ackermannAngleLeft;
+                        wheel.SteerAngle = ackermannAngleLeft;
                     }
                     else
                     {
-                        wheel.steerAngle = ackermannAngleRight;
+                        wheel.SteerAngle = ackermannAngleRight;
                     }
                 }
             }

@@ -1,6 +1,9 @@
+using Frontend.Scripts.Enums;
+using Frontend.Scripts.Models;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Frontend.Scripts.Components
 {
@@ -9,15 +12,26 @@ namespace Frontend.Scripts.Components
         [SerializeField] private HoverSpring[] allWheels;
         [SerializeField] private Rigidbody rig;
         [SerializeField] private Transform com;
+        [SerializeField] private float driveForce = 3000f;
+        [SerializeField] private Text velocityText;
 
         private float inputX, inputY;
         private float absoluteInputY, absoluteInputX;
+        private float currentSpeed;
 
         private Vector3 wheelVelocityLocal;
         private float Fx, Fy;
         public bool isBrake;
         public float currentLongitudalGrip;
         public HoverSpring[] AllWheels => allWheels;
+
+        public void PassInputs(float inputX, float inputY, float absoluteX, float absoluteY)
+        {
+            this.inputX = inputX;
+            this.inputY = inputY;
+            this.absoluteInputX = absoluteX;
+            this.absoluteInputY = absoluteY;
+        }
 
         private void Awake()
         {
@@ -32,44 +46,40 @@ namespace Frontend.Scripts.Components
             absoluteInputY = Mathf.Abs(inputY);
             absoluteInputX = Mathf.Abs(inputX);
 
-            foreach (var wheel in allWheels)
-            {
-                wheel.inputX = inputX;
-                wheel.inputY = inputY;
-                wheel.absoluteInputX = absoluteInputX;
-                wheel.absoluteInputY = absoluteInputY;
-            }
+            velocityText.text = currentSpeed.ToString("F0");
         }
+
+
         private void FixedUpdate()
         {
-            //Accelerate();
-           // Brakes();
+            Accelerate();
+            Brakes();
+            ApplyFrictionForces();
+            currentSpeed = rig.velocity.magnitude * 3.6f;
         }
-        /*
+
+        
         private void Accelerate()
         {
             foreach (var wheel in allWheels)
             {
                 if (wheel.canDrive & wheel.IsGrounded && !isBrake)
                 {
-                    wheelVelocityLocal = transform.InverseTransformDirection(rig.GetPointVelocity(wheel.hit.point));
+                    wheelVelocityLocal = wheel.transform.InverseTransformDirection(rig.GetPointVelocity(wheel.HitInfo.Point));
 
-                    Fx = inputY * driveForce/2;
+                    Fx = inputY * driveForce;
                     Fy = wheelVelocityLocal.x * driveForce;
 
-                    rig.AddForceAtPosition((Fx * wheel.transform.forward) + (Fy * -wheel.transform.right), wheel.hit.point);
+                    rig.AddForceAtPosition((Fx * wheel.transform.forward) + (Fy * -wheel.transform.right), wheel.HitInfo.Point);
                 }
-
             }
-
         }
 
         private void Brakes()
         {
-             currentLongitudalGrip = isBrake ? 1f : (absoluteInputY > 0 ? 0 : 0.5f);
+            currentLongitudalGrip = isBrake ? 1f : (absoluteInputY > 0 ? 0 : 0.5f);
             foreach (var wheel in allWheels)
             {
-               
                 if (wheel.IsGrounded)
                 {
                     Vector3 forwardDir = wheel.transform.forward;
@@ -79,10 +89,28 @@ namespace Frontend.Scripts.Components
                     float desiredVelChange = -steeringVel * currentLongitudalGrip;
                     float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
 
-                    rig.AddForceAtPosition(forwardDir * wheel.spring.tireMass * desiredAccel, wheel.transform.position);
+                    rig.AddForceAtPosition(desiredAccel * wheel.SpringInfo.TireMass * forwardDir, wheel.transform.position);
                 }
             }
 
-        }*/
+        }
+
+        private void ApplyFrictionForces()
+        {
+            foreach (var wheel in allWheels)
+            {
+                if (wheel.IsGrounded)
+                {
+                    Vector3 steeringDir = wheel.transform.right;
+                    Vector3 tireVel = rig.GetPointVelocity(wheel.transform.position);
+
+                    float steeringVel = Vector3.Dot(steeringDir, tireVel);
+                    float desiredVelChange = -steeringVel * wheel.SpringInfo.TireGripFactor;
+                    float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
+
+                    rig.AddForceAtPosition(desiredAccel * wheel.SpringInfo.TireMass * steeringDir, wheel.HitInfo.Point);
+                }
+            }
+        }
     }
 }

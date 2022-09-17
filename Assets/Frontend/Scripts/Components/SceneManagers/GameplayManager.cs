@@ -22,7 +22,7 @@ namespace Frontend.Scripts.Components
 
            for(int i=0;i<test.Count;i++)
             {
-                Debug.Log("element at " + i + " is equal to" + test[i]);
+                //Debug.Log("element at " + i + " is equal to" + test[i]);
             }
         }
 
