@@ -9,35 +9,37 @@ namespace Frontend.Scripts.Components
         [SerializeField] private Rigidbody rig;
         public HoverSpring wheelL;
         public HoverSpring wheelR;
-        public float antiRollVal = 5000f;
-
+        public float antiRollVal = 300f;
+        public float travelL = 0f;
+        public float travelR = 0f;
         void Update()
         {
-            float travelL = 1.0f;
-            float travelR = 1.0f;
+            
             bool groundedL = wheelL.IsGrounded;
             if (groundedL)
             {
-                travelL = (-wheelL.transform.InverseTransformPoint(wheelL.HitInfo.Point).y - 0.3f) / wheelL.CompressionLength;
+                travelL = (-wheelL.transform.InverseTransformPoint(wheelL.HitInfo.Point).y - 0.5f) / wheelL.CompressionLength;
             }
             bool groundedR = wheelR.IsGrounded;
             if (groundedR)
             {
-                travelR = (-wheelR.transform.InverseTransformPoint(wheelR.HitInfo.Point).y - 0.3f) / wheelR.CompressionLength;
+                travelR = (-wheelR.transform.InverseTransformPoint(wheelR.HitInfo.Point).y - 0.5f) / wheelR.CompressionLength;
             }
 
             float antiRollForce = (travelL - travelR) * antiRollVal;
 
-            if (groundedL)
-
+            if (!groundedL)
+            {
                 rig.AddForceAtPosition(wheelL.transform.up * -antiRollForce,
                        wheelL.transform.position);
+            }
+            if (!groundedR)
 
-            if (groundedR)
-
+            {
                 rig.AddForceAtPosition(wheelR.transform.up * antiRollForce,
 
-                       wheelR.transform.position);
+                      wheelR.transform.position);
+            }
         }
     }
 }

@@ -2,6 +2,7 @@ using Frontend.Scripts.Enums;
 using Frontend.Scripts.Models;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,7 @@ namespace Frontend.Scripts.Components
         [SerializeField] private Transform com;
         [SerializeField] private float driveForce = 3000f;
         [SerializeField] private Text velocityText;
+        [SerializeField] private AnimationCurve comSteeringCurve;
 
         private float inputX, inputY;
         private float absoluteInputY, absoluteInputX;
@@ -55,10 +57,15 @@ namespace Frontend.Scripts.Components
             Accelerate();
             Brakes();
             ApplyFrictionForces();
+            AntirollCOM();
             currentSpeed = rig.velocity.magnitude * 3.6f;
         }
 
-        
+        private void AntirollCOM()
+        {
+            rig.centerOfMass = (com.localPosition + new Vector3(0, comSteeringCurve.Evaluate(currentSpeed), 0));
+        }
+
         private void Accelerate()
         {
             foreach (var wheel in allWheels)
@@ -111,6 +118,12 @@ namespace Frontend.Scripts.Components
                     rig.AddForceAtPosition(desiredAccel * wheel.SpringInfo.TireMass * steeringDir, wheel.HitInfo.Point);
                 }
             }
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.white;
+            Gizmos.DrawSphere(rig.worldCenterOfMass, 0.2f);
         }
     }
 }

@@ -539,8 +539,6 @@ GameObject:
   - component: {fileID: 362861519}
   - component: {fileID: 362861522}
   - component: {fileID: 362861521}
-  - component: {fileID: 362861524}
-  - component: {fileID: 362861523}
   m_Layer: 0
   m_Name: BUGGY (1)
   m_TagString: Untagged
@@ -569,6 +567,39 @@ MonoBehaviour:
   com: {fileID: 2086476557}
   driveForce: 3000
   velocityText: {fileID: 1728332547}
+  comSteeringCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: -0.028333334
+      outSlope: -0.028333334
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 29.94535
+      value: -0.8484516
+      inSlope: -0.028333334
+      outSlope: -0.028333334
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 60
+      value: -1.7
+      inSlope: -0.028333334
+      outSlope: -0.028333334
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   isBrake: 0
   currentLongitudalGrip: 0
 --- !u!4 &362861517
@@ -709,38 +740,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &362861523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 362861515}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea5b5b35dbbe8ba4096cacd7532a3b48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rig: {fileID: 362861518}
-  wheelL: {fileID: 16642665}
-  wheelR: {fileID: 889998905}
-  antiRollVal: 450
---- !u!114 &362861524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 362861515}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea5b5b35dbbe8ba4096cacd7532a3b48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rig: {fileID: 362861518}
-  wheelL: {fileID: 292481738}
-  wheelR: {fileID: 1334971819}
-  antiRollVal: 450
 --- !u!1 &412310678
 GameObject:
   m_ObjectHideFlags: 0
@@ -3122,7 +3121,7 @@ GameObject:
   m_Layer: 0
   m_Name: COM
   m_TagString: Untagged
-  m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -3134,7 +3133,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2086476556}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.12, z: 0}
+  m_LocalPosition: {x: 0, y: 0.67, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
