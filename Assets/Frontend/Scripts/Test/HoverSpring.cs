@@ -9,11 +9,15 @@ namespace Frontend.Scripts.Components
 {
 	public class HoverSpring : MonoBehaviour
 	{
-		[SerializeField] private float wheelRadius = 0.33f;
+		[SerializeField] private float wheelRadius = 0.6f;
+		[SerializeField] private float tireMass = 30f;
+		[Range(0, 1f)]
+		[SerializeField] private float forwardTireGripFactor = 1f, sidewaysTireGripFactor = 1f;
 		[SerializeField] private SpringInfo springInfo;
 		[SerializeField] private DamperInfo damperInfo;
 		[SerializeField] private LayerMask layerMask;
 
+		
 		private HitInfo hitInfo = new HitInfo();
 		private float compressionLength;
 
@@ -43,6 +47,9 @@ namespace Frontend.Scripts.Components
 		public HitInfo HitInfo => hitInfo;
 		public float CompressionLength => compressionLength;
 		public float WheelRadius => wheelRadius;
+		public float ForwardTireGripFactor => forwardTireGripFactor;
+		public float SidewaysTireGripFactor => sidewaysTireGripFactor;
+		public float TireMass => tireMass;
 		public bool IsGrounded => isGrounded;
 
 		public Vector3 GetTireWorldPosition => tireWorldPosition;

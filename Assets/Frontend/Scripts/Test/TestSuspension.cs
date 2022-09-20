@@ -134,7 +134,7 @@ namespace Frontend.Scripts.Components
                     float desiredVelChange = -steeringVel * currentLongitudalGrip;
                     float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
 
-                    rig.AddForceAtPosition(desiredAccel * wheel.SpringInfo.TireMass * forwardDir, wheel.transform.position);
+                    rig.AddForceAtPosition(desiredAccel * wheel.TireMass * forwardDir, wheel.transform.position);
                 }
             }
 
@@ -151,10 +151,10 @@ namespace Frontend.Scripts.Components
                     Vector3 tireVel = rig.GetPointVelocity(wheel.HitInfo.Point);
 
                     float steeringVel = Vector3.Dot(steeringDir, tireVel);
-                    float desiredVelChange = -steeringVel * wheel.SpringInfo.TireGripFactor;
+                    float desiredVelChange = -steeringVel * wheel.SidewaysTireGripFactor;
                     float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
 
-                    rig.AddForceAtPosition(desiredAccel * wheel.SpringInfo.TireMass * steeringDir, wheel.HitInfo.Point);
+                    rig.AddForceAtPosition(desiredAccel * wheel.TireMass * steeringDir, wheel.HitInfo.Point);
                 }
             }
         }
