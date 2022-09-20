@@ -67,7 +67,7 @@ namespace Frontend.Scripts.Components
             ApplyFrictionForces();
             AntirollCOM();
             currentSpeed = rig.velocity.magnitude * 3.6f;
-            horizontalAngle = Mathf.Abs( 90f - Vector3.Angle(Vector3.up, transform.right));
+            horizontalAngle = Mathf.Abs(90f - Vector3.Angle(Vector3.up, transform.right));
         }
 
         private void EvaluateDriveParams()
@@ -77,8 +77,6 @@ namespace Frontend.Scripts.Components
 
         private void AntirollCOM()
         {
-            //rig.centerOfMass = (com.localPosition + new Vector3(0, comSteeringCurve.Evaluate(currentSpeed), 0));
-
             float evaluatedByAngle = angleBasedComSteeringCurve.Evaluate(horizontalAngle);
             float evaluatedByVelocity = comSteeringCurve.Evaluate(currentSpeed);
             angleVelocityCombinatedEvaluation = Mathf.Clamp(evaluatedByAngle + evaluatedByVelocity, + maximumComLowering, 0);
@@ -91,7 +89,7 @@ namespace Frontend.Scripts.Components
             {
                 if (wheel.canDrive & wheel.IsGrounded && !isBrake)
                 {
-                    wheelVelocityLocal = wheel.transform.InverseTransformDirection(rig.GetPointVelocity(wheel.HitInfo.Point));
+                    wheelVelocityLocal = wheel.transform.InverseTransformDirection(rig.GetPointVelocity(wheel.transform.position));
 
                     Fx = inputY * currentDriveForce;
                     Fy = wheelVelocityLocal.x * currentDriveForce;
@@ -122,6 +120,7 @@ namespace Frontend.Scripts.Components
 
         }
 
+
         private void ApplyFrictionForces()
         {
             foreach (var wheel in allWheels)
@@ -129,7 +128,7 @@ namespace Frontend.Scripts.Components
                 if (wheel.IsGrounded)
                 {
                     Vector3 steeringDir = wheel.transform.right;
-                    Vector3 tireVel = rig.GetPointVelocity(wheel.transform.position);
+                    Vector3 tireVel = rig.GetPointVelocity(wheel.HitInfo.Point);
 
                     float steeringVel = Vector3.Dot(steeringDir, tireVel);
                     float desiredVelChange = -steeringVel * wheel.SpringInfo.TireGripFactor;

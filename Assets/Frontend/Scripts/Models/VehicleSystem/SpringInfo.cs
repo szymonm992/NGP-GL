@@ -10,8 +10,9 @@ namespace Frontend.Scripts.Models
 		[Range(0, 1f)]
 		[SerializeField] private float tireGripFactor = 1f;
 		[SerializeField] private float tireMass = 20f;
+		[SerializeField] private float damperForce = 2000f;
 
-
+		public float DamperForce => damperForce;
 		public float SpringStrength => springStrength;
 		public float SuspensionLength => suspensionLength;
 		public float TireGripFactor => tireGripFactor;

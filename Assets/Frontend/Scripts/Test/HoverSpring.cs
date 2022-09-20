@@ -106,8 +106,7 @@ namespace Frontend.Scripts.Components
 				springAndCenterDistance = springInfo.SuspensionLength;
 			}
 
-			tireWorldPosition = transform.position - transform.up * (isGrounded ? length : springInfo.SuspensionLength);
-
+			tireWorldPosition = transform.position - transform.up * springAndCenterDistance;
 		}
 		
 		private void ForceUpdate()
@@ -122,14 +121,14 @@ namespace Frontend.Scripts.Components
 			float offset = springInfo.SuspensionLength - hitInfo.rayHit.distance;
 			float vel = Vector3.Dot(springDir, tireWorldVel);
 
-			float force = (springInfo.SpringStrength * offset) - (vel * damperInfo.DamperForce);
+			float force = (springInfo.SpringStrength * offset) - (vel * springInfo.DamperForce);
 			rig.AddForceAtPosition(springDir * force, transform.position);
 		}
 
         private void OnDrawGizmos()
         {
 			Gizmos.DrawSphere(transform.position, 0.1f);
-			Gizmos.DrawSphere(transform.position - transform.up * (springAndCenterDistance), 0.1f);
+			Gizmos.DrawSphere(transform.position - (transform.up * springAndCenterDistance), 0.1f);
 			Handles.color = Color.white;
 
 			if (isGrounded)

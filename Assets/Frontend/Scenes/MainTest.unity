@@ -235,9 +235,6 @@ MonoBehaviour:
     suspensionLength: 1.1
     tireGripFactor: 1
     tireMass: 30
-  damperInfo:
-    unitBumpForce: 0
-    unitReboundForce: 2000
     damperForce: 4000
   layerMask:
     serializedVersion: 2
@@ -556,9 +553,6 @@ MonoBehaviour:
     suspensionLength: 1.1
     tireGripFactor: 1
     tireMass: 30
-  damperInfo:
-    unitBumpForce: 0
-    unitReboundForce: 2000
     damperForce: 4000
   layerMask:
     serializedVersion: 2
@@ -686,9 +680,9 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 3000
-      inSlope: -4.0846148
-      outSlope: -4.0846148
+      value: 4500
+      inSlope: -36.919464
+      outSlope: -36.919464
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
@@ -696,7 +690,7 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 45.68317
       value: 2813.4019
-      inSlope: -4.0846148
+      inSlope: -36.919464
       outSlope: 2.5974061
       tangentMode: 5
       weightedMode: 0
@@ -753,7 +747,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1400
   m_Drag: 0.2
-  m_AngularDrag: 0.6
+  m_AngularDrag: 0.5
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -1590,9 +1584,6 @@ MonoBehaviour:
     suspensionLength: 1.1
     tireGripFactor: 1
     tireMass: 30
-  damperInfo:
-    unitBumpForce: 0
-    unitReboundForce: 2000
     damperForce: 4000
   layerMask:
     serializedVersion: 2
@@ -2391,9 +2382,6 @@ MonoBehaviour:
     suspensionLength: 1.1
     tireGripFactor: 1
     tireMass: 30
-  damperInfo:
-    unitBumpForce: 0
-    unitReboundForce: 2000
     damperForce: 4000
   layerMask:
     serializedVersion: 2
