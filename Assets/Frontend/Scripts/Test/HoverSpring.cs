@@ -14,7 +14,6 @@ namespace Frontend.Scripts.Components
 		[Range(0, 1f)]
 		[SerializeField] private float forwardTireGripFactor = 1f, sidewaysTireGripFactor = 1f;
 		[SerializeField] private SpringInfo springInfo;
-		[SerializeField] private DamperInfo damperInfo;
 		[SerializeField] private LayerMask layerMask;
 
 		
@@ -43,7 +42,6 @@ namespace Frontend.Scripts.Components
 		};
 
 		public SpringInfo SpringInfo => springInfo;
-		public DamperInfo DamperInfo => damperInfo;
 		public HitInfo HitInfo => hitInfo;
 		public float CompressionLength => compressionLength;
 		public float WheelRadius => wheelRadius;
