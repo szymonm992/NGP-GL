@@ -32,6 +32,7 @@ namespace Frontend.Scripts.Components
         public float currentLongitudalGrip;
 
         public HoverSpring[] AllWheels => allWheels;
+        public float CurrentSpeed => currentSpeed;
 
         public void PassInputs(float inputX, float inputY, float absoluteX, float absoluteY)
         {
@@ -95,7 +96,8 @@ namespace Frontend.Scripts.Components
                     Fx = inputY * currentDriveForce;
                     Fy = wheelVelocityLocal.x * currentDriveForce;
 
-                    rig.AddForceAtPosition((Fx * wheel.transform.forward) + (Fy * -wheel.transform.right), wheel.HitInfo.Point);
+                    rig.AddForceAtPosition((Fx * wheel.transform.forward), wheel.HitInfo.Point);
+                    rig.AddForceAtPosition((Fy * -wheel.transform.right), wheel.transform.position);
                 }
             }
         }

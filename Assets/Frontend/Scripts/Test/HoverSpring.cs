@@ -49,6 +49,7 @@ namespace Frontend.Scripts.Components
 		public DamperInfo DamperInfo => damperInfo;
 		public HitInfo HitInfo => hitInfo;
 		public float CompressionLength => compressionLength;
+		public float WheelRadius => wheelRadius;
 		public bool IsGrounded => isGrounded;
 
 		public Vector3 GetTireWorldPosition => tireWorldPosition;
@@ -59,9 +60,12 @@ namespace Frontend.Scripts.Components
             set { this.steerAngle = value; }
         }
 
+        private void OnValidate()
+        {
+			springAndCenterDistance = springInfo.SuspensionLength;
+		}
 
-
-		private void Awake()
+        private void Awake()
 		{
 			rig = transform.root.GetComponent<Rigidbody>();
 			hitInfo = new HitInfo();
@@ -70,7 +74,6 @@ namespace Frontend.Scripts.Components
 		private void FixedUpdate()
 		{
 			HitUpdate();
-			SuspensionUpdate();
 			ForceUpdate();
 		}
 
@@ -84,8 +87,8 @@ namespace Frontend.Scripts.Components
 
 		private void HitUpdate()
 		{
-			isGrounded = Physics.Raycast(transform.position, -transform.up, out hitInfo.rayHit, springInfo.SuspensionLength);
-			//isGrounded = Physics.SphereCast(transform.position,wheelRadius, -transform.up, out hitInfo.rayHit, springInfo.SuspensionLength, layerMask);
+			//isGrounded = Physics.Raycast(transform.position, -transform.up, out hitInfo.rayHit, springInfo.SuspensionLength);
+			isGrounded = Physics.SphereCast(transform.position,wheelRadius, -transform.up, out hitInfo.rayHit, springInfo.SuspensionLength, layerMask);
 	
 			if (IsGrounded)
 			{
@@ -96,68 +99,16 @@ namespace Frontend.Scripts.Components
 					Debug.DrawRay(hitInfo.Point, hitInfo.forwardDir, Color.blue);
 					Debug.DrawRay(hitInfo.Point, hitInfo.sidewaysDir, Color.magenta);
 				}
+				springAndCenterDistance = hitInfo.rayHit.distance;
 			}
+			else
+            {
+				springAndCenterDistance = springInfo.SuspensionLength;
+			}
+
 			tireWorldPosition = transform.position - transform.up * (isGrounded ? length : springInfo.SuspensionLength);
 
 		}
-
-		private void SuspensionUpdate()
-		{
-			preOverflow = overflow;
-			overflow = 0f;
-			if (IsGrounded && Vector3.Dot(hitInfo.Normal, transform.up) > 0.1f)
-			{
-				bottomedOut = overExtended = false;
-
-				length = transform.position.y - hitInfo.Point.y;
-
-				if (length < 0f)
-				{
-					overflow = -length;
-					length = 0f;
-					bottomedOut = true;
-				}
-				else if (length > springInfo.SuspensionLength)
-				{
-					isGrounded = false;
-					length = springInfo.SuspensionLength;
-					overExtended = true;
-				}
-			}
-			else
-			{
-				length = Mathf.Lerp(length, springInfo.SuspensionLength, Time.fixedDeltaTime * 8f);
-			}
-
-			springAndCenterDistance = length - wheelRadius;
-			velocity = (length - preLength) / Time.fixedDeltaTime;
-			compressionLength = springInfo.SuspensionLength - length;
-			force = springInfo.SpringStrength * compressionLength;
-
-			overflowVelocity = 0f;
-			if (overflow > 0)
-			{
-				overflowVelocity = (overflow - preOverflow) / Time.fixedDeltaTime;
-				bottomedOutForce = rig.mass * -Physics.gravity.y * Mathf.Clamp(overflowVelocity, 0f, Mathf.Infinity) * 0.0225f;
-				rig.AddForceAtPosition(bottomedOutForce * transform.up, transform.position, ForceMode.Impulse);
-			}
-			else
-			{
-				damperInfo.MaxForce = length < preLength ? damperInfo.UnitBumpForce : damperInfo.UnitReboundForce;
-				if (length <= preLength)
-                {
-					damperInfo.FinalForce = damperInfo.UnitBumpForce * 4f * velocity;
-				}				
-				else
-                {
-					damperInfo.FinalForce = -damperInfo.UnitReboundForce * 4f * velocity;
-				}
-					
-			}
-
-			preLength = length;
-		}
-
 		
 		private void ForceUpdate()
 		{
@@ -166,35 +117,36 @@ namespace Frontend.Scripts.Components
 				return;
 			}
 
-			float suspensionForceMagnitude = Mathf.Clamp(force + damperInfo.FinalForce, 0.0f, Mathf.Infinity);
+			Vector3 springDir = transform.up;
+			Vector3 tireWorldVel = rig.GetPointVelocity(transform.position);
+			float offset = springInfo.SuspensionLength - hitInfo.rayHit.distance;
+			float vel = Vector3.Dot(springDir, tireWorldVel);
 
-			totalForce.x = suspensionForceMagnitude * hitInfo.Normal.x;
-			totalForce.y = suspensionForceMagnitude * hitInfo.Normal.y;
-			totalForce.z = suspensionForceMagnitude * hitInfo.Normal.z;
-
-			rig.AddForceAtPosition(totalForce, hitInfo.Point);
+			float force = (springInfo.SpringStrength * offset) - (vel * damperInfo.DamperForce);
+			rig.AddForceAtPosition(springDir * force, transform.position);
 		}
 
         private void OnDrawGizmos()
         {
 			Gizmos.DrawSphere(transform.position, 0.1f);
+			Gizmos.DrawSphere(transform.position - transform.up * (springAndCenterDistance), 0.1f);
 			Handles.color = Color.white;
+
 			if (isGrounded)
             {
 				Gizmos.color = Color.white;
-				//Gizmos.DrawWireSphere(transform.position - transform.up * (springAndCenterDistance), wheelRadius);
 				Gizmos.DrawSphere(hitInfo.Point, 0.1f);
-				Handles.DrawLine(transform.position, transform.position - (transform.up * length), 1.6f);
+				Handles.DrawLine(transform.position, transform.position - (transform.up * springAndCenterDistance), 1.6f);
 			}
 			else
             {
 				Gizmos.color = Color.red;
-				//Gizmos.DrawWireSphere(transform.position - transform.up * (springInfo.SuspensionLength - wheelRadius), wheelRadius);
-				Handles.DrawLine(transform.position, transform.position - (transform.up * (springInfo.SuspensionLength)), 1.6f);
+				Handles.DrawLine(transform.position, transform.position - (transform.up * springAndCenterDistance), 1.6f);
 			}
+
+			Gizmos.DrawWireSphere(transform.position - transform.up * (springAndCenterDistance), wheelRadius);
 			
-            
-        }
+		}
     }
 }
 

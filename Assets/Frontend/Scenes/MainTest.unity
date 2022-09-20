@@ -210,7 +210,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 16642662}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.05, y: 0.6, z: -2}
+  m_LocalPosition: {x: -1.05, y: 0.58000004, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -232,12 +232,13 @@ MonoBehaviour:
   wheelRadius: 0.6
   springInfo:
     springStrength: 30000
-    suspensionLength: 1.7
+    suspensionLength: 1.1
     tireGripFactor: 1
-    tireMass: 20
+    tireMass: 40
   damperInfo:
-    unitBumpForce: 500
-    unitReboundForce: 1400
+    unitBumpForce: 0
+    unitReboundForce: 2000
+    damperForce: 4000
   layerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -530,7 +531,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 292481735}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.05, y: 0.6, z: 2}
+  m_LocalPosition: {x: -1.05, y: 0.58, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -552,12 +553,13 @@ MonoBehaviour:
   wheelRadius: 0.6
   springInfo:
     springStrength: 30000
-    suspensionLength: 1.7
+    suspensionLength: 1.1
     tireGripFactor: 1
-    tireMass: 20
+    tireMass: 40
   damperInfo:
-    unitBumpForce: 500
-    unitReboundForce: 1400
+    unitBumpForce: 0
+    unitReboundForce: 2000
+    damperForce: 4000
   layerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -584,6 +586,8 @@ GameObject:
   - component: {fileID: 362861519}
   - component: {fileID: 362861522}
   - component: {fileID: 362861521}
+  - component: {fileID: 362861524}
+  - component: {fileID: 362861523}
   m_Layer: 0
   m_Name: BUGGY (1)
   m_TagString: Untagged
@@ -634,18 +638,18 @@ MonoBehaviour:
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 29.94535
-      value: -0.84
-      inSlope: -0.03369627
-      outSlope: -0.03369627
+      value: -0.55
+      inSlope: -0.022895457
+      outSlope: -0.022895457
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 80
-      value: -1.4
-      inSlope: -0.011187772
-      outSlope: -0.011187772
+      value: -1
+      inSlope: -0.008990173
+      outSlope: -0.008990173
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -659,17 +663,17 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: -0.015555555
-      outSlope: -0.015555555
+      inSlope: -0.011111111
+      outSlope: -0.011111111
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 90
-      value: -1.4
-      inSlope: -0.015555555
-      outSlope: -0.015555555
+      value: -1
+      inSlope: -0.011111111
+      outSlope: -0.011111111
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -719,7 +723,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maximumComLowering: -1.3
+  maximumComLowering: -1
   angleVelocityCombinatedEvaluation: 0
   isBrake: 0
   currentLongitudalGrip: 0
@@ -730,15 +734,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 362861515}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 32.61, y: 1.09, z: 16.72}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 4.86, y: 3.77, z: 29.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 926665318}
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!54 &362861518
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -771,6 +775,30 @@ MonoBehaviour:
   wheelBase: 2.55
   rearTrack: 1.525
   turnRadius: 4.5
+  turnRadiusCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 4.5
+      inSlope: 0.04375
+      outSlope: 0.04375
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 80
+      value: 8
+      inSlope: 0.04375
+      outSlope: 0.04375
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &362861520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -861,6 +889,128 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &362861523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362861515}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de02618e87aaeba4da7c5b07d1a5b12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rig: {fileID: 362861518}
+  antirollCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 20
+      value: 0
+      inSlope: -0
+      outSlope: 501.7427
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 25.92689
+      value: 35000
+      inSlope: 1788.477
+      outSlope: 0
+      tangentMode: 65
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 100
+      value: 35000
+      inSlope: -0
+      outSlope: 202.50262
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  suspensionController: {fileID: 0}
+  wheelL: {fileID: 16642665}
+  wheelR: {fileID: 889998905}
+  antiRollVal: 30000
+  travelL: 0
+  travelR: 0
+--- !u!114 &362861524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362861515}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de02618e87aaeba4da7c5b07d1a5b12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rig: {fileID: 362861518}
+  antirollCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 20
+      value: 0
+      inSlope: 0
+      outSlope: 501.7427
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 25.92689
+      value: 35000
+      inSlope: 1788.477
+      outSlope: 0
+      tangentMode: 65
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 100
+      value: 35000
+      inSlope: 0
+      outSlope: 202.50262
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  suspensionController: {fileID: 0}
+  wheelL: {fileID: 292481738}
+  wheelR: {fileID: 1334971819}
+  antiRollVal: 30000
+  travelL: 0
+  travelR: 0
 --- !u!1 &412310678
 GameObject:
   m_ObjectHideFlags: 0
@@ -1415,7 +1565,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 889998902}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.05, y: 0.6, z: -2}
+  m_LocalPosition: {x: 1.05, y: 0.58000004, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1437,12 +1587,13 @@ MonoBehaviour:
   wheelRadius: 0.6
   springInfo:
     springStrength: 30000
-    suspensionLength: 1.7
+    suspensionLength: 1.1
     tireGripFactor: 1
-    tireMass: 20
+    tireMass: 40
   damperInfo:
-    unitBumpForce: 500
-    unitReboundForce: 1400
+    unitBumpForce: 0
+    unitReboundForce: 2000
+    damperForce: 4000
   layerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -2215,7 +2366,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1334971816}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.05, y: 0.6, z: 2}
+  m_LocalPosition: {x: 1.05, y: 0.58000004, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2237,12 +2388,13 @@ MonoBehaviour:
   wheelRadius: 0.6
   springInfo:
     springStrength: 30000
-    suspensionLength: 1.7
+    suspensionLength: 1.1
     tireGripFactor: 1
-    tireMass: 20
+    tireMass: 40
   damperInfo:
-    unitBumpForce: 500
-    unitReboundForce: 1400
+    unitBumpForce: 0
+    unitReboundForce: 2000
+    damperForce: 4000
   layerMask:
     serializedVersion: 2
     m_Bits: 64
