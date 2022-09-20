@@ -131,8 +131,26 @@ namespace Frontend.Scripts.Components
 			float force = (springInfo.SpringStrength * offset) - (vel * springInfo.DamperForce);
 			rig.AddForceAtPosition(springDir * force, transform.position);*/
 
+		
 
 		}
+
+		public Vector3 GetTirePosition()
+		{
+			isGrounded = Physics.Raycast(new Ray(transform.position, -rig.transform.up), out RaycastHit hit, wheelRadius + springInfo.SuspensionLength);
+			if (isGrounded)
+			{
+				compressionLength = hit.distance - wheelRadius;
+				return hit.point + (rig.transform.up * wheelRadius);
+			}
+			else
+			{
+				compressionLength = springInfo.SuspensionLength;
+				return transform.position - (rig.transform.up * springInfo.SuspensionLength);
+			}
+		}
+
+
 
 		private float previousSuspensionDistance;
 		private float GetSuspensionForce(Vector3 localTirePosition)
@@ -146,6 +164,10 @@ namespace Frontend.Scripts.Components
 
 		private void OnDrawGizmos()
         {
+			if (!enabled)
+            {
+				return;
+			}
 			Gizmos.DrawSphere(transform.position, 0.1f);
 			Gizmos.DrawSphere(transform.position - (transform.up * springAndCenterDistance), 0.1f);
 			Handles.color = Color.white;

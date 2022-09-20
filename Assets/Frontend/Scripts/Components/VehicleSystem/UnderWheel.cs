@@ -102,16 +102,16 @@ namespace Frontend.Scripts.Components
 
         public Vector3 GetTirePosition()
         {
-            isGrounded = Physics.Raycast(new Ray(transform.position, -rig.transform.up), out RaycastHit hit, wheelRadius + suspensionTravel);
+            isGrounded = Physics.Raycast(new Ray(transform.position, -transform.up), out RaycastHit hit, wheelRadius + suspensionTravel);
             if (isGrounded)
             {
                 compression = hit.distance - wheelRadius;
-                return hit.point + (rig.transform.up * wheelRadius);
+                return hit.point + (transform.up * wheelRadius);
             }
             else
             {
                 compression = suspensionTravel;
-                return transform.position - (rig.transform.up * suspensionTravel);
+                return transform.position - (transform.up * suspensionTravel);
             }
         }
 
@@ -131,9 +131,8 @@ namespace Frontend.Scripts.Components
             float longitudalForce = GetLongitudalForce(normalForce, longitudalSpeed);
 
 
-            finalForce = normalForce * rig.transform.up 
-                + rig.transform.forward * longitudalForce
-                +rig.transform.right * lateralForce;
+            finalForce = normalForce * transform.up;
+         
             if (!isGrounded) return;
 
             rig.AddForceAtPosition(finalForce, tirePosition);
@@ -162,7 +161,7 @@ namespace Frontend.Scripts.Components
 
         private float GetSuspensionForce(Vector3 localTirePosition)
         {
-            float distance = Vector3.Distance(transform.position - rig.transform.up * suspensionTravel, localTirePosition);
+            float distance = Vector3.Distance(transform.position - transform.up * suspensionTravel, localTirePosition);
             float springForce = spring * distance;
             float damperForce = damper * ((distance - previousSuspensionDistance) / Time.fixedDeltaTime);
             previousSuspensionDistance = distance;
@@ -250,7 +249,7 @@ namespace Frontend.Scripts.Components
 
                     Handles.DrawWireDisc(position, transform.right, wheelRadius);
 
-                    Handles.DrawDottedLine(transform.position, transform.position - (rig.transform.up * compression), 1.1f);
+                    Handles.DrawDottedLine(transform.position, transform.position - (transform.up * compression), 1.1f);
 
                     //Vector3 upper = position + (rig.transform.up * suspensionTravel);
                     //upper border visualisation

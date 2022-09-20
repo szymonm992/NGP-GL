@@ -195,6 +195,7 @@ GameObject:
   m_Component:
   - component: {fileID: 16642663}
   - component: {fileID: 16642665}
+  - component: {fileID: 16642666}
   m_Layer: 0
   m_Name: bl
   m_TagString: Untagged
@@ -248,6 +249,42 @@ MonoBehaviour:
     drawOnDisable: 0
     drawMode: 0
     drawForce: 1
+--- !u!114 &16642666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16642662}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 418c5c18b50f8fb4c886572a5fb8da8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugSettings:
+    drawGizmos: 1
+    drawOnDisable: 0
+    drawMode: 0
+    drawForce: 1
+  suspensionTravel: 0.7
+  wheelRadius: 0.6
+  mass: 20
+  spring: 30000
+  damper: 3000
+  rollingResistance: 0.01
+  inertia: 3
+  ForwardFriction:
+    extremumSlip: 0.4
+    extremumValue: 1
+    asymptoteSlip: 0.8
+    asymptoteValue: 0.5
+    stiffness: 1
+  SidewaysFriction:
+    extremumSlip: 15
+    extremumValue: 1
+    asymptoteSlip: 30
+    asymptoteValue: 0.75
+    stiffness: 2
 --- !u!1 &47302552
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,6 +551,7 @@ GameObject:
   m_Component:
   - component: {fileID: 292481736}
   - component: {fileID: 292481738}
+  - component: {fileID: 292481739}
   m_Layer: 0
   m_Name: fl
   m_TagString: Untagged
@@ -567,6 +605,42 @@ MonoBehaviour:
     drawOnDisable: 0
     drawMode: 0
     drawForce: 1
+--- !u!114 &292481739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292481735}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 418c5c18b50f8fb4c886572a5fb8da8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugSettings:
+    drawGizmos: 1
+    drawOnDisable: 0
+    drawMode: 0
+    drawForce: 1
+  suspensionTravel: 0.7
+  wheelRadius: 0.6
+  mass: 20
+  spring: 30000
+  damper: 3000
+  rollingResistance: 0.01
+  inertia: 3
+  ForwardFriction:
+    extremumSlip: 0.4
+    extremumValue: 1
+    asymptoteSlip: 0.8
+    asymptoteValue: 0.5
+    stiffness: 1
+  SidewaysFriction:
+    extremumSlip: 15
+    extremumValue: 1
+    asymptoteSlip: 30
+    asymptoteValue: 0.75
+    stiffness: 2
 --- !u!1 &362861515
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,72 +685,6 @@ MonoBehaviour:
   rig: {fileID: 362861518}
   com: {fileID: 2086476557}
   velocityText: {fileID: 1728332547}
-  comSteeringCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 15
-      value: 0
-      inSlope: -0
-      outSlope: -0.021269409
-      tangentMode: 5
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 32
-      value: -0.3
-      inSlope: -0.014858013
-      outSlope: -0.014858013
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 90
-      value: -1
-      inSlope: -0.0120689655
-      outSlope: -0.0120689655
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  angleBasedComSteeringCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: -0.011111111
-      outSlope: -0.011111111
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 90
-      value: -1
-      inSlope: -0.011111111
-      outSlope: -0.011111111
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   enginePowerCurve:
     serializedVersion: 2
     m_Curve:
@@ -738,6 +746,18 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   maximumComLowering: -1
+  velocityComCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  angleComCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   angleVelocityCombinatedEvaluation: 0
   maxSlopeAngle: 45
   isBrake: 0
@@ -749,15 +769,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 362861515}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 33.73, y: 1.19, z: 17.04}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 39.3, y: 1.35, z: 17.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 926665318}
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &362861518
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -769,7 +789,7 @@ Rigidbody:
   m_Mass: 1400
   m_Drag: 0.3
   m_AngularDrag: 0.5
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -1565,6 +1585,7 @@ GameObject:
   m_Component:
   - component: {fileID: 889998903}
   - component: {fileID: 889998905}
+  - component: {fileID: 889998906}
   m_Layer: 0
   m_Name: br
   m_TagString: Untagged
@@ -1618,6 +1639,42 @@ MonoBehaviour:
     drawOnDisable: 0
     drawMode: 0
     drawForce: 1
+--- !u!114 &889998906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889998902}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 418c5c18b50f8fb4c886572a5fb8da8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugSettings:
+    drawGizmos: 1
+    drawOnDisable: 0
+    drawMode: 0
+    drawForce: 1
+  suspensionTravel: 0.7
+  wheelRadius: 0.6
+  mass: 20
+  spring: 30000
+  damper: 3000
+  rollingResistance: 0.01
+  inertia: 3
+  ForwardFriction:
+    extremumSlip: 0.4
+    extremumValue: 1
+    asymptoteSlip: 0.8
+    asymptoteValue: 0.5
+    stiffness: 1
+  SidewaysFriction:
+    extremumSlip: 15
+    extremumValue: 1
+    asymptoteSlip: 30
+    asymptoteValue: 0.75
+    stiffness: 2
 --- !u!1 &911723013
 GameObject:
   m_ObjectHideFlags: 0
@@ -2364,6 +2421,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1334971817}
   - component: {fileID: 1334971819}
+  - component: {fileID: 1334971820}
   m_Layer: 0
   m_Name: fr
   m_TagString: Untagged
@@ -2417,6 +2475,42 @@ MonoBehaviour:
     drawOnDisable: 0
     drawMode: 0
     drawForce: 1
+--- !u!114 &1334971820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334971816}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 418c5c18b50f8fb4c886572a5fb8da8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugSettings:
+    drawGizmos: 1
+    drawOnDisable: 0
+    drawMode: 0
+    drawForce: 1
+  suspensionTravel: 0.7
+  wheelRadius: 0.6
+  mass: 20
+  spring: 30000
+  damper: 3000
+  rollingResistance: 0.01
+  inertia: 3
+  ForwardFriction:
+    extremumSlip: 0.4
+    extremumValue: 1
+    asymptoteSlip: 0.8
+    asymptoteValue: 0.5
+    stiffness: 1
+  SidewaysFriction:
+    extremumSlip: 15
+    extremumValue: 1
+    asymptoteSlip: 30
+    asymptoteValue: 0.75
+    stiffness: 2
 --- !u!1 &1372180339
 GameObject:
   m_ObjectHideFlags: 0
