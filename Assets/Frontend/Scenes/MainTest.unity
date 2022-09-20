@@ -234,7 +234,7 @@ MonoBehaviour:
     springStrength: 30000
     suspensionLength: 1.1
     tireGripFactor: 1
-    tireMass: 40
+    tireMass: 30
   damperInfo:
     unitBumpForce: 0
     unitReboundForce: 2000
@@ -555,7 +555,7 @@ MonoBehaviour:
     springStrength: 30000
     suspensionLength: 1.1
     tireGripFactor: 1
-    tireMass: 40
+    tireMass: 30
   damperInfo:
     unitBumpForce: 0
     unitReboundForce: 2000
@@ -637,19 +637,19 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 29.94535
-      value: -0.55
-      inSlope: -0.022895457
-      outSlope: -0.022895457
+      time: 32
+      value: -0.3
+      inSlope: -0.014858013
+      outSlope: -0.014858013
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 80
+      time: 90
       value: -1
-      inSlope: -0.008990173
-      outSlope: -0.008990173
+      inSlope: -0.0120689655
+      outSlope: -0.0120689655
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -1589,7 +1589,7 @@ MonoBehaviour:
     springStrength: 30000
     suspensionLength: 1.1
     tireGripFactor: 1
-    tireMass: 40
+    tireMass: 30
   damperInfo:
     unitBumpForce: 0
     unitReboundForce: 2000
@@ -1730,8 +1730,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.8, y: 1.2, z: 6.357049}
-  m_Center: {x: 0.019086808, y: 0.86, z: -0.22104655}
+  m_Size: {x: 2.4998243, y: 1.0945327, z: 6.357049}
+  m_Center: {x: -0.00119555, y: 0.80726635, z: -0.22104645}
 --- !u!1 &983098743
 GameObject:
   m_ObjectHideFlags: 0
@@ -2390,7 +2390,7 @@ MonoBehaviour:
     springStrength: 30000
     suspensionLength: 1.1
     tireGripFactor: 1
-    tireMass: 40
+    tireMass: 30
   damperInfo:
     unitBumpForce: 0
     unitReboundForce: 2000
