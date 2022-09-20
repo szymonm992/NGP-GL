@@ -14,10 +14,13 @@ namespace Frontend.Scripts.Components
         [SerializeField] private Rigidbody rig;
         [SerializeField] private Transform com;
         [SerializeField] private Text velocityText;
-        [SerializeField] private AnimationCurve comSteeringCurve;
-        [SerializeField] private AnimationCurve angleBasedComSteeringCurve;
+        
         [SerializeField] private AnimationCurve enginePowerCurve;
         [SerializeField] private float maximumComLowering = -1.4f;
+
+        [Header("-Vehicle stablization-")]
+        [SerializeField] private AnimationCurve velocityComCurve;
+        [SerializeField] private AnimationCurve angleComCurve;
 
         private float inputX, inputY;
         private float absoluteInputY, absoluteInputX;
@@ -31,7 +34,7 @@ namespace Frontend.Scripts.Components
         private float Fx, Fy;
         public bool isBrake;
         public float currentLongitudalGrip;
-        private Vector3 currentGravity;
+
         public HoverSpring[] AllWheels => allWheels;
         public float CurrentSpeed => currentSpeed;
 
@@ -43,10 +46,6 @@ namespace Frontend.Scripts.Components
             this.absoluteInputY = absoluteY;
         }
 
-        private void Awake()
-        {
-            rig.centerOfMass = com.localPosition;
-        }
         private void Update()
         {
             isBrake = Input.GetKey(KeyCode.Space);
@@ -58,9 +57,6 @@ namespace Frontend.Scripts.Components
 
             velocityText.text = currentSpeed.ToString("F0");
         }
-
-      
-
 
         private void FixedUpdate()
         {
@@ -81,8 +77,8 @@ namespace Frontend.Scripts.Components
 
         private void AntirollCOM()
         {
-            float evaluatedByAngle = angleBasedComSteeringCurve.Evaluate(horizontalAngle);
-            float evaluatedByVelocity = comSteeringCurve.Evaluate(currentSpeed);
+            float evaluatedByAngle = angleComCurve.Evaluate(horizontalAngle);
+            float evaluatedByVelocity = velocityComCurve.Evaluate(currentSpeed);
             angleVelocityCombinatedEvaluation = Mathf.Clamp(evaluatedByAngle + evaluatedByVelocity, + maximumComLowering, 0);
             rig.centerOfMass = (com.localPosition + new Vector3(0, angleVelocityCombinatedEvaluation, 0));
         }

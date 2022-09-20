@@ -683,35 +683,53 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 4500
-      inSlope: -36.919464
-      outSlope: -36.919464
+      inSlope: -100
+      outSlope: -100
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
+      time: 5
+      value: 4000
+      inSlope: -100
+      outSlope: -100
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 20
+      value: 2500
+      inSlope: -100
+      outSlope: -11.680801
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
       time: 45.68317
-      value: 2813.4019
-      inSlope: -36.919464
-      outSlope: 2.5974061
-      tangentMode: 5
+      value: 2200
+      inSlope: -11.680801
+      outSlope: -16.449512
+      tangentMode: 69
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.26563126
     - serializedVersion: 3
       time: 70
-      value: 2600
-      inSlope: -27.70001
-      outSlope: -86.666664
-      tangentMode: 65
+      value: 1800
+      inSlope: -16.449512
+      outSlope: -60
+      tangentMode: 69
       weightedMode: 0
       inWeight: 0.19046135
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 100
       value: 0
-      inSlope: -86.666664
-      outSlope: -86.666664
+      inSlope: -60
+      outSlope: -60
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -721,6 +739,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   maximumComLowering: -1
   angleVelocityCombinatedEvaluation: 0
+  maxSlopeAngle: 45
   isBrake: 0
   currentLongitudalGrip: 0
 --- !u!4 &362861517
@@ -731,7 +750,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 362861515}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 19.49, y: 7.21, z: 17.04}
+  m_LocalPosition: {x: 33.73, y: 1.19, z: 17.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -748,7 +767,7 @@ Rigidbody:
   m_GameObject: {fileID: 362861515}
   serializedVersion: 2
   m_Mass: 1400
-  m_Drag: 0.2
+  m_Drag: 0.3
   m_AngularDrag: 0.5
   m_UseGravity: 0
   m_IsKinematic: 0

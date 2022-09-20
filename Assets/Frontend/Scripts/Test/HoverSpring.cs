@@ -52,7 +52,14 @@ namespace Frontend.Scripts.Components
 		public float TireMass => tireMass;
 		public bool IsGrounded => isGrounded;
 
-		public Vector3 GetTireWorldPosition => tireWorldPosition;
+		public Vector3 TireWorldPosition => tireWorldPosition;
+
+		/*
+		public float RPM
+		{
+			// multiplied by physics speed multiplier
+			get => Mathf.Abs(angularVelocity * 4f * 9.549296585f); 
+		}*/
 
 		public float SteerAngle
         {
@@ -115,17 +122,29 @@ namespace Frontend.Scripts.Components
 			{
 				return;
 			}
-
+			/*
 			Vector3 springDir = transform.up;
 			Vector3 tireWorldVel = rig.GetPointVelocity(transform.position);
 			float offset = springInfo.SuspensionLength - hitInfo.Distance;
 			float vel = Vector3.Dot(springDir, tireWorldVel);
 
 			float force = (springInfo.SpringStrength * offset) - (vel * springInfo.DamperForce);
-			rig.AddForceAtPosition(springDir * force, transform.position);
+			rig.AddForceAtPosition(springDir * force, transform.position);*/
+
+
 		}
 
-        private void OnDrawGizmos()
+		private float previousSuspensionDistance;
+		private float GetSuspensionForce(Vector3 localTirePosition)
+		{
+			float distance = Vector3.Distance(transform.position - rig.transform.up * springInfo.SuspensionLength, localTirePosition);
+			float springForce = springInfo.SpringStrength * distance;
+			float damperForce = springInfo.DamperForce * ((distance - previousSuspensionDistance) / Time.fixedDeltaTime);
+			previousSuspensionDistance = distance;
+			return springForce + damperForce;
+		}
+
+		private void OnDrawGizmos()
         {
 			Gizmos.DrawSphere(transform.position, 0.1f);
 			Gizmos.DrawSphere(transform.position - (transform.up * springAndCenterDistance), 0.1f);
