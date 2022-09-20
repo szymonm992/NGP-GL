@@ -25,7 +25,8 @@ namespace Frontend.Scripts.Components
         private float horizontalAngle = 0;
         private float currentDriveForce = 0;
         public float angleVelocityCombinatedEvaluation;
-       
+        public float maxSlopeAngle = 45f;
+
         private Vector3 wheelVelocityLocal;
         private float Fx, Fy;
         public bool isBrake;
@@ -90,16 +91,17 @@ namespace Frontend.Scripts.Components
         {
             foreach (var wheel in allWheels)
             {
-                if (wheel.IsGrounded == false)
+                if (wheel.IsGrounded)
                 {
-                    currentGravity = Physics.gravity;
+                    float angle = Vector3.Angle(wheel.HitInfo.Normal, -Physics.gravity.normalized);
+
+                    if(maxSlopeAngle >= angle)
+                    {
+                        rig.AddForce(-wheel.HitInfo.Normal * Physics.gravity.magnitude, ForceMode.Acceleration);
+                        break;
+                    }
                 }
-                else
-                {
-                    currentGravity = -wheel.HitInfo.Normal * Physics.gravity.magnitude;
-                }
-                rig.AddForce(currentGravity, ForceMode.Acceleration);
-                break;
+                rig.AddForce(Physics.gravity, ForceMode.Acceleration);
             }
         }
 
