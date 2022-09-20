@@ -11,17 +11,16 @@ namespace Frontend.Scripts.Models
 
 		public Vector3 Point
 		{
-			get
-			{
-				return rayHit.point;
-			}
+			get => rayHit.point;
 		}
 		public Vector3 Normal
 		{
-			get
-			{
-				return rayHit.normal;
-			}
+			get => rayHit.normal;
 		}
+
+		public float Distance
+        {
+			get => rayHit.distance;
+        }
 	}
 }

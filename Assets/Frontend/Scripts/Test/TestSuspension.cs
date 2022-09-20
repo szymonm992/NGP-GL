@@ -30,7 +30,7 @@ namespace Frontend.Scripts.Components
         private float Fx, Fy;
         public bool isBrake;
         public float currentLongitudalGrip;
-
+        private Vector3 currentGravity;
         public HoverSpring[] AllWheels => allWheels;
         public float CurrentSpeed => currentSpeed;
 
@@ -58,9 +58,12 @@ namespace Frontend.Scripts.Components
             velocityText.text = currentSpeed.ToString("F0");
         }
 
+      
+
 
         private void FixedUpdate()
         {
+            CustomGravityLogic();
             EvaluateDriveParams();
             Accelerate();
             Brakes();
@@ -81,6 +84,23 @@ namespace Frontend.Scripts.Components
             float evaluatedByVelocity = comSteeringCurve.Evaluate(currentSpeed);
             angleVelocityCombinatedEvaluation = Mathf.Clamp(evaluatedByAngle + evaluatedByVelocity, + maximumComLowering, 0);
             rig.centerOfMass = (com.localPosition + new Vector3(0, angleVelocityCombinatedEvaluation, 0));
+        }
+
+        private void CustomGravityLogic()
+        {
+            foreach (var wheel in allWheels)
+            {
+                if (wheel.IsGrounded == false)
+                {
+                    currentGravity = Physics.gravity;
+                }
+                else
+                {
+                    currentGravity = -wheel.HitInfo.Normal * Physics.gravity.magnitude;
+                }
+                rig.AddForce(currentGravity, ForceMode.Acceleration);
+                break;
+            }
         }
 
         private void Accelerate()

@@ -14,14 +14,8 @@ namespace Frontend.Scripts.Components
 		[SerializeField] private DamperInfo damperInfo;
 		[SerializeField] private LayerMask layerMask;
 
-		private HitInfo hitInfo;
-		private float force;
-		private float velocity;
-		private float preLength, length;
+		private HitInfo hitInfo = new HitInfo();
 		private float compressionLength;
-		private float preOverflow, overflow, overflowVelocity;
-		private bool bottomedOut, overExtended;
-		private float bottomedOutForce;
 
 		private Rigidbody rig;
 		
@@ -29,7 +23,6 @@ namespace Frontend.Scripts.Components
 		private float wheelAngle = 0f;
 		private float steerAngle;
 		private float springAndCenterDistance;
-		private Vector3 totalForce;
 		private Vector3 tireWorldPosition;
 
 		public bool canDrive = true;
@@ -68,7 +61,6 @@ namespace Frontend.Scripts.Components
         private void Awake()
 		{
 			rig = transform.root.GetComponent<Rigidbody>();
-			hitInfo = new HitInfo();
 		}
 
 		private void FixedUpdate()
@@ -87,6 +79,7 @@ namespace Frontend.Scripts.Components
 
 		private void HitUpdate()
 		{
+			
 			//isGrounded = Physics.Raycast(transform.position, -transform.up, out hitInfo.rayHit, springInfo.SuspensionLength);
 			isGrounded = Physics.SphereCast(transform.position,wheelRadius, -transform.up, out hitInfo.rayHit, springInfo.SuspensionLength, layerMask);
 	
@@ -99,7 +92,7 @@ namespace Frontend.Scripts.Components
 					Debug.DrawRay(hitInfo.Point, hitInfo.forwardDir, Color.blue);
 					Debug.DrawRay(hitInfo.Point, hitInfo.sidewaysDir, Color.magenta);
 				}
-				springAndCenterDistance = hitInfo.rayHit.distance;
+				springAndCenterDistance = hitInfo.Distance;
 			}
 			else
             {
@@ -118,7 +111,7 @@ namespace Frontend.Scripts.Components
 
 			Vector3 springDir = transform.up;
 			Vector3 tireWorldVel = rig.GetPointVelocity(transform.position);
-			float offset = springInfo.SuspensionLength - hitInfo.rayHit.distance;
+			float offset = springInfo.SuspensionLength - hitInfo.Distance;
 			float vel = Vector3.Dot(springDir, tireWorldVel);
 
 			float force = (springInfo.SpringStrength * offset) - (vel * springInfo.DamperForce);
