@@ -74,14 +74,13 @@ namespace Frontend.Scripts.Components
             foreach (var wheel in allGroundedWheels)
             {
                 Vector3 steeringDir = wheel.transform.right;
-                wheel.GetWorldPosition(out var worldPos, out _);
-                Vector3 tireVel = rig.GetPointVelocity(worldPos);
+                Vector3 tireVel = rig.GetPointVelocity(wheel.transform.position);
 
                 float steeringVel = Vector3.Dot(steeringDir, tireVel);
                 float desiredVelChange = -steeringVel * wheel.SidewaysTireGripFactor;
                 float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
 
-                rig.AddForceAtPosition(desiredAccel * wheel.TireMass * steeringDir, worldPos);
+                rig.AddForceAtPosition(desiredAccel * wheel.TireMass * steeringDir, wheel.transform.position);
             }
 
         }
@@ -146,7 +145,9 @@ namespace Frontend.Scripts.Components
                     rig.AddForce(-wheel.HitInfo.Normal * Physics.gravity.magnitude, ForceMode.Acceleration);
                     break;
                 }
+                rig.AddForce(Physics.gravity, ForceMode.Acceleration);
             }
+
         }
 
         private IEnumerable<UTWheel> GetGroundedWheelsInAllAxles()

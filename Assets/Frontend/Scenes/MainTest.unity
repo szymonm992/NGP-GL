@@ -264,7 +264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   suspensionTravel: 1
   wheelRadius: 0.6
-  tireMass: 20
+  tireMass: 60
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
   spring: 20000
@@ -615,7 +615,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   suspensionTravel: 1
   wheelRadius: 0.6
-  tireMass: 20
+  tireMass: 60
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
   spring: 20000
@@ -1221,17 +1221,17 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 4.5
-      inSlope: 0.04375
-      outSlope: 0.04375
+      inSlope: 0.06875
+      outSlope: 0.06875
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 80
-      value: 8
-      inSlope: 0.04375
-      outSlope: 0.04375
+      value: 10
+      inSlope: 0.06875
+      outSlope: 0.06875
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -1847,7 +1847,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   suspensionTravel: 1
   wheelRadius: 0.6
-  tireMass: 20
+  tireMass: 60
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
   spring: 20000
@@ -2782,7 +2782,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   suspensionTravel: 1
   wheelRadius: 0.6
-  tireMass: 20
+  tireMass: 60
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
   spring: 20000
