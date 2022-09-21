@@ -129,10 +129,26 @@ namespace Frontend.Scripts.Components
         private void Brakes()
         {
             currentLongitudalGrip = isBrake ? 1f : (absoluteInputY > 0 ? 0 : 0.5f);
-            
-            foreach (var wheel in allWheels)
+
+            /*foreach (var wheel in allWheels)
             {
                 if (wheel.IsGrounded)
+                {
+                    Vector3 forwardDir = wheel.transform.forward;
+                    Vector3 tireVel = rig.GetPointVelocity(wheel.transform.position);
+
+                    float steeringVel = Vector3.Dot(forwardDir, tireVel);
+                    float desiredVelChange = -steeringVel * currentLongitudalGrip;
+                    float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
+
+                    rig.AddForceAtPosition(desiredAccel * wheel.TireMass * forwardDir, wheel.transform.position);
+                }
+            }*/
+
+            foreach (var axle in allAxles)
+            {
+                var groundedWheels = axle.GetGroundedWheels();
+                foreach (var wheel in groundedWheels)
                 {
                     Vector3 forwardDir = wheel.transform.forward;
                     Vector3 tireVel = rig.GetPointVelocity(wheel.transform.position);

@@ -12,15 +12,7 @@ namespace Frontend.Scripts.Components
     {
         private Rigidbody rig;
 
-        [SerializeField]
-        private UnderWheelDebug debugSettings = new UnderWheelDebug()
-        {
-            DrawGizmos = true,
-            DrawOnDisable = false,
-            DrawMode = UnderWheelDebugMode.All,
-            DrawForce = true,
-            DrawWheelDirection = true
-        };
+        
 
         [Header("Settings")]
         [SerializeField] [Range(0.1f, 1f)] private float suspensionTravel = 1f;
@@ -34,7 +26,16 @@ namespace Frontend.Scripts.Components
         [SerializeField] private float rollingResistance = 0.01f;
         [SerializeField] private float inertia = 3f;
         [SerializeField] private LayerMask layerMask;
-        [SerializeField] private DriveAxisSite wheelAxis;
+
+        [SerializeField]
+        private UTWheelDebug debugSettings = new UTWheelDebug()
+        {
+            DrawGizmos = true,
+            DrawOnDisable = false,
+            DrawMode = UTWheelDebugMode.All,
+            DrawForce = true,
+            DrawWheelDirection = true
+        };
 
         private HitInfo hitInfo = new HitInfo();
         private float motorTorque = 0f;
@@ -68,7 +69,6 @@ namespace Frontend.Scripts.Components
         public float TireMass => tireMass;
         public float ForwardTireGripFactor => forwardTireGripFactor;
         public float SidewaysTireGripFactor => sidewaysTireGripFactor;
-        public DriveAxisSite WheelAxis => wheelAxis;
         public float SteerAngle
         {
             get => steerAngle;
@@ -152,9 +152,9 @@ namespace Frontend.Scripts.Components
         private void OnDrawGizmos()
         {
 
-            bool drawCurrently = (debugSettings.DrawGizmos) && (debugSettings.DrawMode == UnderWheelDebugMode.All)
-                || (debugSettings.DrawMode == UnderWheelDebugMode.EditorOnly && !Application.isPlaying)
-                || (debugSettings.DrawMode == UnderWheelDebugMode.PlaymodeOnly && Application.isPlaying);
+            bool drawCurrently = (debugSettings.DrawGizmos) && (debugSettings.DrawMode == UTWheelDebugMode.All)
+                || (debugSettings.DrawMode == UTWheelDebugMode.EditorOnly && !Application.isPlaying)
+                || (debugSettings.DrawMode == UTWheelDebugMode.PlaymodeOnly && Application.isPlaying);
 
             if (drawCurrently && (this.enabled) || (debugSettings.DrawOnDisable && !this.enabled))
             {

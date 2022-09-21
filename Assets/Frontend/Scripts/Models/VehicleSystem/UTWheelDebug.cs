@@ -6,18 +6,18 @@ namespace Frontend.Scripts.Models
 {
  
     [Serializable]
-    public class UnderWheelDebug
+    public class UTWheelDebug
     {
         [Header("Gizmos")]
         [SerializeField] private bool drawGizmos;
         [SerializeField] private bool drawOnDisable;
         [SerializeField] private bool drawWheelDirection;
-        [SerializeField] private UnderWheelDebugMode drawMode;
+        [SerializeField] private UTWheelDebugMode drawMode;
 
         [Header("Force")]
         [SerializeField] private bool drawForce;
 
-        public UnderWheelDebugMode DrawMode
+        public UTWheelDebugMode DrawMode
         {
             get => drawMode;
             set

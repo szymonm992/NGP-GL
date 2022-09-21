@@ -33,11 +33,11 @@ namespace Frontend.Scripts.Components
 		public bool canSteer = false;
 
 		[SerializeField]
-		private UnderWheelDebug debugSettings = new UnderWheelDebug()
+		private UTWheelDebug debugSettings = new UTWheelDebug()
 		{
 			DrawGizmos = true,
 			DrawOnDisable = false,
-			DrawMode = UnderWheelDebugMode.All,
+			DrawMode = UTWheelDebugMode.All,
 			DrawForce = true
 		};
 

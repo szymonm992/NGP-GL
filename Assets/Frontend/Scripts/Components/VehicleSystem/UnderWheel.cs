@@ -13,11 +13,11 @@ namespace Frontend.Scripts.Components
     
         private Rigidbody rig;
 
-        [SerializeField] private UnderWheelDebug debugSettings = new UnderWheelDebug()
+        [SerializeField] private UTWheelDebug debugSettings = new UTWheelDebug()
         {
             DrawGizmos = true,
             DrawOnDisable = false,
-            DrawMode = UnderWheelDebugMode.All,
+            DrawMode = UTWheelDebugMode.All,
             DrawForce = true
         };
 
@@ -236,9 +236,9 @@ namespace Frontend.Scripts.Components
         private void OnDrawGizmos()
         {
             
-            bool drawCurrently = (debugSettings.DrawGizmos) && (debugSettings.DrawMode == UnderWheelDebugMode.All)
-                || (debugSettings.DrawMode == UnderWheelDebugMode.EditorOnly && !Application.isPlaying) 
-                || (debugSettings.DrawMode == UnderWheelDebugMode.PlaymodeOnly && Application.isPlaying);
+            bool drawCurrently = (debugSettings.DrawGizmos) && (debugSettings.DrawMode == UTWheelDebugMode.All)
+                || (debugSettings.DrawMode == UTWheelDebugMode.EditorOnly && !Application.isPlaying) 
+                || (debugSettings.DrawMode == UTWheelDebugMode.PlaymodeOnly && Application.isPlaying);
 
             if(drawCurrently && (debugSettings.DrawOnDisable && !this.enabled) || (this.enabled))
             {
