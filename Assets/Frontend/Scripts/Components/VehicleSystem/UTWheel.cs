@@ -32,7 +32,7 @@ namespace Frontend.Scripts.Components
         {
             DrawGizmos = true,
             DrawOnDisable = false,
-            DrawMode = UTWheelDebugMode.All,
+            DrawMode = UTDebugMode.All,
             DrawForce = true,
             DrawWheelDirection = true
         };
@@ -155,26 +155,25 @@ namespace Frontend.Scripts.Components
         private void OnDrawGizmos()
         {
 
-            bool drawCurrently = (debugSettings.DrawGizmos) && (debugSettings.DrawMode == UTWheelDebugMode.All)
-                || (debugSettings.DrawMode == UTWheelDebugMode.EditorOnly && !Application.isPlaying)
-                || (debugSettings.DrawMode == UTWheelDebugMode.PlaymodeOnly && Application.isPlaying);
+            bool drawCurrently = (debugSettings.DrawGizmos) && (debugSettings.DrawMode == UTDebugMode.All)
+                || (debugSettings.DrawMode == UTDebugMode.EditorOnly && !Application.isPlaying)
+                || (debugSettings.DrawMode == UTDebugMode.PlaymodeOnly && Application.isPlaying);
 
             if (drawCurrently && (this.enabled) || (debugSettings.DrawOnDisable && !this.enabled))
             {
                 if (rig != null)
                 {
-                    Handles.color = isGrounded ? Color.green : Color.red;
-
-                    Vector3 tirePosition = GetTirePosition();
-
-                    Gizmos.DrawWireSphere(tirePosition, wheelRadius);
-                    Handles.DrawDottedLine(transform.position, tirePosition, 1.1f);
-
-                    if(isGrounded)
+                    if(!Application.isPlaying)
                     {
+                        tireWorldPosition = GetTirePosition();
+                    }
+                    Handles.DrawDottedLine(transform.position, tireWorldPosition, 1.1f);
+
+                    if (isGrounded)
+                    {
+                        Gizmos.color = Color.blue;
                         Gizmos.DrawSphere(hitInfo.Point, .08f);
                     }
-
                     if (debugSettings.DrawForce)
                     {
                         var force = (finalForce - normalForce * transform.up) / 1000f;
@@ -184,12 +183,17 @@ namespace Frontend.Scripts.Components
 
                     if(debugSettings.DrawWheelDirection)
                     {
-                        Handles.DrawLine(tirePosition, tirePosition + transform.forward, 2f);
+                        Handles.color = isGrounded ? Color.green : Color.red;
+                        Handles.DrawLine(tireWorldPosition, tireWorldPosition + transform.forward, 2f);
                     }
 
-                    Gizmos.color = isGrounded ? Color.green : Color.red;
+                    Gizmos.color = Color.white;
                     Gizmos.DrawSphere(transform.position, .08f);
-                    Gizmos.DrawSphere(tirePosition, .08f);
+                    Gizmos.DrawSphere(tireWorldPosition, .08f);
+
+                    Gizmos.color = isGrounded ? Color.green : Color.red;
+                    Gizmos.DrawWireSphere(tireWorldPosition, wheelRadius);
+                    
                 }
             }
         }

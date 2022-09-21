@@ -12,12 +12,12 @@ namespace Frontend.Scripts.Models
         [SerializeField] private bool drawGizmos;
         [SerializeField] private bool drawOnDisable;
         [SerializeField] private bool drawWheelDirection;
-        [SerializeField] private UTWheelDebugMode drawMode;
+        [SerializeField] private UTDebugMode drawMode;
 
         [Header("Force")]
         [SerializeField] private bool drawForce;
 
-        public UTWheelDebugMode DrawMode
+        public UTDebugMode DrawMode
         {
             get => drawMode;
             set

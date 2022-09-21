@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Frontend.Scripts.Enums
 {
-    public enum UTWheelDebugMode
+    public enum UTDebugMode
     {
         All,
         PlaymodeOnly,

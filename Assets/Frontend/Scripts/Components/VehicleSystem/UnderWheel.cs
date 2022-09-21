@@ -17,7 +17,7 @@ namespace Frontend.Scripts.Components
         {
             DrawGizmos = true,
             DrawOnDisable = false,
-            DrawMode = UTWheelDebugMode.All,
+            DrawMode = UTDebugMode.All,
             DrawForce = true
         };
 
@@ -236,9 +236,9 @@ namespace Frontend.Scripts.Components
         private void OnDrawGizmos()
         {
             
-            bool drawCurrently = (debugSettings.DrawGizmos) && (debugSettings.DrawMode == UTWheelDebugMode.All)
-                || (debugSettings.DrawMode == UTWheelDebugMode.EditorOnly && !Application.isPlaying) 
-                || (debugSettings.DrawMode == UTWheelDebugMode.PlaymodeOnly && Application.isPlaying);
+            bool drawCurrently = (debugSettings.DrawGizmos) && (debugSettings.DrawMode == UTDebugMode.All)
+                || (debugSettings.DrawMode == UTDebugMode.EditorOnly && !Application.isPlaying) 
+                || (debugSettings.DrawMode == UTDebugMode.PlaymodeOnly && Application.isPlaying);
 
             if(drawCurrently && (debugSettings.DrawOnDisable && !this.enabled) || (this.enabled))
             {

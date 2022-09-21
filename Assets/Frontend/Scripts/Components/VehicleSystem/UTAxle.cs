@@ -2,6 +2,7 @@ using Frontend.Scripts.Enums;
 using Frontend.Scripts.Models;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 namespace Frontend.Scripts.Components
@@ -11,6 +12,14 @@ namespace Frontend.Scripts.Components
         [SerializeField] private UTAxlePair[] wheelPairs;
         [SerializeField] private bool canDrive;
         [SerializeField] private bool canSteer;
+
+        public UTAxleDebug debugSettings = new UTAxleDebug()
+        {
+            DrawGizmos = true,
+            DrawAxleCenter = true,
+            DrawAxlePipes = true,
+            DrawMode = UTDebugMode.All
+        };
 
         public UTAxlePair[] WheelPairs => wheelPairs;
         public bool CanDrive => canDrive;
@@ -28,6 +37,25 @@ namespace Frontend.Scripts.Components
             foreach(var pair in wheelPairs)
             {
                 pair.Wheel.SteerAngle = pair.Axis == DriveAxisSite.Left ? angleLeftAxis : angleRightAxis;
+            }
+        }
+
+        private void OnDrawGizmos()
+        {
+            bool drawCurrently = (debugSettings.DrawGizmos) && (debugSettings.DrawMode == UTDebugMode.All)
+               || (debugSettings.DrawMode == UTDebugMode.EditorOnly && !Application.isPlaying)
+               || (debugSettings.DrawMode == UTDebugMode.PlaymodeOnly && Application.isPlaying);
+
+            if (drawCurrently)
+            {
+                Gizmos.color = Color.white;
+                Gizmos.DrawSphere(transform.position, .11f);
+
+                foreach(var pair in wheelPairs)
+                {
+                    Handles.color = Color.white;
+                    Handles.DrawLine(pair.Wheel.transform.position, transform.position, 1.2f);
+                }
             }
         }
     }

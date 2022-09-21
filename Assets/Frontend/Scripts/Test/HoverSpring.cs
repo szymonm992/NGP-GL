@@ -37,7 +37,7 @@ namespace Frontend.Scripts.Components
 		{
 			DrawGizmos = true,
 			DrawOnDisable = false,
-			DrawMode = UTWheelDebugMode.All,
+			DrawMode = UTDebugMode.All,
 			DrawForce = true
 		};
 
