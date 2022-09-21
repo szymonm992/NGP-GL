@@ -125,6 +125,11 @@ namespace Frontend.Scripts.Components
 
         private void OnDrawGizmos()
         {
+			if(!enabled)
+            {
+				return;
+            }
+			
 			Gizmos.DrawSphere(transform.position, 0.1f);
 			Gizmos.DrawSphere(transform.position - (transform.up * springAndCenterDistance), 0.1f);
 			Handles.color = Color.white;
