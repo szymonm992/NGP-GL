@@ -6,8 +6,12 @@ namespace Frontend.Scripts.Interfaces
 {
     public interface IVehicleController
     {
-        void TurningLogic();
+        bool HasAnyWheels { get; }
+        ICustomWheel[] AllWheels { get; }
+        float CurrentSpeed { get; }
 
-        void MovementLogic();
+        //void TurningLogic();
+
+        //void MovementLogic();
     }
 }

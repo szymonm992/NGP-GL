@@ -1,4 +1,5 @@
 using Frontend.Scripts.Enums;
+using Frontend.Scripts.Interfaces;
 using Frontend.Scripts.Models;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace Frontend.Scripts.Components
 {
-    public class UTWheel : MonoBehaviour
+    public class UTWheel : MonoBehaviour, ICustomWheel
     {
         private Rigidbody rig;
 
@@ -32,12 +33,15 @@ namespace Frontend.Scripts.Components
         [SerializeField] private float rollingResistance = 0.01f;
         [SerializeField] private float inertia = 3f;
         [SerializeField] private bool canDrive = true;
+        [SerializeField] private bool canSteer = true;
         [SerializeField] private LayerMask layerMask;
+        [SerializeField] private DriveAxisSite wheelAxis;
 
         private HitInfo hitInfo = new HitInfo();
         private float motorTorque = 0f;
         private float brakeTorque = 0f;
         private float steerAngle = 0f;
+        private float wheelAngle = 0f;
 
         private bool isGrounded = false;
 
@@ -66,7 +70,21 @@ namespace Frontend.Scripts.Components
         public float TireMass => tireMass;
         public float ForwardTireGripFactor => forwardTireGripFactor;
         public float SidewaysTireGripFactor => sidewaysTireGripFactor;
+        public bool CanSteer => canSteer;
+        public DriveAxisSite WheelAxis => wheelAxis;
+        public float SteerAngle
+        {
+            get => steerAngle;
+            set => this.steerAngle = value;
+        }
 
+        private void Update()
+        {
+            wheelAngle = Mathf.Lerp(wheelAngle, steerAngle, Time.deltaTime * 8f);
+            transform.localRotation = Quaternion.Euler(transform.localRotation.x,
+                transform.localRotation.y + wheelAngle,
+                transform.localRotation.z);
+        }
 
         private void FixedUpdate()
         {
@@ -75,11 +93,11 @@ namespace Frontend.Scripts.Components
             tirePosition = newPosition;
             normalForce = GetSuspensionForce(tirePosition) + tireMass * Mathf.Abs(Physics.gravity.y);
 
-            float longitudalSpeed = Vector3.Dot(newVelocity, transform.forward);
-            float lateralSpeed = Vector3.Dot(newVelocity, -transform.right);
+            //float longitudalSpeed = Vector3.Dot(newVelocity, transform.forward);
+            //float lateralSpeed = Vector3.Dot(newVelocity, -transform.right);
 
             //float lateralForce = GetLateralForce(normalForce, lateralSpeed, longitudalSpeed);
-           // float longitudalForce = GetLongitudalForce(normalForce, longitudalSpeed);
+            //float longitudalForce = GetLongitudalForce(normalForce, longitudalSpeed);
             finalForce = normalForce * transform.up;
 
             if (!isGrounded)

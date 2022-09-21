@@ -48,12 +48,12 @@ namespace Frontend.Scripts.Models
         {
             if (combinedInput > 0)
             {
-                controller?.MovementLogic();
+                //controller?.MovementLogic();
             }
 
             if (horizontal != 0)
             {
-                controller?.TurningLogic();
+                //controller?.TurningLogic();
             }
         }
     }

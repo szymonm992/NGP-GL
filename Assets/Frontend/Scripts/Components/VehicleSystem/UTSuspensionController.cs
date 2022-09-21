@@ -1,14 +1,16 @@
 using Frontend.Scripts.Enums;
+using Frontend.Scripts.Interfaces;
 using Frontend.Scripts.Models;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Frontend.Scripts.Components
 {
-    public class UTSuspensionController : MonoBehaviour
+    public class UTSuspensionController : MonoBehaviour, IVehicleController
     {
         [SerializeField] private Rigidbody rig;
         [SerializeField] private float maxSlopeAngle = 45f;
@@ -20,6 +22,7 @@ namespace Frontend.Scripts.Components
         [SerializeField] private AnimationCurve enginePowerCurve;
 
         private bool isBrake;
+        private bool hasAnyWheels;
         private float inputX, inputY;
         private float absoluteInputY, absoluteInputX;
         private float currentSpeed;
@@ -28,8 +31,13 @@ namespace Frontend.Scripts.Components
         private float Fx, Fy;
         private Vector3 wheelVelocityLocal;
 
+        public ICustomWheel[] AllWheels => allWheels;
+        public bool HasAnyWheels => hasAnyWheels;
+        public float CurrentSpeed => currentSpeed;
+
         private void Awake()
         {
+            hasAnyWheels = allWheels.Any();
             rig.centerOfMass = com.localPosition;
         }
         private void Update()
@@ -46,7 +54,7 @@ namespace Frontend.Scripts.Components
 
         private void FixedUpdate()
         {
-            //CustomGravityLogic();
+            CustomGravityLogic();
             EvaluateDriveParams();
             Accelerate();
             Brakes();

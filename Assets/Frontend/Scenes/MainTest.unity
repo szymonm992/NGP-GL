@@ -276,9 +276,11 @@ MonoBehaviour:
   rollingResistance: 0.01
   inertia: 3
   canDrive: 1
+  canSteer: 0
   layerMask:
     serializedVersion: 2
     m_Bits: 64
+  wheelAxis: 0
 --- !u!1 &47302552
 GameObject:
   m_ObjectHideFlags: 0
@@ -626,9 +628,11 @@ MonoBehaviour:
   rollingResistance: 0.01
   inertia: 3
   canDrive: 1
+  canSteer: 1
   layerMask:
     serializedVersion: 2
     m_Bits: 64
+  wheelAxis: 0
 --- !u!1 &362861515
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,6 +651,7 @@ GameObject:
   - component: {fileID: 362861524}
   - component: {fileID: 362861523}
   - component: {fileID: 362861525}
+  - component: {fileID: 362861526}
   m_Layer: 0
   m_Name: BUGGY (1)
   m_TagString: Untagged
@@ -795,7 +800,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 362861515}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 27, y: 3.07, z: 17.04}
+  m_LocalPosition: {x: 27, y: 1.74, z: 17.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -814,7 +819,7 @@ Rigidbody:
   m_Mass: 1400
   m_Drag: 0.2
   m_AngularDrag: 0.5
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -1193,6 +1198,44 @@ MonoBehaviour:
       value: 0
       inSlope: -86.666664
       outSlope: -86.666664
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &362861526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362861515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4c2741bd0aeed1449ced87f0d9cdff5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wheelBase: 2.5
+  rearTrack: 1.525
+  turnRadiusCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 4.5
+      inSlope: 0.04375
+      outSlope: 0.04375
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 80
+      value: 8
+      inSlope: 0.04375
+      outSlope: 0.04375
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -1820,9 +1863,11 @@ MonoBehaviour:
   rollingResistance: 0.01
   inertia: 3
   canDrive: 1
+  canSteer: 0
   layerMask:
     serializedVersion: 2
     m_Bits: 64
+  wheelAxis: 1
 --- !u!1 &911723013
 GameObject:
   m_ObjectHideFlags: 0
@@ -2650,9 +2695,11 @@ MonoBehaviour:
   rollingResistance: 0.01
   inertia: 3
   canDrive: 1
+  canSteer: 1
   layerMask:
     serializedVersion: 2
     m_Bits: 64
+  wheelAxis: 1
 --- !u!1 &1372180339
 GameObject:
   m_ObjectHideFlags: 0
