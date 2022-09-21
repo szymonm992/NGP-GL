@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Frontend.Scripts
 {
-    public class UTAckermann : MonoBehaviour
+    public class UTAckermann : MonoBehaviour, IVehicleSteering
     {
         [SerializeField] private float wheelBase;
         [SerializeField] private float rearTrack;
