@@ -12,6 +12,8 @@ namespace Frontend.Scripts.Models
         [SerializeField] private bool drawGizmos;
         [SerializeField] private bool drawOnDisable;
         [SerializeField] private bool drawWheelDirection;
+        [SerializeField] private bool drawSphereGizmo;
+        [SerializeField] private bool drawSprings;
         [SerializeField] private UTDebugMode drawMode;
 
         [Header("Force")]
@@ -58,6 +60,22 @@ namespace Frontend.Scripts.Models
             set
             {
                 this.drawWheelDirection = value;
+            }
+        }
+        public bool DrawSphereGizmo
+        {
+            get => drawSphereGizmo;
+            set
+            {
+                this.drawSphereGizmo = value;
+            }
+        }
+        public bool DrawSprings
+        {
+            get => drawSprings;
+            set
+            {
+                this.drawSprings = value;
             }
         }
     }

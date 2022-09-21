@@ -10,10 +10,6 @@ namespace Frontend.Scripts.Components
 {
     public class UTWheel : MonoBehaviour
     {
-        private Rigidbody rig;
-
-        
-
         [Header("Settings")]
         [SerializeField] [Range(0.1f, 2f)] private float suspensionTravel = 1f;
         [SerializeField] private float wheelRadius = 0.35f;
@@ -34,9 +30,12 @@ namespace Frontend.Scripts.Components
             DrawOnDisable = false,
             DrawMode = UTDebugMode.All,
             DrawForce = true,
-            DrawWheelDirection = true
+            DrawWheelDirection = true,
+            DrawSphereGizmo = true,
+            DrawSprings = true,
         };
 
+        private Rigidbody rig;
         private HitInfo hitInfo = new HitInfo();
         private float motorTorque = 0f;
         private float brakeTorque = 0f;
@@ -167,8 +166,15 @@ namespace Frontend.Scripts.Components
                     {
                         tireWorldPosition = GetTirePosition();
                     }
-                    Handles.DrawDottedLine(transform.position, tireWorldPosition, 1.1f);
 
+                    if(debugSettings.DrawSprings)
+                    {
+                        Handles.DrawDottedLine(transform.position, tireWorldPosition, 1.1f);
+                        Gizmos.color = Color.white;
+                        Gizmos.DrawSphere(transform.position, .08f);
+                        Gizmos.DrawSphere(tireWorldPosition, .08f);
+                    }
+                    
                     if (isGrounded)
                     {
                         Gizmos.color = Color.blue;
@@ -187,13 +193,13 @@ namespace Frontend.Scripts.Components
                         Handles.DrawLine(tireWorldPosition, tireWorldPosition + transform.forward, 2f);
                     }
 
-                    Gizmos.color = Color.white;
-                    Gizmos.DrawSphere(transform.position, .08f);
-                    Gizmos.DrawSphere(tireWorldPosition, .08f);
-
-                    Gizmos.color = isGrounded ? Color.green : Color.red;
-                    Gizmos.DrawWireSphere(tireWorldPosition, wheelRadius);
                     
+
+                    if(debugSettings.DrawSphereGizmo)
+                    {
+                        Gizmos.color = isGrounded ? Color.green : Color.red;
+                        Gizmos.DrawWireSphere(tireWorldPosition, wheelRadius);
+                    }
                 }
             }
         }

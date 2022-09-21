@@ -162,5 +162,13 @@ namespace Frontend.Scripts.Components
             }
             return result;
         }
+
+        private void OnDrawGizmos()
+        {
+            #if UNITY_EDITOR
+            Gizmos.color = Color.white;
+            Gizmos.DrawSphere(rig.worldCenterOfMass, 0.2f);
+            #endif
+        }
     }
 }

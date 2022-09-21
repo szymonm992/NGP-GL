@@ -49,13 +49,20 @@ namespace Frontend.Scripts.Components
             if (drawCurrently)
             {
                 Gizmos.color = Color.white;
-                Gizmos.DrawSphere(transform.position, .11f);
-
-                foreach(var pair in wheelPairs)
+                if(debugSettings.DrawAxleCenter)
                 {
-                    Handles.color = Color.white;
-                    Handles.DrawLine(pair.Wheel.transform.position, transform.position, 1.2f);
+                    Gizmos.DrawSphere(transform.position, .11f);
                 }
+                
+                if(debugSettings.DrawAxlePipes)
+                {
+                    foreach (var pair in wheelPairs)
+                    {
+                        Handles.color = Color.white;
+                        Handles.DrawLine(pair.Wheel.transform.position, transform.position, 1.2f);
+                    }
+                }
+                
             }
         }
     }
