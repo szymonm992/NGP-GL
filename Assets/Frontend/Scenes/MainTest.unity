@@ -798,7 +798,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 362861515}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 27, y: 1.74, z: 17.04}
+  m_LocalPosition: {x: 27, y: 4.8, z: 17.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1088,11 +1088,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rig: {fileID: 362861518}
   maxSlopeAngle: 45
-  allWheels:
-  - {fileID: 1334971820}
-  - {fileID: 292481739}
-  - {fileID: 889998906}
-  - {fileID: 16642666}
   allAxles:
   - {fileID: 1166450958}
   - {fileID: 1252238027}

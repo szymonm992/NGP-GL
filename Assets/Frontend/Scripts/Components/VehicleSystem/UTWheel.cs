@@ -15,10 +15,10 @@ namespace Frontend.Scripts.Components
         
 
         [Header("Settings")]
-        [SerializeField] [Range(0.1f, 1f)] private float suspensionTravel = 1f;
+        [SerializeField] [Range(0.1f, 2f)] private float suspensionTravel = 1f;
         [SerializeField] private float wheelRadius = 0.35f;
         [SerializeField] private float tireMass = 20f;
-        [Range(0, 2f)]
+        [Range(0, 1f)]
         [SerializeField] private float forwardTireGripFactor = 1f, sidewaysTireGripFactor = 1f;
 
         [SerializeField] private float spring = 20000f;
@@ -45,6 +45,7 @@ namespace Frontend.Scripts.Components
 
         private bool isGrounded = false;
 
+        private Vector3 tireWorldPosition;
 
         #region Telemetry/readonly
         private float angularVelocity = 0f;
@@ -69,6 +70,7 @@ namespace Frontend.Scripts.Components
         public float TireMass => tireMass;
         public float ForwardTireGripFactor => forwardTireGripFactor;
         public float SidewaysTireGripFactor => sidewaysTireGripFactor;
+        public Vector3 TireWorldPosition => tireWorldPosition;
         public float SteerAngle
         {
             get => steerAngle;
@@ -86,6 +88,7 @@ namespace Frontend.Scripts.Components
         private void FixedUpdate()
         {
             Vector3 newPosition = GetTirePosition();
+            tireWorldPosition = newPosition;
             Vector3 newVelocity = (newPosition - tirePosition) / Time.fixedDeltaTime;
             tirePosition = newPosition;
             normalForce = GetSuspensionForce(tirePosition) + tireMass * Mathf.Abs(Physics.gravity.y);
@@ -110,11 +113,11 @@ namespace Frontend.Scripts.Components
         public void GetWorldPosition(out Vector3 position, out Quaternion rotation)
         {
             var localTireRotation = Quaternion.Euler(tireRotation * Mathf.Rad2Deg, 0f, 0f);
-            position = GetTirePosition();
+            position = tireWorldPosition;
             rotation = transform.rotation * localTireRotation;
         }
 
-        public Vector3 GetTirePosition()
+        private Vector3 GetTirePosition()
         {
             isGrounded = Physics.SphereCast(transform.position, wheelRadius, -transform.up, out hitInfo.rayHit,  suspensionTravel, layerMask);
             if (isGrounded)
@@ -162,10 +165,10 @@ namespace Frontend.Scripts.Components
                 {
                     Handles.color = isGrounded ? Color.green : Color.red;
 
-                    GetWorldPosition(out Vector3 position, out Quaternion rotation);
+                    Vector3 tirePosition = GetTirePosition();
 
-                    Gizmos.DrawWireSphere(position, wheelRadius);
-                    Handles.DrawDottedLine(transform.position, position, 1.1f);
+                    Gizmos.DrawWireSphere(tirePosition, wheelRadius);
+                    Handles.DrawDottedLine(transform.position, tirePosition, 1.1f);
 
                     if(isGrounded)
                     {
@@ -181,12 +184,12 @@ namespace Frontend.Scripts.Components
 
                     if(debugSettings.DrawWheelDirection)
                     {
-                        Handles.DrawLine(position, position + transform.forward, 2f);
+                        Handles.DrawLine(tirePosition, tirePosition + transform.forward, 2f);
                     }
 
                     Gizmos.color = isGrounded ? Color.green : Color.red;
                     Gizmos.DrawSphere(transform.position, .08f);
-                    Gizmos.DrawSphere(position, .08f);
+                    Gizmos.DrawSphere(tirePosition, .08f);
                 }
             }
         }

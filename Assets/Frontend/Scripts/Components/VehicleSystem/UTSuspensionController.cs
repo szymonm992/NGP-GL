@@ -74,35 +74,20 @@ namespace Frontend.Scripts.Components
             foreach (var wheel in allGroundedWheels)
             {
                 Vector3 steeringDir = wheel.transform.right;
-                Vector3 tireVel = rig.GetPointVelocity(wheel.HitInfo.Point);
+                wheel.GetWorldPosition(out var worldPos, out _);
+                Vector3 tireVel = rig.GetPointVelocity(worldPos);
 
                 float steeringVel = Vector3.Dot(steeringDir, tireVel);
                 float desiredVelChange = -steeringVel * wheel.SidewaysTireGripFactor;
                 float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
 
-                rig.AddForceAtPosition(desiredAccel * wheel.TireMass * steeringDir, wheel.HitInfo.Point);
+                rig.AddForceAtPosition(desiredAccel * wheel.TireMass * steeringDir, worldPos);
             }
 
         }
 
         private void Accelerate()
         {
-            /*
-            foreach (var wheel in allWheels)
-            {
-                if (wheel.CanDrive & wheel.IsGrounded && !isBrake)
-                {
-                    wheelVelocityLocal = wheel.transform.InverseTransformDirection(rig.GetPointVelocity(wheel.transform.position));
-
-                    Fx = inputY * currentDriveForce;
-                    Fy = wheelVelocityLocal.x * currentDriveForce;
-
-                    rig.AddForceAtPosition((Fx * wheel.transform.forward), wheel.HitInfo.Point);
-                    rig.AddForceAtPosition((Fy * -wheel.transform.right), wheel.transform.position);
-                }
-            }*/
-
-
             foreach (var axle in allAxles)
             {
                 if (axle.CanDrive && !isBrake)
@@ -126,21 +111,6 @@ namespace Frontend.Scripts.Components
         private void Brakes()
         {
             currentLongitudalGrip = isBrake ? 1f : (absoluteInputY > 0 ? 0 : 0.5f);
-
-            /*foreach (var wheel in allWheels)
-            {
-                if (wheel.IsGrounded)
-                {
-                    Vector3 forwardDir = wheel.transform.forward;
-                    Vector3 tireVel = rig.GetPointVelocity(wheel.transform.position);
-
-                    float steeringVel = Vector3.Dot(forwardDir, tireVel);
-                    float desiredVelChange = -steeringVel * currentLongitudalGrip;
-                    float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
-
-                    rig.AddForceAtPosition(desiredAccel * wheel.TireMass * forwardDir, wheel.transform.position);
-                }
-            }*/
 
             var allGroundedWheels = GetGroundedWheelsInAllAxles();
             foreach (var wheel in allGroundedWheels)
