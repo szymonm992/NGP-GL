@@ -15,6 +15,7 @@ namespace Frontend.Scripts.Components
         [SerializeField] private Rigidbody rig;
         [SerializeField] private float maxSlopeAngle = 45f;
         [SerializeField] private UTWheel[] allWheels;
+        [SerializeField] private UTAxle[] allAxles;
         [SerializeField] private Text velocityText;
         [SerializeField] private Transform com;
         [SerializeField] private AnimationCurve comSteeringCurve;
@@ -31,7 +32,8 @@ namespace Frontend.Scripts.Components
         private float Fx, Fy;
         private Vector3 wheelVelocityLocal;
 
-        public ICustomWheel[] AllWheels => allWheels;
+        public UTWheel[] AllWheels => allWheels;
+        public UTAxle[] AllAxles => allAxles;
         public bool HasAnyWheels => hasAnyWheels;
         public float CurrentSpeed => currentSpeed;
 
@@ -88,6 +90,7 @@ namespace Frontend.Scripts.Components
 
         private void Accelerate()
         {
+            /*
             foreach (var wheel in allWheels)
             {
                 if (wheel.CanDrive & wheel.IsGrounded && !isBrake)
@@ -100,6 +103,25 @@ namespace Frontend.Scripts.Components
                     rig.AddForceAtPosition((Fx * wheel.transform.forward), wheel.HitInfo.Point);
                     rig.AddForceAtPosition((Fy * -wheel.transform.right), wheel.transform.position);
                 }
+            }*/
+
+
+            foreach (var axle in allAxles)
+            {
+                if (axle.CanDrive && !isBrake)
+                {
+                    var groundedWheels = axle.GetGroundedWheels();
+                    foreach (var wheel in groundedWheels)
+                    {
+                        wheelVelocityLocal = wheel.transform.InverseTransformDirection(rig.GetPointVelocity(wheel.transform.position));
+
+                        Fx = inputY * currentDriveForce;
+                        Fy = wheelVelocityLocal.x * currentDriveForce;
+
+                        rig.AddForceAtPosition((Fx * wheel.transform.forward), wheel.HitInfo.Point);
+                        rig.AddForceAtPosition((Fy * -wheel.transform.right), wheel.transform.position);
+                    }
+                }
             }
         }
 
@@ -107,6 +129,7 @@ namespace Frontend.Scripts.Components
         private void Brakes()
         {
             currentLongitudalGrip = isBrake ? 1f : (absoluteInputY > 0 ? 0 : 0.5f);
+            
             foreach (var wheel in allWheels)
             {
                 if (wheel.IsGrounded)

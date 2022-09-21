@@ -47,18 +47,11 @@ namespace Frontend.Scripts
 
             if(suspensionController.HasAnyWheels)
             {
-                foreach (var wheel in suspensionController.AllWheels)
+                foreach (var axle in suspensionController.AllAxles)
                 {
-                    if (wheel.CanSteer)
+                    if (axle.CanSteer)
                     {
-                        if (wheel.WheelAxis == DriveAxisSite.Left)
-                        {
-                            wheel.SteerAngle = ackermannAngleLeft;
-                        }
-                        else
-                        {
-                            wheel.SteerAngle = ackermannAngleRight;
-                        }
+                        axle.SetSteerAngle(ackermannAngleLeft, ackermannAngleRight);
                     }
                 }
             }

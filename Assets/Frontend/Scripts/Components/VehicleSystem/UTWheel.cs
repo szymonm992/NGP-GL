@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Frontend.Scripts.Components
 {
-    public class UTWheel : MonoBehaviour, ICustomWheel
+    public class UTWheel : MonoBehaviour
     {
         private Rigidbody rig;
 
@@ -18,7 +18,8 @@ namespace Frontend.Scripts.Components
             DrawGizmos = true,
             DrawOnDisable = false,
             DrawMode = UnderWheelDebugMode.All,
-            DrawForce = true
+            DrawForce = true,
+            DrawWheelDirection = true
         };
 
         [Header("Settings")]
@@ -32,8 +33,6 @@ namespace Frontend.Scripts.Components
         [SerializeField] private float damper = 2000f;
         [SerializeField] private float rollingResistance = 0.01f;
         [SerializeField] private float inertia = 3f;
-        [SerializeField] private bool canDrive = true;
-        [SerializeField] private bool canSteer = true;
         [SerializeField] private LayerMask layerMask;
         [SerializeField] private DriveAxisSite wheelAxis;
 
@@ -65,12 +64,10 @@ namespace Frontend.Scripts.Components
         #endregion
 
         public bool IsGrounded => isGrounded;
-        public bool CanDrive => canDrive;
         public HitInfo HitInfo => hitInfo;
         public float TireMass => tireMass;
         public float ForwardTireGripFactor => forwardTireGripFactor;
         public float SidewaysTireGripFactor => sidewaysTireGripFactor;
-        public bool CanSteer => canSteer;
         public DriveAxisSite WheelAxis => wheelAxis;
         public float SteerAngle
         {
@@ -159,7 +156,7 @@ namespace Frontend.Scripts.Components
                 || (debugSettings.DrawMode == UnderWheelDebugMode.EditorOnly && !Application.isPlaying)
                 || (debugSettings.DrawMode == UnderWheelDebugMode.PlaymodeOnly && Application.isPlaying);
 
-            if (drawCurrently && (debugSettings.DrawOnDisable && !this.enabled) || (this.enabled))
+            if (drawCurrently && (this.enabled) || (debugSettings.DrawOnDisable && !this.enabled))
             {
                 if (rig != null)
                 {
@@ -178,8 +175,13 @@ namespace Frontend.Scripts.Components
                     if (debugSettings.DrawForce)
                     {
                         var force = (finalForce - normalForce * transform.up) / 1000f;
-                        Gizmos.color = Color.blue;
+                        Gizmos.color = Color.yellow;
                         Gizmos.DrawLine(transform.position, transform.position + force);
+                    }
+
+                    if(debugSettings.DrawWheelDirection)
+                    {
+                        Handles.DrawLine(position, position + transform.forward, 2f);
                     }
 
                     Gizmos.color = isGrounded ? Color.green : Color.red;
