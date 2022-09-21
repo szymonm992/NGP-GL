@@ -262,12 +262,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugSettings:
-    drawGizmos: 1
-    drawOnDisable: 1
-    drawWheelDirection: 1
-    drawMode: 0
-    drawForce: 1
   suspensionTravel: 1
   wheelRadius: 0.6
   tireMass: 20
@@ -277,12 +271,15 @@ MonoBehaviour:
   damper: 2000
   rollingResistance: 0.01
   inertia: 3
-  canDrive: 1
-  canSteer: 0
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  wheelAxis: 0
+  debugSettings:
+    drawGizmos: 1
+    drawOnDisable: 1
+    drawWheelDirection: 1
+    drawMode: 0
+    drawForce: 1
 --- !u!1 &47302552
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,12 +613,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugSettings:
-    drawGizmos: 1
-    drawOnDisable: 1
-    drawWheelDirection: 1
-    drawMode: 0
-    drawForce: 1
   suspensionTravel: 1
   wheelRadius: 0.6
   tireMass: 20
@@ -631,12 +622,15 @@ MonoBehaviour:
   damper: 2000
   rollingResistance: 0.01
   inertia: 3
-  canDrive: 1
-  canSteer: 1
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  wheelAxis: 0
+  debugSettings:
+    drawGizmos: 1
+    drawOnDisable: 1
+    drawWheelDirection: 1
+    drawMode: 0
+    drawForce: 1
 --- !u!1 &362861515
 GameObject:
   m_ObjectHideFlags: 0
@@ -1099,6 +1093,9 @@ MonoBehaviour:
   - {fileID: 292481739}
   - {fileID: 889998906}
   - {fileID: 16642666}
+  allAxles:
+  - {fileID: 1166450958}
+  - {fileID: 1252238027}
   velocityText: {fileID: 1728332547}
   com: {fileID: 2086476557}
   comSteeringCurve:
@@ -1853,12 +1850,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugSettings:
-    drawGizmos: 1
-    drawOnDisable: 1
-    drawWheelDirection: 1
-    drawMode: 0
-    drawForce: 1
   suspensionTravel: 1
   wheelRadius: 0.6
   tireMass: 20
@@ -1868,12 +1859,15 @@ MonoBehaviour:
   damper: 2000
   rollingResistance: 0.01
   inertia: 3
-  canDrive: 1
-  canSteer: 0
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  wheelAxis: 1
+  debugSettings:
+    drawGizmos: 1
+    drawOnDisable: 1
+    drawWheelDirection: 1
+    drawMode: 0
+    drawForce: 1
 --- !u!1 &911723013
 GameObject:
   m_ObjectHideFlags: 0
@@ -2382,6 +2376,8 @@ MonoBehaviour:
     axis: 0
   - wheel: {fileID: 1334971820}
     axis: 1
+  canDrive: 1
+  canSteer: 1
 --- !u!1 &1185950072
 GameObject:
   m_ObjectHideFlags: 0
@@ -2593,6 +2589,8 @@ MonoBehaviour:
     axis: 0
   - wheel: {fileID: 889998906}
     axis: 1
+  canDrive: 1
+  canSteer: 0
 --- !u!1 &1305146457
 GameObject:
   m_ObjectHideFlags: 0
@@ -2787,12 +2785,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugSettings:
-    drawGizmos: 1
-    drawOnDisable: 1
-    drawWheelDirection: 1
-    drawMode: 0
-    drawForce: 1
   suspensionTravel: 1
   wheelRadius: 0.6
   tireMass: 20
@@ -2802,12 +2794,15 @@ MonoBehaviour:
   damper: 2000
   rollingResistance: 0.01
   inertia: 3
-  canDrive: 1
-  canSteer: 1
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  wheelAxis: 1
+  debugSettings:
+    drawGizmos: 1
+    drawOnDisable: 1
+    drawWheelDirection: 1
+    drawMode: 0
+    drawForce: 1
 --- !u!1 &1372180339
 GameObject:
   m_ObjectHideFlags: 0

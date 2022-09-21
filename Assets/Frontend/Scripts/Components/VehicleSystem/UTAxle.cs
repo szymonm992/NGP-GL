@@ -16,6 +16,8 @@ namespace Frontend.Scripts.Components
         public bool CanDrive => canDrive;
         public bool CanSteer => canSteer;
 
+        public bool HasAnyWheelPair => wheelPairs.Any();
+
         public IEnumerable<UTWheel> GetGroundedWheels()
         {
             return wheelPairs.Where(pair => pair.Wheel.IsGrounded == true).Select(pair => pair.Wheel).ToArray();

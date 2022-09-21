@@ -14,7 +14,6 @@ namespace Frontend.Scripts.Components
     {
         [SerializeField] private Rigidbody rig;
         [SerializeField] private float maxSlopeAngle = 45f;
-        [SerializeField] private UTWheel[] allWheels;
         [SerializeField] private UTAxle[] allAxles;
         [SerializeField] private Text velocityText;
         [SerializeField] private Transform com;
@@ -32,14 +31,13 @@ namespace Frontend.Scripts.Components
         private float Fx, Fy;
         private Vector3 wheelVelocityLocal;
 
-        public UTWheel[] AllWheels => allWheels;
         public UTAxle[] AllAxles => allAxles;
         public bool HasAnyWheels => hasAnyWheels;
         public float CurrentSpeed => currentSpeed;
 
         private void Awake()
         {
-            hasAnyWheels = allWheels.Any();
+            hasAnyWheels = allAxles.Any() && allAxles.Where(axle => axle.HasAnyWheelPair).Any();
             rig.centerOfMass = com.localPosition;
         }
         private void Update()
@@ -69,23 +67,22 @@ namespace Frontend.Scripts.Components
             currentDriveForce = enginePowerCurve.Evaluate(currentSpeed);
         }
 
-       
+
         private void ApplyFrictionForces()
         {
-            foreach (var wheel in allWheels)
+            var allGroundedWheels = GetGroundedWheelsInAllAxles();
+            foreach (var wheel in allGroundedWheels)
             {
-                if (wheel.IsGrounded)
-                {
-                    Vector3 steeringDir = wheel.transform.right;
-                    Vector3 tireVel = rig.GetPointVelocity(wheel.HitInfo.Point);
+                Vector3 steeringDir = wheel.transform.right;
+                Vector3 tireVel = rig.GetPointVelocity(wheel.HitInfo.Point);
 
-                    float steeringVel = Vector3.Dot(steeringDir, tireVel);
-                    float desiredVelChange = -steeringVel * wheel.SidewaysTireGripFactor;
-                    float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
+                float steeringVel = Vector3.Dot(steeringDir, tireVel);
+                float desiredVelChange = -steeringVel * wheel.SidewaysTireGripFactor;
+                float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
 
-                    rig.AddForceAtPosition(desiredAccel * wheel.TireMass * steeringDir, wheel.HitInfo.Point);
-                }
+                rig.AddForceAtPosition(desiredAccel * wheel.TireMass * steeringDir, wheel.HitInfo.Point);
             }
+
         }
 
         private void Accelerate()
@@ -145,40 +142,54 @@ namespace Frontend.Scripts.Components
                 }
             }*/
 
-            foreach (var axle in allAxles)
+            var allGroundedWheels = GetGroundedWheelsInAllAxles();
+            foreach (var wheel in allGroundedWheels)
             {
-                var groundedWheels = axle.GetGroundedWheels();
-                foreach (var wheel in groundedWheels)
-                {
-                    Vector3 forwardDir = wheel.transform.forward;
-                    Vector3 tireVel = rig.GetPointVelocity(wheel.transform.position);
+                Vector3 forwardDir = wheel.transform.forward;
+                Vector3 tireVel = rig.GetPointVelocity(wheel.transform.position);
 
-                    float steeringVel = Vector3.Dot(forwardDir, tireVel);
-                    float desiredVelChange = -steeringVel * currentLongitudalGrip;
-                    float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
+                float steeringVel = Vector3.Dot(forwardDir, tireVel);
+                float desiredVelChange = -steeringVel * currentLongitudalGrip;
+                float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
 
-                    rig.AddForceAtPosition(desiredAccel * wheel.TireMass * forwardDir, wheel.transform.position);
-                }
+                rig.AddForceAtPosition(desiredAccel * wheel.TireMass * forwardDir, wheel.transform.position);
             }
+
 
         }
 
         private void CustomGravityLogic()
         {
-            foreach (var wheel in allWheels)
+            var allGroundedWheels = GetGroundedWheelsInAllAxles();
+            if(!allGroundedWheels.Any())
             {
-                if (wheel.IsGrounded)
-                {
-                    float angle = Vector3.Angle(wheel.HitInfo.Normal, -Physics.gravity.normalized);
-
-                    if (maxSlopeAngle >= angle)
-                    {
-                        rig.AddForce(-wheel.HitInfo.Normal * Physics.gravity.magnitude, ForceMode.Acceleration);
-                        break;
-                    }
-                }
                 rig.AddForce(Physics.gravity, ForceMode.Acceleration);
+                return;
             }
+
+            foreach (var wheel in allGroundedWheels)
+            {
+                float angle = Vector3.Angle(wheel.HitInfo.Normal, -Physics.gravity.normalized);
+
+                if (maxSlopeAngle >= angle)
+                {
+                    rig.AddForce(-wheel.HitInfo.Normal * Physics.gravity.magnitude, ForceMode.Acceleration);
+                    break;
+                }
+            }
+        }
+
+        private IEnumerable<UTWheel> GetGroundedWheelsInAllAxles()
+        {
+            var result = new List<UTWheel>();
+            if(allAxles.Any())
+            {
+                foreach (var axle in allAxles)
+                {
+                    result.AddRange(axle.GetGroundedWheels());
+                }
+            }
+            return result;
         }
     }
 }
