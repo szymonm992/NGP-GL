@@ -16,7 +16,6 @@ namespace Frontend.Scripts.Components
         [SerializeField] private float maxSlopeAngle = 45f;
         [SerializeField] private UTAxle[] allAxles;
         [SerializeField] private Text velocityText;
-        [SerializeField] private Text rpmText;
         [SerializeField] private Transform com;
         [SerializeField] private AnimationCurve comSteeringCurve;
         [SerializeField] private AnimationCurve angleBasedComSteeringCurve;
@@ -32,7 +31,6 @@ namespace Frontend.Scripts.Components
         private float currentDriveForce = 0;
         private float currentLongitudalGrip;
         private float forwardForce, turnForce;
-        private float rpm = 0;
         private Vector3 wheelVelocityLocal;
 
         public UTAxle[] AllAxles => allAxles;
@@ -53,8 +51,7 @@ namespace Frontend.Scripts.Components
             absoluteInputY = Mathf.Abs(inputY);
             absoluteInputX = Mathf.Abs(inputX) * Mathf.Sign(inputY);
 
-            velocityText.text = currentSpeed.ToString("F0");
-            rpmText.text = $"RPM: {rpm.ToString("F0")}";
+            velocityText.text = $"{currentSpeed.ToString("F0")}";
         }
 
         private void FixedUpdate()
@@ -75,11 +72,9 @@ namespace Frontend.Scripts.Components
 
         private void ApplyFrictionForces()
         {
-            float rpmAvg = 0;
             var allGroundedWheels = GetGroundedWheelsInAllAxles();
             foreach (var wheel in allGroundedWheels)
             {
-
                 Vector3 steeringDir = wheel.transform.right;
                 Vector3 tireVel = rig.GetPointVelocity(wheel.transform.position);
 
@@ -88,10 +83,7 @@ namespace Frontend.Scripts.Components
                 float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
 
                 rig.AddForceAtPosition(desiredAccel * wheel.TireMass * steeringDir, wheel.transform.position);
-                rpmAvg += wheel.RPM;
             }
-
-            rpm = rpmAvg / allGroundedWheels.Count();
         }
 
         private void Accelerate()
@@ -108,9 +100,6 @@ namespace Frontend.Scripts.Components
                     var groundedWheels = axle.GetGroundedWheels();
                     foreach (var wheel in groundedWheels)
                     {
-                        //wheel.MotorTorque = currentDriveForce * inputY;
-                        //wheel.BrakeTorque  = 0;
-                        
                         wheelVelocityLocal = wheel.transform.InverseTransformDirection(rig.GetPointVelocity(wheel.transform.position));
 
                         forwardForce = inputY * currentDriveForce;
@@ -133,9 +122,6 @@ namespace Frontend.Scripts.Components
                 var allGroundedWheels = GetGroundedWheelsInAllAxles();
                 foreach (var wheel in allGroundedWheels)
                 {
-                    //wheel.MotorTorque = 0;
-                    //wheel.BrakeTorque = brakeForce;
-                    
                     Vector3 forwardDir = wheel.transform.forward;
                     Vector3 tireVel = rig.GetPointVelocity(wheel.transform.position);
 
