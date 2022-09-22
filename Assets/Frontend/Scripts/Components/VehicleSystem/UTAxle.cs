@@ -30,6 +30,11 @@ namespace Frontend.Scripts.Components
         public IEnumerable<UTWheel> GetGroundedWheels()
         {
             return wheelPairs.Where(pair => pair.Wheel.IsGrounded == true).Select(pair => pair.Wheel).ToArray();
+        } 
+
+        public IEnumerable<UTWheel> GetAllWheels()
+        {
+            return wheelPairs.Select(pair => pair.Wheel).ToArray();
         }
 
         public void SetSteerAngle(float angleLeftAxis, float angleRightAxis)

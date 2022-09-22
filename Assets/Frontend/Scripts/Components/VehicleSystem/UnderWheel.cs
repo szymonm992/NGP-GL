@@ -30,7 +30,7 @@ namespace Frontend.Scripts.Components
         [SerializeField] private float rollingResistance = 0.01f;
         [SerializeField] private float inertia = 3f;
 
-        [SerializeField] private UnderFrictionCurve ForwardFriction = new UnderFrictionCurve()
+        [SerializeField] private UTWheelFrictionCurve ForwardFriction = new UTWheelFrictionCurve()
         {
             ExtremumSlip = 0.4f,
             ExtremumValue = 1f,
@@ -40,7 +40,7 @@ namespace Frontend.Scripts.Components
         };
 
         [SerializeField]
-        private UnderFrictionCurve SidewaysFriction = new UnderFrictionCurve()
+        private UTWheelFrictionCurve SidewaysFriction = new UTWheelFrictionCurve()
         {
             ExtremumSlip = 15f,
             ExtremumValue = 1f,

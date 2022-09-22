@@ -16,10 +16,13 @@ namespace Frontend.Scripts.Components
         [SerializeField] private float maxSlopeAngle = 45f;
         [SerializeField] private UTAxle[] allAxles;
         [SerializeField] private Text velocityText;
+        [SerializeField] private Text rpmText;
         [SerializeField] private Transform com;
         [SerializeField] private AnimationCurve comSteeringCurve;
         [SerializeField] private AnimationCurve angleBasedComSteeringCurve;
         [SerializeField] private AnimationCurve enginePowerCurve;
+        [SerializeField] private float brakeForce = 10000f;
+        [SerializeField] private float motorTorque = 10000f;
 
         private bool isBrake;
         private bool hasAnyWheels;
@@ -28,7 +31,8 @@ namespace Frontend.Scripts.Components
         private float currentSpeed;
         private float currentDriveForce = 0;
         private float currentLongitudalGrip;
-        private float Fx, Fy;
+        private float forwardForce, turnForce;
+        private float rpm = 0;
         private Vector3 wheelVelocityLocal;
 
         public UTAxle[] AllAxles => allAxles;
@@ -47,9 +51,10 @@ namespace Frontend.Scripts.Components
             inputX = Input.GetAxis("Horizontal");
 
             absoluteInputY = Mathf.Abs(inputY);
-            absoluteInputX = Mathf.Abs(inputX);
+            absoluteInputX = Mathf.Abs(inputX) * Mathf.Sign(inputY);
 
             velocityText.text = currentSpeed.ToString("F0");
+            rpmText.text = $"RPM: {rpm.ToString("F0")}";
         }
 
         private void FixedUpdate()
@@ -70,9 +75,11 @@ namespace Frontend.Scripts.Components
 
         private void ApplyFrictionForces()
         {
+            float rpmAvg = 0;
             var allGroundedWheels = GetGroundedWheelsInAllAxles();
             foreach (var wheel in allGroundedWheels)
             {
+
                 Vector3 steeringDir = wheel.transform.right;
                 Vector3 tireVel = rig.GetPointVelocity(wheel.transform.position);
 
@@ -81,12 +88,19 @@ namespace Frontend.Scripts.Components
                 float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
 
                 rig.AddForceAtPosition(desiredAccel * wheel.TireMass * steeringDir, wheel.transform.position);
+                rpmAvg += wheel.RPM;
             }
 
+            rpm = rpmAvg / allGroundedWheels.Count();
         }
 
         private void Accelerate()
         {
+            if(absoluteInputY == 0)
+            {
+                return;
+            }
+
             foreach (var axle in allAxles)
             {
                 if (axle.CanDrive && !isBrake)
@@ -94,15 +108,19 @@ namespace Frontend.Scripts.Components
                     var groundedWheels = axle.GetGroundedWheels();
                     foreach (var wheel in groundedWheels)
                     {
+                        //wheel.MotorTorque = currentDriveForce * inputY;
+                        //wheel.BrakeTorque  = 0;
+                        
                         wheelVelocityLocal = wheel.transform.InverseTransformDirection(rig.GetPointVelocity(wheel.transform.position));
 
-                        Fx = inputY * currentDriveForce;
-                        Fy = wheelVelocityLocal.x * currentDriveForce;
+                        forwardForce = inputY * currentDriveForce;
+                        turnForce = wheelVelocityLocal.x * currentDriveForce;
 
-                        rig.AddForceAtPosition((Fx * wheel.transform.forward), wheel.HitInfo.Point);
-                        rig.AddForceAtPosition((Fy * -wheel.transform.right), wheel.transform.position);
+                        rig.AddForceAtPosition((forwardForce * wheel.transform.forward), wheel.HitInfo.Point);
+                        rig.AddForceAtPosition((turnForce * -wheel.transform.right), wheel.transform.position);
                     }
                 }
+
             }
         }
 
@@ -110,21 +128,24 @@ namespace Frontend.Scripts.Components
         private void Brakes()
         {
             currentLongitudalGrip = isBrake ? 1f : (absoluteInputY > 0 ? 0 : 0.5f);
-
-            var allGroundedWheels = GetGroundedWheelsInAllAxles();
-            foreach (var wheel in allGroundedWheels)
+           if(absoluteInputY == 0 || isBrake)
             {
-                Vector3 forwardDir = wheel.transform.forward;
-                Vector3 tireVel = rig.GetPointVelocity(wheel.transform.position);
+                var allGroundedWheels = GetGroundedWheelsInAllAxles();
+                foreach (var wheel in allGroundedWheels)
+                {
+                    //wheel.MotorTorque = 0;
+                    //wheel.BrakeTorque = brakeForce;
+                    
+                    Vector3 forwardDir = wheel.transform.forward;
+                    Vector3 tireVel = rig.GetPointVelocity(wheel.transform.position);
 
-                float steeringVel = Vector3.Dot(forwardDir, tireVel);
-                float desiredVelChange = -steeringVel * currentLongitudalGrip;
-                float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
+                    float steeringVel = Vector3.Dot(forwardDir, tireVel);
+                    float desiredVelChange = -steeringVel * currentLongitudalGrip;
+                    float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
 
-                rig.AddForceAtPosition(desiredAccel * wheel.TireMass * forwardDir, wheel.transform.position);
+                    rig.AddForceAtPosition(desiredAccel * wheel.TireMass * forwardDir, wheel.transform.position);
+                }
             }
-
-
         }
 
         private void CustomGravityLogic()
@@ -161,7 +182,21 @@ namespace Frontend.Scripts.Components
                 }
             }
             return result;
+        } 
+        
+        private IEnumerable<UTWheel> GetAllWheelsInAllAxles()
+        {
+            var result = new List<UTWheel>();
+            if(allAxles.Any())
+            {
+                foreach (var axle in allAxles)
+                {
+                    result.AddRange(axle.GetAllWheels());
+                }
+            }
+            return result;
         }
+
 
         private void OnDrawGizmos()
         {

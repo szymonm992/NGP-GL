@@ -4,7 +4,7 @@ using System;
 namespace Frontend.Scripts.Models
 {
     [Serializable]
-    public class UnderFrictionCurve
+    public class UTWheelFrictionCurve
     {
         
         [SerializeField] private float extremumSlip;

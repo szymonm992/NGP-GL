@@ -19,9 +19,8 @@ namespace Frontend.Scripts.Components
 
         [SerializeField] private float spring = 20000f;
         [SerializeField] private float damper = 2000f;
-        [SerializeField] private float rollingResistance = 0.01f;
-        [SerializeField] private float inertia = 3f;
         [SerializeField] private LayerMask layerMask;
+
 
         [SerializeField]
         private UTWheelDebug debugSettings = new UTWheelDebug()
@@ -47,21 +46,13 @@ namespace Frontend.Scripts.Components
         private Vector3 tireWorldPosition;
 
         #region Telemetry/readonly
-        private float angularVelocity = 0f;
-        private float tireRotation = 0f;
 
-        private float differentialSlipRatio = 0f;
-        private float differentialTanOfSlipAngle = 0f;
-        private float slipAngle = 0f;
         private float previousSuspensionDistance = 0f;
         private float normalForce = 0f;
         private float compression = 0f;
-
-        private Vector3 finalForce;
+        private float compressionRate = 0f;
+        private Vector3 suspensionForce;
         private Vector3 tirePosition;
-
-        private const float RelaxationLengthLongitudal = 0.103f;
-        private const float RelaxationLengthLateral = 0.303f;
         #endregion
 
         public bool IsGrounded => isGrounded;
@@ -88,33 +79,22 @@ namespace Frontend.Scripts.Components
         {
             Vector3 newPosition = GetTirePosition();
             tireWorldPosition = newPosition;
+
             Vector3 newVelocity = (newPosition - tirePosition) / Time.fixedDeltaTime;
             tirePosition = newPosition;
+
             normalForce = GetSuspensionForce(tirePosition) + tireMass * Mathf.Abs(Physics.gravity.y);
-
-            //float longitudalSpeed = Vector3.Dot(newVelocity, transform.forward);
-            //float lateralSpeed = Vector3.Dot(newVelocity, -transform.right);
-
-            //float lateralForce = GetLateralForce(normalForce, lateralSpeed, longitudalSpeed);
-            //float longitudalForce = GetLongitudalForce(normalForce, longitudalSpeed);
-            finalForce = normalForce * transform.up;
+            suspensionForce = normalForce * transform.up;
 
             if (!isGrounded)
             {
                 return;
             }
 
-            rig.AddForceAtPosition(finalForce, tirePosition);
-
-           // UpdateAngularVelocity(longitudalForce);
+            rig.AddForceAtPosition(suspensionForce, tirePosition);
         }
 
-        public void GetWorldPosition(out Vector3 position, out Quaternion rotation)
-        {
-            var localTireRotation = Quaternion.Euler(tireRotation * Mathf.Rad2Deg, 0f, 0f);
-            position = tireWorldPosition;
-            rotation = transform.rotation * localTireRotation;
-        }
+
 
         private Vector3 GetTirePosition()
         {
@@ -139,6 +119,8 @@ namespace Frontend.Scripts.Components
             return springForce + damperForce;
         }
 
+
+        #region DEBUG
         private void OnValidate()
         {
             if (!rig)
@@ -182,7 +164,7 @@ namespace Frontend.Scripts.Components
                     }
                     if (debugSettings.DrawForce)
                     {
-                        var force = (finalForce - normalForce * transform.up) / 1000f;
+                        var force = (suspensionForce - normalForce * transform.up) / 1000f;
                         Gizmos.color = Color.yellow;
                         Gizmos.DrawLine(transform.position, transform.position + force);
                     }
@@ -203,5 +185,7 @@ namespace Frontend.Scripts.Components
                 }
             }
         }
+
+        #endregion
     }
 }
