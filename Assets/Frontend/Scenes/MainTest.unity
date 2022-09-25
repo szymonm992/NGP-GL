@@ -210,7 +210,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 16642662}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.050001, y: 0, z: 0}
+  m_LocalPosition: {x: -1.35, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -230,28 +230,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   suspensionTravel: 1
-  wheelRadius: 0.6
+  wheelRadius: 0.7
   tireMass: 60
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
   spring: 20000
   damper: 2000
-  rollingResistance: 0.01
-  inertia: 3
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  ForwardFriction:
-    extremumSlip: 0.4
-    extremumValue: 1
-    asymptoteSlip: 0.8
-    asymptoteValue: 0.5
-    stiffness: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 1
-    drawWheelDirection: 1
-    drawSphereGizmo: 1
+    drawWheelDirection: 0
+    drawSphereGizmo: 0
     drawSprings: 1
     drawMode: 0
     drawForce: 1
@@ -536,7 +528,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 292481735}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.0499996, y: 0, z: 0}
+  m_LocalPosition: {x: -1.35, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -556,28 +548,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   suspensionTravel: 1
-  wheelRadius: 0.6
+  wheelRadius: 0.7
   tireMass: 60
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
   spring: 20000
   damper: 2000
-  rollingResistance: 0.01
-  inertia: 3
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  ForwardFriction:
-    extremumSlip: 0.4
-    extremumValue: 1
-    asymptoteSlip: 0.8
-    asymptoteValue: 0.5
-    stiffness: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 1
-    drawWheelDirection: 1
-    drawSphereGizmo: 1
+    drawWheelDirection: 0
+    drawSphereGizmo: 0
     drawSprings: 1
     drawMode: 0
     drawForce: 1
@@ -867,7 +851,6 @@ MonoBehaviour:
   - {fileID: 1166450958}
   - {fileID: 1252238027}
   velocityText: {fileID: 1728332547}
-  rpmText: {fileID: 1562298720}
   com: {fileID: 2086476557}
   comSteeringCurve:
     serializedVersion: 2
@@ -977,8 +960,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  brakeForce: 10000
-  motorTorque: 10000
 --- !u!114 &362861526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1382,7 +1363,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &664142268
 Transform:
   m_ObjectHideFlags: 0
@@ -1571,7 +1552,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 889998902}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.0500005, y: 0, z: 0}
+  m_LocalPosition: {x: 1.35, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1591,28 +1572,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   suspensionTravel: 1
-  wheelRadius: 0.6
+  wheelRadius: 0.7
   tireMass: 60
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
   spring: 20000
   damper: 2000
-  rollingResistance: 0.01
-  inertia: 3
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  ForwardFriction:
-    extremumSlip: 0.4
-    extremumValue: 1
-    asymptoteSlip: 0.8
-    asymptoteValue: 0.5
-    stiffness: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 1
-    drawWheelDirection: 1
-    drawSphereGizmo: 1
+    drawWheelDirection: 0
+    drawSphereGizmo: 0
     drawSprings: 1
     drawMode: 0
     drawForce: 1
@@ -2122,8 +2095,10 @@ MonoBehaviour:
   wheelPairs:
   - wheel: {fileID: 292481739}
     axis: 0
+    tireModel: {fileID: 1776367410}
   - wheel: {fileID: 1334971820}
     axis: 1
+    tireModel: {fileID: 1305146458}
   canDrive: 1
   canSteer: 1
   debugSettings:
@@ -2340,8 +2315,10 @@ MonoBehaviour:
   wheelPairs:
   - wheel: {fileID: 16642666}
     axis: 0
+    tireModel: {fileID: 1659916819}
   - wheel: {fileID: 889998906}
     axis: 1
+    tireModel: {fileID: 664142268}
   canDrive: 1
   canSteer: 0
   debugSettings:
@@ -2364,7 +2341,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1305146458
 Transform:
   m_ObjectHideFlags: 0
@@ -2491,7 +2468,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1334971816}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.0500001, y: 0, z: 0}
+  m_LocalPosition: {x: 1.35, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2511,28 +2488,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   suspensionTravel: 1
-  wheelRadius: 0.6
+  wheelRadius: 0.7
   tireMass: 60
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
   spring: 20000
   damper: 2000
-  rollingResistance: 0.01
-  inertia: 3
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  ForwardFriction:
-    extremumSlip: 0.4
-    extremumValue: 1
-    asymptoteSlip: 0.8
-    asymptoteValue: 0.5
-    stiffness: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 1
-    drawWheelDirection: 1
-    drawSphereGizmo: 1
+    drawWheelDirection: 0
+    drawSphereGizmo: 0
     drawSprings: 1
     drawMode: 0
     drawForce: 1
@@ -2776,17 +2745,6 @@ Transform:
   m_Father: {fileID: 926665318}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1562298720 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8932221340459640625, guid: 9e789f1c8f9f9b14699c59f0e8719cb4, type: 3}
-  m_PrefabInstance: {fileID: 7200623150865602636}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1572149416
 GameObject:
   m_ObjectHideFlags: 0
@@ -3044,7 +3002,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1659916819
 Transform:
   m_ObjectHideFlags: 0
@@ -3377,7 +3335,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1776367410
 Transform:
   m_ObjectHideFlags: 0

@@ -9,8 +9,9 @@ namespace Frontend.Scripts.Models
     {
         [SerializeField] private UTWheel wheel;
         [SerializeField] private DriveAxisSite axis;
-
+        [SerializeField] private Transform tireModel;
         public UTWheel Wheel => wheel;
         public DriveAxisSite Axis => axis;
+        public Transform TireModel => tireModel;
     }
 }

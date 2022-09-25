@@ -20,8 +20,6 @@ namespace Frontend.Scripts.Components
         [SerializeField] private AnimationCurve comSteeringCurve;
         [SerializeField] private AnimationCurve angleBasedComSteeringCurve;
         [SerializeField] private AnimationCurve enginePowerCurve;
-        [SerializeField] private float brakeForce = 10000f;
-        [SerializeField] private float motorTorque = 10000f;
 
         private bool isBrake;
         private bool hasAnyWheels;

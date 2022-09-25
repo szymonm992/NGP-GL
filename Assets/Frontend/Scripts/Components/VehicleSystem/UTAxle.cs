@@ -45,6 +45,22 @@ namespace Frontend.Scripts.Components
             }
         }
 
+        private void Update()
+        {
+            foreach (var pair in wheelPairs)
+            {
+                if (pair.TireModel != null)
+                {
+                    RepositionTireModel(pair);
+                }
+            }
+        }
+
+        private void RepositionTireModel(UTAxlePair pair)
+        {
+            pair.TireModel.SetPositionAndRotation(pair.Wheel.TireWorldPosition, pair.Wheel.transform.rotation);
+        }
+
         private void OnDrawGizmos()
         {
             bool drawCurrently = (debugSettings.DrawGizmos) && (debugSettings.DrawMode == UTDebugMode.All)

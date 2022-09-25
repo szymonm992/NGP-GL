@@ -11,7 +11,8 @@ namespace Frontend.Scripts.Components
     public class UTWheel : MonoBehaviour
     {
         [Header("Settings")]
-        [SerializeField] [Range(0.1f, 2f)] private float suspensionTravel = 1f;
+        [Range(0.1f, 2f)]
+        [SerializeField] private float suspensionTravel = 1f;
         [SerializeField] private float wheelRadius = 0.35f;
         [SerializeField] private float tireMass = 20f;
         [Range(0, 1f)]
@@ -36,13 +37,7 @@ namespace Frontend.Scripts.Components
 
         private Rigidbody rig;
         private HitInfo hitInfo = new HitInfo();
-        private float motorTorque = 0f;
-        private float brakeTorque = 0f;
-        private float steerAngle = 0f;
-        private float wheelAngle = 0f;
-
         private bool isGrounded = false;
-
         private Vector3 tireWorldPosition;
 
         #region Telemetry/readonly
@@ -51,6 +46,8 @@ namespace Frontend.Scripts.Components
         private float normalForce = 0f;
         private float compression = 0f;
         private float compressionRate = 0f;
+        private float steerAngle = 0f;
+        private float wheelAngle = 0f;
         private Vector3 suspensionForce;
         private Vector3 tirePosition;
         #endregion
