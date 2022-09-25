@@ -25,6 +25,7 @@ namespace Frontend.Scripts.Components
         private bool hasAnyWheels;
         private float inputX, inputY;
         private float absoluteInputY, absoluteInputX;
+        private float signedInputY;
         private float currentSpeed;
         private float currentDriveForce = 0;
         private float currentLongitudalGrip;
@@ -34,7 +35,8 @@ namespace Frontend.Scripts.Components
         public UTAxle[] AllAxles => allAxles;
         public bool HasAnyWheels => hasAnyWheels;
         public float CurrentSpeed => currentSpeed;
-
+        public float AbsoluteInputY => absoluteInputY;
+        public float SignedInputY => signedInputY;
         private void Awake()
         {
             hasAnyWheels = allAxles.Any() && allAxles.Where(axle => axle.HasAnyWheelPair).Any();
@@ -48,6 +50,8 @@ namespace Frontend.Scripts.Components
 
             absoluteInputY = Mathf.Abs(inputY);
             absoluteInputX = Mathf.Abs(inputX) * Mathf.Sign(inputY);
+
+            signedInputY = Mathf.Sign(inputY);
 
             velocityText.text = $"{currentSpeed.ToString("F0")}";
         }

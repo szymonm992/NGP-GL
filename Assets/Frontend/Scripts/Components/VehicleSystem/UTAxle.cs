@@ -12,6 +12,7 @@ namespace Frontend.Scripts.Components
         [SerializeField] private UTAxlePair[] wheelPairs;
         [SerializeField] private bool canDrive;
         [SerializeField] private bool canSteer;
+        [SerializeField] private UTSuspensionController controller;
 
         public UTAxleDebug debugSettings = new UTAxleDebug()
         {
@@ -45,7 +46,7 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             foreach (var pair in wheelPairs)
             {
@@ -58,7 +59,21 @@ namespace Frontend.Scripts.Components
 
         private void RepositionTireModel(UTAxlePair pair)
         {
-            pair.TireModel.SetPositionAndRotation(pair.Wheel.TireWorldPosition, pair.Wheel.transform.rotation);
+            var tireTransform = pair.TireModel.GetChild(0);
+
+            float dir = -controller.SignedInputY;
+            Vector3 rotateAroundAxis = -tireTransform.right;
+            tireTransform.GetChild(0).RotateAround(tireTransform.position, rotateAroundAxis, dir * controller.CurrentSpeed / 80f * 10f);
+
+            tireTransform.position = pair.Wheel.TireWorldPosition;
+
+            if(canSteer)
+            {
+                tireTransform.localRotation = Quaternion.Euler(tireTransform.localRotation.eulerAngles.x, pair.Wheel.SteerAngle, tireTransform.localRotation.eulerAngles.z);
+            }
+
+            
+
         }
 
         private void OnDrawGizmos()

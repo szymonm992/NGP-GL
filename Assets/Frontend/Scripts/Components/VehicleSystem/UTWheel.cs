@@ -60,7 +60,7 @@ namespace Frontend.Scripts.Components
         public Vector3 TireWorldPosition => tireWorldPosition;
         public float SteerAngle
         {
-            get => steerAngle;
+            get => wheelAngle;
             set => this.steerAngle = value;
         }
 
