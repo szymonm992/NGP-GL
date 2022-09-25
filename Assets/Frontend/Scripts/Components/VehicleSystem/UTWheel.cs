@@ -46,7 +46,7 @@ namespace Frontend.Scripts.Components
 
         private float previousSuspensionDistance = 0f;
         private float normalForce = 0f;
-        private float compression = 0f;
+        private float extension = 0f;
         private float compressionRate = 0f;
         private float steerAngle = 0f;
         private float wheelAngle = 0f;
@@ -100,7 +100,8 @@ namespace Frontend.Scripts.Components
             isGrounded = Physics.SphereCast(transform.position, wheelRadius, -transform.up, out hitInfo.rayHit,  suspensionTravel, layerMask);
             if (isGrounded)
             {
-                compression = hitInfo.Distance;
+                extension = hitInfo.Distance;
+                compressionRate = 1 - (hitInfo.Distance / suspensionTravel);
             }
             else
             {
@@ -113,14 +114,16 @@ namespace Frontend.Scripts.Components
                         normal = transform.up,
                         distance = 0,
                     };
-                    compression = 0;
+                    extension = 0;
+                    compressionRate = 1;
                 }
                 else
                 {
-                    compression = suspensionTravel;
+                    extension = suspensionTravel;
+                    compressionRate = 0;
                 }
             }
-            return transform.position - (transform.up * compression);
+            return transform.position - (transform.up * extension);
         }
 
         private float GetSuspensionForce(Vector3 localTirePosition)
@@ -140,9 +143,9 @@ namespace Frontend.Scripts.Components
             {
                 rig = transform.GetComponentInParent<Rigidbody>();
             }
-            if (compression == 0f)
+            if (extension == 0f)
             {
-                compression = suspensionTravel;
+                extension = suspensionTravel;
             }
 
         }

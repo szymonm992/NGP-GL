@@ -294,17 +294,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &362861526 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1311823428897744887, guid: d19408e9685df8344979e46fc5660120, type: 3}
-  m_PrefabInstance: {fileID: 1311823429088637985}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4c2741bd0aeed1449ced87f0d9cdff5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &501099465
 GameObject:
   m_ObjectHideFlags: 0
@@ -1454,7 +1443,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1311823428897744876, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.36
+      value: 2.36
       objectReference: {fileID: 0}
     - target: {fileID: 1311823428897744876, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1492,14 +1481,6 @@ PrefabInstance:
       propertyPath: velocityText
       value: 
       objectReference: {fileID: 1728332547}
-    - target: {fileID: 1311823428897744886, guid: d19408e9685df8344979e46fc5660120, type: 3}
-      propertyPath: _components.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1311823428897744886, guid: d19408e9685df8344979e46fc5660120, type: 3}
-      propertyPath: _components.Array.data[2]
-      value: 
-      objectReference: {fileID: 362861526}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d19408e9685df8344979e46fc5660120, type: 3}
 --- !u!1001 &7200623150865602636

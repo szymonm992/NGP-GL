@@ -13,7 +13,7 @@ namespace Frontend.Scripts.Components
 {
     public class UTSuspensionController : MonoBehaviour, IVehicleController
     {
-        [Inject] private readonly Rigidbody rig;
+        [Inject] private Rigidbody rig;
         [Inject] private readonly UTAxle[] allAxles;
 
         [SerializeField] private float maxSlopeAngle = 45f;
@@ -194,6 +194,11 @@ namespace Frontend.Scripts.Components
         private void OnDrawGizmos()
         {
             #if UNITY_EDITOR
+            if(rig == null)
+            {
+                rig = GetComponent<Rigidbody>();
+            }
+
             Gizmos.color = Color.white;
             Gizmos.DrawSphere(rig.worldCenterOfMass, 0.2f);
             #endif

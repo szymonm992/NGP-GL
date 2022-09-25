@@ -10,11 +10,11 @@ namespace Frontend.Scripts
     public class UTAckermann : MonoBehaviour, IVehicleSteering
     {
         [Inject] private readonly IVehicleController suspensionController;
+
         [SerializeField] private float wheelBase;
         [SerializeField] private float rearTrack;
         [SerializeField] private AnimationCurve turnRadiusCurve;
 
-        
         private float ackermannAngleRight;
         private float ackermannAngleLeft;
         private float steerInput;
