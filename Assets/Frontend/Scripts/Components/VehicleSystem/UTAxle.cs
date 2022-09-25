@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using Zenject;
 
 namespace Frontend.Scripts.Components
 {
-    public class UTAxle : MonoBehaviour
+    public class UTAxle : MonoBehaviour, IInitializable
     {
         [SerializeField] private UTAxlePair[] wheelPairs;
         [SerializeField] private bool canDrive;
@@ -27,6 +28,17 @@ namespace Frontend.Scripts.Components
         public bool CanSteer => canSteer;
 
         public bool HasAnyWheelPair => wheelPairs.Any();
+
+        public void Initialize()
+        {
+            if(HasAnyWheelPair)
+            {
+                foreach(var pair in wheelPairs)
+                {
+                    pair.Initialize();
+                }
+            }
+        }
 
         public IEnumerable<UTWheel> GetGroundedWheels()
         {
@@ -59,11 +71,11 @@ namespace Frontend.Scripts.Components
 
         private void RepositionTireModel(UTAxlePair pair)
         {
-            var tireTransform = pair.TireModel.GetChild(0);
+            var tireTransform = pair.VisualPartOfTire;
 
             float dir = -controller.SignedInputY;
             Vector3 rotateAroundAxis = -tireTransform.right;
-            tireTransform.GetChild(0).RotateAround(tireTransform.position, rotateAroundAxis, dir * controller.CurrentSpeed / 80f * 10f);
+            pair.RotationalPartOfTire.RotateAround(tireTransform.position, rotateAroundAxis, dir * controller.CurrentSpeed / 80f * 10f);
 
             tireTransform.position = pair.Wheel.TireWorldPosition;
 
@@ -71,9 +83,6 @@ namespace Frontend.Scripts.Components
             {
                 tireTransform.localRotation = Quaternion.Euler(tireTransform.localRotation.eulerAngles.x, pair.Wheel.SteerAngle, tireTransform.localRotation.eulerAngles.z);
             }
-
-            
-
         }
 
         private void OnDrawGizmos()

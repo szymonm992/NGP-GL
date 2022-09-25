@@ -56,6 +56,8 @@ namespace Frontend.Scripts
             Container.BindInterfacesAndSelfTo<UIManager>().FromComponentInHierarchy().AsSingle();
             Container.Bind<FormValidator>().AsSingle();
 
+            Container.BindInterfacesAndSelfTo<UTAxle>().FromComponentsInHierarchy().AsCached();
+
         }
     }
 

@@ -1,6 +1,7 @@
 using Frontend.Scripts.Components;
 using Frontend.Scripts.Enums;
 using UnityEngine;
+using Zenject;
 
 namespace Frontend.Scripts.Models
 {
@@ -10,8 +11,20 @@ namespace Frontend.Scripts.Models
         [SerializeField] private UTWheel wheel;
         [SerializeField] private DriveAxisSite axis;
         [SerializeField] private Transform tireModel;
-        public UTWheel Wheel => wheel;
+
+        private Transform visualPartOfTire;
+        private Transform rotationalPartOfTire;
         public DriveAxisSite Axis => axis;
         public Transform TireModel => tireModel;
+        public UTWheel Wheel => wheel;
+        public Transform RotationalPartOfTire => rotationalPartOfTire;
+        public Transform VisualPartOfTire => visualPartOfTire;
+
+        public void Initialize()
+        {
+            visualPartOfTire = tireModel.GetChild(0);
+            rotationalPartOfTire = visualPartOfTire.GetChild(0);
+        }
+
     }
 }
