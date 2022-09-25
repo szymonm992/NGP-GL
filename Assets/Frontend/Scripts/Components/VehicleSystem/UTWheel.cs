@@ -102,7 +102,21 @@ namespace Frontend.Scripts.Components
             }
             else
             {
-                compression = suspensionTravel;
+                if(Physics.CheckSphere(transform.position, wheelRadius, layerMask))
+                {
+                    isGrounded = true;
+                    hitInfo.rayHit = new RaycastHit()
+                    {
+                        point = transform.position - transform.up * wheelRadius,
+                        normal = transform.up,
+                        distance = 0,
+                    };
+                    compression = 0;
+                }
+                else
+                {
+                    compression = suspensionTravel;
+                }
             }
             return transform.position - (transform.up * compression);
         }
