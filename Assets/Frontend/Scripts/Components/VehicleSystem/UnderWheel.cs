@@ -13,11 +13,11 @@ namespace Frontend.Scripts.Components
     
         private Rigidbody rig;
 
-        [SerializeField] private UnderWheelDebug debugSettings = new UnderWheelDebug()
+        [SerializeField] private UTWheelDebug debugSettings = new UTWheelDebug()
         {
             DrawGizmos = true,
             DrawOnDisable = false,
-            DrawMode = UnderWheelDebugMode.All,
+            DrawMode = UTDebugMode.All,
             DrawForce = true
         };
 
@@ -30,7 +30,7 @@ namespace Frontend.Scripts.Components
         [SerializeField] private float rollingResistance = 0.01f;
         [SerializeField] private float inertia = 3f;
 
-        [SerializeField] private UnderFrictionCurve ForwardFriction = new UnderFrictionCurve()
+        [SerializeField] private UTWheelFrictionCurve ForwardFriction = new UTWheelFrictionCurve()
         {
             ExtremumSlip = 0.4f,
             ExtremumValue = 1f,
@@ -40,7 +40,7 @@ namespace Frontend.Scripts.Components
         };
 
         [SerializeField]
-        private UnderFrictionCurve SidewaysFriction = new UnderFrictionCurve()
+        private UTWheelFrictionCurve SidewaysFriction = new UTWheelFrictionCurve()
         {
             ExtremumSlip = 15f,
             ExtremumValue = 1f,
@@ -235,9 +235,9 @@ namespace Frontend.Scripts.Components
         private void OnDrawGizmos()
         {
             
-            bool drawCurrently = (debugSettings.DrawGizmos) && (debugSettings.DrawMode == UnderWheelDebugMode.All)
-                || (debugSettings.DrawMode == UnderWheelDebugMode.EditorOnly && !Application.isPlaying) 
-                || (debugSettings.DrawMode == UnderWheelDebugMode.PlaymodeOnly && Application.isPlaying);
+            bool drawCurrently = (debugSettings.DrawGizmos) && (debugSettings.DrawMode == UTDebugMode.All)
+                || (debugSettings.DrawMode == UTDebugMode.EditorOnly && !Application.isPlaying) 
+                || (debugSettings.DrawMode == UTDebugMode.PlaymodeOnly && Application.isPlaying);
 
             if(drawCurrently && (debugSettings.DrawOnDisable && !this.enabled) || (this.enabled))
             {

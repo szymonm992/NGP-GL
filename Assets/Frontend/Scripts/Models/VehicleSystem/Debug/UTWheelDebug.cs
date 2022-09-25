@@ -6,17 +6,20 @@ namespace Frontend.Scripts.Models
 {
  
     [Serializable]
-    public class UnderWheelDebug
+    public class UTWheelDebug
     {
         [Header("Gizmos")]
         [SerializeField] private bool drawGizmos;
         [SerializeField] private bool drawOnDisable;
-        [SerializeField] private UnderWheelDebugMode drawMode;
+        [SerializeField] private bool drawWheelDirection;
+        [SerializeField] private bool drawSphereGizmo;
+        [SerializeField] private bool drawSprings;
+        [SerializeField] private UTDebugMode drawMode;
 
         [Header("Force")]
         [SerializeField] private bool drawForce;
 
-        public UnderWheelDebugMode DrawMode
+        public UTDebugMode DrawMode
         {
             get => drawMode;
             set
@@ -48,6 +51,31 @@ namespace Frontend.Scripts.Models
             set
             {
                 this.drawForce = value;
+            }
+        }
+
+        public bool DrawWheelDirection
+        {
+            get => drawWheelDirection;
+            set
+            {
+                this.drawWheelDirection = value;
+            }
+        }
+        public bool DrawSphereGizmo
+        {
+            get => drawSphereGizmo;
+            set
+            {
+                this.drawSphereGizmo = value;
+            }
+        }
+        public bool DrawSprings
+        {
+            get => drawSprings;
+            set
+            {
+                this.drawSprings = value;
             }
         }
     }

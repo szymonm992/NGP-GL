@@ -14,7 +14,6 @@ namespace Frontend.Scripts.Components
 		[Range(0, 1f)]
 		[SerializeField] private float forwardTireGripFactor = 1f, sidewaysTireGripFactor = 1f;
 		[SerializeField] private SpringInfo springInfo;
-		[SerializeField] private DamperInfo damperInfo;
 		[SerializeField] private LayerMask layerMask;
 
 		
@@ -34,16 +33,15 @@ namespace Frontend.Scripts.Components
 		public bool canSteer = false;
 
 		[SerializeField]
-		private UnderWheelDebug debugSettings = new UnderWheelDebug()
+		private UTWheelDebug debugSettings = new UTWheelDebug()
 		{
 			DrawGizmos = true,
 			DrawOnDisable = false,
-			DrawMode = UnderWheelDebugMode.All,
+			DrawMode = UTDebugMode.All,
 			DrawForce = true
 		};
 
 		public SpringInfo SpringInfo => springInfo;
-		public DamperInfo DamperInfo => damperInfo;
 		public HitInfo HitInfo => hitInfo;
 		public float CompressionLength => compressionLength;
 		public float WheelRadius => wheelRadius;
@@ -52,14 +50,7 @@ namespace Frontend.Scripts.Components
 		public float TireMass => tireMass;
 		public bool IsGrounded => isGrounded;
 
-		public Vector3 TireWorldPosition => tireWorldPosition;
-
-		/*
-		public float RPM
-		{
-			// multiplied by physics speed multiplier
-			get => Mathf.Abs(angularVelocity * 4f * 9.549296585f); 
-		}*/
+		public Vector3 GetTireWorldPosition => tireWorldPosition;
 
 		public float SteerAngle
         {
@@ -122,52 +113,23 @@ namespace Frontend.Scripts.Components
 			{
 				return;
 			}
-			/*
+
 			Vector3 springDir = transform.up;
 			Vector3 tireWorldVel = rig.GetPointVelocity(transform.position);
 			float offset = springInfo.SuspensionLength - hitInfo.Distance;
 			float vel = Vector3.Dot(springDir, tireWorldVel);
 
 			float force = (springInfo.SpringStrength * offset) - (vel * springInfo.DamperForce);
-			rig.AddForceAtPosition(springDir * force, transform.position);*/
-
-		
-
+			rig.AddForceAtPosition(springDir * force, transform.position);
 		}
 
-		public Vector3 GetTirePosition()
-		{
-			isGrounded = Physics.Raycast(new Ray(transform.position, -rig.transform.up), out RaycastHit hit, wheelRadius + springInfo.SuspensionLength);
-			if (isGrounded)
-			{
-				compressionLength = hit.distance - wheelRadius;
-				return hit.point + (rig.transform.up * wheelRadius);
-			}
-			else
-			{
-				compressionLength = springInfo.SuspensionLength;
-				return transform.position - (rig.transform.up * springInfo.SuspensionLength);
-			}
-		}
-
-
-
-		private float previousSuspensionDistance;
-		private float GetSuspensionForce(Vector3 localTirePosition)
-		{
-			float distance = Vector3.Distance(transform.position - rig.transform.up * springInfo.SuspensionLength, localTirePosition);
-			float springForce = springInfo.SpringStrength * distance;
-			float damperForce = springInfo.DamperForce * ((distance - previousSuspensionDistance) / Time.fixedDeltaTime);
-			previousSuspensionDistance = distance;
-			return springForce + damperForce;
-		}
-
-		private void OnDrawGizmos()
+        private void OnDrawGizmos()
         {
-			if (!enabled)
+			if(!enabled)
             {
 				return;
-			}
+            }
+			
 			Gizmos.DrawSphere(transform.position, 0.1f);
 			Gizmos.DrawSphere(transform.position - (transform.up * springAndCenterDistance), 0.1f);
 			Handles.color = Color.white;

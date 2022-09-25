@@ -1,13 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Frontend.Scripts.Components;
+
 
 namespace Frontend.Scripts.Interfaces
 {
     public interface IVehicleController
     {
-        void TurningLogic();
+        bool HasAnyWheels { get; }
+        UTAxle[] AllAxles { get; }
+        float CurrentSpeed { get; }
 
-        void MovementLogic();
+        //void TurningLogic();
+
+        //void MovementLogic();
     }
 }
