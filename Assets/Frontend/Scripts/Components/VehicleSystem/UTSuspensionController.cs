@@ -7,14 +7,16 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Frontend.Scripts.Components
 {
     public class UTSuspensionController : MonoBehaviour, IVehicleController
     {
-        [SerializeField] private Rigidbody rig;
+        [Inject] private readonly Rigidbody rig;
+        [Inject] private readonly UTAxle[] allAxles;
+
         [SerializeField] private float maxSlopeAngle = 45f;
-        [SerializeField] private UTAxle[] allAxles;
         [SerializeField] private Text velocityText;
         [SerializeField] private Transform com;
         [SerializeField] private AnimationCurve comSteeringCurve;
@@ -36,12 +38,15 @@ namespace Frontend.Scripts.Components
         public bool HasAnyWheels => hasAnyWheels;
         public float CurrentSpeed => currentSpeed;
         public float AbsoluteInputY => absoluteInputY;
+        public float AbsoluteInputX => absoluteInputX;
         public float SignedInputY => signedInputY;
-        private void Awake()
+
+        public void Initialize()
         {
             hasAnyWheels = allAxles.Any() && allAxles.Where(axle => axle.HasAnyWheelPair).Any();
             rig.centerOfMass = com.localPosition;
         }
+
         private void Update()
         {
             isBrake = Input.GetKey(KeyCode.Space);

@@ -5,11 +5,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using Zenject;
 
 namespace Frontend.Scripts.Components
 {
     public class UTWheel : MonoBehaviour
     {
+        [Inject] private Rigidbody rig;
+
         [Header("Settings")]
         [Range(0.1f, 2f)]
         [SerializeField] private float suspensionTravel = 1f;
@@ -35,7 +38,6 @@ namespace Frontend.Scripts.Components
             DrawSprings = true,
         };
 
-        private Rigidbody rig;
         private HitInfo hitInfo = new HitInfo();
         private bool isGrounded = false;
         private Vector3 tireWorldPosition;

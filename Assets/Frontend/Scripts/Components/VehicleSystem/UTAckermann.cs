@@ -3,25 +3,22 @@ using Frontend.Scripts.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Frontend.Scripts
 {
     public class UTAckermann : MonoBehaviour, IVehicleSteering
     {
+        [Inject] private readonly IVehicleController suspensionController;
         [SerializeField] private float wheelBase;
         [SerializeField] private float rearTrack;
         [SerializeField] private AnimationCurve turnRadiusCurve;
 
-        private IVehicleController suspensionController;
+        
         private float ackermannAngleRight;
         private float ackermannAngleLeft;
         private float steerInput;
         private float currentTurnRadius;
-
-        private void Awake()
-        {
-            suspensionController = GetComponent<IVehicleController>();
-        }
 
         private void Update()
         {

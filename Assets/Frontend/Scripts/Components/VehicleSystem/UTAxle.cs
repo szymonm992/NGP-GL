@@ -1,4 +1,5 @@
 using Frontend.Scripts.Enums;
+using Frontend.Scripts.Interfaces;
 using Frontend.Scripts.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +11,12 @@ namespace Frontend.Scripts.Components
 {
     public class UTAxle : MonoBehaviour, IInitializable
     {
+        [Inject] private readonly IVehicleController controller;
+
         [SerializeField] private UTAxlePair[] wheelPairs;
         [SerializeField] private bool canDrive;
         [SerializeField] private bool canSteer;
-        [SerializeField] private UTSuspensionController controller;
-
+        
         public UTAxleDebug debugSettings = new UTAxleDebug()
         {
             DrawGizmos = true,
