@@ -283,11 +283,6 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
---- !u!1 &246255746 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1311823428897744874, guid: d19408e9685df8344979e46fc5660120, type: 3}
-  m_PrefabInstance: {fileID: 1311823429088637985}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &357303559
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,56 +385,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1311823428897744881, guid: d19408e9685df8344979e46fc5660120, type: 3}
   m_PrefabInstance: {fileID: 1311823429088637985}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 246255746}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &362861528
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 246255746}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 007a0dab0fe835a418606ec6ec72ab0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  suspensionController: {fileID: 0}
-  wheelBase: 0
-  rearTrack: 0
-  turnRadius: 0
-  turnRadiusCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &362861529
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 246255746}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 007a0dab0fe835a418606ec6ec72ab0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  suspensionController: {fileID: 0}
-  wheelBase: 0
-  rearTrack: 0
-  turnRadius: 0
-  turnRadiusCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &501099465
 GameObject:
   m_ObjectHideFlags: 0
@@ -1575,6 +1526,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1311823427840988906, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: antiRollForce
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823427840988906, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: applyAntiroll
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1311823427840988907, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.2500001
@@ -1594,6 +1553,14 @@ PrefabInstance:
     - target: {fileID: 1311823428090221868, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.2500001
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823428090221871, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: antiRollForce
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823428090221871, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: applyAntiroll
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1311823428834172650, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: spring

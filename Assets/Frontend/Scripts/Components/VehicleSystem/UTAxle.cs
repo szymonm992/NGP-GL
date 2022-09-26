@@ -1,6 +1,7 @@
 using Frontend.Scripts.Enums;
 using Frontend.Scripts.Interfaces;
 using Frontend.Scripts.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -11,12 +12,19 @@ namespace Frontend.Scripts.Components
 {
     public class UTAxle : MonoBehaviour, IInitializable
     {
+        [Inject] private readonly Rigidbody rig;
         [Inject] private readonly IVehicleController controller;
 
         [SerializeField] private UTAxlePair[] wheelPairs;
         [SerializeField] private bool canDrive;
         [SerializeField] private bool canSteer;
-        
+
+        [Header("Antiroll")]
+        [SerializeField] private bool applyAntiroll;
+        [SerializeField] private float antiRollForce = 0f;
+
+        private UTWheel leftAntirolled, rightAntirolled;
+
         public UTAxleDebug debugSettings = new UTAxleDebug()
         {
             DrawGizmos = true,
@@ -40,6 +48,8 @@ namespace Frontend.Scripts.Components
                     pair.Initialize();
                 }
             }
+            leftAntirolled = GetAllWheelsOfAxis(DriveAxisSite.Left).First();
+            rightAntirolled = GetAllWheelsOfAxis(DriveAxisSite.Right).First();
         }
 
         public IEnumerable<UTWheel> GetGroundedWheels()
@@ -50,6 +60,10 @@ namespace Frontend.Scripts.Components
         public IEnumerable<UTWheel> GetAllWheels()
         {
             return wheelPairs.Select(pair => pair.Wheel).ToArray();
+        }
+        public IEnumerable<UTWheel> GetAllWheelsOfAxis(DriveAxisSite axis)
+        {
+            return wheelPairs.Where(pair => pair.Axis == axis).Select(pair => pair.Wheel).ToArray();
         }
 
         public void SetSteerAngle(float angleLeftAxis, float angleRightAxis)
@@ -68,7 +82,20 @@ namespace Frontend.Scripts.Components
                 {
                     RepositionTireModel(pair);
                 }
+                if(applyAntiroll)
+                {
+                    CalculateAndApplyAntiroll();
+                }
             }
+        }
+
+        private void CalculateAndApplyAntiroll()
+        {
+            float antiRollFinalForce = (leftAntirolled.CompressionRate - rightAntirolled.CompressionRate) * antiRollForce;
+            rig.AddForceAtPosition(leftAntirolled.transform.up * antiRollFinalForce,
+                      leftAntirolled.transform.position);
+            rig.AddForceAtPosition(rightAntirolled.transform.up * -antiRollFinalForce,
+                  rightAntirolled.transform.position);
         }
 
         private void RepositionTireModel(UTAxlePair pair)

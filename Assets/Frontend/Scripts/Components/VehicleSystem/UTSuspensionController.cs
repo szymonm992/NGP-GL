@@ -83,13 +83,13 @@ namespace Frontend.Scripts.Components
             foreach (var wheel in allGroundedWheels)
             {
                 Vector3 steeringDir = wheel.transform.right;
-                Vector3 tireVel = rig.GetPointVelocity(wheel.transform.position);
+                Vector3 tireVel = rig.GetPointVelocity(wheel.HitInfo.Point);
 
                 float steeringVel = Vector3.Dot(steeringDir, tireVel);
                 float desiredVelChange = -steeringVel * wheel.SidewaysTireGripFactor;
                 float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
 
-                rig.AddForceAtPosition(desiredAccel * wheel.TireMass * steeringDir, wheel.transform.position);
+                rig.AddForceAtPosition(desiredAccel * wheel.TireMass * steeringDir, wheel.HitInfo.Point);
             }
         }
 
