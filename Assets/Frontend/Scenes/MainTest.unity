@@ -1429,6 +1429,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1311823427921705357, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: debugSettings.drawSphereGizmo
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823428834172650, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: debugSettings.drawSphereGizmo
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1311823428897744874, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: m_Name
       value: BUGGY_UTWHEEL
@@ -1443,7 +1451,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1311823428897744876, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.36
+      value: 1.638
       objectReference: {fileID: 0}
     - target: {fileID: 1311823428897744876, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1481,6 +1489,14 @@ PrefabInstance:
       propertyPath: velocityText
       value: 
       objectReference: {fileID: 1728332547}
+    - target: {fileID: 1311823429076321867, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: debugSettings.drawSphereGizmo
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429440158235, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: debugSettings.drawSphereGizmo
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d19408e9685df8344979e46fc5660120, type: 3}
 --- !u!1001 &7200623150865602636
