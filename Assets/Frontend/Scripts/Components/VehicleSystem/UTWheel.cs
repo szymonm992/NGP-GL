@@ -25,7 +25,6 @@ namespace Frontend.Scripts.Components
         [SerializeField] private float damper = 2000f;
         [SerializeField] private LayerMask layerMask;
 
-
         [SerializeField]
         private UTWheelDebug debugSettings = new UTWheelDebug()
         {
@@ -59,7 +58,8 @@ namespace Frontend.Scripts.Components
         public float TireMass => tireMass;
         public float ForwardTireGripFactor => forwardTireGripFactor;
         public float SidewaysTireGripFactor => sidewaysTireGripFactor;
-        public Vector3 TireWorldPosition => tireWorldPosition;
+        public float CompressionRate => compressionRate;
+        public Vector3 TireWorldPosition => tireWorldPosition; 
         public float SteerAngle
         {
             get => wheelAngle;
@@ -76,6 +76,7 @@ namespace Frontend.Scripts.Components
 
         private void FixedUpdate()
         {
+         
             Vector3 newPosition = GetTirePosition();
             tireWorldPosition = newPosition;
 
@@ -97,25 +98,27 @@ namespace Frontend.Scripts.Components
 
         private Vector3 GetTirePosition()
         {
-            isGrounded = Physics.SphereCast(transform.position, wheelRadius, -transform.up, out hitInfo.rayHit,  suspensionTravel, layerMask);
+            isGrounded = (Physics.CheckSphere(transform.position, wheelRadius, layerMask));
+
             if (isGrounded)
             {
-                extension = hitInfo.Distance;
-                compressionRate = 1 - (hitInfo.Distance / suspensionTravel);
+                hitInfo.rayHit = new RaycastHit()
+                {
+                    point = transform.position - transform.up * wheelRadius,
+                    normal = transform.up,
+                    distance = 0,
+                };
+                extension = 0;
+                compressionRate = 1;
+                
             }
             else
             {
-                if(Physics.CheckSphere(transform.position, wheelRadius, layerMask))
+                if (Physics.SphereCast(transform.position, wheelRadius, -transform.up, out hitInfo.rayHit, suspensionTravel, layerMask))
                 {
                     isGrounded = true;
-                    hitInfo.rayHit = new RaycastHit()
-                    {
-                        point = transform.position - transform.up * wheelRadius,
-                        normal = transform.up,
-                        distance = 0,
-                    };
-                    extension = 0;
-                    compressionRate = 1;
+                    extension = hitInfo.Distance;
+                    compressionRate = 1 - (hitInfo.Distance / suspensionTravel);
                 }
                 else
                 {
@@ -124,6 +127,36 @@ namespace Frontend.Scripts.Components
                 }
             }
             return transform.position - (transform.up * extension);
+
+
+            /*
+        isGrounded = Physics.SphereCast(transform.position, wheelRadius, -transform.up, out hitInfo.rayHit,  suspensionTravel, layerMask);
+        if (isGrounded)
+        {
+            extension = hitInfo.Distance;
+            compressionRate = 1 - (hitInfo.Distance / suspensionTravel);
+        }
+        else
+        {
+            if(Physics.CheckSphere(transform.position, wheelRadius, layerMask))
+            {
+                isGrounded = true;
+                hitInfo.rayHit = new RaycastHit()
+                {
+                    point = transform.position - transform.up * wheelRadius,
+                    normal = transform.up,
+                    distance = 0,
+                };
+                extension = 0;
+                compressionRate = 1;
+            }
+            else
+            {
+                extension = suspensionTravel;
+                compressionRate = 0;
+            }
+        }
+        return transform.position - (transform.up * extension);*/
         }
 
         private float GetSuspensionForce(Vector3 localTirePosition)

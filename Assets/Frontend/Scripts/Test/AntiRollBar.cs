@@ -8,10 +8,10 @@ namespace Frontend.Scripts.Components
     {
         [SerializeField] private Rigidbody rig;
         [SerializeField] private AnimationCurve antirollCurve;
-        [SerializeField] private TestSuspension suspensionController;
+        [SerializeField] private UTSuspensionController suspensionController;
 
-        public HoverSpring wheelL;
-        public HoverSpring wheelR;
+        public UTWheel wheelL;
+        public UTWheel wheelR;
         public float antiRollVal = 300f;
         
         public float travelL = 0f;
@@ -22,7 +22,7 @@ namespace Frontend.Scripts.Components
             bool groundedL = wheelL.IsGrounded;
             if (groundedL)
             {
-                travelL = (-wheelL.transform.InverseTransformPoint(wheelL.HitInfo.Point).y - wheelL.WheelRadius) / wheelL.SpringInfo.SuspensionLength;
+                travelL = wheelL.CompressionRate;
             }
             else
             {
@@ -31,7 +31,7 @@ namespace Frontend.Scripts.Components
             bool groundedR = wheelR.IsGrounded;
             if (groundedR)
             {
-                travelR = (-wheelR.transform.InverseTransformPoint(wheelR.HitInfo.Point).y - wheelR.WheelRadius) / wheelR.SpringInfo.SuspensionLength;
+                travelR = wheelR.CompressionRate;
             }
             else
             {
