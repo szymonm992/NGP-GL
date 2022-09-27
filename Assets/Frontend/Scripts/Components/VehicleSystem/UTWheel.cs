@@ -110,6 +110,10 @@ namespace Frontend.Scripts.Components
                 };
                 extension = 0;
                 compressionRate = 1;
+                if(rig.velocity.y < -4f)
+                {
+                    rig.AddForce(Vector3.up * Mathf.Min(-rig.velocity.y, 7f), ForceMode.VelocityChange);
+                }
                 
             }
             else
