@@ -124,8 +124,9 @@ namespace Frontend.Scripts.Components
 		}
 
         private void OnDrawGizmos()
-        {
-			if(!enabled)
+		{
+			#if UNITY_EDITOR
+			if (!enabled)
             {
 				return;
             }
@@ -147,7 +148,7 @@ namespace Frontend.Scripts.Components
 			}
 
 			Gizmos.DrawWireSphere(transform.position - transform.up * (springAndCenterDistance), wheelRadius);
-			
+			#endif
 		}
     }
 }

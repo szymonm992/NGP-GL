@@ -234,7 +234,7 @@ namespace Frontend.Scripts.Components
 
         private void OnDrawGizmos()
         {
-            
+            #if UNITY_EDITOR
             bool drawCurrently = (debugSettings.DrawGizmos) && (debugSettings.DrawMode == UTDebugMode.All)
                 || (debugSettings.DrawMode == UTDebugMode.EditorOnly && !Application.isPlaying) 
                 || (debugSettings.DrawMode == UTDebugMode.PlaymodeOnly && Application.isPlaying);
@@ -266,7 +266,9 @@ namespace Frontend.Scripts.Components
                     Gizmos.color = isGrounded ? Color.green : Color.red;
                     Gizmos.DrawSphere(position, .03f);
                 }
-            } 
+            }
+
+            #endif
         }
 
     }

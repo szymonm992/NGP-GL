@@ -162,36 +162,42 @@ namespace Frontend.Scripts.Components
         private void CustomGravityLogic()
         {
             var allGroundedWheels = GetGroundedWheelsInAllAxles();
-            if(!allGroundedWheels.Any())
+            if (!allGroundedWheels.Any())
             {
                 rig.AddForce(Physics.gravity, ForceMode.Acceleration);
                 return;
             }
 
-            (float, Vector3) customGravityProps = default;
 
+            /*
             foreach (var wheel in allGroundedWheels)
             {
                 float angle = Vector3.Angle(wheel.HitInfo.Normal, -Physics.gravity.normalized);
 
                 if (maxSlopeAngle >= angle)
                 {
-                    if(customGravityProps == default || customGravityProps.Item1 < angle)
-                    {
-                        customGravityProps = (angle, wheel.HitInfo.Normal);
-                    }
+                    rig.AddForce(-wheel.HitInfo.Normal * Physics.gravity.magnitude, ForceMode.Acceleration);
+                    break;
                 }
-               
+                rig.AddForce(Physics.gravity, ForceMode.Acceleration);
+            }*/
+
+
+
+            if (!allGroundedWheels.Any())
+            {
+                return;
             }
 
-            if(customGravityProps != default)
+            float angle = Vector3.Angle(transform.up, -Physics.gravity.normalized);
+
+            if (maxSlopeAngle >= angle)
             {
-                rig.AddForce(-customGravityProps.Item2 * Physics.gravity.magnitude, ForceMode.Acceleration);
+                rig.AddForce(-transform.up * Physics.gravity.magnitude, ForceMode.Acceleration);
+                return;
             }
-            else
-            {
-                rig.AddForce(Physics.gravity, ForceMode.Acceleration);
-            }
+            rig.AddForce(Physics.gravity, ForceMode.Acceleration);
+
         }
 
         private IEnumerable<UTWheel> GetGroundedWheelsInAllAxles()
