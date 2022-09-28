@@ -12,7 +12,7 @@ namespace Frontend.Scripts.Models
         [SerializeField] private bool drawGizmos;
         [SerializeField] private bool drawOnDisable;
         [SerializeField] private bool drawWheelDirection;
-        [SerializeField] private bool drawSphereGizmo;
+        [SerializeField] private bool drawShapeGizmo;
         [SerializeField] private bool drawSprings;
         [SerializeField] private UTDebugMode drawMode;
 
@@ -62,12 +62,12 @@ namespace Frontend.Scripts.Models
                 this.drawWheelDirection = value;
             }
         }
-        public bool DrawSphereGizmo
+        public bool DrawShapeGizmo
         {
-            get => drawSphereGizmo;
+            get => drawShapeGizmo;
             set
             {
-                this.drawSphereGizmo = value;
+                this.drawShapeGizmo = value;
             }
         }
         public bool DrawSprings

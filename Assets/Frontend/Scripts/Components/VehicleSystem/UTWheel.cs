@@ -33,7 +33,7 @@ namespace Frontend.Scripts.Components
             DrawMode = UTDebugMode.All,
             DrawForce = true,
             DrawWheelDirection = true,
-            DrawSphereGizmo = true,
+            DrawShapeGizmo = true,
             DrawSprings = true,
         };
 
@@ -239,7 +239,7 @@ namespace Frontend.Scripts.Components
 
                     
 
-                    if(debugSettings.DrawSphereGizmo)
+                    if(debugSettings.DrawShapeGizmo)
                     {
                         Gizmos.color = isGrounded ? Color.green : Color.red;
                         Gizmos.DrawWireSphere(tirePosition, wheelRadius);
