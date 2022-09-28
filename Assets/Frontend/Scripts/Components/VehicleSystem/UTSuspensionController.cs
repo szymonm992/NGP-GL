@@ -80,6 +80,12 @@ namespace Frontend.Scripts.Components
         private void ApplyFrictionForces()
         {
             var allGroundedWheels = GetGroundedWheelsInAllAxles();
+
+            if(!allGroundedWheels.Any())
+            {
+                return;
+            }
+
             foreach (var wheel in allGroundedWheels)
             {
                 Vector3 steeringDir = wheel.transform.right;
@@ -105,6 +111,12 @@ namespace Frontend.Scripts.Components
                 if (axle.CanDrive && !isBrake)
                 {
                     var groundedWheels = axle.GetGroundedWheels();
+
+                    if (!groundedWheels.Any())
+                    {
+                        return;
+                    }
+
                     foreach (var wheel in groundedWheels)
                     {
                         wheelVelocityLocal = wheel.transform.InverseTransformDirection(rig.GetPointVelocity(wheel.transform.position));
@@ -127,6 +139,12 @@ namespace Frontend.Scripts.Components
            if(absoluteInputY == 0 || isBrake)
             {
                 var allGroundedWheels = GetGroundedWheelsInAllAxles();
+
+                if (!allGroundedWheels.Any())
+                {
+                    return;
+                }
+
                 foreach (var wheel in allGroundedWheels)
                 {
                     Vector3 forwardDir = wheel.transform.forward;
@@ -150,18 +168,30 @@ namespace Frontend.Scripts.Components
                 return;
             }
 
+            (float, Vector3) customGravityProps = default;
+
             foreach (var wheel in allGroundedWheels)
             {
                 float angle = Vector3.Angle(wheel.HitInfo.Normal, -Physics.gravity.normalized);
 
                 if (maxSlopeAngle >= angle)
                 {
-                    rig.AddForce(-wheel.HitInfo.Normal * Physics.gravity.magnitude, ForceMode.Acceleration);
-                    break;
+                    if(customGravityProps == default || customGravityProps.Item1 < angle)
+                    {
+                        customGravityProps = (angle, wheel.HitInfo.Normal);
+                    }
                 }
-                rig.AddForce(Physics.gravity, ForceMode.Acceleration);
+               
             }
 
+            if(customGravityProps != default)
+            {
+                rig.AddForce(-customGravityProps.Item2 * Physics.gravity.magnitude, ForceMode.Acceleration);
+            }
+            else
+            {
+                rig.AddForce(Physics.gravity, ForceMode.Acceleration);
+            }
         }
 
         private IEnumerable<UTWheel> GetGroundedWheelsInAllAxles()

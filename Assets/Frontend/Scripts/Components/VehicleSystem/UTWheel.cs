@@ -37,11 +37,11 @@ namespace Frontend.Scripts.Components
             DrawSprings = true,
         };
 
-        private HitInfo hitInfo = new HitInfo();
-        private bool isGrounded = false;
-        private Vector3 tireWorldPosition;
+
 
         #region Telemetry/readonly
+        private HitInfo hitInfo = new HitInfo();
+        private bool isGrounded = false;
 
         private float previousSuspensionDistance = 0f;
         private float normalForce = 0f;
@@ -49,8 +49,11 @@ namespace Frontend.Scripts.Components
         private float compressionRate = 0f;
         private float steerAngle = 0f;
         private float wheelAngle = 0f;
+        private float absGravity;
+
         private Vector3 suspensionForce;
         private Vector3 tirePosition;
+     
         #endregion
 
         public bool IsGrounded => isGrounded;
@@ -59,31 +62,37 @@ namespace Frontend.Scripts.Components
         public float ForwardTireGripFactor => forwardTireGripFactor;
         public float SidewaysTireGripFactor => sidewaysTireGripFactor;
         public float CompressionRate => compressionRate;
-        public Vector3 TireWorldPosition => tireWorldPosition; 
+        public Vector3 TireWorldPosition => tirePosition; 
         public float SteerAngle
         {
             get => wheelAngle;
             set => this.steerAngle = value;
         }
 
+        private void Awake()
+        {
+            absGravity = Mathf.Abs(Physics.gravity.y);
+        }
+
         private void Update()
         {
-            wheelAngle = Mathf.Lerp(wheelAngle, steerAngle, Time.deltaTime * 8f);
-            transform.localRotation = Quaternion.Euler(transform.localRotation.x,
-                transform.localRotation.y + wheelAngle,
-                transform.localRotation.z);
+            if(wheelAngle != steerAngle)
+            {
+                wheelAngle = Mathf.Lerp(wheelAngle, steerAngle, Time.deltaTime * 8f);
+                transform.localRotation = Quaternion.Euler(transform.localRotation.x,
+                    transform.localRotation.y + wheelAngle,
+                    transform.localRotation.z);
+            }
         }
 
         private void FixedUpdate()
         {
          
             Vector3 newPosition = GetTirePosition();
-            tireWorldPosition = newPosition;
-
-            Vector3 newVelocity = (newPosition - tirePosition) / Time.fixedDeltaTime;
+            //Vector3 newVelocity = (newPosition - tirePosition) / Time.fixedDeltaTime;
             tirePosition = newPosition;
 
-            normalForce = GetSuspensionForce(tirePosition) + tireMass * Mathf.Abs(Physics.gravity.y);
+            normalForce = GetSuspensionForce(tirePosition) + tireMass * absGravity;
             suspensionForce = normalForce * transform.up;
 
             if (!isGrounded)
@@ -110,11 +119,11 @@ namespace Frontend.Scripts.Components
                 };
                 extension = 0;
                 compressionRate = 1;
+
                 if(rig.velocity.y < -4f)
                 {
                     rig.AddForce(Vector3.up * Mathf.Min(-rig.velocity.y, 7f), ForceMode.VelocityChange);
-                }
-                
+                } 
             }
             else
             {
@@ -163,16 +172,16 @@ namespace Frontend.Scripts.Components
         return transform.position - (transform.up * extension);*/
         }
 
-        private float GetSuspensionForce(Vector3 localTirePosition)
+        private float GetSuspensionForce(Vector3 tirePosition)
         {
-            float distance = Vector3.Distance(transform.position - transform.up * suspensionTravel, localTirePosition);
+            float distance = Vector3.Distance(transform.position - transform.up * suspensionTravel, tirePosition);
             float springForce = spring * distance;
             float damperForce = damper * ((distance - previousSuspensionDistance) / Time.fixedDeltaTime);
             previousSuspensionDistance = distance;
             return springForce + damperForce;
         }
 
-
+        #if UNITY_EDITOR
         #region DEBUG
         private void OnValidate()
         {
@@ -188,7 +197,7 @@ namespace Frontend.Scripts.Components
         }
         private void OnDrawGizmos()
         {
-
+       
             bool drawCurrently = (debugSettings.DrawGizmos) && (debugSettings.DrawMode == UTDebugMode.All)
                 || (debugSettings.DrawMode == UTDebugMode.EditorOnly && !Application.isPlaying)
                 || (debugSettings.DrawMode == UTDebugMode.PlaymodeOnly && Application.isPlaying);
@@ -199,15 +208,15 @@ namespace Frontend.Scripts.Components
                 {
                     if(!Application.isPlaying)
                     {
-                        tireWorldPosition = GetTirePosition();
+                        tirePosition = GetTirePosition();
                     }
 
                     if(debugSettings.DrawSprings)
                     {
-                        Handles.DrawDottedLine(transform.position, tireWorldPosition, 1.1f);
+                        Handles.DrawDottedLine(transform.position, tirePosition, 1.1f);
                         Gizmos.color = Color.white;
                         Gizmos.DrawSphere(transform.position, .08f);
-                        Gizmos.DrawSphere(tireWorldPosition, .08f);
+                        Gizmos.DrawSphere(tirePosition, .08f);
                     }
                     
                     if (isGrounded)
@@ -225,7 +234,7 @@ namespace Frontend.Scripts.Components
                     if(debugSettings.DrawWheelDirection)
                     {
                         Handles.color = isGrounded ? Color.green : Color.red;
-                        Handles.DrawLine(tireWorldPosition, tireWorldPosition + transform.forward, 2f);
+                        Handles.DrawLine(tirePosition, tirePosition + transform.forward, 2f);
                     }
 
                     
@@ -233,12 +242,13 @@ namespace Frontend.Scripts.Components
                     if(debugSettings.DrawSphereGizmo)
                     {
                         Gizmos.color = isGrounded ? Color.green : Color.red;
-                        Gizmos.DrawWireSphere(tireWorldPosition, wheelRadius);
+                        Gizmos.DrawWireSphere(tirePosition, wheelRadius);
                     }
                 }
             }
         }
 
         #endregion
+        #endif
     }
 }

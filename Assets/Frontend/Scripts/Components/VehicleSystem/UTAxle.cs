@@ -76,6 +76,11 @@ namespace Frontend.Scripts.Components
 
         private void FixedUpdate()
         {
+            if(!wheelPairs.Any())
+            {
+                return;
+            }
+
             foreach (var pair in wheelPairs)
             {
                 if (pair.TireModel != null)
