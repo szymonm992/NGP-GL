@@ -27,6 +27,7 @@ namespace Frontend.Scripts.Components
         [SerializeField] private LayerMask layerMask;
         [SerializeField] private Rigidbody localRig;
         [SerializeField] private MeshCollider myCollider;
+
         [SerializeField]
         private UTWheelDebug debugSettings = new UTWheelDebug()
         {
@@ -52,9 +53,14 @@ namespace Frontend.Scripts.Components
         private float steerAngle = 0f;
         private float wheelAngle = 0f;
         private float absGravity;
-
         private Vector3 suspensionForce;
         private Vector3 tirePosition;
+
+
+        private float finalTravelLength;
+        private float hardPointAbs;
+        private Vector3 lowestSpringPosition, highestSpringPosition;
+        
      
         #endregion
 
@@ -64,7 +70,10 @@ namespace Frontend.Scripts.Components
         public float ForwardTireGripFactor => forwardTireGripFactor;
         public float SidewaysTireGripFactor => sidewaysTireGripFactor;
         public float CompressionRate => compressionRate;
+        public float HardPointAbs => hardPointAbs;
         public Vector3 TireWorldPosition => tirePosition; 
+        public Vector3 HighestSpringPosition => highestSpringPosition; 
+        
         public float SteerAngle
         {
             get => wheelAngle;
@@ -74,6 +83,8 @@ namespace Frontend.Scripts.Components
         private void Awake()
         {
             absGravity = Mathf.Abs(Physics.gravity.y);
+            hardPointAbs = Mathf.Abs(hardPointOfTire);
+            finalTravelLength = suspensionTravel + hardPointAbs;
         }
 
         private void Update()
@@ -93,9 +104,11 @@ namespace Frontend.Scripts.Components
             Vector3 newPosition = GetTirePosition();
             //Vector3 newVelocity = (newPosition - tirePosition) / Time.fixedDeltaTime;
             tirePosition = newPosition;
-
+            
             normalForce = GetSuspensionForce(tirePosition) + tireMass * absGravity;
             suspensionForce = normalForce * transform.up;
+
+            
 
             if (!isGrounded)
             {
@@ -103,6 +116,8 @@ namespace Frontend.Scripts.Components
             }
 
             rig.AddForceAtPosition(suspensionForce, tirePosition);
+
+           
         }
 
 
@@ -115,26 +130,39 @@ namespace Frontend.Scripts.Components
         }
         private Vector3 GetTirePosition()
         {
-            float finalLength = suspensionTravel + Mathf.Abs(hardPointOfTire);
-            isGrounded = (localRig.SweepTest(-transform.up, out hitInfo.rayHit, finalLength));
+           
+            lowestSpringPosition = transform.position - transform.up * finalTravelLength;
+            highestSpringPosition = transform.position + transform.up * hardPointOfTire;
 
+
+            isGrounded = (localRig.SweepTest(-transform.up, out hitInfo.rayHit, finalTravelLength));
+            Vector3 tirePos = transform.position - (transform.up * finalTravelLength);
 
             if (isGrounded)
             {
-
-                extension = hitInfo.Distance;
-                compressionRate = 1 - (extension - Mathf.Abs(hardPointOfTire) / suspensionTravel);
-
-
+                tirePos = transform.position - (transform.up * hitInfo.Distance);
+                extension = Vector3.Distance(highestSpringPosition, tirePos) / suspensionTravel;
+                if ((highestSpringPosition - transform.position).sqrMagnitude < (tirePosition - transform.position).sqrMagnitude)
+                {
+                    compressionRate = 1 - extension;
+                }
+                else
+                {
+                    compressionRate = 1;
+                    
+                }
+               
             }
             else
             {
-                extension = suspensionTravel;
+                extension = 1;
                 compressionRate = 0;
             }
-
-
-            return transform.position - (transform.up * extension);
+            if(compressionRate == 1)
+            {
+                AntigravityHelper();
+            }
+            return tirePos;
 
             /*
             isGrounded = (Physics.CheckSphere(transform.position, wheelRadius, layerMask));
@@ -174,7 +202,7 @@ namespace Frontend.Scripts.Components
 
         private float GetSuspensionForce(Vector3 tirePosition)
         {
-            float distance = Vector3.Distance(transform.position - transform.up * suspensionTravel, tirePosition);
+            float distance = Vector3.Distance(transform.position - transform.up * finalTravelLength, tirePosition);
             float springForce = spring * distance;
             float damperForce = damper * ((distance - previousSuspensionDistance) / Time.fixedDeltaTime);
             previousSuspensionDistance = distance;
@@ -215,8 +243,9 @@ namespace Frontend.Scripts.Components
                     {
                         Handles.DrawDottedLine(transform.position, tirePosition, 1.1f);
                         Gizmos.color = Color.red;
-                        Gizmos.DrawSphere(transform.position+ transform.up * hardPointOfTire, .08f);
-                        Gizmos.DrawSphere(transform.position - transform.up * suspensionTravel, .08f);
+                        Gizmos.DrawSphere(highestSpringPosition, .08f);
+                        Gizmos.color = Color.blue;
+                        Gizmos.DrawSphere(lowestSpringPosition, .08f);
                         Gizmos.color = Color.white;
                         Gizmos.DrawSphere(tirePosition, .08f);
                     }

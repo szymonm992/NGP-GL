@@ -98,9 +98,9 @@ namespace Frontend.Scripts.Components
         {
             float antiRollFinalForce = (leftAntirolled.CompressionRate - rightAntirolled.CompressionRate) * antiRollForce;
             rig.AddForceAtPosition(leftAntirolled.transform.up * antiRollFinalForce,
-                      leftAntirolled.transform.position);
+                      leftAntirolled.HighestSpringPosition);
             rig.AddForceAtPosition(rightAntirolled.transform.up * -antiRollFinalForce,
-                  rightAntirolled.transform.position);
+                  rightAntirolled.HighestSpringPosition);
         }
 
         private void RepositionTireModel(UTAxlePair pair)

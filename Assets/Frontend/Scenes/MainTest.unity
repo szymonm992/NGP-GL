@@ -168,6 +168,41 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &107344245 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1311823427921705353, guid: d19408e9685df8344979e46fc5660120, type: 3}
+  m_PrefabInstance: {fileID: 3757014153907709462}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &107344249
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107344245}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2534964839176971238, guid: 7aaa570f429bb104391a6ba341dcdf86, type: 3}
+--- !u!54 &107344250
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107344245}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &212462400
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,6 +426,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &432886963 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1311823428834172646, guid: d19408e9685df8344979e46fc5660120, type: 3}
+  m_PrefabInstance: {fileID: 3757014153907709462}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &432886967
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 432886963}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2534964839176971238, guid: 7aaa570f429bb104391a6ba341dcdf86, type: 3}
+--- !u!54 &432886968
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 432886963}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &501099465
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,6 +700,41 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 4, y: 90, z: 0}
+--- !u!1 &1073303152 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1311823429440158231, guid: d19408e9685df8344979e46fc5660120, type: 3}
+  m_PrefabInstance: {fileID: 3757014153907709462}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1073303156
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1073303152}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2534964839176971238, guid: 7aaa570f429bb104391a6ba341dcdf86, type: 3}
+--- !u!54 &1073303157
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1073303152}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1115455511
 GameObject:
   m_ObjectHideFlags: 0
@@ -764,14 +869,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1123476373}
-  m_LocalRotation: {x: 0.20673802, y: 0.67620957, z: -0.20673802, w: 0.67620957}
-  m_LocalPosition: {x: 15.49, y: 4.76, z: 16.47}
-  m_LocalScale: {x: 8, y: 1, z: 15}
+  m_LocalRotation: {x: 0.044584364, y: 0.7056998, z: 0.0075898226, w: 0.70706606}
+  m_LocalPosition: {x: 30.88, y: 0.62, z: 8.1}
+  m_LocalScale: {x: 8, y: 1, z: 30}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 34, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 3, y: 90, z: 4.23}
 --- !u!1 &1219879273
 GameObject:
   m_ObjectHideFlags: 0
@@ -1519,6 +1624,41 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &2092724606 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1311823429076321863, guid: d19408e9685df8344979e46fc5660120, type: 3}
+  m_PrefabInstance: {fileID: 3757014153907709462}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &2092724610
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092724606}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2534964839176971238, guid: 7aaa570f429bb104391a6ba341dcdf86, type: 3}
+--- !u!54 &2092724611
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092724606}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &3757014153907709462
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1526,6 +1666,126 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1311823427698984376, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823427840988906, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: antiRollForce
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823427840988907, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823427921705352, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823427921705352, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823427921705357, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: localRig
+      value: 
+      objectReference: {fileID: 107344250}
+    - target: {fileID: 1311823427921705357, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: myCollider
+      value: 
+      objectReference: {fileID: 107344249}
+    - target: {fileID: 1311823427921705357, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: compressionRate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823427921705357, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: hardPointOfTire
+      value: -0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823427921705357, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: suspensionTravel
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823427921705357, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: debugSettings.drawGizmos
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823427921705357, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: debugSettings.drawSprings
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823427921705357, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: debugSettings.drawShapeGizmo
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823427921705357, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: debugSettings.drawWheelDirection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823427951526008, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823428090221868, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823428090221871, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: antiRollForce
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823428423893776, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823428506658355, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823428834172649, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823428834172649, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823428834172650, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: localRig
+      value: 
+      objectReference: {fileID: 432886968}
+    - target: {fileID: 1311823428834172650, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: myCollider
+      value: 
+      objectReference: {fileID: 432886967}
+    - target: {fileID: 1311823428834172650, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: compressionRate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823428834172650, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: hardPointOfTire
+      value: -0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823428834172650, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: suspensionTravel
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823428834172650, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: debugSettings.drawGizmos
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823428834172650, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: debugSettings.drawSprings
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823428834172650, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: debugSettings.drawShapeGizmo
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823428834172650, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: debugSettings.drawWheelDirection
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1311823428897744874, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: m_Name
       value: BUGGY_UTWHEEL
@@ -1536,15 +1796,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1311823428897744876, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 30.03
+      value: 30.104
       objectReference: {fileID: 0}
     - target: {fileID: 1311823428897744876, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1311823428897744876, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.32
+      value: 7.42
       objectReference: {fileID: 0}
     - target: {fileID: 1311823428897744876, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1578,6 +1838,102 @@ PrefabInstance:
       propertyPath: velocityText
       value: 
       objectReference: {fileID: 1728332547}
+    - target: {fileID: 1311823429076321862, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429076321862, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429076321867, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: localRig
+      value: 
+      objectReference: {fileID: 2092724611}
+    - target: {fileID: 1311823429076321867, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: myCollider
+      value: 
+      objectReference: {fileID: 2092724610}
+    - target: {fileID: 1311823429076321867, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: compressionRate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429076321867, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: hardPointOfTire
+      value: -0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429076321867, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: suspensionTravel
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429076321867, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: debugSettings.drawGizmos
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429076321867, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: debugSettings.drawSprings
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429076321867, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: debugSettings.drawShapeGizmo
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429076321867, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: debugSettings.drawWheelDirection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429408079431, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.243
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429440158230, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429440158230, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429440158235, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: localRig
+      value: 
+      objectReference: {fileID: 1073303157}
+    - target: {fileID: 1311823429440158235, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: myCollider
+      value: 
+      objectReference: {fileID: 1073303156}
+    - target: {fileID: 1311823429440158235, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: compressionRate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429440158235, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: hardPointOfTire
+      value: -0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429440158235, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: suspensionTravel
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429440158235, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: debugSettings.drawGizmos
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429440158235, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: debugSettings.drawSprings
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429440158235, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: debugSettings.drawShapeGizmo
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429440158235, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: debugSettings.drawWheelDirection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429666272666, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d19408e9685df8344979e46fc5660120, type: 3}
 --- !u!1001 &7200623150865602636

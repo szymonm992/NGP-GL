@@ -119,13 +119,13 @@ namespace Frontend.Scripts.Components
 
                     foreach (var wheel in groundedWheels)
                     {
-                        wheelVelocityLocal = wheel.transform.InverseTransformDirection(rig.GetPointVelocity(wheel.transform.position));
+                        wheelVelocityLocal = wheel.transform.InverseTransformDirection(rig.GetPointVelocity(wheel.HighestSpringPosition));
 
                         forwardForce = inputY * currentDriveForce;
                         turnForce = wheelVelocityLocal.x * currentDriveForce;
 
                         rig.AddForceAtPosition((forwardForce * wheel.transform.forward), wheel.HitInfo.Point);
-                        rig.AddForceAtPosition((turnForce * -wheel.transform.right), wheel.transform.position);
+                        rig.AddForceAtPosition((turnForce * -wheel.transform.right), wheel.HighestSpringPosition);
                     }
                 }
 
@@ -148,13 +148,13 @@ namespace Frontend.Scripts.Components
                 foreach (var wheel in allGroundedWheels)
                 {
                     Vector3 forwardDir = wheel.transform.forward;
-                    Vector3 tireVel = rig.GetPointVelocity(wheel.transform.position);
+                    Vector3 tireVel = rig.GetPointVelocity(wheel.HighestSpringPosition);
 
                     float steeringVel = Vector3.Dot(forwardDir, tireVel);
                     float desiredVelChange = -steeringVel * currentLongitudalGrip;
                     float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
 
-                    rig.AddForceAtPosition(desiredAccel * wheel.TireMass * forwardDir, wheel.transform.position);
+                    rig.AddForceAtPosition(desiredAccel * wheel.TireMass * forwardDir, wheel.HighestSpringPosition);
                 }
             }
         }
