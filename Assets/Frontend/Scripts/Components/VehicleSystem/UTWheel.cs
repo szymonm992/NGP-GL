@@ -23,8 +23,10 @@ namespace Frontend.Scripts.Components
 
         [SerializeField] private float spring = 20000f;
         [SerializeField] private float damper = 2000f;
+        [SerializeField] private float hardPointOfTire = -.2f;
         [SerializeField] private LayerMask layerMask;
-
+        [SerializeField] private Rigidbody localRig;
+        [SerializeField] private MeshCollider myCollider;
         [SerializeField]
         private UTWheelDebug debugSettings = new UTWheelDebug()
         {
@@ -46,7 +48,7 @@ namespace Frontend.Scripts.Components
         private float previousSuspensionDistance = 0f;
         private float normalForce = 0f;
         private float extension = 0f;
-        private float compressionRate = 0f;
+        public float compressionRate = 0f;
         private float steerAngle = 0f;
         private float wheelAngle = 0f;
         private float absGravity;
@@ -104,9 +106,37 @@ namespace Frontend.Scripts.Components
         }
 
 
-
+        private void AntigravityHelper()
+        {
+            if (rig.velocity.y < -4f)
+            {
+                rig.AddForce(Vector3.up * Mathf.Min(-rig.velocity.y, 7f), ForceMode.VelocityChange);
+            }
+        }
         private Vector3 GetTirePosition()
         {
+            float finalLength = suspensionTravel + Mathf.Abs(hardPointOfTire);
+            isGrounded = (localRig.SweepTest(-transform.up, out hitInfo.rayHit, finalLength));
+
+
+            if (isGrounded)
+            {
+
+                extension = hitInfo.Distance;
+                compressionRate = 1 - (extension - Mathf.Abs(hardPointOfTire) / suspensionTravel);
+
+
+            }
+            else
+            {
+                extension = suspensionTravel;
+                compressionRate = 0;
+            }
+
+
+            return transform.position - (transform.up * extension);
+
+            /*
             isGrounded = (Physics.CheckSphere(transform.position, wheelRadius, layerMask));
 
             if (isGrounded)
@@ -139,37 +169,7 @@ namespace Frontend.Scripts.Components
                     compressionRate = 0;
                 }
             }
-            return transform.position - (transform.up * extension);
-
-
-            /*
-        isGrounded = Physics.SphereCast(transform.position, wheelRadius, -transform.up, out hitInfo.rayHit,  suspensionTravel, layerMask);
-        if (isGrounded)
-        {
-            extension = hitInfo.Distance;
-            compressionRate = 1 - (hitInfo.Distance / suspensionTravel);
-        }
-        else
-        {
-            if(Physics.CheckSphere(transform.position, wheelRadius, layerMask))
-            {
-                isGrounded = true;
-                hitInfo.rayHit = new RaycastHit()
-                {
-                    point = transform.position - transform.up * wheelRadius,
-                    normal = transform.up,
-                    distance = 0,
-                };
-                extension = 0;
-                compressionRate = 1;
-            }
-            else
-            {
-                extension = suspensionTravel;
-                compressionRate = 0;
-            }
-        }
-        return transform.position - (transform.up * extension);*/
+            return transform.position - (transform.up * extension);*/
         }
 
         private float GetSuspensionForce(Vector3 tirePosition)
@@ -214,8 +214,10 @@ namespace Frontend.Scripts.Components
                     if(debugSettings.DrawSprings)
                     {
                         Handles.DrawDottedLine(transform.position, tirePosition, 1.1f);
+                        Gizmos.color = Color.red;
+                        Gizmos.DrawSphere(transform.position+ transform.up * hardPointOfTire, .08f);
+                        Gizmos.DrawSphere(transform.position - transform.up * suspensionTravel, .08f);
                         Gizmos.color = Color.white;
-                        Gizmos.DrawSphere(transform.position, .08f);
                         Gizmos.DrawSphere(tirePosition, .08f);
                     }
                     
@@ -242,7 +244,9 @@ namespace Frontend.Scripts.Components
                     if(debugSettings.DrawShapeGizmo)
                     {
                         Gizmos.color = isGrounded ? Color.green : Color.red;
-                        Gizmos.DrawWireSphere(tirePosition, wheelRadius);
+                        //Gizmos.DrawWireSphere(tirePosition, wheelRadius);
+
+                        Gizmos.DrawWireMesh(myCollider.sharedMesh, tirePosition, transform.rotation, transform.lossyScale);
                     }
                 }
             }
