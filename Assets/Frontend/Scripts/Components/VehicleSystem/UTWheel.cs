@@ -169,10 +169,6 @@ namespace Frontend.Scripts.Components
         private Vector3 GetTirePosition()
         {
            
-           // lowestSpringPosition = transform.position - transform.up * finalTravelLength;
-           // highestSpringPosition = transform.position + transform.up * hardPointOfTire;
-
-
             isGrounded = (localRig.SweepTest(-transform.up, out hitInfo.rayHit, finalTravelLength));
             Vector3 tirePos = transform.position - (transform.up * finalTravelLength);
 

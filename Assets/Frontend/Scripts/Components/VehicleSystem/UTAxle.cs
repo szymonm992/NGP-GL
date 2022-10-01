@@ -97,10 +97,18 @@ namespace Frontend.Scripts.Components
         private void CalculateAndApplyAntiroll()
         {
             float antiRollFinalForce = (leftAntirolled.CompressionRate - rightAntirolled.CompressionRate) * antiRollForce;
-            rig.AddForceAtPosition(leftAntirolled.transform.up * antiRollFinalForce,
-                      leftAntirolled.HighestSpringPosition);
-            rig.AddForceAtPosition(rightAntirolled.transform.up * -antiRollFinalForce,
-                  rightAntirolled.HighestSpringPosition);
+            if (leftAntirolled.IsGrounded)
+            {
+                rig.AddForceAtPosition(leftAntirolled.transform.up * antiRollFinalForce,
+                          leftAntirolled.HighestSpringPosition);
+            }
+            
+            if(rightAntirolled.IsGrounded)
+            {
+                rig.AddForceAtPosition(rightAntirolled.transform.up * -antiRollFinalForce,
+                 rightAntirolled.HighestSpringPosition);
+            }
+           
         }
 
         private void RepositionTireModel(UTAxlePair pair)

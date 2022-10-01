@@ -168,22 +168,6 @@ namespace Frontend.Scripts.Components
                 return;
             }
 
-
-            /*
-            foreach (var wheel in allGroundedWheels)
-            {
-                float angle = Vector3.Angle(wheel.HitInfo.Normal, -Physics.gravity.normalized);
-
-                if (maxSlopeAngle >= angle)
-                {
-                    rig.AddForce(-wheel.HitInfo.Normal * Physics.gravity.magnitude, ForceMode.Acceleration);
-                    break;
-                }
-                rig.AddForce(Physics.gravity, ForceMode.Acceleration);
-            }*/
-
-
-
             if (!allGroundedWheels.Any())
             {
                 return;
