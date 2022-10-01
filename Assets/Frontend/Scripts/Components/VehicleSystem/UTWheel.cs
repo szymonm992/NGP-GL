@@ -43,7 +43,7 @@ namespace Frontend.Scripts.Components
             DrawSprings = true,
         };
 
-
+        public bool autogeneratePoints = false;
 
         #region Telemetry/readonly
         private HitInfo hitInfo = new HitInfo();
@@ -62,9 +62,9 @@ namespace Frontend.Scripts.Components
 
         private float finalTravelLength;
         private float hardPointAbs;
-        private Vector3 lowestSpringPosition, highestSpringPosition;
-        
-     
+       // private Vector3 lowestSpringPosition, highestSpringPosition;
+
+        private Transform tireHighestPoint, tireLowestPoint;
         #endregion
 
         public bool IsGrounded => isGrounded;
@@ -74,9 +74,8 @@ namespace Frontend.Scripts.Components
         public float SidewaysTireGripFactor => sidewaysTireGripFactor;
         public float CompressionRate => compressionRate;
         public float HardPointAbs => hardPointAbs;
-        public Vector3 TireWorldPosition => tirePosition; 
-        public Vector3 HighestSpringPosition => highestSpringPosition; 
-        
+        public Vector3 TireWorldPosition => tirePosition;
+        public Vector3 HighestSpringPosition => tireHighestPoint.position;
         public float SteerAngle
         {
             get => wheelAngle;
@@ -99,13 +98,39 @@ namespace Frontend.Scripts.Components
             absGravity = Mathf.Abs(Physics.gravity.y);
             hardPointAbs = Mathf.Abs(hardPointOfTire);
             finalTravelLength = suspensionTravel + hardPointAbs;
+
+            if(autogeneratePoints)
+            {
+                if(tireHighestPoint == null)
+                {
+                    tireHighestPoint = CreateSubTransform("TireHighestPoint");     
+                }
+                Vector3 highestPoint = transform.position + transform.up * hardPointOfTire;
+                tireHighestPoint.position = highestPoint;
+
+                if (tireLowestPoint == null)
+                {
+                    tireLowestPoint = CreateSubTransform("TireLowestPoint");
+                }
+                Vector3 lowestPoint = transform.position + transform.up * -finalTravelLength;
+                tireLowestPoint.position = lowestPoint;
+                
+                
+            }
+        }
+
+        private Transform CreateSubTransform(string name)
+        {
+            GameObject highestPoint = new GameObject(name);
+            highestPoint.transform.SetParent(this.transform);
+            return highestPoint.transform;
         }
 
         private void SetIgnoredColliders()
         {
             var allColliders = transform.root.GetComponentsInChildren<Collider>();
 
-            if (allColliders.Any())
+            if (allColliders.Any() && myCollider)
             {
                 allColliders.ForEach(collider => Physics.IgnoreCollision(myCollider, collider, true));
             }
@@ -157,8 +182,8 @@ namespace Frontend.Scripts.Components
         private Vector3 GetTirePosition()
         {
            
-            lowestSpringPosition = transform.position - transform.up * finalTravelLength;
-            highestSpringPosition = transform.position + transform.up * hardPointOfTire;
+           // lowestSpringPosition = transform.position - transform.up * finalTravelLength;
+           // highestSpringPosition = transform.position + transform.up * hardPointOfTire;
 
 
             isGrounded = (localRig.SweepTest(-transform.up, out hitInfo.rayHit, finalTravelLength));
@@ -167,8 +192,8 @@ namespace Frontend.Scripts.Components
             if (isGrounded)
             {
                 tirePos = transform.position - (transform.up * hitInfo.Distance);
-                extension = Vector3.Distance(highestSpringPosition, tirePos) / suspensionTravel;
-                if ((highestSpringPosition - transform.position).sqrMagnitude < (tirePosition - transform.position).sqrMagnitude)
+                extension = Vector3.Distance(tireHighestPoint.position, tirePos) / suspensionTravel;
+                if ((tireHighestPoint.position - transform.position).sqrMagnitude < (tirePosition - transform.position).sqrMagnitude)
                 {
                     compressionRate = 1 - extension;
                 }
@@ -236,11 +261,9 @@ namespace Frontend.Scripts.Components
             if (!rig)
             {
                 rig = transform.GetComponentInParent<Rigidbody>();
-               
             }
            
             AssignPrimaryParameters();
-
             SetIgnoredColliders();
 
         }
@@ -264,9 +287,9 @@ namespace Frontend.Scripts.Components
                     {
                         Handles.DrawDottedLine(transform.position, tirePosition, 1.1f);
                         Gizmos.color = Color.red;
-                        Gizmos.DrawSphere(highestSpringPosition, .08f);
+                        Gizmos.DrawSphere(tireHighestPoint.position, .08f);
                         Gizmos.color = Color.blue;
-                        Gizmos.DrawSphere(lowestSpringPosition, .08f);
+                        Gizmos.DrawSphere(tireLowestPoint.position, .08f);
                         Gizmos.color = Color.white;
                         Gizmos.DrawSphere(tirePosition, .08f);
                     }

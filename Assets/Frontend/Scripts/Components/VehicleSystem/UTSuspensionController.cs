@@ -68,7 +68,7 @@ namespace Frontend.Scripts.Components
             Accelerate();
             Brakes();
             ApplyFrictionForces();
-            currentSpeed = rig.velocity.magnitude * 3.6f;
+            currentSpeed = rig.velocity.magnitude * 4f;
         }
 
         private void EvaluateDriveParams()

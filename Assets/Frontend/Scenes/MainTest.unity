@@ -123,6 +123,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &41288977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 41288978}
+  m_Layer: 0
+  m_Name: TireHighestPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &41288978
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41288977}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.00000023841858, y: -0.57142913, z: -0.0000006811959}
+  m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3757014153907709463}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &47302552
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,6 +234,11 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!4 &107344251 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1311823427921705352, guid: d19408e9685df8344979e46fc5660120, type: 3}
+  m_PrefabInstance: {fileID: 3757014153907709462}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &212462400
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,6 +639,99 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &659828982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 659828983}
+  m_Layer: 0
+  m_Name: TireLowestPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &659828983
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659828982}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.00000071525574, y: -1.3571451, z: 0}
+  m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 107344251}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &926034702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 926034703}
+  m_Layer: 0
+  m_Name: TireHighestPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &926034703
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926034702}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.00000023841858, y: -0.57142913, z: 0}
+  m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3757014153907709465}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &978028783
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 978028784}
+  m_Layer: 0
+  m_Name: TireLowestPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &978028784
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978028783}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.00000023841858, y: -1.3571451, z: 0.0000006811959}
+  m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3757014153907709464}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &983098743
 GameObject:
   m_ObjectHideFlags: 0
@@ -974,6 +1103,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1373164023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1373164024}
+  m_Layer: 0
+  m_Name: TireLowestPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1373164024
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1373164023}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.00000023841858, y: -1.3571451, z: -0.0000006811959}
+  m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3757014153907709463}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1460127061
 GameObject:
   m_ObjectHideFlags: 0
@@ -1153,6 +1313,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1653345475
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1653345476}
+  m_Layer: 0
+  m_Name: TireLowestPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1653345476
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653345475}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.00000023841858, y: -1.3571451, z: 0}
+  m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3757014153907709465}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1669556959
 GameObject:
   m_ObjectHideFlags: 0
@@ -1249,6 +1440,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1691728282
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1691728283}
+  m_Layer: 0
+  m_Name: TireHighestPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1691728283
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691728282}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.00000071525574, y: -0.57142913, z: 0}
+  m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 107344251}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1701233518
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1701233519}
+  m_Layer: 0
+  m_Name: TireHighestPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1701233519
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701233518}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.00000023841858, y: -0.57142913, z: 0.0000006811959}
+  m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3757014153907709464}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1702882790
 GameObject:
@@ -1704,7 +1957,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1311823427921705357, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: suspensionTravel
-      value: 0.6
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823427921705357, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: autogeneratePoints
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1311823427921705357, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: debugSettings.drawGizmos
@@ -1768,7 +2025,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1311823428834172650, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: suspensionTravel
-      value: 0.6
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823428834172650, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: autogeneratePoints
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1311823428834172650, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: debugSettings.drawGizmos
@@ -1864,7 +2125,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1311823429076321867, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: suspensionTravel
-      value: 0.6
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429076321867, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: autogeneratePoints
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1311823429076321867, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: debugSettings.drawGizmos
@@ -1885,6 +2150,22 @@ PrefabInstance:
     - target: {fileID: 1311823429408079431, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.243
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429408079432, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: m_Size.y
+      value: 1.4989781
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429408079432, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: m_Size.z
+      value: 6.2712502
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429408079432, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: m_Center.y
+      value: 0.60504365
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429408079432, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: m_Center.z
+      value: -0.26394606
       objectReference: {fileID: 0}
     - target: {fileID: 1311823429440158230, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: m_LocalScale.y
@@ -1912,7 +2193,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1311823429440158235, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: suspensionTravel
-      value: 0.6
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429440158235, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: autogeneratePoints
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1311823429440158235, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: debugSettings.drawGizmos
@@ -1936,6 +2221,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d19408e9685df8344979e46fc5660120, type: 3}
+--- !u!4 &3757014153907709463 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1311823429440158230, guid: d19408e9685df8344979e46fc5660120, type: 3}
+  m_PrefabInstance: {fileID: 3757014153907709462}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3757014153907709464 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1311823428834172649, guid: d19408e9685df8344979e46fc5660120, type: 3}
+  m_PrefabInstance: {fileID: 3757014153907709462}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3757014153907709465 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1311823429076321862, guid: d19408e9685df8344979e46fc5660120, type: 3}
+  m_PrefabInstance: {fileID: 3757014153907709462}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7200623150865602636
 PrefabInstance:
   m_ObjectHideFlags: 0
