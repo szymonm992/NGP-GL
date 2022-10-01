@@ -3,6 +3,8 @@ using Frontend.Scripts.Interfaces;
 using Frontend.Scripts.Models;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UInc.Core.Utilities;
 using UnityEditor;
 using UnityEngine;
 using Zenject;
@@ -23,6 +25,7 @@ namespace Frontend.Scripts.Components
 
         [SerializeField] private float spring = 20000f;
         [SerializeField] private float damper = 2000f;
+        [Range(-1f, 0)]
         [SerializeField] private float hardPointOfTire = -.2f;
         [SerializeField] private LayerMask layerMask;
         [SerializeField] private Rigidbody localRig;
@@ -82,9 +85,30 @@ namespace Frontend.Scripts.Components
 
         private void Awake()
         {
+            AssignPrimaryParameters();
+            SetIgnoredColliders();
+        }
+
+        private void AssignPrimaryParameters()
+        {
+            if (extension == 0f)
+            {
+                extension = suspensionTravel;
+            }
+
             absGravity = Mathf.Abs(Physics.gravity.y);
             hardPointAbs = Mathf.Abs(hardPointOfTire);
             finalTravelLength = suspensionTravel + hardPointAbs;
+        }
+
+        private void SetIgnoredColliders()
+        {
+            var allColliders = transform.root.GetComponentsInChildren<Collider>();
+
+            if (allColliders.Any())
+            {
+                allColliders.ForEach(collider => Physics.IgnoreCollision(myCollider, collider, true));
+            }
         }
 
         private void Update()
@@ -102,13 +126,16 @@ namespace Frontend.Scripts.Components
         {
          
             Vector3 newPosition = GetTirePosition();
-            //Vector3 newVelocity = (newPosition - tirePosition) / Time.fixedDeltaTime;
+
+            if (compressionRate == 1)
+            {
+                AntigravityHelper();
+            }
+
             tirePosition = newPosition;
             
             normalForce = GetSuspensionForce(tirePosition) + tireMass * absGravity;
             suspensionForce = normalForce * transform.up;
-
-            
 
             if (!isGrounded)
             {
@@ -116,8 +143,6 @@ namespace Frontend.Scripts.Components
             }
 
             rig.AddForceAtPosition(suspensionForce, tirePosition);
-
-           
         }
 
 
@@ -128,6 +153,7 @@ namespace Frontend.Scripts.Components
                 rig.AddForce(Vector3.up * Mathf.Min(-rig.velocity.y, 7f), ForceMode.VelocityChange);
             }
         }
+
         private Vector3 GetTirePosition()
         {
            
@@ -149,18 +175,12 @@ namespace Frontend.Scripts.Components
                 else
                 {
                     compressionRate = 1;
-                    
                 }
-               
             }
             else
             {
                 extension = 1;
                 compressionRate = 0;
-            }
-            if(compressionRate == 1)
-            {
-                AntigravityHelper();
             }
             return tirePos;
 
@@ -216,11 +236,12 @@ namespace Frontend.Scripts.Components
             if (!rig)
             {
                 rig = transform.GetComponentInParent<Rigidbody>();
+               
             }
-            if (extension == 0f)
-            {
-                extension = suspensionTravel;
-            }
+           
+            AssignPrimaryParameters();
+
+            SetIgnoredColliders();
 
         }
         private void OnDrawGizmos()
