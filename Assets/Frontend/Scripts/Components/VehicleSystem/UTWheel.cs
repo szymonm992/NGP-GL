@@ -31,6 +31,9 @@ namespace Frontend.Scripts.Components
         [SerializeField] private Rigidbody localRig;
         [SerializeField] private MeshCollider myCollider;
 
+        [SerializeField] private Transform highestPointTransform;
+        [SerializeField] private Transform lowestPointTransform;
+
         [SerializeField]
         private UTWheelDebug debugSettings = new UTWheelDebug()
         {
@@ -52,7 +55,7 @@ namespace Frontend.Scripts.Components
         private float previousSuspensionDistance = 0f;
         private float normalForce = 0f;
         private float extension = 0f;
-        public float compressionRate = 0f;
+        private float compressionRate = 0f;
         private float steerAngle = 0f;
         private float wheelAngle = 0f;
         private float absGravity;
@@ -62,9 +65,7 @@ namespace Frontend.Scripts.Components
 
         private float finalTravelLength;
         private float hardPointAbs;
-       // private Vector3 lowestSpringPosition, highestSpringPosition;
 
-        private Transform tireHighestPoint, tireLowestPoint;
         #endregion
 
         public bool IsGrounded => isGrounded;
@@ -75,7 +76,7 @@ namespace Frontend.Scripts.Components
         public float CompressionRate => compressionRate;
         public float HardPointAbs => hardPointAbs;
         public Vector3 TireWorldPosition => tirePosition;
-        public Vector3 HighestSpringPosition => tireHighestPoint.position;
+        public Vector3 HighestSpringPosition => highestPointTransform.position;
         public float SteerAngle
         {
             get => wheelAngle;
@@ -99,31 +100,17 @@ namespace Frontend.Scripts.Components
             hardPointAbs = Mathf.Abs(hardPointOfTire);
             finalTravelLength = suspensionTravel + hardPointAbs;
 
-            if(autogeneratePoints)
+            if (highestPointTransform != null)
             {
-                if(tireHighestPoint == null)
-                {
-                    tireHighestPoint = CreateSubTransform("TireHighestPoint");     
-                }
                 Vector3 highestPoint = transform.position + transform.up * hardPointOfTire;
-                tireHighestPoint.position = highestPoint;
-
-                if (tireLowestPoint == null)
-                {
-                    tireLowestPoint = CreateSubTransform("TireLowestPoint");
-                }
-                Vector3 lowestPoint = transform.position + transform.up * -finalTravelLength;
-                tireLowestPoint.position = lowestPoint;
-                
-                
+                highestPointTransform.position = highestPoint;
             }
-        }
 
-        private Transform CreateSubTransform(string name)
-        {
-            GameObject highestPoint = new GameObject(name);
-            highestPoint.transform.SetParent(this.transform);
-            return highestPoint.transform;
+            if (lowestPointTransform != null)
+            {
+                Vector3 lowestPoint = transform.position + transform.up * -finalTravelLength;
+                lowestPointTransform.position = lowestPoint;
+            }
         }
 
         private void SetIgnoredColliders()
@@ -192,8 +179,8 @@ namespace Frontend.Scripts.Components
             if (isGrounded)
             {
                 tirePos = transform.position - (transform.up * hitInfo.Distance);
-                extension = Vector3.Distance(tireHighestPoint.position, tirePos) / suspensionTravel;
-                if ((tireHighestPoint.position - transform.position).sqrMagnitude < (tirePosition - transform.position).sqrMagnitude)
+                extension = Vector3.Distance(highestPointTransform.position, tirePos) / suspensionTravel;
+                if ((highestPointTransform.position - transform.position).sqrMagnitude < (tirePosition - transform.position).sqrMagnitude)
                 {
                     compressionRate = 1 - extension;
                 }
@@ -208,41 +195,6 @@ namespace Frontend.Scripts.Components
                 compressionRate = 0;
             }
             return tirePos;
-
-            /*
-            isGrounded = (Physics.CheckSphere(transform.position, wheelRadius, layerMask));
-
-            if (isGrounded)
-            {
-                hitInfo.rayHit = new RaycastHit()
-                {
-                    point = transform.position - transform.up * wheelRadius,
-                    normal = transform.up,
-                    distance = 0,
-                };
-                extension = 0;
-                compressionRate = 1;
-
-                if(rig.velocity.y < -4f)
-                {
-                    rig.AddForce(Vector3.up * Mathf.Min(-rig.velocity.y, 7f), ForceMode.VelocityChange);
-                } 
-            }
-            else
-            {
-                if (Physics.SphereCast(transform.position, wheelRadius, -transform.up, out hitInfo.rayHit, suspensionTravel, layerMask))
-                {
-                    isGrounded = true;
-                    extension = hitInfo.Distance;
-                    compressionRate = 1 - (hitInfo.Distance / suspensionTravel);
-                }
-                else
-                {
-                    extension = suspensionTravel;
-                    compressionRate = 0;
-                }
-            }
-            return transform.position - (transform.up * extension);*/
         }
 
         private float GetSuspensionForce(Vector3 tirePosition)
@@ -266,6 +218,7 @@ namespace Frontend.Scripts.Components
             AssignPrimaryParameters();
             SetIgnoredColliders();
 
+            
         }
         private void OnDrawGizmos()
         {
@@ -286,10 +239,20 @@ namespace Frontend.Scripts.Components
                     if(debugSettings.DrawSprings)
                     {
                         Handles.DrawDottedLine(transform.position, tirePosition, 1.1f);
-                        Gizmos.color = Color.red;
-                        Gizmos.DrawSphere(tireHighestPoint.position, .08f);
-                        Gizmos.color = Color.blue;
-                        Gizmos.DrawSphere(tireLowestPoint.position, .08f);
+                       
+
+                        if(highestPointTransform != null)
+                        {
+                            Gizmos.color = Color.red;
+                            Gizmos.DrawSphere(highestPointTransform.position, .08f);
+                        }
+                      
+                        if(lowestPointTransform != null)
+                        {
+                            Gizmos.color = Color.blue;
+                            Gizmos.DrawSphere(lowestPointTransform.position, .08f);
+                        }
+                        
                         Gizmos.color = Color.white;
                         Gizmos.DrawSphere(tirePosition, .08f);
                     }

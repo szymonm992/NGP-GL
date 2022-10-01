@@ -123,37 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &41288977
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 41288978}
-  m_Layer: 0
-  m_Name: TireHighestPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &41288978
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 41288977}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.00000023841858, y: -0.57142913, z: -0.0000006811959}
-  m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3757014153907709463}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &47302552
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,6 +208,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1311823427921705352, guid: d19408e9685df8344979e46fc5660120, type: 3}
   m_PrefabInstance: {fileID: 3757014153907709462}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &163927893
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 163927894}
+  m_Layer: 0
+  m_Name: TireHighestPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &163927894
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163927893}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.00000023841858, y: -0.57142913, z: -0.0000006811959}
+  m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3757014153907709463}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &212462400
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,6 +354,37 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!1 &292592120
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 292592121}
+  m_Layer: 0
+  m_Name: TireHighestPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &292592121
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292592120}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.00000023841858, y: -0.57142913, z: 0}
+  m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3757014153907709465}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &357303559
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,7 +670,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &659828982
+--- !u!1 &567084263
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -647,7 +678,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 659828983}
+  - component: {fileID: 567084264}
   m_Layer: 0
   m_Name: TireLowestPoint
   m_TagString: Untagged
@@ -655,53 +686,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &659828983
+--- !u!4 &567084264
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 659828982}
+  m_GameObject: {fileID: 567084263}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.00000071525574, y: -1.3571451, z: 0}
-  m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 107344251}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &926034702
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 926034703}
-  m_Layer: 0
-  m_Name: TireHighestPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &926034703
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 926034702}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.00000023841858, y: -0.57142913, z: 0}
+  m_LocalPosition: {x: -0.00000023841858, y: -1.3571451, z: 0}
   m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3757014153907709465}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &978028783
+--- !u!1 &930862579
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -709,7 +709,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 978028784}
+  - component: {fileID: 930862580}
   m_Layer: 0
   m_Name: TireLowestPoint
   m_TagString: Untagged
@@ -717,13 +717,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &978028784
+--- !u!4 &930862580
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 978028783}
+  m_GameObject: {fileID: 930862579}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -0.00000023841858, y: -1.3571451, z: 0.0000006811959}
   m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
@@ -1006,6 +1006,68 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 3, y: 90, z: 4.23}
+--- !u!1 &1171988869
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1171988870}
+  m_Layer: 0
+  m_Name: TireLowestPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1171988870
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171988869}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.00000023841858, y: -1.3571451, z: -0.0000006811959}
+  m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3757014153907709463}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1215333463
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1215333464}
+  m_Layer: 0
+  m_Name: TireHighestPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1215333464
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215333463}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.00000071525574, y: -0.57142913, z: 0}
+  m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 107344251}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1219879273
 GameObject:
   m_ObjectHideFlags: 0
@@ -1103,7 +1165,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1373164023
+--- !u!1 &1345066018
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1111,28 +1173,28 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1373164024}
+  - component: {fileID: 1345066019}
   m_Layer: 0
-  m_Name: TireLowestPoint
+  m_Name: TireHighestPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1373164024
+--- !u!4 &1345066019
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1373164023}
+  m_GameObject: {fileID: 1345066018}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.00000023841858, y: -1.3571451, z: -0.0000006811959}
+  m_LocalPosition: {x: -0.00000023841858, y: -0.57142913, z: 0.0000006811959}
   m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3757014153907709463}
-  m_RootOrder: 1
+  m_Father: {fileID: 3757014153907709464}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1460127061
 GameObject:
@@ -1313,37 +1375,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1653345475
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1653345476}
-  m_Layer: 0
-  m_Name: TireLowestPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1653345476
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1653345475}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.00000023841858, y: -1.3571451, z: 0}
-  m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3757014153907709465}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1669556959
 GameObject:
   m_ObjectHideFlags: 0
@@ -1440,68 +1471,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1691728282
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1691728283}
-  m_Layer: 0
-  m_Name: TireHighestPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1691728283
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1691728282}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.00000071525574, y: -0.57142913, z: 0}
-  m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 107344251}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1701233518
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1701233519}
-  m_Layer: 0
-  m_Name: TireHighestPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1701233519
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1701233518}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.00000023841858, y: -0.57142913, z: 0.0000006811959}
-  m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3757014153907709464}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1702882790
 GameObject:
@@ -1765,6 +1734,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 35, y: 90, z: 0}
+--- !u!1 &1876387078
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1876387079}
+  m_Layer: 0
+  m_Name: TireLowestPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1876387079
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876387078}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.00000071525574, y: -1.3571451, z: 0}
+  m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 107344251}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1989105842
 GameObject:
   m_ObjectHideFlags: 0
@@ -1961,8 +1961,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1311823427921705357, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: autogeneratePoints
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1311823427921705357, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: lowestPointTransform
+      value: 
+      objectReference: {fileID: 1876387079}
+    - target: {fileID: 1311823427921705357, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: highestPointTransform
+      value: 
+      objectReference: {fileID: 1215333464}
     - target: {fileID: 1311823427921705357, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: debugSettings.drawGizmos
       value: 1
@@ -1973,7 +1981,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1311823427921705357, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: debugSettings.drawShapeGizmo
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1311823427921705357, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: debugSettings.drawWheelDirection
@@ -2029,8 +2037,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1311823428834172650, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: autogeneratePoints
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1311823428834172650, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: lowestPointTransform
+      value: 
+      objectReference: {fileID: 930862580}
+    - target: {fileID: 1311823428834172650, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: highestPointTransform
+      value: 
+      objectReference: {fileID: 1345066019}
     - target: {fileID: 1311823428834172650, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: debugSettings.drawGizmos
       value: 1
@@ -2041,7 +2057,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1311823428834172650, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: debugSettings.drawShapeGizmo
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1311823428834172650, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: debugSettings.drawWheelDirection
@@ -2129,8 +2145,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1311823429076321867, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: autogeneratePoints
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1311823429076321867, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: lowestPointTransform
+      value: 
+      objectReference: {fileID: 567084264}
+    - target: {fileID: 1311823429076321867, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: highestPointTransform
+      value: 
+      objectReference: {fileID: 292592121}
     - target: {fileID: 1311823429076321867, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: debugSettings.drawGizmos
       value: 1
@@ -2141,7 +2165,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1311823429076321867, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: debugSettings.drawShapeGizmo
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1311823429076321867, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: debugSettings.drawWheelDirection
@@ -2150,6 +2174,10 @@ PrefabInstance:
     - target: {fileID: 1311823429408079431, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.243
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311823429408079432, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: m_Size.x
+      value: 2.6
       objectReference: {fileID: 0}
     - target: {fileID: 1311823429408079432, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: m_Size.y
@@ -2197,8 +2225,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1311823429440158235, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: autogeneratePoints
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1311823429440158235, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: lowestPointTransform
+      value: 
+      objectReference: {fileID: 1171988870}
+    - target: {fileID: 1311823429440158235, guid: d19408e9685df8344979e46fc5660120, type: 3}
+      propertyPath: highestPointTransform
+      value: 
+      objectReference: {fileID: 163927894}
     - target: {fileID: 1311823429440158235, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: debugSettings.drawGizmos
       value: 1
@@ -2209,7 +2245,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1311823429440158235, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: debugSettings.drawShapeGizmo
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1311823429440158235, guid: d19408e9685df8344979e46fc5660120, type: 3}
       propertyPath: debugSettings.drawWheelDirection
