@@ -33,7 +33,9 @@ namespace Frontend.Scripts.Components
         private float currentLongitudalGrip;
         private float forwardForce, turnForce;
         private Vector3 wheelVelocityLocal;
+        private int allWheelsAmount=0;
 
+        private UTWheel[] allWheels;
         public UTAxle[] AllAxles => allAxles;
         public bool HasAnyWheels => hasAnyWheels;
         public float CurrentSpeed => currentSpeed;
@@ -41,10 +43,14 @@ namespace Frontend.Scripts.Components
         public float AbsoluteInputX => absoluteInputX;
         public float SignedInputY => signedInputY;
 
+
         public void Initialize()
         {
             hasAnyWheels = allAxles.Any() && allAxles.Where(axle => axle.HasAnyWheelPair).Any();
             rig.centerOfMass = com.localPosition;
+
+            allWheels = GetAllWheelsInAllAxles().ToArray();
+            allWheelsAmount = allWheels.Length;
         }
 
         private void Update()
@@ -123,9 +129,12 @@ namespace Frontend.Scripts.Components
 
                         forwardForce = inputY * currentDriveForce;
                         turnForce = wheelVelocityLocal.x * currentDriveForce;
-
-                        rig.AddForceAtPosition((forwardForce * wheel.transform.forward), wheel.HitInfo.Point);
-                        rig.AddForceAtPosition((turnForce * -wheel.transform.right), wheel.HighestSpringPosition);
+                        if(wheel.HitInfo.NormalAndUpAngle < 50)
+                        {
+                            rig.AddForceAtPosition((forwardForce * wheel.transform.forward), wheel.HitInfo.Point);
+                            rig.AddForceAtPosition((turnForce * -wheel.transform.right), wheel.HighestSpringPosition);
+                        }
+                        
                     }
                 }
 
@@ -161,15 +170,11 @@ namespace Frontend.Scripts.Components
 
         private void CustomGravityLogic()
         {
+
             var allGroundedWheels = GetGroundedWheelsInAllAxles();
             if (!allGroundedWheels.Any())
             {
                 rig.AddForce(Physics.gravity, ForceMode.Acceleration);
-                return;
-            }
-
-            if (!allGroundedWheels.Any())
-            {
                 return;
             }
 

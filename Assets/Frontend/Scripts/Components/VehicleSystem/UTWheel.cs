@@ -166,7 +166,17 @@ namespace Frontend.Scripts.Components
 
         private Vector3 GetTirePosition()
         {
-            isGrounded = (localRig.SweepTest(-transform.up, out hitInfo.rayHit, finalTravelLength));
+            if(localRig.SweepTest(-transform.up, out hitInfo.rayHit, finalTravelLength))
+            {
+                hitInfo.CalcAngle();
+                isGrounded = (hitInfo.NormalAndUpAngle < 50);
+            }
+            else
+            {
+                isGrounded = false;
+            }
+
+            
             Vector3 tirePos = transform.position - (transform.up * finalTravelLength);
 
             if (isGrounded)
@@ -193,9 +203,8 @@ namespace Frontend.Scripts.Components
         private float GetSuspensionForce(Vector3 tirePosition)
         {
             float distance = Vector3.Distance(lowestPointTransform.position, tirePosition);
-            float multiplier = compressionRate >= 0.9f ? 2f : 1f;
-            currentSpring = spring * distance * multiplier;
-            float damperForce = damper * multiplier * ((distance - previousSuspensionDistance) / Time.fixedDeltaTime);
+            currentSpring = spring * distance;
+            float damperForce = damper * ((distance - previousSuspensionDistance) / Time.fixedDeltaTime);
             previousSuspensionDistance = distance;
             return currentSpring + damperForce;
         }
@@ -210,10 +219,9 @@ namespace Frontend.Scripts.Components
             }
            
             AssignPrimaryParameters();
-            SetIgnoredColliders();
-
-            
+            SetIgnoredColliders();  
         }
+
         private void OnDrawGizmos()
         {
        
@@ -237,13 +245,13 @@ namespace Frontend.Scripts.Components
 
                         if(highestPointTransform != null)
                         {
-                            Gizmos.color = Color.red;
+                            Gizmos.color = Color.yellow;
                             Gizmos.DrawSphere(highestPointTransform.position, .08f);
                         }
                       
                         if(lowestPointTransform != null)
                         {
-                            Gizmos.color = Color.blue;
+                            Gizmos.color = Color.yellow;
                             Gizmos.DrawSphere(lowestPointTransform.position, .08f);
                         }
                         
@@ -256,13 +264,7 @@ namespace Frontend.Scripts.Components
                         Gizmos.color = Color.blue;
                         Gizmos.DrawSphere(hitInfo.Point, .08f);
                     }
-                    if (debugSettings.DrawForce)
-                    {
-                        var force = (suspensionForce - normalForce * transform.up) / 1000f;
-                        Gizmos.color = Color.yellow;
-                        Gizmos.DrawLine(transform.position, transform.position + force);
-                    }
-
+                   
                     if(debugSettings.DrawWheelDirection)
                     {
                         Handles.color = isGrounded ? Color.green : Color.red;
