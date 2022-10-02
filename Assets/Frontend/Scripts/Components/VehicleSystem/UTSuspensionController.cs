@@ -132,7 +132,7 @@ namespace Frontend.Scripts.Components
 
                     foreach (var wheel in groundedWheels)
                     {
-                        if (wheel.HitInfo.NormalAndUpAngle < gameParameters.MaxWheelDetectionAngle)
+                        if (wheel.HitInfo.NormalAndUpAngle <= gameParameters.MaxWheelDetectionAngle)
                         {
                             wheelVelocityLocal = wheel.transform.InverseTransformDirection(rig.GetPointVelocity(wheel.HighestSpringPosition));
 

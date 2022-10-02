@@ -170,7 +170,7 @@ namespace Frontend.Scripts.Components
             if(localRig.SweepTest(-transform.up, out hitInfo.rayHit, finalTravelLength))
             {
                 hitInfo.CalcAngle();
-                isGrounded = (hitInfo.NormalAndUpAngle < gameParameters.MaxWheelDetectionAngle);
+                isGrounded = (hitInfo.NormalAndUpAngle <= gameParameters.MaxWheelDetectionAngle);
             }
             else
             {
