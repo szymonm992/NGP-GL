@@ -46,8 +46,6 @@ namespace Frontend.Scripts.Components
             DrawSprings = true,
         };
 
-        public bool autogeneratePoints = false;
-
         #region Telemetry/readonly
         private HitInfo hitInfo = new HitInfo();
         private bool isGrounded = false;
@@ -65,6 +63,7 @@ namespace Frontend.Scripts.Components
 
         private float finalTravelLength;
         private float hardPointAbs;
+        private float currentSpring;
 
         #endregion
 
@@ -136,12 +135,11 @@ namespace Frontend.Scripts.Components
 
         private void FixedUpdate()
         {
-         
             Vector3 newPosition = GetTirePosition();
 
             if (compressionRate == 1)
             {
-                AntigravityHelper();
+                GravityDamping();
             }
 
             tirePosition = newPosition;
@@ -158,7 +156,7 @@ namespace Frontend.Scripts.Components
         }
 
 
-        private void AntigravityHelper()
+        private void GravityDamping()
         {
             if (rig.velocity.y < -4f)
             {
@@ -168,7 +166,6 @@ namespace Frontend.Scripts.Components
 
         private Vector3 GetTirePosition()
         {
-           
             isGrounded = (localRig.SweepTest(-transform.up, out hitInfo.rayHit, finalTravelLength));
             Vector3 tirePos = transform.position - (transform.up * finalTravelLength);
 
@@ -195,11 +192,12 @@ namespace Frontend.Scripts.Components
 
         private float GetSuspensionForce(Vector3 tirePosition)
         {
-            float distance = Vector3.Distance(transform.position - transform.up * finalTravelLength, tirePosition);
-            float springForce = spring * distance;
-            float damperForce = damper * ((distance - previousSuspensionDistance) / Time.fixedDeltaTime);
+            float distance = Vector3.Distance(lowestPointTransform.position, tirePosition);
+            float multiplier = compressionRate >= 0.9f ? 2f : 1f;
+            currentSpring = spring * distance * multiplier;
+            float damperForce = damper * multiplier * ((distance - previousSuspensionDistance) / Time.fixedDeltaTime);
             previousSuspensionDistance = distance;
-            return springForce + damperForce;
+            return currentSpring + damperForce;
         }
 
         #if UNITY_EDITOR
