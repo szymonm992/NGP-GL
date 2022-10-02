@@ -1,6 +1,7 @@
 using Frontend.Scripts.Enums;
 using Frontend.Scripts.Interfaces;
 using Frontend.Scripts.Models;
+using Frontend.Scripts.ScriptableObjects;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace Frontend.Scripts.Components
     public class UTWheel : MonoBehaviour
     {
         [Inject] private Rigidbody rig;
+        [Inject] private readonly GameParameters gameParameters;
 
         [Header("Settings")]
         [Range(0.1f, 2f)]
@@ -168,7 +170,7 @@ namespace Frontend.Scripts.Components
             if(localRig.SweepTest(-transform.up, out hitInfo.rayHit, finalTravelLength))
             {
                 hitInfo.CalcAngle();
-                isGrounded = (hitInfo.NormalAndUpAngle < 50);
+                isGrounded = (hitInfo.NormalAndUpAngle < gameParameters.MaxWheelDetectionAngle);
             }
             else
             {

@@ -8,11 +8,14 @@ using Frontend.Scripts.Components;
 using Frontend.Scripts.Signals;
 using Frontend.Scripts.Enums;
 using Frontend.Scripts.Interfaces;
+using Frontend.Scripts.ScriptableObjects;
 
 namespace Frontend.Scripts
 {
     public class GameSceneInstaller : MonoInstaller
     {
+        [SerializeField] private GameParameters gameParameters;
+
         public override void InstallBindings()
         {
             InstallGameStates();
@@ -55,6 +58,7 @@ namespace Frontend.Scripts
             Container.Bind<ConnectionManager>().FromComponentInHierarchy().AsCached();
             Container.BindInterfacesAndSelfTo<UIManager>().FromComponentInHierarchy().AsSingle();
             Container.Bind<FormValidator>().AsSingle();
+            Container.Bind<GameParameters>().FromInstance(gameParameters).AsSingle();
 
         }
     }

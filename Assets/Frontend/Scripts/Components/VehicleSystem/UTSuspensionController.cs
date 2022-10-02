@@ -1,6 +1,7 @@
 using Frontend.Scripts.Enums;
 using Frontend.Scripts.Interfaces;
 using Frontend.Scripts.Models;
+using Frontend.Scripts.ScriptableObjects;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace Frontend.Scripts.Components
     {
         [Inject] private Rigidbody rig;
         [Inject] private readonly UTAxle[] allAxles;
+        [Inject] private readonly GameParameters gameParameters;
 
         [SerializeField] private float maxSlopeAngle = 45f;
         [SerializeField] private Text velocityText;
@@ -130,7 +132,7 @@ namespace Frontend.Scripts.Components
 
                     foreach (var wheel in groundedWheels)
                     {
-                        if (wheel.HitInfo.NormalAndUpAngle < 50)
+                        if (wheel.HitInfo.NormalAndUpAngle < gameParameters.MaxWheelDetectionAngle)
                         {
                             wheelVelocityLocal = wheel.transform.InverseTransformDirection(rig.GetPointVelocity(wheel.HighestSpringPosition));
 
