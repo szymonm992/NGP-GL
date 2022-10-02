@@ -40,7 +40,6 @@ namespace Frontend.Scripts.Components
             DrawGizmos = true,
             DrawOnDisable = false,
             DrawMode = UTDebugMode.All,
-            DrawForce = true,
             DrawWheelDirection = true,
             DrawShapeGizmo = true,
             DrawSprings = true,

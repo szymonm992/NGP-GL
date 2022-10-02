@@ -64,17 +64,20 @@ namespace Frontend.Scripts.Components
 
             signedInputY = Mathf.Sign(inputY);
 
-            velocityText.text = $"{currentSpeed.ToString("F0")}";
+            velocityText.text = $"{currentSpeed:F0}";
         }
 
         private void FixedUpdate()
         {
-            CustomGravityLogic();
+            var allGroundedWheels = GetGroundedWheelsInAllAxles();
+
+            CustomGravityLogic(allGroundedWheels);
             EvaluateDriveParams();
             Accelerate();
-            Brakes();
-            ApplyFrictionForces();
-            currentSpeed = rig.velocity.magnitude * 4f;
+            Brakes(allGroundedWheels);
+            ApplyFrictionForces(allGroundedWheels);
+
+            SetSpeedometr(rig.velocity.magnitude * 4f);
         }
 
         private void EvaluateDriveParams()
@@ -82,11 +85,13 @@ namespace Frontend.Scripts.Components
             currentDriveForce = enginePowerCurve.Evaluate(currentSpeed);
         }
 
-
-        private void ApplyFrictionForces()
+        private void SetSpeedometr(float speed)
         {
-            var allGroundedWheels = GetGroundedWheelsInAllAxles();
+            currentSpeed = speed;
+        }
 
+        private void ApplyFrictionForces(IEnumerable<UTWheel> allGroundedWheels)
+        {
             if(!allGroundedWheels.Any())
             {
                 return;
@@ -107,7 +112,7 @@ namespace Frontend.Scripts.Components
 
         private void Accelerate()
         {
-            if(absoluteInputY == 0)
+            if (absoluteInputY == 0 || isBrake)
             {
                 return;
             }
@@ -125,16 +130,17 @@ namespace Frontend.Scripts.Components
 
                     foreach (var wheel in groundedWheels)
                     {
-                        wheelVelocityLocal = wheel.transform.InverseTransformDirection(rig.GetPointVelocity(wheel.HighestSpringPosition));
-
-                        forwardForce = inputY * currentDriveForce;
-                        turnForce = wheelVelocityLocal.x * currentDriveForce;
-                        if(wheel.HitInfo.NormalAndUpAngle < 50)
+                        if (wheel.HitInfo.NormalAndUpAngle < 50)
                         {
+                            wheelVelocityLocal = wheel.transform.InverseTransformDirection(rig.GetPointVelocity(wheel.HighestSpringPosition));
+
+                            forwardForce = inputY * currentDriveForce;
+                            turnForce = wheelVelocityLocal.x * currentDriveForce;
+
                             rig.AddForceAtPosition((forwardForce * wheel.transform.forward), wheel.HitInfo.Point);
                             rig.AddForceAtPosition((turnForce * -wheel.transform.right), wheel.HighestSpringPosition);
                         }
-                        
+
                     }
                 }
 
@@ -142,18 +148,17 @@ namespace Frontend.Scripts.Components
         }
 
 
-        private void Brakes()
+        private void Brakes(IEnumerable<UTWheel> allGroundedWheels)
         {
-            currentLongitudalGrip = isBrake ? 1f : (absoluteInputY > 0 ? 0 : 0.5f);
-           if(absoluteInputY == 0 || isBrake)
+            if (!allGroundedWheels.Any())
             {
-                var allGroundedWheels = GetGroundedWheelsInAllAxles();
+                return;
+            }
 
-                if (!allGroundedWheels.Any())
-                {
-                    return;
-                }
+            currentLongitudalGrip = isBrake ? 1f : (absoluteInputY > 0 ? 0 : 0.5f);
 
+            if (absoluteInputY == 0 || isBrake)
+            {
                 foreach (var wheel in allGroundedWheels)
                 {
                     Vector3 forwardDir = wheel.transform.forward;
@@ -168,10 +173,8 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        private void CustomGravityLogic()
+        private void CustomGravityLogic(IEnumerable<UTWheel> allGroundedWheels)
         {
-
-            var allGroundedWheels = GetGroundedWheelsInAllAxles();
             if (!allGroundedWheels.Any())
             {
                 rig.AddForce(Physics.gravity, ForceMode.Acceleration);

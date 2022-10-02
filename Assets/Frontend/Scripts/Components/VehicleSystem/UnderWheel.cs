@@ -18,7 +18,6 @@ namespace Frontend.Scripts.Components
             DrawGizmos = true,
             DrawOnDisable = false,
             DrawMode = UTDebugMode.All,
-            DrawForce = true
         };
 
         [Header("Settings")]
@@ -256,12 +255,12 @@ namespace Frontend.Scripts.Components
                     //Handles.DrawWireArc(upper, transform.right, -transform.forward, 180, wheelRadius);
              
                   
-                    if (debugSettings.DrawForce)
-                    {
-                        var force = (finalForce - normalForce * transform.up) / 1000f;
-                        Gizmos.color = Color.blue;
-                        Gizmos.DrawLine(transform.position, transform.position + force);
-                    }
+                    //if (debugSettings.DrawForce)
+                   // {
+                     //   var force = (finalForce - normalForce * transform.up) / 1000f;
+                      //  Gizmos.color = Color.blue;
+                      //  Gizmos.DrawLine(transform.position, transform.position + force);
+                  //  }
 
                     Gizmos.color = isGrounded ? Color.green : Color.red;
                     Gizmos.DrawSphere(position, .03f);

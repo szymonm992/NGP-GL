@@ -38,7 +38,6 @@ namespace Frontend.Scripts.Components
 			DrawGizmos = true,
 			DrawOnDisable = false,
 			DrawMode = UTDebugMode.All,
-			DrawForce = true
 		};
 
 		public SpringInfo SpringInfo => springInfo;
@@ -92,11 +91,11 @@ namespace Frontend.Scripts.Components
 			{
 				hitInfo.forwardDir = Vector3.Normalize(Vector3.Cross(hitInfo.Normal, -transform.right));
 				hitInfo.sidewaysDir = Quaternion.AngleAxis(90f, hitInfo.Normal) * hitInfo.forwardDir;
-				if(debugSettings.DrawForce)
-                {
-					Debug.DrawRay(hitInfo.Point, hitInfo.forwardDir, Color.blue);
-					Debug.DrawRay(hitInfo.Point, hitInfo.sidewaysDir, Color.magenta);
-				}
+				//if(debugSettings.DrawForce)
+                //{
+					//Debug.DrawRay(hitInfo.Point, hitInfo.forwardDir, Color.blue);
+					//Debug.DrawRay(hitInfo.Point, hitInfo.sidewaysDir, Color.magenta);
+				//}
 				springAndCenterDistance = hitInfo.Distance;
 			}
 			else

@@ -20,10 +20,18 @@ namespace Frontend.Scripts
         private float steerInput;
         private float currentTurnRadius;
 
-        private void Update()
+        void Update()
         {
-            steerInput = Input.GetAxis("Horizontal");
+            SetSteeringInput(Input.GetAxis("Horizontal"));
+        }
 
+        public void SetSteeringInput(float input)
+        {
+            steerInput = input;
+        }
+
+        private void FixedUpdate()
+        {
             currentTurnRadius = turnRadiusCurve.Evaluate(suspensionController.CurrentSpeed);
 
             if (steerInput > 0)

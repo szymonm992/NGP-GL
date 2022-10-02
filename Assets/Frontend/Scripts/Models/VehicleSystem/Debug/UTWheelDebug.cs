@@ -16,9 +16,6 @@ namespace Frontend.Scripts.Models
         [SerializeField] private bool drawSprings;
         [SerializeField] private UTDebugMode drawMode;
 
-        [Header("Force")]
-        [SerializeField] private bool drawForce;
-
         public UTDebugMode DrawMode
         {
             get => drawMode;
@@ -42,15 +39,6 @@ namespace Frontend.Scripts.Models
             set
             {
                 this.drawOnDisable = value;
-            }
-        }
-
-        public bool DrawForce
-        {
-            get => drawForce;
-            set
-            {
-                this.drawForce = value;
             }
         }
 
