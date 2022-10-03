@@ -88,6 +88,9 @@ namespace Frontend.Scripts.Components
 
         public void Initialize()
         {
+            localRig = GetComponent<Rigidbody>();
+            localCollider = GetComponent<MeshCollider>();
+
             AssignPrimaryParameters();
             SetIgnoredColliders();
         }
@@ -217,13 +220,18 @@ namespace Frontend.Scripts.Components
         #region DEBUG
         private void OnValidate()
         {
-            rig = transform.GetComponentInParent<Rigidbody>();
+            if (rig == null)
+            {
+                rig = transform.GetComponentInParent<Rigidbody>();
+            }
+
             localRig = GetComponent<Rigidbody>();
             localCollider = GetComponent<MeshCollider>();
-            
+
             AssignPrimaryParameters();
-            SetIgnoredColliders();  
+            SetIgnoredColliders();
         }
+
 
         private void OnDrawGizmos()
         {
