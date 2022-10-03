@@ -12,7 +12,7 @@ namespace Frontend.Scripts.Components
 {
     public class UTAxle : MonoBehaviour, IInitializable
     {
-        [Inject] private readonly Rigidbody rig;
+        [Inject(Id = "mainRig")] private readonly Rigidbody rig;
         [Inject] private readonly IVehicleController controller;
 
         [SerializeField] private UTAxlePair[] wheelPairs;

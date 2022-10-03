@@ -14,7 +14,7 @@ namespace Frontend.Scripts.Components
 {
     public class UTSuspensionController : MonoBehaviour, IVehicleController
     {
-        [Inject] private Rigidbody rig;
+        [Inject(Id = "mainRig")] private Rigidbody rig;
         [Inject] private readonly UTAxle[] allAxles;
         [Inject] private readonly GameParameters gameParameters;
 

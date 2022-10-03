@@ -12,11 +12,11 @@ using Zenject;
 
 namespace Frontend.Scripts.Components
 {
-    public class UTWheel : MonoBehaviour
+    public class UTWheel : MonoBehaviour, IInitializable
     {
-        [Inject] private Rigidbody rig;
         [Inject] private readonly GameParameters gameParameters;
-
+        [Inject(Id = "mainRig")] private Rigidbody rig;
+        
         [Header("Settings")]
         [Range(0.1f, 2f)]
         [SerializeField] private float suspensionTravel = 1f;
@@ -30,8 +30,8 @@ namespace Frontend.Scripts.Components
         [Range(-1f, 0)]
         [SerializeField] private float hardPointOfTire = -.2f;
         [SerializeField] private LayerMask layerMask;
-        [SerializeField] private Rigidbody localRig;
-        [SerializeField] private MeshCollider myCollider;
+
+        
 
         [SerializeField] private Transform highestPointTransform;
         [SerializeField] private Transform lowestPointTransform;
@@ -58,13 +58,16 @@ namespace Frontend.Scripts.Components
         private float steerAngle = 0f;
         private float wheelAngle = 0f;
         private float absGravity;
-        private Vector3 suspensionForce;
-        private Vector3 tirePosition;
-
 
         private float finalTravelLength;
         private float hardPointAbs;
         private float currentSpring;
+
+        private Vector3 suspensionForce;
+        private Vector3 tirePosition;
+
+        private Rigidbody localRig;
+        private MeshCollider localCollider;
 
         #endregion
 
@@ -83,7 +86,7 @@ namespace Frontend.Scripts.Components
             set => this.steerAngle = value;
         }
 
-        private void Awake()
+        public void Initialize()
         {
             AssignPrimaryParameters();
             SetIgnoredColliders();
@@ -117,9 +120,9 @@ namespace Frontend.Scripts.Components
         {
             var allColliders = transform.root.GetComponentsInChildren<Collider>();
 
-            if (allColliders.Any() && myCollider)
+            if (allColliders.Any() && localCollider)
             {
-                allColliders.ForEach(collider => Physics.IgnoreCollision(myCollider, collider, true));
+                allColliders.ForEach(collider => Physics.IgnoreCollision(localCollider, collider, true));
             }
         }
 
@@ -214,11 +217,10 @@ namespace Frontend.Scripts.Components
         #region DEBUG
         private void OnValidate()
         {
-            if (!rig)
-            {
-                rig = transform.GetComponentInParent<Rigidbody>();
-            }
-           
+            rig = transform.GetComponentInParent<Rigidbody>();
+            localRig = GetComponent<Rigidbody>();
+            localCollider = GetComponent<MeshCollider>();
+            
             AssignPrimaryParameters();
             SetIgnoredColliders();  
         }
@@ -279,7 +281,7 @@ namespace Frontend.Scripts.Components
                         Gizmos.color = isGrounded ? Color.green : Color.red;
                         //Gizmos.DrawWireSphere(tirePosition, wheelRadius);
 
-                        Gizmos.DrawWireMesh(myCollider.sharedMesh, tirePosition, transform.rotation, transform.lossyScale);
+                        Gizmos.DrawWireMesh(localCollider.sharedMesh, tirePosition, transform.rotation, transform.lossyScale);
                     }
                 }
             }
