@@ -161,7 +161,7 @@ namespace Frontend.Scripts.Components
         {
             if (rig.velocity.y < -4f)
             {
-                rig.AddForce(Vector3.up * Mathf.Min(-rig.velocity.y, 7f), ForceMode.VelocityChange);
+                rig.AddForce(Vector3.up * Mathf.Min(-rig.velocity.y, 5f), ForceMode.VelocityChange);
             }
         }
 
@@ -184,7 +184,7 @@ namespace Frontend.Scripts.Components
             {
                 tirePos = transform.position - (transform.up * hitInfo.Distance);
                 extension = Vector3.Distance(highestPointTransform.position, tirePos) / suspensionTravel;
-                if ((highestPointTransform.position - transform.position).sqrMagnitude < (tirePosition - transform.position).sqrMagnitude)
+                if (hardPointAbs < (tirePosition - transform.position).sqrMagnitude)
                 {
                     compressionRate = 1 - extension;
                 }

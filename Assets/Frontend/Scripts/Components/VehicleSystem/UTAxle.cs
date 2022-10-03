@@ -74,9 +74,9 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
-            if(!wheelPairs.Any())
+            if (!wheelPairs.Any())
             {
                 return;
             }
@@ -87,6 +87,17 @@ namespace Frontend.Scripts.Components
                 {
                     RepositionTireModel(pair);
                 }
+            }
+        }
+        private void FixedUpdate()
+        {
+            if (!wheelPairs.Any())
+            {
+                return;
+            }
+
+            foreach (var pair in wheelPairs)
+            {
                 if(applyAntiroll)
                 {
                     CalculateAndApplyAntiroll();

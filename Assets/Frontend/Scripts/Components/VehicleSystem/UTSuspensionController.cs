@@ -177,12 +177,40 @@ namespace Frontend.Scripts.Components
 
         private void CustomGravityLogic(IEnumerable<UTWheel> allGroundedWheels)
         {
+            int cnt = allGroundedWheels.Count();
             if (!allGroundedWheels.Any())
             {
                 rig.AddForce(Physics.gravity, ForceMode.Acceleration);
-                return;
+            }
+            else if(allWheelsAmount == cnt)
+            {
+                float angle = Vector3.Angle(transform.up, -Physics.gravity.normalized);
+
+                if (maxSlopeAngle >= angle)
+                {
+                    rig.AddForce(-transform.up * Physics.gravity.magnitude, ForceMode.Acceleration);
+             
+                }
+                else
+                {
+                    rig.AddForce(Physics.gravity, ForceMode.Acceleration);
+                }
+            }
+            else
+            {
+                var notGroundedAmount = (allWheelsAmount - cnt);
+                foreach (var wheel in allWheels)
+                {
+                    if(!wheel.IsGrounded)
+                    {
+                        rig.AddForceAtPosition((Physics.gravity / notGroundedAmount), wheel.HighestSpringPosition, ForceMode.Acceleration);
+                    }
+                }
             }
 
+            
+
+            /*
             float angle = Vector3.Angle(transform.up, -Physics.gravity.normalized);
 
             if (maxSlopeAngle >= angle)
@@ -190,7 +218,7 @@ namespace Frontend.Scripts.Components
                 rig.AddForce(-transform.up * Physics.gravity.magnitude, ForceMode.Acceleration);
                 return;
             }
-            rig.AddForce(Physics.gravity, ForceMode.Acceleration);
+            rig.AddForce(Physics.gravity, ForceMode.Acceleration);*/
 
         }
 
