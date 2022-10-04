@@ -879,8 +879,6 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  localRig: {fileID: 8934679988819076714}
-  myCollider: {fileID: 8934679988819076713}
   highestPointTransform: {fileID: 8934679990059881288}
   lowestPointTransform: {fileID: 8934679989482730007}
   debugSettings:
@@ -1540,8 +1538,6 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  localRig: {fileID: 8934679988675189093}
-  myCollider: {fileID: 8934679988675189092}
   highestPointTransform: {fileID: 8934679988980580422}
   lowestPointTransform: {fileID: 8934679989851584150}
   debugSettings:
@@ -1710,6 +1706,7 @@ GameObject:
   - component: {fileID: 7623138870644961510}
   - component: {fileID: 7623138870644961504}
   - component: {fileID: 7623138870644961511}
+  - component: {fileID: 2744680102518620669}
   m_Layer: 0
   m_Name: BUGGY_UTWHEEL
   m_TagString: Untagged
@@ -1966,7 +1963,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _components:
-  - {fileID: 7623138870644961535}
   - {fileID: 7623138870644961508}
   - {fileID: 7623138870644961511}
   _identifier: 
@@ -2029,6 +2025,24 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2744680102518620669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7623138870644961530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0166d8ff8d905b048b2448179e1f5d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _components:
+  - {fileID: 7623138870644961535}
+  _identifier: mainRig
+  _useSceneContext: 0
+  _context: {fileID: 0}
+  _bindType: 2
 --- !u!1 &7623138870716910070
 GameObject:
   m_ObjectHideFlags: 0
@@ -2089,8 +2103,6 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  localRig: {fileID: 8934679989248492456}
-  myCollider: {fileID: 8934679989248492455}
   highestPointTransform: {fileID: 8934679990190195507}
   lowestPointTransform: {fileID: 8934679988532413156}
   debugSettings:
@@ -2241,8 +2253,6 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  localRig: {fileID: 8934679989727766163}
-  myCollider: {fileID: 8934679989727766162}
   highestPointTransform: {fileID: 8934679989103578857}
   lowestPointTransform: {fileID: 8934679988308988920}
   debugSettings:
