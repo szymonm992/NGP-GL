@@ -38,6 +38,7 @@ namespace Frontend.Scripts.Components
         private Vector3 wheelVelocityLocal;
         private int allWheelsAmount=0;
 
+        private IEnumerable<UTWheel> allGroundedWheels;
         private UTWheel[] allWheels;
         public UTAxle[] AllAxles => allAxles;
         public bool HasAnyWheels => hasAnyWheels;
@@ -72,14 +73,14 @@ namespace Frontend.Scripts.Components
 
         private void FixedUpdate()
         {
-            var allGroundedWheels = GetGroundedWheelsInAllAxles();
+            allGroundedWheels = GetGroundedWheelsInAllAxles();
 
-            CustomGravityLogic(allGroundedWheels);
+            CustomGravityLogic();
             EvaluateDriveParams();
             Accelerate();
-            Brakes(allGroundedWheels);
-            ApplyFrictionForces(allGroundedWheels);
-            AirControl(allGroundedWheels);
+            Brakes();
+            ApplyFrictionForces();
+            AirControl();
 
             SetSpeedometr(rig.velocity.magnitude * 4f);
         }
@@ -94,7 +95,7 @@ namespace Frontend.Scripts.Components
             currentSpeed = speed;
         }
 
-        private void ApplyFrictionForces(IEnumerable<UTWheel> allGroundedWheels)
+        private void ApplyFrictionForces()
         {
             if(!allGroundedWheels.Any())
             {
@@ -150,7 +151,7 @@ namespace Frontend.Scripts.Components
         }
 
 
-        private void Brakes(IEnumerable<UTWheel> allGroundedWheels)
+        private void Brakes()
         {
             if (!allGroundedWheels.Any())
             {
@@ -175,14 +176,14 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        private void CustomGravityLogic(IEnumerable<UTWheel> allGroundedWheels)
+        private void CustomGravityLogic()
         {
-            int cnt = allGroundedWheels.Count();
+            int groundedWheelsAmount = allGroundedWheels.Count();
             if (!allGroundedWheels.Any())
             {
                 rig.AddForce(Physics.gravity, ForceMode.Acceleration);
             }
-            else if(allGroundedWheels.Any() && allWheelsAmount == cnt)
+            else if(allWheelsAmount == groundedWheelsAmount)
             {
                 float angle = Vector3.Angle(transform.up, -Physics.gravity.normalized);
 
@@ -198,7 +199,7 @@ namespace Frontend.Scripts.Components
             }
             else
             {
-                var notGroundedAmount = (allWheelsAmount - cnt);
+                var notGroundedAmount = (allWheelsAmount - groundedWheelsAmount);
                 foreach (var wheel in allWheels)
                 {
                     if(!wheel.IsGrounded)
@@ -209,14 +210,14 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        private void AirControl(IEnumerable<UTWheel> groundedWheels)
+        private void AirControl()
         {
             if(!airControl)
             {
                 return;
             }
 
-            if(!groundedWheels.Any())
+            if(!allGroundedWheels.Any())
             {
                 float angle = transform.eulerAngles.x;
                 angle = (angle > 180) ? angle - 360 : angle;
