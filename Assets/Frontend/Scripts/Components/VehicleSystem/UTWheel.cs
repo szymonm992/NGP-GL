@@ -19,19 +19,19 @@ namespace Frontend.Scripts.Components
 
         [Header("Settings")]
         [Range(0.1f, 2f)]
-        [SerializeField] private float suspensionTravel = 1f;
-        [SerializeField] private float wheelRadius = 0.35f;
-        [SerializeField] private float tireMass = 20f;
+        [SerializeField] private float suspensionTravel = 0.5f;
+        [SerializeField] private float wheelRadius = 0.7f;
+        [SerializeField] private float tireMass = 60f;
         [Range(0, 1f)]
         [SerializeField] private float forwardTireGripFactor = 1f, sidewaysTireGripFactor = 1f;
 
         [SerializeField] private float spring = 20000f;
-        [SerializeField] private float damper = 2000f;
+        [SerializeField] private float damper = 3000f;
         [Range(-1f, 0)]
-        [SerializeField] private float hardPointOfTire = -.2f;
+        [SerializeField] private float hardPointOfTire = -0.7f;
         [SerializeField] private LayerMask layerMask;
-        [SerializeField] private Transform highestPointTransform;
-        [SerializeField] private Transform lowestPointTransform;
+        [SerializeField] private Transform upperConstraintTransform;
+        [SerializeField] private Transform lowerConstraintTransform;
 
 
         [SerializeField]
@@ -76,7 +76,7 @@ namespace Frontend.Scripts.Components
         public float CompressionRate => compressionRate;
         public float HardPointAbs => hardPointAbs;
         public Vector3 TireWorldPosition => tirePosition;
-        public Vector3 HighestSpringPosition => highestPointTransform.position;
+        public Vector3 UpperConstraintPoint => upperConstraintTransform.position;
         public float SteerAngle
         {
             get => wheelAngle;
@@ -103,16 +103,16 @@ namespace Frontend.Scripts.Components
             hardPointAbs = Mathf.Abs(hardPointOfTire);
             finalTravelLength = suspensionTravel + hardPointAbs;
 
-            if (highestPointTransform != null)
+            if (upperConstraintTransform != null)
             {
                 Vector3 highestPoint = transform.position + transform.up * hardPointOfTire;
-                highestPointTransform.position = highestPoint;
+                upperConstraintTransform.position = highestPoint;
             }
 
-            if (lowestPointTransform != null)
+            if (lowerConstraintTransform != null)
             {
                 Vector3 lowestPoint = transform.position + transform.up * -finalTravelLength;
-                lowestPointTransform.position = lowestPoint;
+                lowerConstraintTransform.position = lowestPoint;
             }
         }
 
@@ -185,7 +185,7 @@ namespace Frontend.Scripts.Components
             if (isGrounded)
             {
                 tirePos = transform.position - (transform.up * hitInfo.Distance);
-                extension = Vector3.Distance(highestPointTransform.position, tirePos) / suspensionTravel;
+                extension = Vector3.Distance(upperConstraintTransform.position, tirePos) / suspensionTravel;
                 if (hardPointAbs < (tirePosition - transform.position).sqrMagnitude)
                 {
                     compressionRate = 1 - extension;
@@ -205,7 +205,7 @@ namespace Frontend.Scripts.Components
 
         private float GetSuspensionForce(Vector3 tirePosition)
         {
-            float distance = Vector3.Distance(lowestPointTransform.position, tirePosition);
+            float distance = Vector3.Distance(lowerConstraintTransform.position, tirePosition);
             float springForce = spring * distance;
             float damperForce = damper * ((distance - previousSuspensionDistance) / Time.fixedDeltaTime);
             previousSuspensionDistance = distance;
@@ -249,19 +249,19 @@ namespace Frontend.Scripts.Components
                         Handles.DrawDottedLine(transform.position, tirePosition, 1.1f);
 
 
-                        if (highestPointTransform != null)
+                        if (upperConstraintTransform != null)
                         {
                             Handles.color = Color.white;
                             //Gizmos.color = Color.yellow;
-                            Handles.DrawLine(highestPointTransform.position + transform.forward * 0.1f, highestPointTransform.position - transform.forward * 0.1f, 2f);
+                            Handles.DrawLine(upperConstraintTransform.position + transform.forward * 0.1f, upperConstraintTransform.position - transform.forward * 0.1f, 2f);
                             //Gizmos.DrawSphere(highestPointTransform.position, .08f);
                         }
 
-                        if (lowestPointTransform != null)
+                        if (lowerConstraintTransform != null)
                         {
                             Handles.color = Color.white;
                             //Gizmos.color = Color.yellow;
-                            Handles.DrawLine(lowestPointTransform.position + transform.forward * 0.1f, lowestPointTransform.position - transform.forward * 0.1f, 2f);
+                            Handles.DrawLine(lowerConstraintTransform.position + transform.forward * 0.1f, lowerConstraintTransform.position - transform.forward * 0.1f, 2f);
 
                             //Gizmos.DrawSphere(lowestPointTransform.position, .08f);
                         }

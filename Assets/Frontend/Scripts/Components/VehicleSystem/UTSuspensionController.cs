@@ -137,13 +137,13 @@ namespace Frontend.Scripts.Components
                     {
                         if (wheel.HitInfo.NormalAndUpAngle <= gameParameters.MaxWheelDetectionAngle)
                         {
-                            wheelVelocityLocal = wheel.transform.InverseTransformDirection(rig.GetPointVelocity(wheel.HighestSpringPosition));
+                            wheelVelocityLocal = wheel.transform.InverseTransformDirection(rig.GetPointVelocity(wheel.UpperConstraintPoint));
 
                             forwardForce = inputY * currentDriveForce;
                             turnForce = wheelVelocityLocal.x * currentDriveForce;
 
                             rig.AddForceAtPosition((forwardForce * wheel.transform.forward), wheel.HitInfo.Point);
-                            rig.AddForceAtPosition((turnForce * -wheel.transform.right), wheel.HighestSpringPosition);
+                            rig.AddForceAtPosition((turnForce * -wheel.transform.right), wheel.UpperConstraintPoint);
                         }
                     }
                 }
@@ -165,13 +165,13 @@ namespace Frontend.Scripts.Components
                 foreach (var wheel in allGroundedWheels)
                 {
                     Vector3 forwardDir = wheel.transform.forward;
-                    Vector3 tireVel = rig.GetPointVelocity(wheel.HighestSpringPosition);
+                    Vector3 tireVel = rig.GetPointVelocity(wheel.UpperConstraintPoint);
 
                     float steeringVel = Vector3.Dot(forwardDir, tireVel);
                     float desiredVelChange = -steeringVel * currentLongitudalGrip;
                     float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
 
-                    rig.AddForceAtPosition(desiredAccel * wheel.TireMass * forwardDir, wheel.HighestSpringPosition);
+                    rig.AddForceAtPosition(desiredAccel * wheel.TireMass * forwardDir, wheel.UpperConstraintPoint);
                 }
             }
         }
@@ -183,7 +183,7 @@ namespace Frontend.Scripts.Components
             {
                 rig.AddForce(Physics.gravity, ForceMode.Acceleration);
             }
-            else if(allWheelsAmount == groundedWheelsAmount)
+            else if (allWheelsAmount == groundedWheelsAmount)
             {
                 float angle = Vector3.Angle(transform.up, -Physics.gravity.normalized);
 
@@ -202,9 +202,9 @@ namespace Frontend.Scripts.Components
                 var notGroundedAmount = (allWheelsAmount - groundedWheelsAmount);
                 foreach (var wheel in allWheels)
                 {
-                    if(!wheel.IsGrounded)
+                    if (!wheel.IsGrounded)
                     {
-                        rig.AddForceAtPosition((Physics.gravity / notGroundedAmount), wheel.HighestSpringPosition, ForceMode.Acceleration);
+                        rig.AddForceAtPosition((Physics.gravity / notGroundedAmount), wheel.UpperConstraintPoint, ForceMode.Acceleration);
                     }
                 }
             }
@@ -212,20 +212,19 @@ namespace Frontend.Scripts.Components
 
         private void AirControl()
         {
-            if(!airControl)
+            if (!airControl)
             {
                 return;
             }
 
-            if(!allGroundedWheels.Any())
+            if (!allGroundedWheels.Any())
             {
                 float angle = transform.eulerAngles.x;
                 angle = (angle > 180) ? angle - 360 : angle;
 
                 if (Mathf.Abs(angle) > gameParameters.AirControlAngleThreshold)
                 {
-                    float multiplier = -Mathf.Sign(angle);
-                    rig.AddTorque(transform.right * (gameParameters.AirControlForce * multiplier), ForceMode.Acceleration);
+                    rig.AddTorque(transform.right * (gameParameters.AirControlForce * -Mathf.Sign(angle)), ForceMode.Acceleration);
                 }
             }
         }

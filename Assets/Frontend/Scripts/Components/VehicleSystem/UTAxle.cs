@@ -111,13 +111,13 @@ namespace Frontend.Scripts.Components
             if (leftAntirolled.IsGrounded)
             {
                 rig.AddForceAtPosition(leftAntirolled.transform.up * antiRollFinalForce,
-                          leftAntirolled.HighestSpringPosition);
+                          leftAntirolled.UpperConstraintPoint);
             }
             
             if(rightAntirolled.IsGrounded)
             {
                 rig.AddForceAtPosition(rightAntirolled.transform.up * -antiRollFinalForce,
-                 rightAntirolled.HighestSpringPosition);
+                 rightAntirolled.UpperConstraintPoint);
             }
            
         }
