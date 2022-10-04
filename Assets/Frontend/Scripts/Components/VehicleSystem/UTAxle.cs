@@ -96,12 +96,9 @@ namespace Frontend.Scripts.Components
                 return;
             }
 
-            foreach (var pair in wheelPairs)
+            if (applyAntiroll)
             {
-                if(applyAntiroll)
-                {
-                    CalculateAndApplyAntiroll();
-                }
+                CalculateAndApplyAntiroll();
             }
         }
 
