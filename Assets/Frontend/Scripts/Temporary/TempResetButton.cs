@@ -1,21 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-namespace Frontend.Scripts
+namespace Frontend.Scripts.Temporary
 {
     public class TempResetButton : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
+        public void RestartLevel()
         {
-        
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
