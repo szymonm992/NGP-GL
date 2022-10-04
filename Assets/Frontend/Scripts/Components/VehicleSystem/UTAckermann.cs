@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-namespace Frontend.Scripts
+namespace Frontend.Scripts.Components
 {
     public class UTAckermann : MonoBehaviour, IVehicleSteering
     {

@@ -24,6 +24,7 @@ namespace Frontend.Scripts.Components
         [SerializeField] private AnimationCurve comSteeringCurve;
         [SerializeField] private AnimationCurve angleBasedComSteeringCurve;
         [SerializeField] private AnimationCurve enginePowerCurve;
+        [SerializeField] private bool airControl = true;
 
         private bool isBrake;
         private bool hasAnyWheels;
@@ -78,6 +79,7 @@ namespace Frontend.Scripts.Components
             Accelerate();
             Brakes(allGroundedWheels);
             ApplyFrictionForces(allGroundedWheels);
+            AirControl(allGroundedWheels);
 
             SetSpeedometr(rig.velocity.magnitude * 4f);
         }
@@ -207,19 +209,26 @@ namespace Frontend.Scripts.Components
                     }
                 }
             }
+        }
 
-            
-
-            /*
-            float angle = Vector3.Angle(transform.up, -Physics.gravity.normalized);
-
-            if (maxSlopeAngle >= angle)
+        private void AirControl(IEnumerable<UTWheel> groundedWheels)
+        {
+            if(!airControl)
             {
-                rig.AddForce(-transform.up * Physics.gravity.magnitude, ForceMode.Acceleration);
                 return;
             }
-            rig.AddForce(Physics.gravity, ForceMode.Acceleration);*/
 
+            if(!groundedWheels.Any())
+            {
+                float angle = transform.eulerAngles.x;
+                angle = (angle > 180) ? angle - 360 : angle;
+
+                if (Mathf.Abs(angle) > gameParameters.AirControlAngleThreshold)
+                {
+                    float multiplier = -Mathf.Sign(angle);
+                    rig.AddTorque(transform.right * (7f * multiplier), ForceMode.Acceleration);
+                }
+            }
         }
 
         private IEnumerable<UTWheel> GetGroundedWheelsInAllAxles()

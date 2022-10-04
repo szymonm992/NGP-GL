@@ -16,7 +16,7 @@ namespace Frontend.Scripts.Components
     {
         [Inject] private readonly GameParameters gameParameters;
         [Inject(Id = "mainRig")] private Rigidbody rig;
-        
+
         [Header("Settings")]
         [Range(0.1f, 2f)]
         [SerializeField] private float suspensionTravel = 1f;
@@ -55,11 +55,10 @@ namespace Frontend.Scripts.Components
         private float compressionRate = 0f;
         private float steerAngle = 0f;
         private float wheelAngle = 0f;
-        private float absGravity;
 
+        private float absGravity;
         private float finalTravelLength;
         private float hardPointAbs;
-        private float currentSpring;
 
         private Vector3 suspensionForce;
         private Vector3 tirePosition;
@@ -129,7 +128,7 @@ namespace Frontend.Scripts.Components
 
         private void Update()
         {
-            if(wheelAngle != steerAngle)
+            if (wheelAngle != steerAngle)
             {
                 wheelAngle = Mathf.Lerp(wheelAngle, steerAngle, Time.deltaTime * 8f);
                 transform.localRotation = Quaternion.Euler(transform.localRotation.x,
@@ -148,7 +147,7 @@ namespace Frontend.Scripts.Components
             }
 
             tirePosition = newPosition;
-            
+
             normalForce = GetSuspensionForce(tirePosition) + tireMass * absGravity;
             suspensionForce = normalForce * transform.up;
 
@@ -171,7 +170,7 @@ namespace Frontend.Scripts.Components
 
         private Vector3 GetTirePosition()
         {
-            if(localRig.SweepTest(-transform.up, out hitInfo.rayHit, finalTravelLength))
+            if (localRig.SweepTest(-transform.up, out hitInfo.rayHit, finalTravelLength))
             {
                 hitInfo.CalcAngle();
                 isGrounded = (hitInfo.NormalAndUpAngle <= gameParameters.MaxWheelDetectionAngle);
@@ -181,7 +180,6 @@ namespace Frontend.Scripts.Components
                 isGrounded = false;
             }
 
-            
             Vector3 tirePos = transform.position - (transform.up * finalTravelLength);
 
             if (isGrounded)
@@ -208,10 +206,10 @@ namespace Frontend.Scripts.Components
         private float GetSuspensionForce(Vector3 tirePosition)
         {
             float distance = Vector3.Distance(lowestPointTransform.position, tirePosition);
-            currentSpring = spring * distance;
+            float springForce = spring * distance;
             float damperForce = damper * ((distance - previousSuspensionDistance) / Time.fixedDeltaTime);
             previousSuspensionDistance = distance;
-            return currentSpring + damperForce;
+            return springForce + damperForce;
         }
 
         #if UNITY_EDITOR
@@ -232,7 +230,7 @@ namespace Frontend.Scripts.Components
 
         private void OnDrawGizmos()
         {
-       
+
             bool drawCurrently = (debugSettings.DrawGizmos) && (debugSettings.DrawMode == UTDebugMode.All)
                 || (debugSettings.DrawMode == UTDebugMode.EditorOnly && !Application.isPlaying)
                 || (debugSettings.DrawMode == UTDebugMode.PlaymodeOnly && Application.isPlaying);
@@ -241,54 +239,54 @@ namespace Frontend.Scripts.Components
             {
                 if (rig != null)
                 {
-                    if(!Application.isPlaying)
+                    if (!Application.isPlaying)
                     {
                         tirePosition = GetTirePosition();
                     }
 
-                    if(debugSettings.DrawSprings)
+                    if (debugSettings.DrawSprings)
                     {
                         Handles.DrawDottedLine(transform.position, tirePosition, 1.1f);
-                       
 
-                        if(highestPointTransform != null)
+
+                        if (highestPointTransform != null)
                         {
                             Handles.color = Color.white;
                             //Gizmos.color = Color.yellow;
                             Handles.DrawLine(highestPointTransform.position + transform.forward * 0.1f, highestPointTransform.position - transform.forward * 0.1f, 2f);
                             //Gizmos.DrawSphere(highestPointTransform.position, .08f);
                         }
-                      
-                        if(lowestPointTransform != null)
+
+                        if (lowestPointTransform != null)
                         {
                             Handles.color = Color.white;
-                           //Gizmos.color = Color.yellow;
-                           Handles.DrawLine(lowestPointTransform.position + transform.forward * 0.1f, lowestPointTransform.position - transform.forward * 0.1f, 2f);
-                            
+                            //Gizmos.color = Color.yellow;
+                            Handles.DrawLine(lowestPointTransform.position + transform.forward * 0.1f, lowestPointTransform.position - transform.forward * 0.1f, 2f);
+
                             //Gizmos.DrawSphere(lowestPointTransform.position, .08f);
                         }
-                        
+
                         Handles.color = Color.white;
                         //Gizmos.DrawSphere(tirePosition, .08f);
-                        Handles.DrawLine(tirePosition + transform.forward * 0.05f, tirePosition - transform.forward * 0.05f, 3f);
-                        
+                        Handles.DrawLine(tirePosition + transform.forward * 0.05f, tirePosition - transform.forward * 0.05f, 4f);
+
                     }
-                    
+
                     if (isGrounded)
                     {
                         Gizmos.color = Color.blue;
                         Gizmos.DrawSphere(hitInfo.Point, .08f);
                     }
-                   
-                    if(debugSettings.DrawWheelDirection)
+
+                    if (debugSettings.DrawWheelDirection)
                     {
                         Handles.color = isGrounded ? Color.green : Color.red;
                         Handles.DrawLine(tirePosition, tirePosition + transform.forward, 2f);
                     }
 
-                    
 
-                    if(debugSettings.DrawShapeGizmo)
+
+                    if (debugSettings.DrawShapeGizmo)
                     {
                         Gizmos.color = isGrounded ? Color.green : Color.red;
                         //Gizmos.DrawWireSphere(tirePosition, wheelRadius);

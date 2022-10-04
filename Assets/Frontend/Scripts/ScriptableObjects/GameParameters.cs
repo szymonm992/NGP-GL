@@ -6,7 +6,9 @@ namespace Frontend.Scripts.ScriptableObjects
     public class GameParameters : ScriptableObject
     {
         [SerializeField] private float maxWheelDetectionAngle = 75f;
+        [SerializeField] private float airControlAngleThreshold = 8f;
 
         public float MaxWheelDetectionAngle => maxWheelDetectionAngle;
+        public float AirControlAngleThreshold => airControlAngleThreshold;
     }
 }
