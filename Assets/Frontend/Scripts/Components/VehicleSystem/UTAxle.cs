@@ -130,7 +130,7 @@ namespace Frontend.Scripts.Components
             Vector3 rotateAroundAxis = -tireTransform.right;
             pair.RotationalPartOfTire.RotateAround(tireTransform.position, rotateAroundAxis, dir * controller.CurrentSpeed / 80f * 10f);
 
-            tireTransform.position = Vector3.Lerp(tireTransform.position, pair.Wheel.TireWorldPosition, Time.deltaTime * 90f);
+            tireTransform.position = Vector3.Lerp(tireTransform.position, pair.Wheel.TireWorldPosition, Time.deltaTime * 75f);
 
             if(canSteer)
             {

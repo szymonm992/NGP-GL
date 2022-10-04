@@ -30,11 +30,9 @@ namespace Frontend.Scripts.Components
         [Range(-1f, 0)]
         [SerializeField] private float hardPointOfTire = -.2f;
         [SerializeField] private LayerMask layerMask;
-
-        
-
         [SerializeField] private Transform highestPointTransform;
         [SerializeField] private Transform lowestPointTransform;
+
 
         [SerializeField]
         private UTWheelDebug debugSettings = new UTWheelDebug()
@@ -223,10 +221,9 @@ namespace Frontend.Scripts.Components
             if (rig == null)
             {
                 rig = transform.GetComponentInParent<Rigidbody>();
+                localRig = GetComponent<Rigidbody>();
+                localCollider = GetComponent<MeshCollider>();
             }
-
-            localRig = GetComponent<Rigidbody>();
-            localCollider = GetComponent<MeshCollider>();
 
             AssignPrimaryParameters();
             SetIgnoredColliders();
@@ -256,18 +253,25 @@ namespace Frontend.Scripts.Components
 
                         if(highestPointTransform != null)
                         {
-                            Gizmos.color = Color.yellow;
-                            Gizmos.DrawSphere(highestPointTransform.position, .08f);
+                            Handles.color = Color.white;
+                            //Gizmos.color = Color.yellow;
+                            Handles.DrawLine(highestPointTransform.position + transform.forward * 0.1f, highestPointTransform.position - transform.forward * 0.1f, 2f);
+                            //Gizmos.DrawSphere(highestPointTransform.position, .08f);
                         }
                       
                         if(lowestPointTransform != null)
                         {
-                            Gizmos.color = Color.yellow;
-                            Gizmos.DrawSphere(lowestPointTransform.position, .08f);
+                            Handles.color = Color.white;
+                           //Gizmos.color = Color.yellow;
+                           Handles.DrawLine(lowestPointTransform.position + transform.forward * 0.1f, lowestPointTransform.position - transform.forward * 0.1f, 2f);
+                            
+                            //Gizmos.DrawSphere(lowestPointTransform.position, .08f);
                         }
                         
-                        Gizmos.color = Color.white;
-                        Gizmos.DrawSphere(tirePosition, .08f);
+                        Handles.color = Color.white;
+                        //Gizmos.DrawSphere(tirePosition, .08f);
+                        Handles.DrawLine(tirePosition + transform.forward * 0.05f, tirePosition - transform.forward * 0.05f, 3f);
+                        
                     }
                     
                     if (isGrounded)
