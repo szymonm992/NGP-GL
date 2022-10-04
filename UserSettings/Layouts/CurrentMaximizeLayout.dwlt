@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 22872
+  controlID: 24443
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 22873
+  controlID: 24444
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 22837
+  controlID: 24445
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -502,9 +502,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 31.8999, y: 2.4995246, z: 7.7866163}
+    m_Target: {x: 151.04715, y: 7.680727, z: 62.570892}
     speed: 2
-    m_Value: {x: 31.8999, y: 2.4995246, z: 7.7866163}
+    m_Value: {x: 151.04715, y: 7.680727, z: 62.570892}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -551,13 +551,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.07338925, y: 0.88247913, z: -0.14694503, w: 0.4407402}
+    m_Target: {x: 0.15357424, y: 0.14967562, z: -0.023540769, w: 0.97645205}
     speed: 2
-    m_Value: {x: 0.07338924, y: 0.882479, z: -0.14694501, w: 0.44074014}
+    m_Value: {x: 0.15357421, y: 0.1496756, z: -0.023540763, w: 0.9764518}
   m_Size:
-    m_Target: 3.2195406
+    m_Target: 6.077596
     speed: 2
-    m_Value: 3.2195406
+    m_Value: 6.077596
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -638,7 +638,7 @@ MonoBehaviour:
     m_LastAppliedPresetName: Default
     m_SaveData: []
   m_SearchFilter:
-    m_NameFilter: 
+    m_NameFilter: gamepa
     m_ClassNames: []
     m_AssetLabels: []
     m_AssetBundleNames: []
@@ -652,7 +652,7 @@ MonoBehaviour:
     m_Folders:
     - Assets/Frontend/Prefabs
     m_Globs: []
-    m_OriginalText: 
+    m_OriginalText: gamepa
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
@@ -796,8 +796,8 @@ MonoBehaviour:
     y: 0
     width: 364
     height: 730.8
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}

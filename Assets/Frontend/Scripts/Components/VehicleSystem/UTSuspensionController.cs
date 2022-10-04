@@ -144,10 +144,8 @@ namespace Frontend.Scripts.Components
                             rig.AddForceAtPosition((forwardForce * wheel.transform.forward), wheel.HitInfo.Point);
                             rig.AddForceAtPosition((turnForce * -wheel.transform.right), wheel.HighestSpringPosition);
                         }
-
                     }
                 }
-
             }
         }
 
@@ -184,7 +182,7 @@ namespace Frontend.Scripts.Components
             {
                 rig.AddForce(Physics.gravity, ForceMode.Acceleration);
             }
-            else if(allWheelsAmount == cnt)
+            else if(allGroundedWheels.Any() && allWheelsAmount == cnt)
             {
                 float angle = Vector3.Angle(transform.up, -Physics.gravity.normalized);
 
@@ -226,7 +224,7 @@ namespace Frontend.Scripts.Components
                 if (Mathf.Abs(angle) > gameParameters.AirControlAngleThreshold)
                 {
                     float multiplier = -Mathf.Sign(angle);
-                    rig.AddTorque(transform.right * (7f * multiplier), ForceMode.Acceleration);
+                    rig.AddTorque(transform.right * (gameParameters.AirControlForce * multiplier), ForceMode.Acceleration);
                 }
             }
         }
