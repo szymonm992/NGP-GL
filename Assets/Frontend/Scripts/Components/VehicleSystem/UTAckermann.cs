@@ -7,6 +7,7 @@ namespace Frontend.Scripts.Components
     public class UTAckermann : MonoBehaviour, IVehicleSteering
     {
         [Inject] private readonly IVehicleController suspensionController;
+        [Inject] private readonly IPlayerInputProvider inputProvider;
 
         [SerializeField] private float wheelBase;
         [SerializeField] private float rearTrack;
@@ -24,7 +25,7 @@ namespace Frontend.Scripts.Components
 
         private void Update()
         {
-            SetSteeringInput(Input.GetAxis("Horizontal"));
+            SetSteeringInput(inputProvider.Horizontal);
         }
 
         private void FixedUpdate()

@@ -1,13 +1,9 @@
-using Frontend.Scripts.Enums;
 using Frontend.Scripts.Interfaces;
 using Frontend.Scripts.Models;
 using Frontend.Scripts.ScriptableObjects;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 using Zenject;
 
 namespace Frontend.Scripts.Components
@@ -17,10 +13,11 @@ namespace Frontend.Scripts.Components
         [Inject(Id = "mainRig")] private Rigidbody rig;
         [Inject] private readonly IEnumerable<UTAxle> allAxles;
         [Inject] private readonly GameParameters gameParameters;
+        [Inject] private readonly IPlayerInputProvider inputProvider;
         [Inject (Optional = true)] private readonly Speedometer speedometer;
 
         [SerializeField] private float maxSlopeAngle = 45f;
-        [SerializeField] private Transform com;
+        [SerializeField] private Transform centerOfMass;
         [SerializeField] private AnimationCurve enginePowerCurve;
         [SerializeField] private bool airControl = true;
 
@@ -49,7 +46,7 @@ namespace Frontend.Scripts.Components
         public void Initialize()
         {
             hasAnyWheels = allAxles.Any() && allAxles.Where(axle => axle.HasAnyWheelPair).Any();
-            rig.centerOfMass = com.localPosition;
+            rig.centerOfMass = centerOfMass.localPosition;
 
             allWheels = GetAllWheelsInAllAxles().ToArray();
             allWheelsAmount = allWheels.Length;
@@ -57,14 +54,18 @@ namespace Frontend.Scripts.Components
 
         private void Update()
         {
-            isBrake = Input.GetKey(KeyCode.Space);
-            inputY = !isBrake ? Input.GetAxis("Vertical") : 0f;
-            inputX = Input.GetAxis("Horizontal");
+            if (inputProvider != null)
+            {
+                isBrake = inputProvider.Brake;
+                inputY = inputProvider.Vertical;
+                inputX = inputProvider.Horizontal;
 
-            absoluteInputY = Mathf.Abs(inputY);
-            absoluteInputX = Mathf.Abs(inputX) * Mathf.Sign(inputY);
+                absoluteInputY = inputProvider.AbsoluteVertical;
+                absoluteInputX = inputProvider.AbsoluteHorizontal;
 
-            signedInputY = Mathf.Sign(inputY);            
+                signedInputY = inputProvider.SignedVertical;
+            }
+
         }
 
         private void FixedUpdate()
