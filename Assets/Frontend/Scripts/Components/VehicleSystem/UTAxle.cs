@@ -33,10 +33,9 @@ namespace Frontend.Scripts.Components
             DrawMode = UTDebugMode.All
         };
 
-        public UTAxlePair[] WheelPairs => wheelPairs;
+        public IEnumerable<UTAxlePair> WheelPairs => wheelPairs;
         public bool CanDrive => canDrive;
         public bool CanSteer => canSteer;
-
         public bool HasAnyWheelPair => wheelPairs.Any();
 
         public void Initialize()

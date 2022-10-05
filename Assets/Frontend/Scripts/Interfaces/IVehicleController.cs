@@ -1,4 +1,5 @@
 using Frontend.Scripts.Components;
+using System.Collections.Generic;
 using Zenject;
 
 namespace Frontend.Scripts.Interfaces
@@ -6,7 +7,7 @@ namespace Frontend.Scripts.Interfaces
     public interface IVehicleController : IInitializable
     {
         bool HasAnyWheels { get; }
-        UTAxle[] AllAxles { get; }
+        IEnumerable<UTAxle> AllAxles { get; }
         float CurrentSpeed { get; }
 
 

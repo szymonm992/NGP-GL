@@ -1,7 +1,4 @@
-using Frontend.Scripts.Enums;
 using Frontend.Scripts.Interfaces;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -20,14 +17,14 @@ namespace Frontend.Scripts.Components
         private float steerInput;
         private float currentTurnRadius;
 
-        void Update()
-        {
-            SetSteeringInput(Input.GetAxis("Horizontal"));
-        }
-
         public void SetSteeringInput(float input)
         {
             steerInput = input;
+        }
+
+        private void Update()
+        {
+            SetSteeringInput(Input.GetAxis("Horizontal"));
         }
 
         private void FixedUpdate()
@@ -60,7 +57,6 @@ namespace Frontend.Scripts.Components
                     }
                 }
             }
-            
         }
     }
 }

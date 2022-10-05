@@ -15,17 +15,16 @@ namespace Frontend.Scripts.Components
     public class UTSuspensionController : MonoBehaviour, IVehicleController
     {
         [Inject(Id = "mainRig")] private Rigidbody rig;
-        [Inject] private readonly UTAxle[] allAxles;
+        [Inject] private readonly IEnumerable<UTAxle> allAxles;
         [Inject] private readonly GameParameters gameParameters;
+        [Inject (Optional = true)] private readonly Speedometer speedometer;
 
         [SerializeField] private float maxSlopeAngle = 45f;
-        [SerializeField] private Text velocityText;
         [SerializeField] private Transform com;
-        [SerializeField] private AnimationCurve comSteeringCurve;
-        [SerializeField] private AnimationCurve angleBasedComSteeringCurve;
         [SerializeField] private AnimationCurve enginePowerCurve;
         [SerializeField] private bool airControl = true;
 
+        private int allWheelsAmount = 0;
         private bool isBrake;
         private bool hasAnyWheels;
         private float inputX, inputY;
@@ -36,17 +35,16 @@ namespace Frontend.Scripts.Components
         private float currentLongitudalGrip;
         private float forwardForce, turnForce;
         private Vector3 wheelVelocityLocal;
-        private int allWheelsAmount=0;
-
+        
         private IEnumerable<UTWheel> allGroundedWheels;
         private UTWheel[] allWheels;
-        public UTAxle[] AllAxles => allAxles;
+
+        public IEnumerable<UTAxle> AllAxles => allAxles;
         public bool HasAnyWheels => hasAnyWheels;
         public float CurrentSpeed => currentSpeed;
         public float AbsoluteInputY => absoluteInputY;
         public float AbsoluteInputX => absoluteInputX;
         public float SignedInputY => signedInputY;
-
 
         public void Initialize()
         {
@@ -66,9 +64,7 @@ namespace Frontend.Scripts.Components
             absoluteInputY = Mathf.Abs(inputY);
             absoluteInputX = Mathf.Abs(inputX) * Mathf.Sign(inputY);
 
-            signedInputY = Mathf.Sign(inputY);
-
-            velocityText.text = $"{currentSpeed:F0}";
+            signedInputY = Mathf.Sign(inputY);            
         }
 
         private void FixedUpdate()
@@ -82,17 +78,13 @@ namespace Frontend.Scripts.Components
             ApplyFrictionForces();
             AirControl();
 
-            SetSpeedometr(rig.velocity.magnitude * 4f);
+            currentSpeed = rig.velocity.magnitude * 4f;
+            speedometer?.SetSpeedometr(currentSpeed);
         }
 
         private void EvaluateDriveParams()
         {
             currentDriveForce = enginePowerCurve.Evaluate(currentSpeed);
-        }
-
-        private void SetSpeedometr(float speed)
-        {
-            currentSpeed = speed;
         }
 
         private void ApplyFrictionForces()
@@ -190,7 +182,6 @@ namespace Frontend.Scripts.Components
                 if (maxSlopeAngle >= angle)
                 {
                     rig.AddForce(-transform.up * Physics.gravity.magnitude, ForceMode.Acceleration);
-             
                 }
                 else
                 {
