@@ -14,6 +14,7 @@ namespace Frontend.Scripts.Interfaces
         public float RawVertical { get; }
         public float CombinedInput { get; }
         public float SignedVertical { get; }
+        public float SignedHorizontal { get; }
         public float AbsoluteVertical { get; }
         public float AbsoluteHorizontal { get; }
 

@@ -28,6 +28,7 @@ namespace Frontend.Scripts.Models
         public float AbsoluteVertical => ReturnAbsoluteVertical(ref vertical);
         public float AbsoluteHorizontal => ReturnAbsoluteHorizontal(ref vertical);
         public float SignedVertical => ReturnSignedInput(ref vertical);
+        public float SignedHorizontal => ReturnSignedInput(ref horizontal);
 
         private float ReturnRawInput(ref float input)
         {
