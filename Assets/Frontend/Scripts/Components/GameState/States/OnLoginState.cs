@@ -15,7 +15,7 @@ using Sfs2X.Requests;
 using Sfs2X.Entities.Data;
 using Frontend.Scripts.Enums;
 using Frontend.Scripts.Interfaces;
-
+using GLShared.Networking;
 namespace Frontend.Scripts.Components
 {
     public class OnLoginState : GameStateEntity, IGameState

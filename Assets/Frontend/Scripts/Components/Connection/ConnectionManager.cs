@@ -8,6 +8,7 @@ using Sfs2X.Entities.Data;
 
 using Zenject;
 using Sfs2X;
+using GLShared.Networking;
 
 namespace Frontend.Scripts.Components
 {

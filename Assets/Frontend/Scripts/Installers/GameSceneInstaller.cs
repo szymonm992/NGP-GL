@@ -9,6 +9,7 @@ using Frontend.Scripts.Signals;
 using Frontend.Scripts.Enums;
 using Frontend.Scripts.Interfaces;
 using Frontend.Scripts.ScriptableObjects;
+using GLShared.Networking;
 
 namespace Frontend.Scripts
 {
