@@ -113,8 +113,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1241919144859447334}
-  - component: {fileID: 2653212090641652045}
   - component: {fileID: 8760640835570003333}
+  - component: {fileID: 1539677581270833698}
   m_Layer: 0
   m_Name: SFS2X
   m_TagString: Untagged
@@ -137,18 +137,6 @@ Transform:
   m_Father: {fileID: 7782867143977784838}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2653212090641652045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7058011789793128023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84efcc6165a630d49ab6b3373ef2683a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8760640835570003333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,6 +147,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2db4b1473c907e41befa55992ce5e28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1539677581270833698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7058011789793128023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01d3e00cfa6938946b72d849b4495266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8263890410779824695
