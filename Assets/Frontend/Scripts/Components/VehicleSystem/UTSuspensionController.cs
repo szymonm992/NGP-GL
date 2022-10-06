@@ -1,3 +1,4 @@
+using Frontend.Scripts.Enums;
 using Frontend.Scripts.Interfaces;
 using Frontend.Scripts.Models;
 using Frontend.Scripts.ScriptableObjects;
@@ -42,6 +43,7 @@ namespace Frontend.Scripts.Components
         private IEnumerable<UTWheel> allGroundedWheels;
         private UTWheel[] allWheels;
 
+        public VehicleType VehicleType => VehicleType.Car;
         public IEnumerable<UTAxle> AllAxles => allAxles;
         public bool HasAnyWheels => hasAnyWheels;
         public float CurrentSpeed => currentSpeed;
