@@ -17,6 +17,6 @@ namespace Frontend.Scripts.Interfaces
         float MaxBackwardsSpeed { get; }
 
         abstract float GetCurrentMaxSpeed();
-        void SetupRigidbody();
+        abstract void SetupRigidbody();
     }
 }
