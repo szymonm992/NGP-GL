@@ -1,20 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.3.32922.545
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zenject", "Zenject.csproj", "{325057B2-77EA-3566-1773-A821948502FA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{EAA3DE99-91C1-E345-7B1D-7F0C75A9E6B1}"
-	ProjectSection(ProjectDependencies) = postProject
-		{CE923CD8-C678-9704-8FC6-9675BD90EEBA} = {CE923CD8-C678-9704-8FC6-9675BD90EEBA}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zenject-IntegrationTests", "Zenject-IntegrationTests.csproj", "{61CF4934-ECBA-40B5-9EC1-CE664EEDEA3B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zenject-IntegrationTests-Editor", "Zenject-IntegrationTests-Editor.csproj", "{CE545203-F6FD-32CE-A693-1C2FB02D0706}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass.csproj", "{CE923CD8-C678-9704-8FC6-9675BD90EEBA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zenject-PoolMonitor-Editor", "Zenject-PoolMonitor-Editor.csproj", "{DBFB0DE1-06C2-B5A2-1D5A-BEE29EE0054C}"
 EndProject
@@ -48,10 +41,6 @@ Global
 		{CE545203-F6FD-32CE-A693-1C2FB02D0706}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE545203-F6FD-32CE-A693-1C2FB02D0706}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE545203-F6FD-32CE-A693-1C2FB02D0706}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CE923CD8-C678-9704-8FC6-9675BD90EEBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CE923CD8-C678-9704-8FC6-9675BD90EEBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CE923CD8-C678-9704-8FC6-9675BD90EEBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CE923CD8-C678-9704-8FC6-9675BD90EEBA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DBFB0DE1-06C2-B5A2-1D5A-BEE29EE0054C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DBFB0DE1-06C2-B5A2-1D5A-BEE29EE0054C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBFB0DE1-06C2-B5A2-1D5A-BEE29EE0054C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -75,8 +64,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {58716CC5-5F17-43BE-8B2B-816E21151293}
 	EndGlobalSection
 EndGlobal
