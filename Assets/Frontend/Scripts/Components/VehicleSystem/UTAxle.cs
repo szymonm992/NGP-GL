@@ -14,6 +14,7 @@ namespace Frontend.Scripts.Components
     {
         [Inject(Id = "mainRig")] private readonly Rigidbody rig;
         [Inject] private readonly IVehicleController controller;
+        [Inject] private readonly IPlayerInputProvider inputProvider;
 
         [SerializeField] private UTAxlePair[] wheelPairs;
         [SerializeField] private bool canDrive;
@@ -75,7 +76,7 @@ namespace Frontend.Scripts.Components
 
         private void Update()
         {
-            if (!wheelPairs.Any())
+            if (!wheelPairs.Any() || controller == null)
             {
                 return;
             }
@@ -122,12 +123,13 @@ namespace Frontend.Scripts.Components
         {
             var tireTransform = pair.VisualPartOfTire;
 
-            float dir = -controller.SignedInputY;
+            float dir = -inputProvider.SignedVertical;
             Vector3 rotateAroundAxis = -tireTransform.right;
-            pair.RotationalPartOfTire.RotateAround(tireTransform.position, rotateAroundAxis, dir * controller.CurrentSpeed / 80f * 10f);
+            pair.RotationalPartOfTire.RotateAround(tireTransform.position, rotateAroundAxis, dir * controller.CurrentSpeed / controller.GetCurrentMaxSpeed() * 4f);
 
-            tireTransform.position = Vector3.Lerp(tireTransform.position, pair.Wheel.TireWorldPosition, Time.deltaTime * 75f);
-
+            Vector3 tireDesiredPosition = pair.Wheel.TireWorldPosition;
+            tireTransform.position = Vector3.Lerp(tireTransform.position, tireDesiredPosition, Time.deltaTime * 75f);
+            
             if(canSteer)
             {
                 tireTransform.localRotation = Quaternion.Euler(tireTransform.localRotation.eulerAngles.x, pair.Wheel.SteerAngle, tireTransform.localRotation.eulerAngles.z);

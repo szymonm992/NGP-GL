@@ -8,7 +8,6 @@ namespace Frontend.Scripts
 {
     public class Speedometer : MonoBehaviour
     {
-        [Inject] private readonly Rigidbody rig;
 
         [SerializeField] private Text velocityText;
 

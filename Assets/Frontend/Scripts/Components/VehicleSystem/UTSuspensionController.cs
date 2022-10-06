@@ -14,6 +14,7 @@ namespace Frontend.Scripts.Components
         [Inject] private readonly IEnumerable<UTAxle> allAxles;
         [Inject] private readonly GameParameters gameParameters;
         [Inject] private readonly IPlayerInputProvider inputProvider;
+        [Inject] private readonly VehicleStatsBase vehicleStats;
         [Inject (Optional = true)] private readonly Speedometer speedometer;
 
         [SerializeField] private float maxSlopeAngle = 45f;
@@ -22,15 +23,20 @@ namespace Frontend.Scripts.Components
         [SerializeField] private bool airControl = true;
 
         private int allWheelsAmount = 0;
-        private bool isBrake;
         private bool hasAnyWheels;
-        private float inputX, inputY;
-        private float absoluteInputY, absoluteInputX;
+
+        private bool isBrake;
+        private float inputY;
+        private float absoluteInputY;
         private float signedInputY;
+
         private float currentSpeed;
         private float currentDriveForce = 0;
         private float currentLongitudalGrip;
-        private float forwardForce, turnForce;
+        private float forwardForce;
+        private float turnForce;
+        private float maxForwardSpeed;
+        private float maxBackwardsSpeed;
         private Vector3 wheelVelocityLocal;
         
         private IEnumerable<UTWheel> allGroundedWheels;
@@ -40,16 +46,33 @@ namespace Frontend.Scripts.Components
         public bool HasAnyWheels => hasAnyWheels;
         public float CurrentSpeed => currentSpeed;
         public float AbsoluteInputY => absoluteInputY;
-        public float AbsoluteInputX => absoluteInputX;
-        public float SignedInputY => signedInputY;
+        public float MaxForwardSpeed => maxForwardSpeed;
+        public float MaxBackwardsSpeed => maxBackwardsSpeed;
+
 
         public void Initialize()
         {
-            hasAnyWheels = allAxles.Any() && allAxles.Where(axle => axle.HasAnyWheelPair).Any();
-            rig.centerOfMass = centerOfMass.localPosition;
+            SetupRigidbody();
 
+            maxForwardSpeed = enginePowerCurve.keys[enginePowerCurve.keys.Length-1].time;
+            maxBackwardsSpeed = maxForwardSpeed/2;
+
+            hasAnyWheels = allAxles.Any() && allAxles.Where(axle => axle.HasAnyWheelPair).Any();
             allWheels = GetAllWheelsInAllAxles().ToArray();
             allWheelsAmount = allWheels.Length;
+        }
+
+        public void SetupRigidbody()
+        {
+            rig.mass = vehicleStats.Mass;
+            rig.drag = vehicleStats.Drag;
+            rig.angularDrag = vehicleStats.AngularDrag;
+            rig.centerOfMass = centerOfMass.localPosition;
+        }
+
+        public float GetCurrentMaxSpeed()
+        {
+            return signedInputY == 0 ? 0 : (signedInputY > 0 ? maxForwardSpeed : maxBackwardsSpeed);
         }
 
         private void Update()
@@ -58,14 +81,11 @@ namespace Frontend.Scripts.Components
             {
                 isBrake = inputProvider.Brake;
                 inputY = inputProvider.Vertical;
-                inputX = inputProvider.Horizontal;
 
                 absoluteInputY = inputProvider.AbsoluteVertical;
-                absoluteInputX = inputProvider.AbsoluteHorizontal;
 
                 signedInputY = inputProvider.SignedVertical;
             }
-
         }
 
         private void FixedUpdate()
@@ -260,5 +280,7 @@ namespace Frontend.Scripts.Components
             Gizmos.DrawSphere(rig.worldCenterOfMass, 0.2f);
             #endif
         }
+
+        
     }
 }

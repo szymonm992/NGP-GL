@@ -1701,12 +1701,14 @@ GameObject:
   - component: {fileID: 7623138870644961532}
   - component: {fileID: 7623138870644961505}
   - component: {fileID: 7623138870644961508}
-  - component: {fileID: 7623138870644961535}
   - component: {fileID: 7623138870644961507}
   - component: {fileID: 7623138870644961510}
   - component: {fileID: 7623138870644961504}
   - component: {fileID: 7623138870644961511}
   - component: {fileID: 2744680102518620669}
+  - component: {fileID: 1502350205}
+  - component: {fileID: 7623138870644961535}
+  - component: {fileID: 1502350197}
   m_Layer: 0
   m_Name: BUGGY_UTWHEEL
   m_TagString: Untagged
@@ -1760,74 +1762,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSlopeAngle: 45
-  velocityText: {fileID: 0}
-  com: {fileID: 7623138868924921916}
-  comSteeringCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 15
-      value: 0
-      inSlope: 0
-      outSlope: -0.021269409
-      tangentMode: 5
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 32
-      value: -0.3
-      inSlope: -0.014858013
-      outSlope: -0.014858013
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 90
-      value: -1
-      inSlope: -0.0120689655
-      outSlope: -0.0120689655
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  angleBasedComSteeringCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: -0.011111111
-      outSlope: -0.011111111
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 90
-      value: -1
-      inSlope: -0.011111111
-      outSlope: -0.011111111
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  centerOfMass: {fileID: 7623138868924921916}
   enginePowerCurve:
     serializedVersion: 2
     m_Curve:
@@ -1880,22 +1815,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   airControl: 1
---- !u!54 &7623138870644961535
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7623138870644961530}
-  serializedVersion: 2
-  m_Mass: 1400
-  m_Drag: 0.2
-  m_AngularDrag: 0.5
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &7623138870644961507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1908,49 +1827,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 647d26fde5fea314399427477a82bb21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vehicleName: 
-  maxForwardSpeed: 0
-  maxBackwardsSpeed: 0
-  turnAngle: 0
-  enginePower: 0
-  brakePower: 0
-  turnPower: 0
-  frictionPower: 0
-  drag: 0
-  engineCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  turningCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  speedCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  frictionCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  gunDepression: 0
-  gunElevation: 0
-  stepUpMultiplier: 1440
-  stepUpRayLength: 0
-  tireFrictionCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  vehicleName: Buggy
+  mass: 1400
+  drag: 0.2
+  angularDrag: 0.5
+  gunDepression: -5
+  gunElevation: 15
 --- !u!114 &7623138870644961510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1966,6 +1848,8 @@ MonoBehaviour:
   _components:
   - {fileID: 7623138870644961508}
   - {fileID: 7623138870644961511}
+  - {fileID: 1502350205}
+  - {fileID: 1502350197}
   _identifier: 
   _useSceneContext: 0
   _context: {fileID: 0}
@@ -2044,6 +1928,47 @@ MonoBehaviour:
   _useSceneContext: 0
   _context: {fileID: 0}
   _bindType: 2
+--- !u!114 &1502350205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7623138870644961530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dad29858644a8f84da3c42faadfa5c79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &7623138870644961535
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7623138870644961530}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1502350197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7623138870644961530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c77d24736e86f624991ec566f3f24422, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocityText: {fileID: 0}
 --- !u!1 &7623138870716910070
 GameObject:
   m_ObjectHideFlags: 0

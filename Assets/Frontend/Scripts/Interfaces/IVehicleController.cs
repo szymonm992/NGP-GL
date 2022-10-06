@@ -9,13 +9,12 @@ namespace Frontend.Scripts.Interfaces
         bool HasAnyWheels { get; }
         IEnumerable<UTAxle> AllAxles { get; }
         float CurrentSpeed { get; }
-
-
-        float SignedInputY { get; }
         float AbsoluteInputY { get; }
-        float AbsoluteInputX { get; }
-        //void TurningLogic();
 
-        //void MovementLogic();
+        float MaxForwardSpeed { get; }
+        float MaxBackwardsSpeed { get; }
+
+        abstract float GetCurrentMaxSpeed();
+        void SetupRigidbody();
     }
 }
