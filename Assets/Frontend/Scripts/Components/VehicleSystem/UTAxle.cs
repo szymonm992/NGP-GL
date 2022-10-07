@@ -129,7 +129,7 @@ namespace Frontend.Scripts.Components
             if (currentMaxSpeed != 0)
             {
                 currentToMaxRatio = controller.CurrentSpeed / currentMaxSpeed;
-                pair.RotationalPartOfTire.RotateAround(tireTransform.position, rotateAroundAxis, dir * (currentToMaxRatio * 1500f) * Time.deltaTime);
+                pair.RotationalPartOfTire.RotateAround(tireTransform.position, rotateAroundAxis, dir * (currentToMaxRatio * 1300f) * Time.deltaTime);
             }
 
             Vector3 tireDesiredPosition = pair.Wheel.TireWorldPosition;
