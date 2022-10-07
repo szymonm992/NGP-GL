@@ -1,7 +1,7 @@
 using Frontend.Scripts.Enums;
 using Frontend.Scripts.Interfaces;
 using Frontend.Scripts.Models;
-using Frontend.Scripts.ScriptableObjects;
+using GLShared.General.ScriptableObjects;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;

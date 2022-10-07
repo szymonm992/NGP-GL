@@ -8,8 +8,8 @@ using Frontend.Scripts.Components;
 using Frontend.Scripts.Signals;
 using Frontend.Scripts.Enums;
 using Frontend.Scripts.Interfaces;
-using Frontend.Scripts.ScriptableObjects;
 using GLShared.Networking;
+using GLShared.General.ScriptableObjects;
 
 namespace Frontend.Scripts
 {
