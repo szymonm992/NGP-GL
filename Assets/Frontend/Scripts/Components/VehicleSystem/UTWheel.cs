@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UInc.Core.Utilities;
 using UnityEditor;
@@ -8,6 +6,7 @@ using Zenject;
 using Frontend.Scripts.Enums;
 using Frontend.Scripts.Models;
 using GLShared.General.ScriptableObjects;
+using GLShared.General.Models;
 
 namespace Frontend.Scripts.Components
 {
@@ -171,7 +170,7 @@ namespace Frontend.Scripts.Components
         {
             if (localRig.SweepTest(-transform.up, out hitInfo.rayHit, finalTravelLength))
             {
-                hitInfo.CalcAngle();
+                hitInfo.CalculateNormalAndUpDifferenceAngle();
                 isGrounded = (hitInfo.NormalAndUpAngle <= gameParameters.MaxWheelDetectionAngle);
             }
             else

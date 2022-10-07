@@ -60,6 +60,7 @@
     <Compile Include="Assets\Plugins\GLShared\Networking\Interfaces\INetworkEntity.cs" />
     <Compile Include="Assets\Plugins\GLShared\Networking\Components\NetworkEntity.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\ScriptableObjects\GameParameters.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Models\HitInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\SmartFox2X.dll" />
