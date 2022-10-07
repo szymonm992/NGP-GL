@@ -69,7 +69,6 @@
     <Compile Include="Assets\Frontend\Scripts\Enums\UTDebugMode.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\Camera\CameraController.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\VehicleStatsBase.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\Connection\NetworkEntity.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTAckermann.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\States\GameplayState.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\HitInfo.cs" />
@@ -80,7 +79,6 @@
     <Compile Include="Assets\Frontend\Scripts\ScriptableObjects\GameParameters.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\AssociatedUI\WelcomeUI.cs" />
     <Compile Include="Assets\Frontend\Scripts\Interfaces\ICustomWheel.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Interfaces\INetworkEntity.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\AsyncProcessor.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\DDOL\DDOLManager.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\CarStats.cs" />

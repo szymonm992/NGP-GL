@@ -1,6 +1,7 @@
 using Frontend.Scripts.Enums;
 using Frontend.Scripts.Interfaces;
 using Frontend.Scripts.Models;
+using GLShared.General.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -116,7 +117,6 @@ namespace Frontend.Scripts.Components
                 rig.AddForceAtPosition(rightAntirolled.transform.up * -antiRollFinalForce,
                  rightAntirolled.UpperConstraintPoint);
             }
-           
         }
 
         private void RepositionTireModel(UTAxlePair pair)

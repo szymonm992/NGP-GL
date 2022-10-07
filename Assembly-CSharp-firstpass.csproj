@@ -54,9 +54,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets\Plugins\GLShared\Networking\Components\SmartFoxConnection.cs" />
-    <Compile Include="Assets\Plugins\GLShared\Networking\Enums\VehicleType.cs" />
-    <Compile Include="Assets\Plugins\GLShared\Networking\Enums\DriveAxisSite.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Enums\VehicleType.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Enums\DriveAxisSite.cs" />
     <Compile Include="Assets\Plugins\GLShared\Networking\Enums\NetworkEntityType.cs" />
+    <Compile Include="Assets\Plugins\GLShared\Networking\Interfaces\INetworkEntity.cs" />
+    <Compile Include="Assets\Plugins\GLShared\Networking\Components\NetworkEntity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\SmartFox2X.dll" />

@@ -1,4 +1,5 @@
 using Frontend.Scripts.Enums;
+using GLShared.General.Enums;
 using UnityEngine;
 
 namespace Frontend.Scripts.Interfaces

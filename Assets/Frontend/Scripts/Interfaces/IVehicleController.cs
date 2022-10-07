@@ -1,5 +1,6 @@
 using Frontend.Scripts.Components;
 using Frontend.Scripts.Enums;
+using GLShared.General.Enums;
 using System.Collections.Generic;
 using Zenject;
 
