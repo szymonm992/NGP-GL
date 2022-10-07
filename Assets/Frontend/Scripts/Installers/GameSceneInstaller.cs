@@ -65,8 +65,6 @@ namespace Frontend.Scripts
             #if UNITY_EDITOR
             Debug.unityLogger.logEnabled = true;
             #endif
-
-           
         }
     }
 
