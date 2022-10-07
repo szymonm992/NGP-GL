@@ -53,8 +53,10 @@
     <UnityVersion>2021.2.0b15</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\Plugins\GLShared\Networking\SmartFoxConnection.cs" />
-    <Compile Include="Assets\Plugins\GLShared\Networking\Test.cs" />
+    <Compile Include="Assets\Plugins\GLShared\Networking\Components\SmartFoxConnection.cs" />
+    <Compile Include="Assets\Plugins\GLShared\Networking\Enums\NetworkEntityType.cs" />
+    <Compile Include="Assets\Plugins\GLShared\Networking\Enums\DriveAxisSite.cs" />
+    <Compile Include="Assets\Plugins\GLShared\Networking\Enums\VehicleType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\SmartFox2X.dll" />

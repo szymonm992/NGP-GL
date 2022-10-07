@@ -70,6 +70,7 @@ namespace Frontend.Scripts.Components
 
         public bool IsGrounded => isGrounded;
         public HitInfo HitInfo => hitInfo;
+        public float WheelRadius => wheelRadius;
         public float TireMass => tireMass;
         public float ForwardTireGripFactor => forwardTireGripFactor;
         public float SidewaysTireGripFactor => sidewaysTireGripFactor;
