@@ -1,13 +1,12 @@
-using Frontend.Scripts.Enums;
-using Frontend.Scripts.Interfaces;
-using Frontend.Scripts.Models;
-using GLShared.General.Enums;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using Zenject;
+using Frontend.Scripts.Enums;
+using Frontend.Scripts.Interfaces;
+using Frontend.Scripts.Models;
+using GLShared.General.Enums;
 
 namespace Frontend.Scripts.Components
 {

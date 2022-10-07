@@ -1,8 +1,5 @@
 using UnityEngine;
 using Zenject;
-
-using System;
-
 using Frontend.Scripts.Models;
 using Frontend.Scripts.Components;
 using Frontend.Scripts.Signals;
