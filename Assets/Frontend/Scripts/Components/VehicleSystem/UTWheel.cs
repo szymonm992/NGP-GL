@@ -29,7 +29,6 @@ namespace Frontend.Scripts.Components
         [SerializeField] private float damper = 3000f;
         [Range(-1f, 0)]
         [SerializeField] private float hardPointOfTire = -0.7f;
-        [SerializeField] private LayerMask layerMask;
         [SerializeField] private Transform upperConstraintTransform;
         [SerializeField] private Transform lowerConstraintTransform;
 
