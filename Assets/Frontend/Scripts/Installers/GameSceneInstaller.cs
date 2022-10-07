@@ -59,6 +59,15 @@ namespace Frontend.Scripts
             Container.Bind<GameParameters>().FromInstance(gameParameters).AsSingle();
 
         }
+
+        public void OnValidate()
+        {
+            #if UNITY_EDITOR
+            Debug.unityLogger.logEnabled = true;
+            #endif
+
+           
+        }
     }
 
  
