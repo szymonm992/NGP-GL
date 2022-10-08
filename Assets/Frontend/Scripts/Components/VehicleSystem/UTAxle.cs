@@ -158,6 +158,11 @@ namespace Frontend.Scripts.Components
                 
                 if(debugSettings.DrawAxlePipes)
                 {
+                    if(!wheelPairs.Any())
+                    {
+                        return;
+                    }
+
                     foreach (var pair in wheelPairs)
                     {
                         Handles.color = Color.white;

@@ -69,7 +69,10 @@ namespace Frontend.Scripts.Components
             rig.mass = vehicleStats.Mass;
             rig.drag = vehicleStats.Drag;
             rig.angularDrag = vehicleStats.AngularDrag;
-            rig.centerOfMass = centerOfMass.localPosition;
+            if(centerOfMass!= null)
+            {
+                rig.centerOfMass = centerOfMass.localPosition;
+            }
         }
 
         public float GetCurrentMaxSpeed()
