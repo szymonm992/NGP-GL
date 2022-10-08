@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 13848581099689622}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000047683716, y: -1.5833329, z: -0.000000015277593}
+  m_LocalPosition: {x: 0.00000047683716, y: -1.9999995, z: -0.0000008402676}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -55,7 +55,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 173217623314674521}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000047683716, y: -1.583333, z: 0.00000071804686}
+  m_LocalPosition: {x: -0.00000047683716, y: -1.9999996, z: 0.000000015277593}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -91,7 +91,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 14
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &502610144134691608
 GameObject:
@@ -237,7 +237,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &1150707309679822718
 SkinnedMeshRenderer:
@@ -354,7 +354,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &798930039056841100
 GameObject:
@@ -514,20 +514,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.5
+  suspensionTravel: 0.4
   wheelRadius: 0.7
-  tireMass: 500
+  tireMass: 1500
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
   spring: 300000
   damper: 20000
-  hardPointOfTire: -0.95
+  hardPointOfTire: -1.2
   upperConstraintTransform: {fileID: 2363115283408406798}
   lowerConstraintTransform: {fileID: 6647532112327913786}
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
-    drawWheelDirection: 1
+    drawWheelDirection: 0
     drawShapeGizmo: 1
     drawSprings: 1
     drawMode: 0
@@ -627,20 +627,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.5
+  suspensionTravel: 0.4
   wheelRadius: 0.7
-  tireMass: 500
+  tireMass: 1500
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
   spring: 300000
   damper: 20000
-  hardPointOfTire: -0.95
+  hardPointOfTire: -1.2
   upperConstraintTransform: {fileID: 7909542603140175476}
   lowerConstraintTransform: {fileID: 7771425676964971118}
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
-    drawWheelDirection: 1
+    drawWheelDirection: 0
     drawShapeGizmo: 1
     drawSprings: 1
     drawMode: 0
@@ -740,20 +740,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.5
+  suspensionTravel: 0.4
   wheelRadius: 0.7
-  tireMass: 500
+  tireMass: 1500
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
   spring: 300000
   damper: 20000
-  hardPointOfTire: -0.95
+  hardPointOfTire: -1.2
   upperConstraintTransform: {fileID: 675830249243811573}
   lowerConstraintTransform: {fileID: 4020297121861953259}
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
-    drawWheelDirection: 1
+    drawWheelDirection: 0
     drawShapeGizmo: 1
     drawSprings: 1
     drawMode: 0
@@ -874,7 +874,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1209553776481458671}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000047683716, y: -1.5833329, z: -0.00000016805352}
+  m_LocalPosition: {x: -0.00000047683716, y: -1.9999995, z: -0.0000009472107}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -905,7 +905,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1252212771138560575}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000047683716, y: -2.4166663, z: 0.0000007944348}
+  m_LocalPosition: {x: -0.00000047683716, y: -2.6666663, z: 0.0000010388762}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1006,7 +1006,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5729015847820734433
 MeshFilter:
@@ -1105,7 +1105,7 @@ Transform:
   - {fileID: 496507065033663645}
   - {fileID: 6233539522486678783}
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 11
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4471078648711472370
 MonoBehaviour:
@@ -1131,7 +1131,7 @@ MonoBehaviour:
   applyAntiroll: 0
   antiRollForce: 0
   debugSettings:
-    drawGizmos: 1
+    drawGizmos: 0
     drawAxleCenter: 1
     drawAxlePipes: 1
     drawMode: 0
@@ -1260,7 +1260,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687266025600258012}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000047683716, y: -1.5833328, z: -0.000001237485}
+  m_LocalPosition: {x: -0.00000047683716, y: -1.9999995, z: -0.00000047360535}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1353,7 +1353,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1796017315206951560}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000047683716, y: -1.5833328, z: -0.000001237485}
+  m_LocalPosition: {x: 0.00000047683716, y: -1.9999995, z: -0.00000047360535}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1415,7 +1415,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1835529630412928449}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000047683716, y: -1.583333, z: 0.00000071804686}
+  m_LocalPosition: {x: 0.00000047683716, y: -1.9999995, z: 0.000000015277593}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1446,7 +1446,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1920584219418980701}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000047683716, y: -1.5833329, z: -0.000000015277593}
+  m_LocalPosition: {x: -0.00000047683716, y: -1.9999995, z: -0.0000008402676}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1622,7 +1622,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2264702453482560959}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000047683716, y: -2.4166658, z: -0.000003116629}
+  m_LocalPosition: {x: -0.00000047683716, y: -2.6666658, z: -0.0000014055385}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1809,20 +1809,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.5
+  suspensionTravel: 0.4
   wheelRadius: 0.7
-  tireMass: 500
+  tireMass: 1500
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
   spring: 300000
   damper: 20000
-  hardPointOfTire: -0.95
+  hardPointOfTire: -1.2
   upperConstraintTransform: {fileID: 313854361456630449}
   lowerConstraintTransform: {fileID: 1743268128366700711}
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
-    drawWheelDirection: 1
+    drawWheelDirection: 0
     drawShapeGizmo: 1
     drawSprings: 1
     drawMode: 0
@@ -1912,7 +1912,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2465174507564961662}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000047683716, y: -2.416666, z: 0.0000007944348}
+  m_LocalPosition: {x: 0.00000047683716, y: -2.666666, z: 0.0000007944348}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1955,7 +1955,7 @@ Transform:
   - {fileID: 7596579702319339324}
   - {fileID: 7596579703729651751}
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2542236276492112105
 GameObject:
@@ -2229,20 +2229,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.5
+  suspensionTravel: 0.4
   wheelRadius: 0.7
-  tireMass: 500
+  tireMass: 1500
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
   spring: 300000
   damper: 20000
-  hardPointOfTire: -0.95
+  hardPointOfTire: -1.2
   upperConstraintTransform: {fileID: 2196157410980483069}
   lowerConstraintTransform: {fileID: 7563624633877668947}
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
-    drawWheelDirection: 1
+    drawWheelDirection: 0
     drawShapeGizmo: 1
     drawSprings: 1
     drawMode: 0
@@ -2384,7 +2384,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3135987443387971281}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000047683716, y: -2.416666, z: 0.0000007944348}
+  m_LocalPosition: {x: -0.00000047683716, y: -2.666666, z: 0.0000007944348}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2963,20 +2963,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.5
+  suspensionTravel: 0.4
   wheelRadius: 0.7
-  tireMass: 500
+  tireMass: 1500
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
   spring: 300000
   damper: 20000
-  hardPointOfTire: -0.95
+  hardPointOfTire: -1.2
   upperConstraintTransform: {fileID: 7320192014094769052}
   lowerConstraintTransform: {fileID: 1999224872726373294}
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
-    drawWheelDirection: 1
+    drawWheelDirection: 0
     drawShapeGizmo: 1
     drawSprings: 1
     drawMode: 0
@@ -3190,7 +3190,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4685025530376998079}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000047683716, y: -2.416666, z: 0.00000006111037}
+  m_LocalPosition: {x: -0.00000047683716, y: -2.6666658, z: -0.00000006111037}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3230,7 +3230,7 @@ Transform:
   - {fileID: 4555035651505406059}
   - {fileID: 7173698422752112219}
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 12
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &534935938940769709
 MonoBehaviour:
@@ -3256,7 +3256,7 @@ MonoBehaviour:
   applyAntiroll: 0
   antiRollForce: 0
   debugSettings:
-    drawGizmos: 1
+    drawGizmos: 0
     drawAxleCenter: 1
     drawAxlePipes: 1
     drawMode: 0
@@ -3425,7 +3425,7 @@ Transform:
   - {fileID: 7614065614780527950}
   - {fileID: 1717664912858029512}
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 13
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2829661827045059102
 MonoBehaviour:
@@ -3451,7 +3451,7 @@ MonoBehaviour:
   applyAntiroll: 0
   antiRollForce: 0
   debugSettings:
-    drawGizmos: 1
+    drawGizmos: 0
     drawAxleCenter: 1
     drawAxlePipes: 1
     drawMode: 0
@@ -3497,7 +3497,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4828931527597048119}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000047683716, y: -1.5833329, z: -0.00000016805352}
+  m_LocalPosition: {x: 0.00000047683716, y: -1.9999995, z: -0.0000009472107}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3611,7 +3611,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4916334005072031875}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000047683716, y: -2.416666, z: -0.00000012222074}
+  m_LocalPosition: {x: 0.00000047683716, y: -2.6666658, z: -0.00000018333111}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3642,7 +3642,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5006921954909849346}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000047683716, y: -1.583333, z: 0.00000071804686}
+  m_LocalPosition: {x: -0.00000047683716, y: -1.9999995, z: 0.000000015277593}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3772,7 +3772,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &7811432478117862914
 SkinnedMeshRenderer:
@@ -3946,7 +3946,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5412154704307121829}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000047683716, y: -2.4166663, z: 0.0000007944348}
+  m_LocalPosition: {x: 0.00000047683716, y: -2.6666663, z: 0.0000010388762}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4013,8 +4013,70 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 89.98, y: 0, z: 0}
+--- !u!1 &5559394759441724579
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9180423686324892395}
+  m_Layer: 0
+  m_Name: SNIPER_CAM_PIVOT
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9180423686324892395
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5559394759441724579}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 181178416564340224}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5636300398795509038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7838278336644869095}
+  m_Layer: 0
+  m_Name: CAMERA_CENTER
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7838278336644869095
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5636300398795509038}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 181178416564340224}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5693384142586691753
 GameObject:
   m_ObjectHideFlags: 0
@@ -4365,6 +4427,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5505860413846056505}
+  - {fileID: 7838278336644869095}
+  - {fileID: 9180423686324892395}
   - {fileID: 7365476112243692178}
   - {fileID: 2970605867215432948}
   - {fileID: 5029477890765218473}
@@ -4661,20 +4725,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.5
+  suspensionTravel: 0.4
   wheelRadius: 0.7
-  tireMass: 500
+  tireMass: 1500
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
   spring: 300000
   damper: 20000
-  hardPointOfTire: -0.95
+  hardPointOfTire: -1.2
   upperConstraintTransform: {fileID: 8087425048305821578}
   lowerConstraintTransform: {fileID: 1417123466034856261}
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
-    drawWheelDirection: 1
+    drawWheelDirection: 0
     drawShapeGizmo: 1
     drawSprings: 1
     drawMode: 0
@@ -4835,7 +4899,7 @@ Transform:
   - {fileID: 1739267095771717443}
   - {fileID: 7197151135181860668}
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 10
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6068901514161011324
 MonoBehaviour:
@@ -4861,7 +4925,7 @@ MonoBehaviour:
   applyAntiroll: 0
   antiRollForce: 0
   debugSettings:
-    drawGizmos: 1
+    drawGizmos: 0
     drawAxleCenter: 1
     drawAxlePipes: 1
     drawMode: 0
@@ -4979,20 +5043,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.5
+  suspensionTravel: 0.4
   wheelRadius: 0.7
-  tireMass: 500
+  tireMass: 1500
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
   spring: 300000
   damper: 20000
-  hardPointOfTire: -0.95
+  hardPointOfTire: -1.2
   upperConstraintTransform: {fileID: 8816711895945245242}
   lowerConstraintTransform: {fileID: 4414781395658228239}
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
-    drawWheelDirection: 1
+    drawWheelDirection: 0
     drawShapeGizmo: 1
     drawSprings: 1
     drawMode: 0
@@ -5051,7 +5115,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7571457689419048370}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000047683716, y: -2.416666, z: -0.00000012222074}
+  m_LocalPosition: {x: -0.00000047683716, y: -2.6666658, z: -0.00000018333111}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5120,7 +5184,7 @@ Transform:
   m_Children:
   - {fileID: 8847410861621729479}
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 20
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7596579702179268632
 GameObject:
@@ -5216,7 +5280,7 @@ Transform:
   m_Children:
   - {fileID: 7596579702185927559}
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 15
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7596579702319339325
 GameObject:
@@ -5280,7 +5344,7 @@ Transform:
   m_Children:
   - {fileID: 8847410862472600666}
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 21
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7596579702710604513
 GameObject:
@@ -5312,7 +5376,7 @@ Transform:
   m_Children:
   - {fileID: 8847410862587641235}
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 19
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7596579702804501788
 GameObject:
@@ -5376,7 +5440,7 @@ Transform:
   m_Children:
   - {fileID: 8847410861521922013}
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 18
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7596579702870883017
 GameObject:
@@ -5440,7 +5504,7 @@ Transform:
   m_Children:
   - {fileID: 8847410861572934324}
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 16
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7596579703514932359
 GameObject:
@@ -5504,7 +5568,7 @@ Transform:
   m_Children:
   - {fileID: 8847410862499717282}
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 17
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7596579703729651744
 GameObject:
@@ -5894,20 +5958,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.5
+  suspensionTravel: 0.4
   wheelRadius: 0.7
-  tireMass: 500
+  tireMass: 1500
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
   spring: 300000
   damper: 20000
-  hardPointOfTire: -0.95
+  hardPointOfTire: -1.2
   upperConstraintTransform: {fileID: 3631116460342640797}
   lowerConstraintTransform: {fileID: 2493339814111312070}
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
-    drawWheelDirection: 1
+    drawWheelDirection: 0
     drawShapeGizmo: 1
     drawSprings: 1
     drawMode: 0
@@ -6005,7 +6069,7 @@ Transform:
   m_Children:
   - {fileID: 8169547359575690481}
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1487394738284118215
 MeshFilter:
@@ -6152,7 +6216,7 @@ Transform:
   - {fileID: 6467693694854005957}
   - {fileID: 1718058887493970217}
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 9
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3244951243695756175
 MonoBehaviour:
@@ -6178,7 +6242,7 @@ MonoBehaviour:
   applyAntiroll: 0
   antiRollForce: 0
   debugSettings:
-    drawGizmos: 1
+    drawGizmos: 0
     drawAxleCenter: 1
     drawAxlePipes: 1
     drawMode: 0
@@ -6389,20 +6453,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.5
+  suspensionTravel: 0.4
   wheelRadius: 0.7
-  tireMass: 500
+  tireMass: 1500
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
   spring: 300000
   damper: 20000
-  hardPointOfTire: -0.95
+  hardPointOfTire: -1.2
   upperConstraintTransform: {fileID: 178769079512520278}
   lowerConstraintTransform: {fileID: 2159882835874670499}
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
-    drawWheelDirection: 1
+    drawWheelDirection: 0
     drawShapeGizmo: 1
     drawSprings: 1
     drawMode: 0
@@ -6422,7 +6486,8 @@ GameObject:
   - component: {fileID: 2404649941768873089}
   - component: {fileID: 8992989569556248829}
   - component: {fileID: 5105579772561218950}
-  - component: {fileID: 2842032807826555343}
+  - component: {fileID: 7057069551729104832}
+  - component: {fileID: 2618250326273635535}
   m_Layer: 0
   m_Name: T-55
   m_TagString: Untagged
@@ -6529,7 +6594,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _components:
   - {fileID: 5105579772561218950}
-  - {fileID: 2842032807826555343}
+  - {fileID: 7057069551729104832}
+  - {fileID: 2618250326273635535}
   _identifier: 
   _useSceneContext: 0
   _context: {fileID: 0}
@@ -6571,9 +6637,9 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 70000
+      value: 50000
       inSlope: -985.7143
-      outSlope: -985.7143
+      outSlope: -700
       tangentMode: 65
       weightedMode: 0
       inWeight: 0
@@ -6581,7 +6647,7 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 70
       value: 1000
-      inSlope: -985.7143
+      inSlope: -700
       outSlope: -985.7143
       tangentMode: 5
       weightedMode: 0
@@ -6591,7 +6657,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   airControl: 0
---- !u!114 &2842032807826555343
+--- !u!114 &7057069551729104832
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6600,9 +6666,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 8797747351685325955}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3cff0dce926fa145b00f6c4919f0f58, type: 3}
+  m_Script: {fileID: 11500000, guid: dad29858644a8f84da3c42faadfa5c79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2618250326273635535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8797747351685325955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c77d24736e86f624991ec566f3f24422, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocityText: {fileID: 0}
 --- !u!1 &8847410861387630914
 GameObject:
   m_ObjectHideFlags: 0
@@ -7043,7 +7122,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8857126714526320503}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000047683716, y: -2.4166658, z: -0.000003116629}
+  m_LocalPosition: {x: 0.00000047683716, y: -2.6666658, z: -0.0000014055385}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7105,7 +7184,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9083730849513760501}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000047683716, y: -1.583333, z: 0.00000071804686}
+  m_LocalPosition: {x: 0.00000047683716, y: -1.9999996, z: 0.000000015277593}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7167,7 +7246,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9188217228397201469}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000047683716, y: -2.416666, z: 0.00000006111037}
+  m_LocalPosition: {x: 0.00000047683716, y: -2.6666658, z: -0.00000006111037}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7269,5 +7348,5 @@ Transform:
   - {fileID: 4536256603754595336}
   - {fileID: 4796483723286156953}
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

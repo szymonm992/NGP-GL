@@ -25,7 +25,7 @@ namespace Frontend.Scripts.Components
 
         [SerializeField] private float spring = 20000f;
         [SerializeField] private float damper = 3000f;
-        [Range(-1f, 0)]
+        [Range(-3f, 0)]
         [SerializeField] private float hardPointOfTire = -0.7f;
         [SerializeField] private Transform upperConstraintTransform;
         [SerializeField] private Transform lowerConstraintTransform;
