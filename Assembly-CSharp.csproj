@@ -106,12 +106,12 @@
     <Compile Include="Assets\UInc\Core\Scripts\Utilities\ZenjectExtensions.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\AssociatedUI\AssociatedUI.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\FormValidator.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTTankSteering.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\States\WelcomeState.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\States\UnknownState.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\StateFactory.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\States\OnLoginState.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTWheelFrictionCurve.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTTankSteering.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

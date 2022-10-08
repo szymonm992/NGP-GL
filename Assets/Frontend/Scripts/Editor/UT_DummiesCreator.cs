@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-public class IMC_DummiesCreator : EditorWindow
+public class UT_DummiesCreator : EditorWindow
 {
 
     GameObject wheels_parent_node;
@@ -10,10 +10,10 @@ public class IMC_DummiesCreator : EditorWindow
     float Y_offset; //important -> this is offsetting, not the positioning (relatively to its local Y position we offset the object)
     Vector2Int child_range;
 
-    [MenuItem("IMC System/Tank helpers/Track bones creator")]
+    [MenuItem("UT System/Tank helpers/Track bones creator")]
     public static void ShowWindow()
     {
-        GetWindowWithRect<IMC_DummiesCreator>(new Rect(0, 0, 350, 200), false, "Track bones creator");
+        GetWindowWithRect<UT_DummiesCreator>(new Rect(0, 0, 350, 200), false, "Track bones creator");
     }
 
 

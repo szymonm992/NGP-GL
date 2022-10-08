@@ -3,17 +3,17 @@ using UnityEngine;
 using System.Collections.Generic;
 
 
-public class IMC_WheelsCreator : EditorWindow
+public class UT_WheelsCreator : EditorWindow
 {
 
     GameObject wheels_parent_node;
     string name_of_objects;
     bool isnumered;
     float x_position;
-     [MenuItem("IMC System/Tank helpers/Wheels creator")]
+     [MenuItem("UT System/Tank helpers/Wheels creator")]
     public static void ShowWindow()
     {
-        GetWindowWithRect<IMC_WheelsCreator>(new Rect(0,0,350,115), false, "Wheels creator");
+        GetWindowWithRect<UT_WheelsCreator>(new Rect(0,0,350,115), false, "Wheels creator");
     }
 
     void OnGUI()

@@ -32,7 +32,7 @@ namespace Frontend.Scripts
             if(inputProvider.CombinedInput > 1) currentSteerSpeed  *= 1 / 1.4f;
             if (Mathf.Abs(rig.angularVelocity.y) < 1f)
             {
-                rig.AddRelativeTorque((Vector3.up * steerInput) * currentSteerSpeed * 50 * Time.deltaTime, ForceMode.Acceleration);
+                rig.AddRelativeTorque((Vector3.up * steerInput) * currentSteerSpeed * 50f * Time.deltaTime, ForceMode.Acceleration);
                 //Debug.Log(rig.angularVelocity.magnitude);
             }
 

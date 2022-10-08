@@ -60,11 +60,11 @@
     <Compile Include="Assets\Plugins\GLShared\General\Enums\DriveAxisSite.cs" />
     <Compile Include="Assets\Plugins\GLShared\Networking\Enums\NetworkEntityType.cs" />
     <Compile Include="Assets\Plugins\GLShared\Networking\Components\SmartFoxConnection.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Models\GameWorld.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Enums\VehicleType.cs" />
     <Compile Include="Assets\Plugins\GLShared\Networking\Interfaces\INetworkEntity.cs" />
     <Compile Include="Assets\Plugins\GLShared\Networking\Components\NetworkEntity.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\HitInfo.cs" />
-    <Compile Include="Assets\Plugins\GLShared\General\Models\GameWorld.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IGameWorld.cs" />
   </ItemGroup>
   <ItemGroup>

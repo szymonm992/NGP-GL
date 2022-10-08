@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-public class IMC_MultiRename : EditorWindow
+public class UT_MultiRename : EditorWindow
 {
 
 
@@ -13,10 +13,10 @@ public class IMC_MultiRename : EditorWindow
     bool isnumered;
     Vector2Int child_range;
 
-    [MenuItem("IMC System/Addons/Multiple name changer")]
+    [MenuItem("UT System/Addons/Multiple name changer")]
     public static void ShowWindow()
     {
-        GetWindowWithRect<IMC_MultiRename>(new Rect(0, 0, 350, 155), false, "Multiple name changer");
+        GetWindowWithRect<UT_MultiRename>(new Rect(0, 0, 350, 155), false, "Multiple name changer");
     }
     void OnGUI()
     {
