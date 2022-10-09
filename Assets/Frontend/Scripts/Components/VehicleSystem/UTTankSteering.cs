@@ -12,9 +12,10 @@ namespace Frontend.Scripts
         [Inject] private readonly IVehicleController suspensionController;
         [Inject] private readonly IPlayerInputProvider inputProvider;
 
-        [SerializeField] private float steerSpeed;
+        [SerializeField] private float steerForce;
         private float steerInput;
         private float currentSteerSpeed;
+
         public void SetSteeringInput(float input)
         {
             steerInput = inputProvider.AbsoluteVertical != 0 ?  input * inputProvider.SignedVertical : input;
@@ -28,12 +29,21 @@ namespace Frontend.Scripts
 
         private void FixedUpdate()
         {
-            currentSteerSpeed = steerSpeed;
-            if(inputProvider.CombinedInput > 1) currentSteerSpeed  *= 1 / 1.4f;
+            if (steerInput == 0)
+            {
+                return;
+            }
+
+            currentSteerSpeed = steerForce;
+
+            if (inputProvider.CombinedInput > 1)
+            {
+                currentSteerSpeed *= (1.0f / Mathf.Sqrt(2));
+            }
+
             if (Mathf.Abs(rig.angularVelocity.y) < 1f)
             {
-                rig.AddRelativeTorque((Vector3.up * steerInput) * currentSteerSpeed * 50f * Time.deltaTime, ForceMode.Acceleration);
-                //Debug.Log(rig.angularVelocity.magnitude);
+                rig.AddRelativeTorque(Vector3.up * steerInput * currentSteerSpeed * 50f * Time.deltaTime, ForceMode.Acceleration);
             }
 
         }

@@ -197,6 +197,7 @@ namespace Frontend.Scripts.Components
         private void CustomGravityLogic()
         {
             int groundedWheelsAmount = allGroundedWheels.Count();
+
             if (!allGroundedWheels.Any())
             {
                 rig.AddForce(Physics.gravity, ForceMode.Acceleration);
@@ -237,7 +238,7 @@ namespace Frontend.Scripts.Components
             if (!allGroundedWheels.Any())
             {
                 float angle = transform.eulerAngles.x;
-                angle = (angle > 180) ? angle - 360 : angle;
+                angle = (angle > 180f) ? angle - 360f : angle;
 
                 if (Mathf.Abs(angle) > gameParameters.AirControlAngleThreshold)
                 {
