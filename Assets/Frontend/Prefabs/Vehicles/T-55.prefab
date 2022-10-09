@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 13848581099689622}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000047683716, y: -1.9999996, z: 0.0000005041606}
+  m_LocalPosition: {x: 0.00000047683716, y: -1.8333315, z: 0.000000978363}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -55,7 +55,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 73716738891544662}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000047683716, y: -2.6666658, z: -0.00000006111037}
+  m_LocalPosition: {x: -0.00000047683716, y: -2.666661, z: -0.00000006111037}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -248,7 +248,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 216919065925252574}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000047683716, y: -1.9999995, z: 0.0000022305285}
+  m_LocalPosition: {x: 0.00000047683716, y: -1.8333315, z: -0.000000007041666}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -310,7 +310,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 304901879435707498}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000047683716, y: -2.6666658, z: 0.0000014055385}
+  m_LocalPosition: {x: 0.00000047683716, y: -2.6666646, z: 0.0000014055385}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -341,7 +341,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 395544787553432555}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000047683716, y: -1.9999993, z: 0.00000025971906}
+  m_LocalPosition: {x: -0.00000047683716, y: -1.8333279, z: 0.0000014685255}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -769,21 +769,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.4
+  suspensionTravel: 0.5
   wheelRadius: 0.7
-  tireMass: 1500
+  tireMass: 2000
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
-  spring: 300000
-  damper: 20000
-  hardPointOfTire: -1.2
+  spring: 240000
+  damper: 12000
+  hardPointOfTire: -1.1
   upperConstraintTransform: {fileID: 5287332726440241692}
   lowerConstraintTransform: {fileID: 8632168966451352066}
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
     drawWheelDirection: 0
-    drawShapeGizmo: 1
+    drawShapeGizmo: 0
     drawSprings: 1
     drawMode: 0
 --- !u!1 &1051856593156623839
@@ -1032,7 +1032,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1401985207720972856}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 39574f7203a62d644ab022c036ad24ad, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
@@ -1208,7 +1208,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1796017315206951560}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000047683716, y: -1.9999996, z: -0.00000047360535}
+  m_LocalPosition: {x: 0.00000047683716, y: -1.833333, z: -0.0000029332123}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1570,21 +1570,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.4
+  suspensionTravel: 0.5
   wheelRadius: 0.7
-  tireMass: 1500
+  tireMass: 2000
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
-  spring: 300000
-  damper: 20000
-  hardPointOfTire: -1.2
+  spring: 240000
+  damper: 12000
+  hardPointOfTire: -1.1
   upperConstraintTransform: {fileID: 3475977529309647715}
   lowerConstraintTransform: {fileID: 6029136099572479404}
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
     drawWheelDirection: 0
-    drawShapeGizmo: 1
+    drawShapeGizmo: 0
     drawSprings: 1
     drawMode: 0
 --- !u!1 &2382014660260196466
@@ -1947,21 +1947,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.4
+  suspensionTravel: 0.5
   wheelRadius: 0.7
-  tireMass: 1500
+  tireMass: 2000
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
-  spring: 300000
-  damper: 20000
-  hardPointOfTire: -1.2
+  spring: 240000
+  damper: 12000
+  hardPointOfTire: -1.1
   upperConstraintTransform: {fileID: 4204719242587031251}
   lowerConstraintTransform: {fileID: 9026653291783059174}
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
     drawWheelDirection: 0
-    drawShapeGizmo: 1
+    drawShapeGizmo: 0
     drawSprings: 1
     drawMode: 0
 --- !u!1 &2661665641012484375
@@ -2164,7 +2164,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2959517761217778011}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000047683716, y: -2.6666658, z: 0.0000014055385}
+  m_LocalPosition: {x: -0.00000047683716, y: -2.6666646, z: 0.0000014055385}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2455,21 +2455,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.4
+  suspensionTravel: 0.5
   wheelRadius: 0.7
-  tireMass: 1500
+  tireMass: 2000
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
-  spring: 300000
-  damper: 20000
-  hardPointOfTire: -1.2
+  spring: 240000
+  damper: 12000
+  hardPointOfTire: -1.1
   upperConstraintTransform: {fileID: 8243056474510374004}
   lowerConstraintTransform: {fileID: 7105402887677791279}
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
     drawWheelDirection: 0
-    drawShapeGizmo: 1
+    drawShapeGizmo: 0
     drawSprings: 1
     drawMode: 0
 --- !u!1 &3548835830782753912
@@ -2827,21 +2827,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.4
+  suspensionTravel: 0.5
   wheelRadius: 0.7
-  tireMass: 1500
+  tireMass: 2000
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
-  spring: 300000
-  damper: 20000
-  hardPointOfTire: -1.2
+  spring: 240000
+  damper: 12000
+  hardPointOfTire: -1.1
   upperConstraintTransform: {fileID: 4790269357886956223}
   lowerConstraintTransform: {fileID: 6771189393905767242}
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
     drawWheelDirection: 0
-    drawShapeGizmo: 1
+    drawShapeGizmo: 0
     drawSprings: 1
     drawMode: 0
 --- !u!1 &4165000066307916114
@@ -3417,21 +3417,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.4
+  suspensionTravel: 0.5
   wheelRadius: 0.7
-  tireMass: 1500
+  tireMass: 2000
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
-  spring: 300000
-  damper: 20000
-  hardPointOfTire: -1.2
+  spring: 240000
+  damper: 12000
+  hardPointOfTire: -1.1
   upperConstraintTransform: {fileID: 8816711895945245242}
   lowerConstraintTransform: {fileID: 4414781395658228239}
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
     drawWheelDirection: 0
-    drawShapeGizmo: 1
+    drawShapeGizmo: 0
     drawSprings: 1
     drawMode: 0
 --- !u!1 &4323063976928205939
@@ -3613,7 +3613,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4576347703299931348}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000047683716, y: -2.6666658, z: -0.00000006111037}
+  m_LocalPosition: {x: 0.00000047683716, y: -2.666661, z: -0.00000006111037}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3644,7 +3644,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4625295945347080831}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000047683716, y: -1.9999995, z: 0.000000748602}
+  m_LocalPosition: {x: 0.00000047683716, y: -1.8333279, z: -0.0000014647723}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3820,7 +3820,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4784526620962752432}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000047683716, y: -1.9999996, z: 0.0000005041606}
+  m_LocalPosition: {x: -0.00000047683716, y: -1.8333315, z: 0.000000978363}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4310,21 +4310,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.4
+  suspensionTravel: 0.5
   wheelRadius: 0.7
-  tireMass: 1500
+  tireMass: 2000
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
-  spring: 300000
-  damper: 20000
-  hardPointOfTire: -1.2
+  spring: 240000
+  damper: 12000
+  hardPointOfTire: -1.1
   upperConstraintTransform: {fileID: 6974406534108970471}
   lowerConstraintTransform: {fileID: 2036099969381696979}
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
     drawWheelDirection: 0
-    drawShapeGizmo: 1
+    drawShapeGizmo: 0
     drawSprings: 1
     drawMode: 0
 --- !u!1 &5472440456343672947
@@ -4423,21 +4423,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.4
+  suspensionTravel: 0.5
   wheelRadius: 0.7
-  tireMass: 1500
+  tireMass: 2000
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
-  spring: 300000
-  damper: 20000
-  hardPointOfTire: -1.2
+  spring: 240000
+  damper: 12000
+  hardPointOfTire: -1.1
   upperConstraintTransform: {fileID: 3298110511796560541}
   lowerConstraintTransform: {fileID: 3159503169146877575}
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
     drawWheelDirection: 0
-    drawShapeGizmo: 1
+    drawShapeGizmo: 0
     drawSprings: 1
     drawMode: 0
 --- !u!1 &5555617662634126025
@@ -4619,7 +4619,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5821003528650910982}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000047683716, y: -1.9999995, z: 0.0000022305285}
+  m_LocalPosition: {x: -0.00000047683716, y: -1.8333315, z: -0.000000007041666}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4650,7 +4650,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5864155104517248726}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000047683716, y: -2.6666665, z: 0.0000010388762}
+  m_LocalPosition: {x: -0.00000047683716, y: -2.6666646, z: 0.0000010388762}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4938,7 +4938,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6299188550791183157}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000047683716, y: -1.9999996, z: -0.00000047360535}
+  m_LocalPosition: {x: -0.00000047683716, y: -1.833333, z: -0.0000029332123}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4969,7 +4969,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6447031953116348712}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000047683716, y: -1.9999993, z: 0.00000025971906}
+  m_LocalPosition: {x: 0.00000047683716, y: -1.8333279, z: 0.0000014685255}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5000,7 +5000,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6531943725744047540}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000047683716, y: -1.9999995, z: 0.000000748602}
+  m_LocalPosition: {x: -0.00000047683716, y: -1.8333279, z: -0.0000014647723}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5449,21 +5449,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.4
+  suspensionTravel: 0.5
   wheelRadius: 0.7
-  tireMass: 1500
+  tireMass: 2000
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
-  spring: 300000
-  damper: 20000
-  hardPointOfTire: -1.2
+  spring: 240000
+  damper: 12000
+  hardPointOfTire: -1.1
   upperConstraintTransform: {fileID: 313854361456630449}
   lowerConstraintTransform: {fileID: 1743268128366700711}
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
     drawWheelDirection: 0
-    drawShapeGizmo: 1
+    drawShapeGizmo: 0
     drawSprings: 1
     drawMode: 0
 --- !u!1 &6962006252954758536
@@ -5614,7 +5614,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7077237735888698263}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000047683716, y: -2.6666658, z: 0.0000010388762}
+  m_LocalPosition: {x: 0.00000047683716, y: -2.666661, z: 0.0000010388762}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5748,21 +5748,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.4
+  suspensionTravel: 0.5
   wheelRadius: 0.7
-  tireMass: 1500
+  tireMass: 2000
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
-  spring: 300000
-  damper: 20000
-  hardPointOfTire: -1.2
+  spring: 240000
+  damper: 12000
+  hardPointOfTire: -1.1
   upperConstraintTransform: {fileID: 6808097494001908500}
   lowerConstraintTransform: {fileID: 2951561560239935674}
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
     drawWheelDirection: 0
-    drawShapeGizmo: 1
+    drawShapeGizmo: 0
     drawSprings: 1
     drawMode: 0
 --- !u!1 &7596579701972947086
@@ -6269,7 +6269,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7747364438819799608}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000047683716, y: -2.6666658, z: 0.0000010388762}
+  m_LocalPosition: {x: -0.00000047683716, y: -2.666661, z: 0.0000010388762}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7086,17 +7086,62 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 45000
+      value: 80000
       inSlope: -985.7143
-      outSlope: -537.5
+      outSlope: -2000
       tangentMode: 65
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
+      time: 10
+      value: 60000
+      inSlope: -2000
+      outSlope: -5000
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 15
+      value: 35000
+      inSlope: -5000
+      outSlope: -1300
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 25
+      value: 22000
+      inSlope: -1300
+      outSlope: -307.69232
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 38
+      value: 18000
+      inSlope: -307.69232
+      outSlope: -352.94116
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 55
+      value: 12000
+      inSlope: -352.94116
+      outSlope: -400
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
       time: 80
       value: 2000
-      inSlope: -537.5
+      inSlope: -400
       outSlope: -985.7143
       tangentMode: 5
       weightedMode: 0
@@ -7143,7 +7188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 475396d133208334a93ba515d03ff3d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  steerSpeed: 30
+  steerForce: 50
 --- !u!1 &8857126714526320503
 GameObject:
   m_ObjectHideFlags: 0
@@ -7261,7 +7306,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9188217228397201469}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000047683716, y: -2.6666665, z: 0.0000010388762}
+  m_LocalPosition: {x: 0.00000047683716, y: -2.6666646, z: 0.0000010388762}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

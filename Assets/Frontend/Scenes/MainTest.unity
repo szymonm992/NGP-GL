@@ -11328,440 +11328,196 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 313854361456630449, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.00000035762787
+      objectReference: {fileID: 0}
+    - target: {fileID: 313854361456630449, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.833333
+      value: -1.8333324
       objectReference: {fileID: 0}
     - target: {fileID: 313854361456630449, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0000029332123
+      value: -0.0000019552758
       objectReference: {fileID: 0}
     - target: {fileID: 1260713995757995336, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tireMass
-      value: 2000
+      propertyPath: damper
+      value: 15000
       objectReference: {fileID: 0}
     - target: {fileID: 1260713995757995336, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: hardPointOfTire
-      value: -1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1260713995757995336, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: suspensionTravel
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1260713995757995336, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawOnDisable
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1260713995757995336, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawShapeGizmo
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1260713995757995336, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawWheelDirection
-      value: 0
+      propertyPath: spring
+      value: 240000
       objectReference: {fileID: 0}
     - target: {fileID: 1665661442031598407, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tireMass
-      value: 2000
+      propertyPath: damper
+      value: 15000
       objectReference: {fileID: 0}
     - target: {fileID: 1665661442031598407, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: hardPointOfTire
-      value: -1.1
+      propertyPath: spring
+      value: 240000
       objectReference: {fileID: 0}
-    - target: {fileID: 1665661442031598407, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: suspensionTravel
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1665661442031598407, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawOnDisable
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1665661442031598407, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawShapeGizmo
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1665661442031598407, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawWheelDirection
-      value: 0
+    - target: {fileID: 1743268128366700711, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.00000059604645
       objectReference: {fileID: 0}
     - target: {fileID: 1743268128366700711, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.6666667
+      value: -2.6666663
       objectReference: {fileID: 0}
     - target: {fileID: 1743268128366700711, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0000014055385
+      value: -0.00000091665555
       objectReference: {fileID: 0}
-    - target: {fileID: 1990354463925801403, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: 39574f7203a62d644ab022c036ad24ad, type: 2}
+    - target: {fileID: 2036099969381696979, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.00000059604645
+      objectReference: {fileID: 0}
     - target: {fileID: 2036099969381696979, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.666661
+      value: -2.666666
       objectReference: {fileID: 0}
     - target: {fileID: 2036099969381696979, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0000010388762
+      value: 0.00000006111037
       objectReference: {fileID: 0}
     - target: {fileID: 2445160777361619015, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tireMass
-      value: 2000
+      propertyPath: damper
+      value: 15000
       objectReference: {fileID: 0}
     - target: {fileID: 2445160777361619015, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: hardPointOfTire
-      value: -1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2445160777361619015, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: suspensionTravel
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2445160777361619015, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawOnDisable
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2445160777361619015, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawShapeGizmo
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2445160777361619015, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawWheelDirection
-      value: 0
+      propertyPath: spring
+      value: 240000
       objectReference: {fileID: 0}
     - target: {fileID: 2618250326273635535, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: velocityText
       value: 
       objectReference: {fileID: 7200623150865602637}
     - target: {fileID: 2951561560239935674, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.00000059604645
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951561560239935674, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.666661
+      value: -2.6666663
       objectReference: {fileID: 0}
     - target: {fileID: 2951561560239935674, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.00000006111037
+      value: 0.00000054999333
+      objectReference: {fileID: 0}
+    - target: {fileID: 3159503169146877575, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.00000071525574
       objectReference: {fileID: 0}
     - target: {fileID: 3159503169146877575, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.6666646
+      value: -2.6666658
       objectReference: {fileID: 0}
     - target: {fileID: 3159503169146877575, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0000014055385
+      value: -0.00000054999333
       objectReference: {fileID: 0}
     - target: {fileID: 3200356507440431486, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tireMass
-      value: 2000
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200356507440431486, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: hardPointOfTire
-      value: -1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200356507440431486, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: suspensionTravel
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200356507440431486, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawOnDisable
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200356507440431486, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawShapeGizmo
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200356507440431486, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawWheelDirection
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3298110511796560541, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.8333315
-      objectReference: {fileID: 0}
-    - target: {fileID: 3298110511796560541, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.000000007041666
-      objectReference: {fileID: 0}
-    - target: {fileID: 3475977529309647715, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.8333279
-      objectReference: {fileID: 0}
-    - target: {fileID: 3475977529309647715, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.0000014685255
-      objectReference: {fileID: 0}
-    - target: {fileID: 3890233201666892268, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tireMass
-      value: 2000
-      objectReference: {fileID: 0}
-    - target: {fileID: 3890233201666892268, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: hardPointOfTire
-      value: -1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3890233201666892268, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: suspensionTravel
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3890233201666892268, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawOnDisable
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3890233201666892268, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawShapeGizmo
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3890233201666892268, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawWheelDirection
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4204719242587031251, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.8333279
-      objectReference: {fileID: 0}
-    - target: {fileID: 4204719242587031251, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.0000014647723
-      objectReference: {fileID: 0}
-    - target: {fileID: 4414781395658228239, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.6666646
-      objectReference: {fileID: 0}
-    - target: {fileID: 4414781395658228239, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.0000010388762
-      objectReference: {fileID: 0}
-    - target: {fileID: 4781473075471714061, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tireMass
-      value: 2000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4781473075471714061, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: hardPointOfTire
-      value: -1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4781473075471714061, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: suspensionTravel
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4781473075471714061, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawOnDisable
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4781473075471714061, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawShapeGizmo
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4781473075471714061, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawWheelDirection
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4790269357886956223, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.8333315
-      objectReference: {fileID: 0}
-    - target: {fileID: 4790269357886956223, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.000000007041666
-      objectReference: {fileID: 0}
-    - target: {fileID: 4844919203425842951, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tireMass
-      value: 2000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4844919203425842951, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: hardPointOfTire
-      value: -1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4844919203425842951, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: suspensionTravel
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4844919203425842951, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawOnDisable
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4844919203425842951, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawShapeGizmo
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4844919203425842951, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawWheelDirection
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[1].time
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[2].time
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[3].time
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[4].time
-      value: 38
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[5].time
-      value: 55
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[6].time
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[0].value
-      value: 75000
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[1].value
-      value: 55000
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[2].value
-      value: 40000
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[3].value
-      value: 30000
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[4].value
+      propertyPath: damper
       value: 15000
       objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[5].value
-      value: 10000
+    - target: {fileID: 3200356507440431486, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: spring
+      value: 240000
       objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[6].value
-      value: 2000
+    - target: {fileID: 3298110511796560541, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.00000071525574
       objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[1].inSlope
-      value: -2000
+    - target: {fileID: 3298110511796560541, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.833333
       objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[2].inSlope
-      value: -3000
+    - target: {fileID: 3298110511796560541, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0000019936401
       objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[3].inSlope
-      value: -1000
+    - target: {fileID: 3475977529309647715, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.00000071525574
       objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[4].inSlope
-      value: -1153.8462
+    - target: {fileID: 3475977529309647715, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.8333328
       objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[5].inSlope
-      value: -294.11765
+    - target: {fileID: 3475977529309647715, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0000007331538
       objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[6].inSlope
-      value: -320
+    - target: {fileID: 3890233201666892268, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: damper
+      value: 15000
       objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[0].outSlope
-      value: -2000
+    - target: {fileID: 3890233201666892268, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: spring
+      value: 240000
       objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[1].outSlope
-      value: -3000
+    - target: {fileID: 4204719242587031251, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0000009536743
       objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[2].inWeight
-      value: 0.33333334
+    - target: {fileID: 4204719242587031251, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.833333
       objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[2].outSlope
-      value: -1000
+    - target: {fileID: 4204719242587031251, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0000026887708
       objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[3].inWeight
-      value: 0.33333334
+    - target: {fileID: 4414781395658228239, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.00000071525574
       objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[3].outSlope
-      value: -1153.8462
+    - target: {fileID: 4414781395658228239, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.6666663
       objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[4].inWeight
-      value: 0.33333334
+    - target: {fileID: 4414781395658228239, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0000020166424
       objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[4].outSlope
-      value: -294.11765
+    - target: {fileID: 4781473075471714061, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: damper
+      value: 15000
       objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[5].inWeight
-      value: 0.33333334
+    - target: {fileID: 4781473075471714061, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: spring
+      value: 240000
       objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[5].outSlope
-      value: -320
+    - target: {fileID: 4790269357886956223, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.00000071525574
       objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[6].inWeight
-      value: 0.33333334
+    - target: {fileID: 4790269357886956223, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.833333
       objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[6].outSlope
-      value: -985.7143
+    - target: {fileID: 4790269357886956223, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0000019936401
       objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[1].outWeight
-      value: 0.33333334
+    - target: {fileID: 4844919203425842951, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: damper
+      value: 15000
       objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[2].outWeight
-      value: 0.33333334
+    - target: {fileID: 4844919203425842951, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: spring
+      value: 240000
       objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[3].outWeight
-      value: 0.33333334
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[4].outWeight
-      value: 0.33333334
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[5].outWeight
-      value: 0.33333334
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[1].tangentMode
-      value: 69
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[2].tangentMode
-      value: 69
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[3].tangentMode
-      value: 69
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[4].tangentMode
-      value: 69
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[5].tangentMode
-      value: 69
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105579772561218950, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: enginePowerCurve.m_Curve.Array.data[6].tangentMode
-      value: 5
+    - target: {fileID: 5287332726440241692, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.00000035762787
       objectReference: {fileID: 0}
     - target: {fileID: 5287332726440241692, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.8333315
+      value: -1.833333
       objectReference: {fileID: 0}
     - target: {fileID: 5287332726440241692, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.000000978363
+      value: -0.0000014665635
       objectReference: {fileID: 0}
     - target: {fileID: 5497972940232234640, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_RootOrder
@@ -11769,15 +11525,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5497972940232234640, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 40.57
+      value: 31.09
       objectReference: {fileID: 0}
     - target: {fileID: 5497972940232234640, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 35
+      value: 0.593
       objectReference: {fileID: 0}
     - target: {fileID: 5497972940232234640, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 17.01
+      value: 19.53
       objectReference: {fileID: 0}
     - target: {fileID: 5497972940232234640, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11808,112 +11564,96 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6029136099572479404, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.00000071525574
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029136099572479404, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.666661
+      value: -2.666666
       objectReference: {fileID: 0}
     - target: {fileID: 6029136099572479404, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0000010388762
+      value: 0.00000006111037
+      objectReference: {fileID: 0}
+    - target: {fileID: 6771189393905767242, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.00000059604645
       objectReference: {fileID: 0}
     - target: {fileID: 6771189393905767242, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.6666646
+      value: -2.666666
       objectReference: {fileID: 0}
-    - target: {fileID: 6771189393905767242, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.0000014055385
+    - target: {fileID: 6808097494001908500, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.00000071525574
       objectReference: {fileID: 0}
     - target: {fileID: 6808097494001908500, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.8333279
+      value: -1.8333333
       objectReference: {fileID: 0}
     - target: {fileID: 6808097494001908500, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0000014647723
+      value: -0.0000028110767
       objectReference: {fileID: 0}
     - target: {fileID: 6915501077499464677, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tireMass
-      value: 2000
+      propertyPath: damper
+      value: 15000
       objectReference: {fileID: 0}
     - target: {fileID: 6915501077499464677, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: hardPointOfTire
-      value: -1.1
+      propertyPath: spring
+      value: 240000
       objectReference: {fileID: 0}
-    - target: {fileID: 6915501077499464677, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: suspensionTravel
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6915501077499464677, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawOnDisable
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6915501077499464677, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawShapeGizmo
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6915501077499464677, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawWheelDirection
-      value: 0
+    - target: {fileID: 6974406534108970471, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.00000059604645
       objectReference: {fileID: 0}
     - target: {fileID: 6974406534108970471, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.8333279
+      value: -1.8333328
       objectReference: {fileID: 0}
     - target: {fileID: 6974406534108970471, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0000014685255
+      value: -0.0000014664781
+      objectReference: {fileID: 0}
+    - target: {fileID: 7105402887677791279, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.00000059604645
       objectReference: {fileID: 0}
     - target: {fileID: 7105402887677791279, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.6666667
+      value: -2.6666658
       objectReference: {fileID: 0}
     - target: {fileID: 7105402887677791279, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0000014055385
+      value: -0.0000004277726
       objectReference: {fileID: 0}
     - target: {fileID: 7958900900186182619, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tireMass
-      value: 2000
+      propertyPath: damper
+      value: 15000
       objectReference: {fileID: 0}
     - target: {fileID: 7958900900186182619, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: hardPointOfTire
-      value: -1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7958900900186182619, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: suspensionTravel
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7958900900186182619, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawOnDisable
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7958900900186182619, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawShapeGizmo
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7958900900186182619, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawWheelDirection
-      value: 0
+      propertyPath: spring
+      value: 240000
       objectReference: {fileID: 0}
     - target: {fileID: 8243056474510374004, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.833333
+      propertyPath: m_LocalPosition.x
+      value: -0.00000071525574
       objectReference: {fileID: 0}
     - target: {fileID: 8243056474510374004, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0000029332123
+      value: -0.0000034220952
       objectReference: {fileID: 0}
-    - target: {fileID: 8255813644745574887, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: steerForce
-      value: 50
+    - target: {fileID: 8632168966451352066, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.00000071525574
       objectReference: {fileID: 0}
     - target: {fileID: 8632168966451352066, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.6666646
+      value: -2.6666663
       objectReference: {fileID: 0}
     - target: {fileID: 8632168966451352066, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0000010388762
+      value: 0.00000006111037
       objectReference: {fileID: 0}
     - target: {fileID: 8797747351685325955, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_Name
@@ -11924,44 +11664,36 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8816711895945245242, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.00000071525574
+      objectReference: {fileID: 0}
+    - target: {fileID: 8816711895945245242, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.8333315
+      value: -1.833333
       objectReference: {fileID: 0}
     - target: {fileID: 8816711895945245242, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.000000978363
+      value: 0.0000009778513
       objectReference: {fileID: 0}
     - target: {fileID: 8996245261908975208, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tireMass
-      value: 2000
+      propertyPath: damper
+      value: 15000
       objectReference: {fileID: 0}
     - target: {fileID: 8996245261908975208, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: hardPointOfTire
-      value: -1.1
+      propertyPath: spring
+      value: 240000
       objectReference: {fileID: 0}
-    - target: {fileID: 8996245261908975208, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: suspensionTravel
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8996245261908975208, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawOnDisable
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8996245261908975208, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawShapeGizmo
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8996245261908975208, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debugSettings.drawWheelDirection
-      value: 0
+    - target: {fileID: 9026653291783059174, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.00000071525574
       objectReference: {fileID: 0}
     - target: {fileID: 9026653291783059174, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.666661
+      value: -2.6666663
       objectReference: {fileID: 0}
     - target: {fileID: 9026653291783059174, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.00000006111037
+      value: -0.0000016499799
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
