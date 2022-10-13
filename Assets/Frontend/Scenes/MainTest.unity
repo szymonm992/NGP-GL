@@ -8875,6 +8875,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1726447226}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1727841486 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7623138870644961505, guid: 41d907ad5da0d0c4898f843bfa211c8f, type: 3}
+  m_PrefabInstance: {fileID: 3793767752385887771}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1735297566 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5626595464720444460, guid: f0e7a79742c5f5b438fa9aafd9111377, type: 3}
@@ -11253,7 +11264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7623138870644961530, guid: 41d907ad5da0d0c4898f843bfa211c8f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7623138870644961532, guid: 41d907ad5da0d0c4898f843bfa211c8f, type: 3}
       propertyPath: m_RootOrder
@@ -11772,7 +11783,7 @@ PrefabInstance:
     - target: {fileID: 7200623150744985338, guid: 9e789f1c8f9f9b14699c59f0e8719cb4, type: 3}
       propertyPath: playerContext
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1727841486}
     - target: {fileID: 8932221340459640625, guid: 9e789f1c8f9f9b14699c59f0e8719cb4, type: 3}
       propertyPath: m_Text
       value: 'RPM: 0000'
