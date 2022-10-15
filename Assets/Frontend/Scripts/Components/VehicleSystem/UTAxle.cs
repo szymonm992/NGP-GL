@@ -19,6 +19,7 @@ namespace Frontend.Scripts.Components
         [SerializeField] private UTAxlePair[] wheelPairs;
         [SerializeField] private bool canDrive;
         [SerializeField] private bool canSteer;
+        [SerializeField] private bool repositionVisuals = true;
 
         [Header("Antiroll")]
         [SerializeField] private bool applyAntiroll;
@@ -81,13 +82,17 @@ namespace Frontend.Scripts.Components
                 return;
             }
 
-            foreach (var pair in wheelPairs)
+            if(repositionVisuals)
             {
-                if (pair.TireModel != null)
+                foreach (var pair in wheelPairs)
                 {
-                    RepositionTireModel(pair);
+                    if (pair.TireModel != null)
+                    {
+                        RepositionTireModel(pair);
+                    }
                 }
             }
+            
         }
         private void FixedUpdate()
         {

@@ -57,7 +57,7 @@ namespace Frontend.Scripts.Components
             SetupRigidbody();
 
             maxForwardSpeed = enginePowerCurve.keys[enginePowerCurve.keys.Length-1].time;
-            maxBackwardsSpeed = maxForwardSpeed/2;
+            maxBackwardsSpeed = maxForwardSpeed / 2f;
 
             hasAnyWheels = allAxles.Any() && allAxles.Where(axle => axle.HasAnyWheelPair).Any();
             allWheels = GetAllWheelsInAllAxles().ToArray();
@@ -222,7 +222,7 @@ namespace Frontend.Scripts.Components
                 {
                     if (!wheel.IsGrounded)
                     {
-                        rig.AddForceAtPosition((Physics.gravity / notGroundedAmount), wheel.UpperConstraintPoint, ForceMode.Acceleration);
+                        rig.AddForceAtPosition((Physics.gravity / notGroundedAmount), wheel.transform.position, ForceMode.Acceleration);
                     }
                 }
             }

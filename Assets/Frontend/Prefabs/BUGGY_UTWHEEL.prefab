@@ -681,9 +681,6 @@ MonoBehaviour:
   spring: 20000
   damper: 3000
   hardPointOfTire: -0.7
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 64
   upperConstraintTransform: {fileID: 8934679988980580422}
   lowerConstraintTransform: {fileID: 8934679988308988920}
   debugSettings:
@@ -830,6 +827,7 @@ MonoBehaviour:
     tireModel: {fileID: 7623138870346195597}
   canDrive: 1
   canSteer: 0
+  repositionVisuals: 1
   applyAntiroll: 1
   antiRollForce: 10000
   debugSettings:
@@ -942,6 +940,7 @@ MonoBehaviour:
     tireModel: {fileID: 7623138869703726955}
   canDrive: 1
   canSteer: 1
+  repositionVisuals: 1
   applyAntiroll: 1
   antiRollForce: 10000
   debugSettings:
@@ -1189,9 +1188,6 @@ MonoBehaviour:
   spring: 20000
   damper: 3000
   hardPointOfTire: -0.7
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 64
   upperConstraintTransform: {fileID: 5717451355497676279}
   lowerConstraintTransform: {fileID: 5717451356506016551}
   debugSettings:
@@ -1315,7 +1311,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7623138870644961530}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 32.116, y: 1.637, z: 17.421}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1618,9 +1614,6 @@ MonoBehaviour:
   spring: 20000
   damper: 3000
   hardPointOfTire: -0.7
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 64
   upperConstraintTransform: {fileID: 5717451356704013954}
   lowerConstraintTransform: {fileID: 5717451355207843669}
   debugSettings:
@@ -1768,9 +1761,6 @@ MonoBehaviour:
   spring: 20000
   damper: 3000
   hardPointOfTire: -0.7
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 64
   upperConstraintTransform: {fileID: 5717451355643605848}
   lowerConstraintTransform: {fileID: 5717451354827124297}
   debugSettings:
