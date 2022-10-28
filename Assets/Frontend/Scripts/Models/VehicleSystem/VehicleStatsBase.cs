@@ -1,3 +1,4 @@
+using GLShared.General.Enums;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,7 @@ namespace Frontend.Scripts.Models
         #region MAIN
         //main
         public string VehicleName => vehicleName;
+
         #endregion
 
         #region MOVEMENT PARAMETERS

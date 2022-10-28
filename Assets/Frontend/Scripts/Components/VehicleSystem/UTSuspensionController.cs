@@ -9,76 +9,24 @@ using GLShared.General.ScriptableObjects;
 
 namespace Frontend.Scripts.Components
 {
-    public class UTSuspensionController : MonoBehaviour, IVehicleController
+    public class UTSuspensionController : UTVehicleController, IVehicleController
     {
-        [Inject(Id = "mainRig")] private Rigidbody rig;
-        [Inject] private readonly IEnumerable<UTAxle> allAxles;
-        [Inject] private readonly GameParameters gameParameters;
-        [Inject] private readonly IPlayerInputProvider inputProvider;
-        [Inject] private readonly VehicleStatsBase vehicleStats;
-        [Inject (Optional = true)] private readonly Speedometer speedometer;
-
-        [SerializeField] private float maxSlopeAngle = 45f;
-        [SerializeField] private Transform centerOfMass;
-        [SerializeField] private AnimationCurve enginePowerCurve;
+  
+        
         [SerializeField] private bool airControl = true;
 
-        private int allWheelsAmount = 0;
-        private bool hasAnyWheels;
-
         private bool isBrake;
-        private float inputY;
-        private float absoluteInputY;
-        private float signedInputY;
 
-        private float currentSpeed;
+        private float inputY;
         private float currentDriveForce = 0;
         private float currentLongitudalGrip;
         private float forwardForce;
         private float turnForce;
-        private float maxForwardSpeed;
-        private float maxBackwardsSpeed;
+        
         private Vector3 wheelVelocityLocal;
         
-        private IEnumerable<UTWheel> allGroundedWheels;
-        private UTWheel[] allWheels;
-
-        public VehicleType VehicleType => VehicleType.Car;
-        public IEnumerable<UTAxle> AllAxles => allAxles;
-        public bool HasAnyWheels => hasAnyWheels;
-        public float CurrentSpeed => currentSpeed;
-        public float AbsoluteInputY => absoluteInputY;
-        public float MaxForwardSpeed => maxForwardSpeed;
-        public float MaxBackwardsSpeed => maxBackwardsSpeed;
 
 
-        public void Initialize()
-        {
-            SetupRigidbody();
-
-            maxForwardSpeed = enginePowerCurve.keys[enginePowerCurve.keys.Length-1].time;
-            maxBackwardsSpeed = maxForwardSpeed / 2f;
-
-            hasAnyWheels = allAxles.Any() && allAxles.Where(axle => axle.HasAnyWheelPair).Any();
-            allWheels = GetAllWheelsInAllAxles().ToArray();
-            allWheelsAmount = allWheels.Length;
-        }
-
-        public void SetupRigidbody()
-        {
-            rig.mass = vehicleStats.Mass;
-            rig.drag = vehicleStats.Drag;
-            rig.angularDrag = vehicleStats.AngularDrag;
-            if(centerOfMass!= null)
-            {
-                rig.centerOfMass = centerOfMass.localPosition;
-            }
-        }
-
-        public float GetCurrentMaxSpeed()
-        {
-            return signedInputY == 0 ? 0 : (signedInputY > 0 ? maxForwardSpeed : maxBackwardsSpeed);
-        }
 
         private void Update()
         {
@@ -196,36 +144,40 @@ namespace Frontend.Scripts.Components
 
         private void CustomGravityLogic()
         {
-            int groundedWheelsAmount = allGroundedWheels.Count();
+            
+                int groundedWheelsAmount = allGroundedWheels.Count();
 
-            if (!allGroundedWheels.Any())
-            {
-                rig.AddForce(Physics.gravity, ForceMode.Acceleration);
-            }
-            else if (allWheelsAmount == groundedWheelsAmount)
-            {
-                float angle = Vector3.Angle(transform.up, -Physics.gravity.normalized);
-
-                if (maxSlopeAngle >= angle)
-                {
-                    rig.AddForce(-transform.up * Physics.gravity.magnitude, ForceMode.Acceleration);
-                }
-                else
+                if (!allGroundedWheels.Any())
                 {
                     rig.AddForce(Physics.gravity, ForceMode.Acceleration);
                 }
-            }
-            else
-            {
-                var notGroundedAmount = (allWheelsAmount - groundedWheelsAmount);
-                foreach (var wheel in allWheels)
+                else if (allWheelsAmount == groundedWheelsAmount)
                 {
-                    if (!wheel.IsGrounded)
+                    float angle = Vector3.Angle(transform.up, -Physics.gravity.normalized);
+
+                    if (maxSlopeAngle >= angle)
                     {
-                        rig.AddForceAtPosition((Physics.gravity / notGroundedAmount), wheel.transform.position, ForceMode.Acceleration);
+                        rig.AddForce(-transform.up * Physics.gravity.magnitude, ForceMode.Acceleration);
+                    }
+                    else
+                    {
+                        rig.AddForce(Physics.gravity, ForceMode.Acceleration);
                     }
                 }
-            }
+                else
+                {
+                    var notGroundedAmount = (allWheelsAmount - groundedWheelsAmount);
+                    foreach (var wheel in allWheels)
+                    {
+                        if (!wheel.IsGrounded)
+                        {
+                            rig.AddForceAtPosition((Physics.gravity / notGroundedAmount), wheel.transform.position, ForceMode.Acceleration);
+                        }
+                    }
+                }
+            
+            
+            
         }
 
         private void AirControl()
@@ -247,45 +199,7 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        private IEnumerable<UTWheel> GetGroundedWheelsInAllAxles()
-        {
-            var result = new List<UTWheel>();
-            if(allAxles.Any())
-            {
-                foreach (var axle in allAxles)
-                {
-                    result.AddRange(axle.GetGroundedWheels());
-                }
-            }
-            return result;
-        } 
-        
-        private IEnumerable<UTWheel> GetAllWheelsInAllAxles()
-        {
-            var result = new List<UTWheel>();
-            if(allAxles.Any())
-            {
-                foreach (var axle in allAxles)
-                {
-                    result.AddRange(axle.GetAllWheels());
-                }
-            }
-            return result;
-        }
-
-
-        private void OnDrawGizmos()
-        {
-            #if UNITY_EDITOR
-            if(rig == null)
-            {
-                rig = GetComponent<Rigidbody>();
-            }
-
-            Gizmos.color = Color.white;
-            Gizmos.DrawSphere(rig.worldCenterOfMass, 0.2f);
-            #endif
-        }
+       
 
         
     }

@@ -112,6 +112,8 @@
     <Compile Include="Assets\Frontend\Scripts\Models\StateFactory.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\States\OnLoginState.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTWheelFrictionCurve.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTTankController.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\UTVehicleController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

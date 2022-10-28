@@ -13,6 +13,7 @@ namespace Frontend.Scripts.Interfaces
         IEnumerable<UTAxle> AllAxles { get; }
         float CurrentSpeed { get; }
         float AbsoluteInputY { get; }
+        float SignedInputY { get; }
 
         float MaxForwardSpeed { get; }
         float MaxBackwardsSpeed { get; }
