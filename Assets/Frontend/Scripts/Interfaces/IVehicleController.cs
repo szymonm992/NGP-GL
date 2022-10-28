@@ -10,6 +10,7 @@ namespace Frontend.Scripts.Interfaces
     {
         VehicleType VehicleType { get; }
         bool HasAnyWheels { get; }
+        bool DoesGravityDamping { get; }
         IEnumerable<UTAxle> AllAxles { get; }
         float CurrentSpeed { get; }
         float AbsoluteInputY { get; }

@@ -7006,8 +7006,8 @@ GameObject:
   - component: {fileID: 8461231185396291856}
   - component: {fileID: 3648750447937278445}
   - component: {fileID: 2404649941768873089}
+  - component: {fileID: 1381698131419342062}
   - component: {fileID: 8992989569556248829}
-  - component: {fileID: 5105579772561218950}
   - component: {fileID: 7057069551729104832}
   - component: {fileID: 2618250326273635535}
   - component: {fileID: 8255813644745574887}
@@ -7117,7 +7117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _components:
-  - {fileID: 5105579772561218950}
+  - {fileID: 1381698131419342062}
   - {fileID: 7057069551729104832}
   - {fileID: 2618250326273635535}
   - {fileID: 8255813644745574887}
@@ -7125,7 +7125,7 @@ MonoBehaviour:
   _useSceneContext: 0
   _context: {fileID: 0}
   _bindType: 2
---- !u!114 &8992989569556248829
+--- !u!114 &1381698131419342062
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7134,29 +7134,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8797747351685325955}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 989ff1fb6242fc341ab5a99624443ac5, type: 3}
+  m_Script: {fileID: 11500000, guid: c0b3b4071dfd7ac4ca1d8842b7516e7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vehicleName: t-55
-  mass: 36500
-  drag: 0.2
-  angularDrag: 0.5
-  gunDepression: -5
-  gunElevation: 15
---- !u!114 &5105579772561218950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8797747351685325955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89f58c655304a0b4aa59f2eb70176347, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSlopeAngle: 45
   centerOfMass: {fileID: 2970605867215432948}
+  vehicleType: 2
+  maxSlopeAngle: 45
   enginePowerCurve:
     serializedVersion: 2
     m_Curve:
@@ -7226,7 +7209,25 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  airControl: 0
+  doesGravityDamping: 0
+--- !u!114 &8992989569556248829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8797747351685325955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 989ff1fb6242fc341ab5a99624443ac5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vehicleName: t-55
+  mass: 36500
+  drag: 0.2
+  angularDrag: 0.5
+  gunDepression: -5
+  gunElevation: 15
 --- !u!114 &7057069551729104832
 MonoBehaviour:
   m_ObjectHideFlags: 0

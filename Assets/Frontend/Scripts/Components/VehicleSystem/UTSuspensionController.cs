@@ -11,22 +11,7 @@ namespace Frontend.Scripts.Components
 {
     public class UTSuspensionController : UTVehicleController, IVehicleController
     {
-  
-        
         [SerializeField] private bool airControl = true;
-
-        private bool isBrake;
-
-        private float inputY;
-        private float currentDriveForce = 0;
-        private float currentLongitudalGrip;
-        private float forwardForce;
-        private float turnForce;
-        
-        private Vector3 wheelVelocityLocal;
-        
-
-
 
         private void Update()
         {
@@ -144,40 +129,37 @@ namespace Frontend.Scripts.Components
 
         private void CustomGravityLogic()
         {
-            
-                int groundedWheelsAmount = allGroundedWheels.Count();
 
-                if (!allGroundedWheels.Any())
-                {
-                    rig.AddForce(Physics.gravity, ForceMode.Acceleration);
-                }
-                else if (allWheelsAmount == groundedWheelsAmount)
-                {
-                    float angle = Vector3.Angle(transform.up, -Physics.gravity.normalized);
+            int groundedWheelsAmount = allGroundedWheels.Count();
 
-                    if (maxSlopeAngle >= angle)
-                    {
-                        rig.AddForce(-transform.up * Physics.gravity.magnitude, ForceMode.Acceleration);
-                    }
-                    else
-                    {
-                        rig.AddForce(Physics.gravity, ForceMode.Acceleration);
-                    }
+            if (!allGroundedWheels.Any())
+            {
+                rig.AddForce(Physics.gravity, ForceMode.Acceleration);
+            }
+            else if (allWheelsAmount == groundedWheelsAmount)
+            {
+                float angle = Vector3.Angle(transform.up, -Physics.gravity.normalized);
+
+                if (maxSlopeAngle >= angle)
+                {
+                    rig.AddForce(-transform.up * Physics.gravity.magnitude, ForceMode.Acceleration);
                 }
                 else
                 {
-                    var notGroundedAmount = (allWheelsAmount - groundedWheelsAmount);
-                    foreach (var wheel in allWheels)
+                    rig.AddForce(Physics.gravity, ForceMode.Acceleration);
+                }
+            }
+            else
+            {
+                var notGroundedAmount = (allWheelsAmount - groundedWheelsAmount);
+                foreach (var wheel in allWheels)
+                {
+                    if (!wheel.IsGrounded)
                     {
-                        if (!wheel.IsGrounded)
-                        {
-                            rig.AddForceAtPosition((Physics.gravity / notGroundedAmount), wheel.transform.position, ForceMode.Acceleration);
-                        }
+                        rig.AddForceAtPosition((Physics.gravity / notGroundedAmount), wheel.transform.position, ForceMode.Acceleration);
                     }
                 }
-            
-            
-            
+            }
         }
 
         private void AirControl()

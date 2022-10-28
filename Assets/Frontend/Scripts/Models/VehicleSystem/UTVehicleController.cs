@@ -23,6 +23,7 @@ namespace Frontend.Scripts.Models
         [SerializeField] protected VehicleType vehicleType = VehicleType.Car;
         [SerializeField] protected float maxSlopeAngle = 45f;
         [SerializeField] protected AnimationCurve enginePowerCurve;
+        [SerializeField] protected bool doesGravityDamping = true;
 
         protected bool hasAnyWheels;
         protected float currentSpeed;
@@ -31,6 +32,16 @@ namespace Frontend.Scripts.Models
         protected float maxBackwardsSpeed;
         protected float signedInputY;
         protected int allWheelsAmount = 0;
+
+        #region Computed variables
+        protected bool isBrake;
+        protected float inputY;
+        protected float currentDriveForce = 0;
+        protected float currentLongitudalGrip;
+        protected float forwardForce;
+        protected float turnForce;
+        protected Vector3 wheelVelocityLocal;
+        #endregion 
 
         protected IEnumerable<UTWheel> allGroundedWheels;
         protected UTWheel[] allWheels;
@@ -43,6 +54,12 @@ namespace Frontend.Scripts.Models
         public float SignedInputY => signedInputY;
         public float MaxForwardSpeed => maxForwardSpeed;
         public float MaxBackwardsSpeed => maxBackwardsSpeed;
+        public bool DoesGravityDamping => doesGravityDamping;
+
+        public float GetCurrentMaxSpeed()
+        {
+            return signedInputY == 0 ? 0 : (signedInputY > 0 ? maxForwardSpeed : maxBackwardsSpeed);
+        }
 
         public virtual void Initialize()
         {
@@ -91,11 +108,6 @@ namespace Frontend.Scripts.Models
                 }
             }
             return result;
-        }
-
-        public float GetCurrentMaxSpeed()
-        {
-            return signedInputY == 0 ? 0 : (signedInputY > 0 ? maxForwardSpeed : maxBackwardsSpeed);
         }
 
         private void OnDrawGizmos()

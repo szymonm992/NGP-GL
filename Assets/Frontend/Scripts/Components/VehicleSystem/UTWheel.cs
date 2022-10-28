@@ -7,6 +7,7 @@ using Frontend.Scripts.Enums;
 using Frontend.Scripts.Models;
 using GLShared.General.ScriptableObjects;
 using GLShared.General.Models;
+using Frontend.Scripts.Interfaces;
 
 namespace Frontend.Scripts.Components
 {
@@ -14,6 +15,7 @@ namespace Frontend.Scripts.Components
     {
         [Inject] private readonly GameParameters gameParameters;
         [Inject(Id = "mainRig")] private Rigidbody rig;
+        [Inject] private readonly IVehicleController vehicleController;
 
         [Header("Settings")]
         [Range(0.1f, 2f)]
@@ -75,6 +77,7 @@ namespace Frontend.Scripts.Components
         public float HardPointAbs => hardPointAbs;
         public Vector3 TireWorldPosition => tirePosition;
         public Vector3 UpperConstraintPoint => upperConstraintTransform.position;
+
         public float SteerAngle
         {
             get => wheelAngle;
@@ -139,7 +142,7 @@ namespace Frontend.Scripts.Components
         {
             Vector3 newPosition = GetTirePosition();
 
-            if (compressionRate == 1)
+            if (compressionRate == 1 && vehicleController.DoesGravityDamping)
             {
                 GravityDamping();
             }
@@ -162,7 +165,7 @@ namespace Frontend.Scripts.Components
         {
             if (rig.velocity.y < -4f)
             {
-                rig.AddForce(Vector3.up * Mathf.Min(-rig.velocity.y, 5f), ForceMode.VelocityChange);
+                rig.AddForce(Vector3.up * Mathf.Min(-rig.velocity.y, 4f), ForceMode.VelocityChange);
             }
         }
 
