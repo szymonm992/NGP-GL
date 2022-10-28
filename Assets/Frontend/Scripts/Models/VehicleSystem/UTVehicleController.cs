@@ -97,6 +97,91 @@ namespace Frontend.Scripts.Models
             }
         }
 
+        protected void EvaluateDriveParams()
+        {
+            currentDriveForce = enginePowerCurve.Evaluate(currentSpeed);
+        }
+
+        protected void ApplyFrictionForces()
+        {
+            if (!allGroundedWheels.Any())
+            {
+                return;
+            }
+
+            foreach (var wheel in allGroundedWheels)
+            {
+                Vector3 steeringDir = wheel.transform.right;
+                Vector3 tireVel = rig.GetPointVelocity(wheel.HitInfo.Point);
+
+                float steeringVel = Vector3.Dot(steeringDir, tireVel);
+                float desiredVelChange = -steeringVel * wheel.SidewaysTireGripFactor;
+                float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
+
+                rig.AddForceAtPosition(desiredAccel * wheel.TireMass * steeringDir, wheel.HitInfo.Point);
+            }
+        }
+
+        protected void Accelerate()
+        {
+            if (absoluteInputY == 0 || isBrake)
+            {
+                return;
+            }
+
+            foreach (var axle in allAxles)
+            {
+                if (axle.CanDrive && !isBrake)
+                {
+                    var groundedWheels = axle.GetGroundedWheels();
+
+                    if (!groundedWheels.Any())
+                    {
+                        return;
+                    }
+
+                    foreach (var wheel in groundedWheels)
+                    {
+                        if (wheel.HitInfo.NormalAndUpAngle <= gameParameters.MaxWheelDetectionAngle)
+                        {
+                            wheelVelocityLocal = wheel.transform.InverseTransformDirection(rig.GetPointVelocity(wheel.UpperConstraintPoint));
+
+                            forwardForce = inputY * currentDriveForce;
+                            turnForce = wheelVelocityLocal.x * currentDriveForce;
+
+                            rig.AddForceAtPosition((forwardForce * wheel.transform.forward), wheel.HitInfo.Point);
+                            rig.AddForceAtPosition((turnForce * -wheel.transform.right), wheel.UpperConstraintPoint);
+                        }
+                    }
+                }
+            }
+        }
+
+        protected  void Brakes()
+        {
+            if (!allGroundedWheels.Any())
+            {
+                return;
+            }
+
+            currentLongitudalGrip = isBrake ? 1f : (absoluteInputY > 0 ? 0 : 0.5f);
+
+            if (absoluteInputY == 0 || isBrake)
+            {
+                foreach (var wheel in allGroundedWheels)
+                {
+                    Vector3 forwardDir = wheel.transform.forward;
+                    Vector3 tireVel = rig.GetPointVelocity(wheel.UpperConstraintPoint);
+
+                    float steeringVel = Vector3.Dot(forwardDir, tireVel);
+                    float desiredVelChange = -steeringVel * currentLongitudalGrip;
+                    float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
+
+                    rig.AddForceAtPosition(desiredAccel * wheel.TireMass * forwardDir, wheel.UpperConstraintPoint);
+                }
+            }
+        }
+
         protected IEnumerable<UTWheel> GetGroundedWheelsInAllAxles()
         {
             var result = new List<UTWheel>();
