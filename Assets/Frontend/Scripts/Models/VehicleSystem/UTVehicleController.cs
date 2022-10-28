@@ -84,6 +84,19 @@ namespace Frontend.Scripts.Models
             }
         }
 
+        protected virtual void Update()
+        {
+            if (inputProvider != null)
+            {
+                isBrake = inputProvider.Brake;
+                inputY = inputProvider.Vertical;
+
+                absoluteInputY = inputProvider.AbsoluteVertical;
+
+                signedInputY = inputProvider.SignedVertical;
+            }
+        }
+
         protected IEnumerable<UTWheel> GetGroundedWheelsInAllAxles()
         {
             var result = new List<UTWheel>();

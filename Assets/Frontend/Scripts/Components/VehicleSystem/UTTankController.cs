@@ -5,7 +5,6 @@ using GLShared.General.ScriptableObjects;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 using Zenject;
 using System.Linq;
 
@@ -13,19 +12,6 @@ namespace Frontend.Scripts.Components
 {
     public class UTTankController : UTVehicleController
     {
-
-        private void Update()
-        {
-            if (inputProvider != null)
-            {
-                isBrake = inputProvider.Brake;
-                inputY = inputProvider.Vertical;
-
-                absoluteInputY = inputProvider.AbsoluteVertical;
-
-                signedInputY = inputProvider.SignedVertical;
-            }
-        }
 
         private void FixedUpdate()
         {
@@ -129,7 +115,6 @@ namespace Frontend.Scripts.Components
 
         private void CustomGravityLogic()
         {
-
             int groundedWheelsAmount = allGroundedWheels.Count();
 
             if (!allGroundedWheels.Any())

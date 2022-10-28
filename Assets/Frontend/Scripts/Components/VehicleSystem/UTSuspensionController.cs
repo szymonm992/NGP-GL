@@ -13,18 +13,6 @@ namespace Frontend.Scripts.Components
     {
         [SerializeField] private bool airControl = true;
 
-        private void Update()
-        {
-            if (inputProvider != null)
-            {
-                isBrake = inputProvider.Brake;
-                inputY = inputProvider.Vertical;
-
-                absoluteInputY = inputProvider.AbsoluteVertical;
-
-                signedInputY = inputProvider.SignedVertical;
-            }
-        }
 
         private void FixedUpdate()
         {
