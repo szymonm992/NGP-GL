@@ -3,95 +3,97 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-
-public class UT_MultiRename : EditorWindow
+namespace Frontend.Scripts.Editor
 {
-    private GameObject objectsParent;
-    private string objectsNamePattern;
-    private bool numeringObjects;
-    private Vector2Int childRange;
-
-    [MenuItem("UT System/Addons/Multiple name changer")]
-    public static void ShowWindow()
+    public class UT_MultiRename : EditorWindow
     {
-        GetWindowWithRect<UT_MultiRename>(new Rect(0, 0, 350, 155), false, "Multiple name changer");
-    }
+        private GameObject objectsParent;
+        private string objectsNamePattern;
+        private bool numeringObjects;
+        private Vector2Int childRange;
 
-    private void OnGUI()
-    {
-        objectsParent = EditorGUILayout.ObjectField("Select a parent node", objectsParent, typeof(GameObject), true) as GameObject;
-        objectsNamePattern = EditorGUILayout.TextField("Objects name", objectsNamePattern);
-        numeringObjects = EditorGUILayout.Toggle("Count numbers", numeringObjects);
-        childRange = EditorGUILayout.Vector2IntField("Children range", childRange);
-        EditorGUILayout.LabelField("X - minimum | Y - maximum");
-        EditorGUILayout.Space(); 
-
-        if (GUILayout.Button("Create"))
+        [MenuItem("UT System/Addons/Multiple name changer")]
+        public static void ShowWindow()
         {
-            if (IsFormInvalid())
-            {
-                return;
-            }
+            GetWindowWithRect<UT_MultiRename>(new Rect(0, 0, 350, 155), false, "Multiple name changer");
+        }
 
-            int childCount = objectsParent.transform.childCount;
+        private void OnGUI()
+        {
+            objectsParent = EditorGUILayout.ObjectField("Select a parent node", objectsParent, typeof(GameObject), true) as GameObject;
+            objectsNamePattern = EditorGUILayout.TextField("Objects name", objectsNamePattern);
+            numeringObjects = EditorGUILayout.Toggle("Count numbers", numeringObjects);
+            childRange = EditorGUILayout.Vector2IntField("Children range", childRange);
+            EditorGUILayout.LabelField("X - minimum | Y - maximum");
+            EditorGUILayout.Space();
 
-            if (childRange[0] > 0 && childRange[1] > 0)
+            if (GUILayout.Button("Create"))
             {
-                if (childRange[1] > childCount)
+                if (IsFormInvalid())
                 {
-                    Debug.LogError("Incorrect maximum range!");
                     return;
                 }
-                else if (childRange[0] > childRange[1])
+
+                int childCount = objectsParent.transform.childCount;
+
+                if (childRange[0] > 0 && childRange[1] > 0)
                 {
-                    Debug.LogError("Incorrect minimal range!");
+                    if (childRange[1] > childCount)
+                    {
+                        Debug.LogError("Incorrect maximum range!");
+                        return;
+                    }
+                    else if (childRange[0] > childRange[1])
+                    {
+                        Debug.LogError("Incorrect minimal range!");
+                    }
+                    else
+                    {
+                        int howmany = (childRange[1] + 1) - childRange[0];
+                        for (int i = (childRange[0] - 1); i <= (childRange[1] - 1); i++)
+                        {
+                            Execute(i, howmany);
+                        }
+                        Debug.Log("[UT automating systems] Renamed successfully " + howmany + " objects");
+                    }
                 }
                 else
                 {
-                    int howmany = (childRange[1] + 1) - childRange[0];
-                    for (int i = (childRange[0] - 1); i <= (childRange[1] - 1); i++)
+                    for (int i = 0; i < childCount; i++)
                     {
-                        Execute(i, howmany);
+                        Execute(i, childCount);
                     }
-                    Debug.Log("[UT automating systems] Renamed successfully " + howmany + " objects");
+                    Debug.Log("[UT automating systems] Renamed successfully " + childCount + " objects");
                 }
             }
-            else
+        }
+
+        private void Execute(int i, int count)
+        {
+            GameObject actual_child = objectsParent.transform.GetChild(i).gameObject;
+
+            actual_child.name = objectsNamePattern;
+            if (numeringObjects) actual_child.name += "(" + (i + 1) + ")";
+        }
+
+        private bool IsFormInvalid()
+        {
+            if (string.IsNullOrEmpty(objectsNamePattern))
             {
-                for (int i = 0; i < childCount; i++)
-                {
-                    Execute(i, childCount);
-                }
-                Debug.Log("[UT automating systems] Renamed successfully "+childCount+" objects");
+                Debug.LogError("You have to enter the name of objects first!");
+                return true;
             }
+            if (objectsParent == null)
+            {
+                Debug.LogError("You have to select a parent node first!");
+                return true;
+            }
+            if (childRange[0] < 0 || childRange[1] < 0)
+            {
+                Debug.LogError("Incorrect range values!");
+                return true;
+            }
+            return false;
         }
-    }
-
-    private void Execute(int i, int count)
-    {
-        GameObject actual_child = objectsParent.transform.GetChild(i).gameObject;
-
-        actual_child.name = objectsNamePattern;
-        if (numeringObjects) actual_child.name += "(" + (i + 1) + ")";
-    }
-
-    private bool IsFormInvalid()
-    {
-        if (string.IsNullOrEmpty(objectsNamePattern))
-        {
-            Debug.LogError("You have to enter the name of objects first!");
-            return true;
-        }
-        if (objectsParent == null)
-        {
-            Debug.LogError("You have to select a parent node first!");
-            return true;
-        }
-        if (childRange[0] < 0 || childRange[1] < 0)
-        {
-            Debug.LogError("Incorrect range values!");
-            return true;
-        }
-        return false;
     }
 }

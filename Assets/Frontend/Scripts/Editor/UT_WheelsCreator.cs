@@ -3,75 +3,82 @@ using UnityEngine;
 using System.Collections.Generic;
 
 
-public class UT_WheelsCreator : EditorWindow
+namespace Frontend.Scripts.Editor
 {
-
-    GameObject wheels_parent_node;
-    string name_of_objects;
-    bool isnumered;
-    float x_position;
-     [MenuItem("UT System/Tank helpers/Wheels creator")]
-    public static void ShowWindow()
+    public class UT_WheelsCreator : EditorWindow
     {
-        GetWindowWithRect<UT_WheelsCreator>(new Rect(0,0,350,115), false, "Wheels creator");
-    }
+        private GameObject wheelsParent;
+        private string wheelsName;
+        private bool isNumered;
+        private float xOffset;
 
-    void OnGUI()
-    {
-        wheels_parent_node = EditorGUILayout.ObjectField("Select a parent node", wheels_parent_node, typeof(GameObject), true) as GameObject;
-        name_of_objects = EditorGUILayout.TextField("Wheels name", name_of_objects);
-        isnumered = EditorGUILayout.Toggle("Count numbers", isnumered);
-        x_position = EditorGUILayout.FloatField("Wheels X position", x_position);
-        EditorGUILayout.Space();
-        if (GUILayout.Button("Create"))
+        [MenuItem("UT System/Tank helpers/Wheels creator")]
+        public static void ShowWindow()
         {
-           if(anyError())
+            GetWindowWithRect<UT_WheelsCreator>(new Rect(0, 0, 350, 115), false, "Wheels creator");
+        }
+
+        private void OnGUI()
+        {
+            wheelsParent = EditorGUILayout.ObjectField("Select a parent node", wheelsParent, typeof(GameObject), true) as GameObject;
+            wheelsName = EditorGUILayout.TextField("Wheels name", wheelsName);
+            isNumered = EditorGUILayout.Toggle("Count numbers", isNumered);
+            xOffset = EditorGUILayout.FloatField("Wheels X position", xOffset);
+            EditorGUILayout.Space();
+
+            if (GUILayout.Button("Create"))
             {
-                return;
+                if (AnyError())
+                {
+                    return;
+                }
+                int childCount = wheelsParent.transform.childCount;
+                for (int i = 0; i < childCount; i++)
+                {
+                    Transform rootNode = wheelsParent.transform.root;
+                    GameObject actualChild = wheelsParent.transform.GetChild(i).gameObject;
+
+                    GameObject creatingObj = new GameObject();
+                    creatingObj.transform.position = actualChild.transform.position;
+                    creatingObj.transform.rotation = rootNode.rotation;
+
+                    creatingObj.name = wheelsName;
+                    if (isNumered)
+                    {
+                        creatingObj.name += "(" + (i + 1) + ")";
+                    }
+                    creatingObj.transform.SetParent(wheelsParent.transform);
+                    creatingObj.transform.localPosition = new Vector3(xOffset, creatingObj.transform.localPosition.y, creatingObj.transform.localPosition.z);
+
+                    GameObject creatingHolder = new GameObject();
+                    creatingHolder.transform.position = creatingObj.transform.position;
+                    creatingHolder.transform.rotation = creatingObj.transform.rotation;
+
+                    creatingHolder.name = "HOLDER";
+                    creatingHolder.transform.SetParent(creatingObj.transform);
+                    creatingHolder.transform.localPosition = Vector3.zero;
+
+                    actualChild.transform.SetParent(creatingHolder.transform);
+                    creatingObj.transform.SetSiblingIndex(i);
+                }
+
+                Debug.Log("[UT] Created " + childCount + " wheels");
             }
-            int childCount = wheels_parent_node.transform.childCount;
-            for(int i=0;i<childCount;i++)
+        }
+
+        private bool AnyError()
+        {
+            if (string.IsNullOrEmpty(wheelsName))
             {
-                Transform rootnode = wheels_parent_node.transform.root;
-                GameObject actual_child = wheels_parent_node.transform.GetChild(i).gameObject;
-
-                GameObject creatingobj = new GameObject();
-                creatingobj.transform.position = actual_child.transform.position;
-                creatingobj.transform.rotation = rootnode.rotation;
-
-                creatingobj.name = name_of_objects;
-                if (isnumered) creatingobj.name += "(" + (i + 1) + ")";
-                creatingobj.transform.SetParent(wheels_parent_node.transform);
-                creatingobj.transform.localPosition = new Vector3(x_position, creatingobj.transform.localPosition.y, creatingobj.transform.localPosition.z);
-
-                GameObject creating_holder = new GameObject();
-                creating_holder.transform.position = creatingobj.transform.position;
-                creating_holder.transform.rotation = creatingobj.transform.rotation;
-
-                creating_holder.name = "HOLDER";
-                creating_holder.transform.SetParent(creatingobj.transform);
-                creating_holder.transform.localPosition = Vector3.zero;
-
-                actual_child.transform.SetParent(creating_holder.transform);
-                creatingobj.transform.SetSiblingIndex(i);
+                Debug.LogError("You have to enter the name of objects first!");
+                return true;
             }
-
-            Debug.Log("[IMC] Created " + childCount+ " wheels");
+            if (wheelsParent == null)
+            {
+                Debug.LogError("You have to select a parent node first!");
+                return true;
+            }
+            return false;
         }
-}
-
-    bool anyError()
-    {
-        if (string.IsNullOrEmpty(name_of_objects))
-        {
-            Debug.LogError("You have to enter the name of objects first!");
-            return true;
-        }
-        if (wheels_parent_node == null)
-        {
-            Debug.LogError("You have to select a parent node first!");
-            return true;
-        }
-        return false;
     }
 }

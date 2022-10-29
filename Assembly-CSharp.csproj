@@ -62,6 +62,7 @@
     <Compile Include="Assets\UInc\Core\Scripts\Utilities\Linq.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\StateChanger.cs" />
     <Compile Include="Assets\Frontend\Scripts\Interfaces\IVehicleSteering.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTTankController.cs" />
     <Compile Include="Assets\UInc\Core\Scripts\Utilities\GizmosExtend.cs" />
     <Compile Include="Assets\UInc\Core\Scripts\Utilities\SelectableExtensions.cs" />
     <Compile Include="Assets\Frontend\Scripts\Signals\GameStateChangedSignal.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Assets\Frontend\Scripts\Test\TempBotInputProvider.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\TankStats.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\Connection\ConnectionManager.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\UTVehicleController.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTWheel.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTAxle.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\SelectableKVP.cs" />
@@ -112,8 +114,6 @@
     <Compile Include="Assets\Frontend\Scripts\Models\StateFactory.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\States\OnLoginState.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTWheelFrictionCurve.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTTankController.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\UTVehicleController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
