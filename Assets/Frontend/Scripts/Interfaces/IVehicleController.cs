@@ -19,6 +19,8 @@ namespace Frontend.Scripts.Interfaces
         float MaxForwardSpeed { get; }
         float MaxBackwardsSpeed { get; }
 
+        bool IsUpsideDown { get; }
+
         ForceApplyPoint BrakesForceApplyPoint { get; }
         ForceApplyPoint AccelerationForceApplyPoint { get; }
 

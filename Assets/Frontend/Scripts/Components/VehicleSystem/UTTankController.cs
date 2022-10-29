@@ -13,18 +13,22 @@ namespace Frontend.Scripts.Components
     public class UTTankController : UTVehicleController
     {
 
-        private void FixedUpdate()
+        protected override void FixedUpdate()
         {
-            allGroundedWheels = GetGroundedWheelsInAllAxles();
+            base.FixedUpdate();
 
             CustomGravityLogic();
-            EvaluateDriveParams();
-            Accelerate();
-            Brakes();
-            ApplyFrictionForces();
 
-            currentSpeed = rig.velocity.magnitude * gameParameters.SpeedMultiplier;
-            speedometer?.SetSpeedometr(currentSpeed);
+            if (!isUpsideDown)
+            {
+                EvaluateDriveParams();
+                Accelerate();
+                Brakes();
+                ApplyFrictionForces();
+
+                currentSpeed = rig.velocity.magnitude * gameParameters.SpeedMultiplier;
+                speedometer?.SetSpeedometr(currentSpeed);
+            }
         }
 
 

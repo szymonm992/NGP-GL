@@ -78,7 +78,7 @@ namespace Frontend.Scripts.Components
 
         private void Update()
         {
-            if (!wheelPairs.Any() || controller == null)
+            if (!wheelPairs.Any() || controller == null || controller.IsUpsideDown)
             {
                 return;
             }
@@ -97,7 +97,7 @@ namespace Frontend.Scripts.Components
         }
         private void FixedUpdate()
         {
-            if (!wheelPairs.Any())
+            if (!wheelPairs.Any() || controller.IsUpsideDown)
             {
                 return;
             }

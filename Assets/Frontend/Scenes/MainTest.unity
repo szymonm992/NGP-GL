@@ -11471,14 +11471,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.000007822042
       objectReference: {fileID: 0}
-    - target: {fileID: 965514211448666125, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: wheelPairs.Array.data[0].axis
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1454308810141873889, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: wheelPairs.Array.data[0].axis
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 1686242051622670364, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.000003695488
@@ -11519,14 +11511,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.00000091665555
       objectReference: {fileID: 0}
-    - target: {fileID: 2404649941768873089, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: _components.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2404649941768873089, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: _components.Array.data[4]
-      value: 
-      objectReference: {fileID: 8150081598643175203}
     - target: {fileID: 2541086236997176550, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0000038146973
@@ -11554,10 +11538,6 @@ PrefabInstance:
     - target: {fileID: 2907590295914218565, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.0000059657286
-      objectReference: {fileID: 0}
-    - target: {fileID: 3264741501751150526, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: wheelPairs.Array.data[0].axis
-      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3298110511796560541, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11599,10 +11579,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.00000018333111
       objectReference: {fileID: 0}
-    - target: {fileID: 4703210311339521858, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: debug
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4754514802404298877, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.000003695488
@@ -11622,10 +11598,6 @@ PrefabInstance:
     - target: {fileID: 4815945557993453120, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.0000047054987
-      objectReference: {fileID: 0}
-    - target: {fileID: 5146788060968984900, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: wheelPairs.Array.data[0].axis
-      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5181003692618335335, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11714,14 +11686,6 @@ PrefabInstance:
     - target: {fileID: 8797747351685325955, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_Name
       value: T-55
-      objectReference: {fileID: 0}
-    - target: {fileID: 8797747351685325955, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9087096066525390959, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: wheelPairs.Array.data[0].axis
-      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
@@ -11830,16 +11794,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8150081598643175203 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4703210311339521858, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-  m_PrefabInstance: {fileID: 3036209549748919758}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 530f8640ef9cb8f4280474951890e7d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

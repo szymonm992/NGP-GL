@@ -81,6 +81,8 @@
     <Compile Include="Assets\UInc\Core\Scripts\Utilities\GeneralHelper.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\AssociatedUI\WelcomeUI.cs" />
     <Compile Include="Assets\Frontend\Scripts\Interfaces\ICustomWheel.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\WheelsRepositioning\TankWheelsRepositioning.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\WheelsRepositioning\CarWheelsRepositioning.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\AsyncProcessor.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\DDOL\DDOLManager.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\CarStats.cs" />
@@ -89,6 +91,7 @@
     <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\Debug\UTAxleDebug.cs" />
     <Compile Include="Assets\UInc\Core\Scripts\Utilities\DebugExtension.cs" />
     <Compile Include="Assets\Frontend\Scripts\Interfaces\IPlayerInput.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Extensions\UTWheelExtensions.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\Debug\UTWheelDebug.cs" />
     <Compile Include="Assets\Frontend\Scripts\Installers\GameSceneInstaller.cs" />
     <Compile Include="Assets\Frontend\Scripts\Enums\GameState.cs" />
@@ -99,11 +102,13 @@
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\States\LobbyState.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\UTAxlePair.cs" />
     <Compile Include="Assets\Frontend\Scripts\Test\TempBotInputProvider.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Interfaces\IWheelReposition.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\TankStats.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\Connection\ConnectionManager.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\UTVehicleController.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTWheel.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTAxle.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\WheelRepositionBase.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\SelectableKVP.cs" />
     <Compile Include="Assets\UInc\Core\Scripts\Utilities\ZenjectExtensions.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\AssociatedUI\AssociatedUI.cs" />
@@ -114,11 +119,6 @@
     <Compile Include="Assets\Frontend\Scripts\Models\StateFactory.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\States\OnLoginState.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTWheelFrictionCurve.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Extensions\UTWheelExtensions.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\WheelRepositionBase.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Interfaces\IWheelReposition.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\WheelsRepositioning\TankWheelsRepositioning.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\WheelsRepositioning\CarWheelsRepositioning.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

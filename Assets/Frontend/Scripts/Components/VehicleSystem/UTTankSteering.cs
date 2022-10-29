@@ -29,7 +29,7 @@ namespace Frontend.Scripts
 
         private void FixedUpdate()
         {
-            if (steerInput == 0)
+            if (steerInput == 0 || suspensionController.IsUpsideDown)
             {
                 return;
             }

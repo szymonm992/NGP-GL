@@ -15,19 +15,23 @@ namespace Frontend.Scripts.Components
         [SerializeField] private bool airControl = true;
 
 
-        private void FixedUpdate()
+        protected override void FixedUpdate()
         {
-            allGroundedWheels = GetGroundedWheelsInAllAxles();
+            base.FixedUpdate();
 
             CustomGravityLogic();
-            EvaluateDriveParams();
-            Accelerate();
-            Brakes();
-            ApplyFrictionForces();
-            AirControl();
 
-            currentSpeed = rig.velocity.magnitude * gameParameters.SpeedMultiplier;
-            speedometer?.SetSpeedometr(currentSpeed);
+            if (!isUpsideDown)
+            {
+                EvaluateDriveParams();
+                Accelerate();
+                Brakes();
+                ApplyFrictionForces();
+                AirControl();
+
+                currentSpeed = rig.velocity.magnitude * gameParameters.SpeedMultiplier;
+                speedometer?.SetSpeedometr(currentSpeed);
+            }
         }
 
         private void CustomGravityLogic()

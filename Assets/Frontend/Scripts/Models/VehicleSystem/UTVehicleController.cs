@@ -45,6 +45,7 @@ namespace Frontend.Scripts.Models
         protected float currentLongitudalGrip;
         protected float forwardForce;
         protected float turnForce;
+        protected bool isUpsideDown = false;
         protected Vector3 wheelVelocityLocal;
         #endregion 
 
@@ -60,6 +61,7 @@ namespace Frontend.Scripts.Models
         public float MaxForwardSpeed => maxForwardSpeed;
         public float MaxBackwardsSpeed => maxBackwardsSpeed;
         public bool DoesGravityDamping => doesGravityDamping;
+        public bool IsUpsideDown => isUpsideDown;
 
         public ForceApplyPoint BrakesForceApplyPoint => brakesForceApplyPoint;
         public ForceApplyPoint AccelerationForceApplyPoint => accelerationForceApplyPoint;
@@ -93,6 +95,12 @@ namespace Frontend.Scripts.Models
             }
         }
 
+        protected virtual void FixedUpdate()
+        {
+            allGroundedWheels = GetGroundedWheelsInAllAxles();
+            isUpsideDown = CheckUpsideDown();
+        }
+
         protected virtual void Update()
         {
             if (inputProvider != null)
@@ -104,6 +112,11 @@ namespace Frontend.Scripts.Models
 
                 signedInputY = inputProvider.SignedVertical;
             }
+        }
+
+        protected bool CheckUpsideDown()
+        {
+            return !allGroundedWheels.Any() && transform.up.y <= 0f;
         }
 
         protected void EvaluateDriveParams()
@@ -190,7 +203,7 @@ namespace Frontend.Scripts.Models
                     float desiredVelChange = -steeringVel * currentLongitudalGrip;
                     float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
 
-                    rig.AddForceAtPosition(desiredAccel * wheel.TireMass * forwardDir, brakesPoint);
+                    rig.AddForceAtPosition(desiredAccel * wheel.TireMass/2 * forwardDir, brakesPoint);
                 }
             }
         }
