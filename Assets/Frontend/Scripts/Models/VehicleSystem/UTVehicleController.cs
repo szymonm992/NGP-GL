@@ -7,6 +7,7 @@ using Frontend.Scripts.Models;
 using GLShared.General.Enums;
 using GLShared.General.ScriptableObjects;
 using Frontend.Scripts.Components;
+using Frontend.Scripts.Extensions;
 
 namespace Frontend.Scripts.Models
 {
@@ -24,6 +25,10 @@ namespace Frontend.Scripts.Models
         [SerializeField] protected float maxSlopeAngle = 45f;
         [SerializeField] protected AnimationCurve enginePowerCurve;
         [SerializeField] protected bool doesGravityDamping = true;
+
+        [Header("Force apply points")]
+        [SerializeField] protected ForceApplyPoint brakesForceApplyPoint = ForceApplyPoint.WheelConstraintUpperPoint;
+        [SerializeField] protected ForceApplyPoint accelerationForceApplyPoint = ForceApplyPoint.WheelHitPoint;
 
         protected bool hasAnyWheels;
         protected float currentSpeed;
@@ -55,6 +60,10 @@ namespace Frontend.Scripts.Models
         public float MaxForwardSpeed => maxForwardSpeed;
         public float MaxBackwardsSpeed => maxBackwardsSpeed;
         public bool DoesGravityDamping => doesGravityDamping;
+
+        public ForceApplyPoint BrakesForceApplyPoint => brakesForceApplyPoint;
+        public ForceApplyPoint AccelerationForceApplyPoint => accelerationForceApplyPoint;
+
 
         public float GetCurrentMaxSpeed()
         {
@@ -149,7 +158,9 @@ namespace Frontend.Scripts.Models
                             forwardForce = inputY * currentDriveForce;
                             turnForce = wheelVelocityLocal.x * currentDriveForce;
 
-                            rig.AddForceAtPosition((forwardForce * wheel.transform.forward), wheel.HitInfo.Point);
+                            Vector3 acceleratePoint = wheel.ReturnWheelPoint(accelerationForceApplyPoint);
+
+                            rig.AddForceAtPosition((forwardForce * wheel.transform.forward), acceleratePoint);
                             rig.AddForceAtPosition((turnForce * -wheel.transform.right), wheel.UpperConstraintPoint);
                         }
                     }
@@ -157,7 +168,7 @@ namespace Frontend.Scripts.Models
             }
         }
 
-        protected  void Brakes()
+        protected void Brakes()
         {
             if (!allGroundedWheels.Any())
             {
@@ -170,14 +181,16 @@ namespace Frontend.Scripts.Models
             {
                 foreach (var wheel in allGroundedWheels)
                 {
+                    Vector3 brakesPoint = wheel.ReturnWheelPoint(brakesForceApplyPoint);
+
                     Vector3 forwardDir = wheel.transform.forward;
-                    Vector3 tireVel = rig.GetPointVelocity(wheel.UpperConstraintPoint);
+                    Vector3 tireVel = rig.GetPointVelocity(brakesPoint);
 
                     float steeringVel = Vector3.Dot(forwardDir, tireVel);
                     float desiredVelChange = -steeringVel * currentLongitudalGrip;
                     float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
 
-                    rig.AddForceAtPosition(desiredAccel * wheel.TireMass * forwardDir, wheel.UpperConstraintPoint);
+                    rig.AddForceAtPosition(desiredAccel * wheel.TireMass * forwardDir, brakesPoint);
                 }
             }
         }

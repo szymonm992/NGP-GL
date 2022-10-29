@@ -1349,8 +1349,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89f58c655304a0b4aa59f2eb70176347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSlopeAngle: 45
   centerOfMass: {fileID: 7623138868924921916}
+  vehicleType: 1
+  maxSlopeAngle: 45
   enginePowerCurve:
     serializedVersion: 2
     m_Curve:
@@ -1402,6 +1403,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  doesGravityDamping: 1
+  brakesForceApplyPoint: 0
+  accelerationForceApplyPoint: 1
   airControl: 1
 --- !u!114 &7623138870644961507
 MonoBehaviour:

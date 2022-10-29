@@ -19,6 +19,10 @@ namespace Frontend.Scripts.Interfaces
         float MaxForwardSpeed { get; }
         float MaxBackwardsSpeed { get; }
 
+        ForceApplyPoint BrakesForceApplyPoint { get; }
+        ForceApplyPoint AccelerationForceApplyPoint { get; }
+
+
         abstract float GetCurrentMaxSpeed();
         abstract void SetupRigidbody();
     }

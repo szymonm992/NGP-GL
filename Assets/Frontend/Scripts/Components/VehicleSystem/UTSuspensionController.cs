@@ -11,6 +11,7 @@ namespace Frontend.Scripts.Components
 {
     public class UTSuspensionController : UTVehicleController, IVehicleController
     {
+        [Header("Additional")]
         [SerializeField] private bool airControl = true;
 
 

@@ -77,6 +77,7 @@ namespace Frontend.Scripts.Components
         public float HardPointAbs => hardPointAbs;
         public Vector3 TireWorldPosition => tirePosition;
         public Vector3 UpperConstraintPoint => upperConstraintTransform.position;
+        public Vector3 LowerConstraintPoint => lowerConstraintTransform.position;
 
         public float SteerAngle
         {
