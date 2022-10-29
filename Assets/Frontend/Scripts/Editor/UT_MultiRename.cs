@@ -49,12 +49,12 @@ namespace Frontend.Scripts.Editor
                     }
                     else
                     {
-                        int howmany = (childRange[1] + 1) - childRange[0];
+                        int childrenAmount = (childRange[1] + 1) - childRange[0];
                         for (int i = (childRange[0] - 1); i <= (childRange[1] - 1); i++)
                         {
-                            Execute(i, howmany);
+                            Execute(i, childrenAmount);
                         }
-                        Debug.Log("[UT automating systems] Renamed successfully " + howmany + " objects");
+                        Debug.Log("[UT automating systems] Renamed successfully " + childrenAmount + " objects");
                     }
                 }
                 else
@@ -70,10 +70,13 @@ namespace Frontend.Scripts.Editor
 
         private void Execute(int i, int count)
         {
-            GameObject actual_child = objectsParent.transform.GetChild(i).gameObject;
+            GameObject currentChild = objectsParent.transform.GetChild(i).gameObject;
 
-            actual_child.name = objectsNamePattern;
-            if (numeringObjects) actual_child.name += "(" + (i + 1) + ")";
+            currentChild.name = objectsNamePattern;
+            if (numeringObjects)
+            {
+                currentChild.name += "(" + (i + 1) + ")";
+            }
         }
 
         private bool IsFormInvalid()

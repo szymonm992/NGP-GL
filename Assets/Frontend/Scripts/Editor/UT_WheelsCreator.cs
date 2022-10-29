@@ -39,8 +39,7 @@ namespace Frontend.Scripts.Editor
                     GameObject actualChild = wheelsParent.transform.GetChild(i).gameObject;
 
                     GameObject creatingObj = new GameObject();
-                    creatingObj.transform.position = actualChild.transform.position;
-                    creatingObj.transform.rotation = rootNode.rotation;
+                    creatingObj.transform.SetPositionAndRotation(actualChild.transform.position, rootNode.rotation);
 
                     creatingObj.name = wheelsName;
                     if (isNumered)
@@ -50,15 +49,14 @@ namespace Frontend.Scripts.Editor
                     creatingObj.transform.SetParent(wheelsParent.transform);
                     creatingObj.transform.localPosition = new Vector3(xOffset, creatingObj.transform.localPosition.y, creatingObj.transform.localPosition.z);
 
-                    GameObject creatingHolder = new GameObject();
-                    creatingHolder.transform.position = creatingObj.transform.position;
-                    creatingHolder.transform.rotation = creatingObj.transform.rotation;
+                    GameObject holder = new GameObject();
+                    holder.transform.SetPositionAndRotation(creatingObj.transform.position, creatingObj.transform.rotation);
 
-                    creatingHolder.name = "HOLDER";
-                    creatingHolder.transform.SetParent(creatingObj.transform);
-                    creatingHolder.transform.localPosition = Vector3.zero;
+                    holder.name = "HOLDER";
+                    holder.transform.SetParent(creatingObj.transform);
+                    holder.transform.localPosition = Vector3.zero;
 
-                    actualChild.transform.SetParent(creatingHolder.transform);
+                    actualChild.transform.SetParent(holder.transform);
                     creatingObj.transform.SetSiblingIndex(i);
                 }
 

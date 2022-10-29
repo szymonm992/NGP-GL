@@ -1,119 +1,117 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-public class UT_DummiesCreator : EditorWindow
+namespace Frontend.Scripts.Editor
 {
-
-    GameObject wheels_parent_node;
-    string name_of_objects;
-    bool isnumered;
-    float Y_offset; //important -> this is offsetting, not the positioning (relatively to its local Y position we offset the object)
-    Vector2Int child_range;
-
-    [MenuItem("UT System/Tank helpers/Track bones creator")]
-    public static void ShowWindow()
+    public class UT_DummiesCreator : EditorWindow
     {
-        GetWindowWithRect<UT_DummiesCreator>(new Rect(0, 0, 350, 200), false, "Track bones creator");
-    }
 
+        private GameObject wheelsParentNode;
+        private string nameOfObjects;
+        private bool isNumered;
+        private float yOffset; //important -> this is offsetting, not the positioning (relatively to its local Y position we offset the object)
+        private Vector2Int childRange;
 
-    void OnGUI()
-    {
-        wheels_parent_node = EditorGUILayout.ObjectField("Select a parent node", wheels_parent_node, typeof(GameObject), true) as GameObject;
-        name_of_objects = EditorGUILayout.TextField("Dummies name", name_of_objects);
-        isnumered = EditorGUILayout.Toggle("Count numbers", isnumered);
-        Y_offset = EditorGUILayout.FloatField("Vertical offset", Y_offset);
-        child_range = EditorGUILayout.Vector2IntField("Children range", child_range);
-        EditorGUILayout.LabelField("X - minimum | Y - maximum");
-        EditorGUILayout.Space(); EditorGUILayout.Space(); 
-        if (GUILayout.Button("Create"))
+        [MenuItem("UT System/Tank helpers/Track bones creator")]
+        public static void ShowWindow()
         {
-          
-            if (anyError())
-            {
-                return;
-            }
-            int childCount = wheels_parent_node.transform.childCount;
+            GetWindowWithRect<UT_DummiesCreator>(new Rect(0, 0, 350, 200), false, "Track bones creator");
+        }
 
-            if (child_range[0] > 0 && child_range[1] > 0)
+        private void OnGUI()
+        {
+            wheelsParentNode = EditorGUILayout.ObjectField("Select a parent node", wheelsParentNode, typeof(GameObject), true) as GameObject;
+            nameOfObjects = EditorGUILayout.TextField("Dummies name", nameOfObjects);
+            isNumered = EditorGUILayout.Toggle("Count numbers", isNumered);
+            yOffset = EditorGUILayout.FloatField("Vertical offset", yOffset);
+            childRange = EditorGUILayout.Vector2IntField("Children range", childRange);
+            EditorGUILayout.LabelField("X - minimum | Y - maximum");
+            EditorGUILayout.Space(); EditorGUILayout.Space();
+
+            if (GUILayout.Button("Create"))
             {
-                if (child_range[1] > childCount)
+                if (AnyError())
                 {
-                    Debug.LogError("Incorrect maximum range!");
                     return;
                 }
-                else if (child_range[0] > child_range[1])
+                int childCount = wheelsParentNode.transform.childCount;
+
+                if (childRange[0] > 0 && childRange[1] > 0)
                 {
-                    Debug.LogError("Incorrect minimal range!");
+                    if (childRange[1] > childCount)
+                    {
+                        Debug.LogError("Incorrect maximum range!");
+                        return;
+                    }
+                    else if (childRange[0] > childRange[1])
+                    {
+                        Debug.LogError("Incorrect minimal range!");
+                    }
+                    else
+                    {
+                        int dummiesAmount = (childRange[1] + 1) - childRange[0];
+                        for (int i = (childRange[0] - 1); i <= (childRange[1] - 1); i++)
+                        {
+                            Execute(i, dummiesAmount);
+                        }
+                        Debug.Log("[IMC] Successfully created " + dummiesAmount + " dummies.");
+                    }
                 }
                 else
                 {
-                    int howmany = (child_range[1]+1) - child_range[0];
-                    for (int i = (child_range[0]-1); i <= (child_range[1]-1); i++)
+                    for (int i = 0; i < childCount; i++)
                     {
-                        Execute(i, howmany);
+                        Execute(i, childCount);
                     }
-                    Debug.Log("[IMC] Successfully created " + howmany + " dummies.");
+                    Debug.Log("[IMC] Successfully created " + childCount + " dummies.");
                 }
             }
-            else
+        }
+        private void Execute(int i, int count)
+        {
+            Transform rootNode = wheelsParentNode.transform.root;
+            GameObject currentChild = wheelsParentNode.transform.GetChild(i).gameObject;
+
+            GameObject creatingObj = new GameObject();
+            creatingObj.transform.SetPositionAndRotation(currentChild.transform.position, rootNode.rotation);
+
+            creatingObj.name = nameOfObjects;
+            if (isNumered)
             {
-                for (int i = 0; i < childCount; i++)
-                {
-                    Execute(i, childCount);
-                }
-                Debug.Log("[IMC] Successfully created " + childCount + " dummies.");
+                creatingObj.name += "(" + (i + 1) + ")";
             }
-            
-            
+            creatingObj.transform.SetParent(wheelsParentNode.transform);
+            creatingObj.transform.localPosition = new Vector3(creatingObj.transform.localPosition.x, creatingObj.transform.localPosition.y + yOffset, creatingObj.transform.localPosition.z);
+
+            GameObject holder = new GameObject();
+            holder.transform.SetPositionAndRotation(creatingObj.transform.position, creatingObj.transform.rotation);
+
+            holder.name = "HOLDER";
+            holder.transform.SetParent(creatingObj.transform);
+            holder.transform.localPosition = Vector3.zero;
+
+            currentChild.transform.SetParent(holder.transform);
+            creatingObj.transform.SetSiblingIndex(i);
         }
-    }
 
-
-    void Execute(int i, int count)
-    {
-        Transform rootnode = wheels_parent_node.transform.root;
-        GameObject actual_child = wheels_parent_node.transform.GetChild(i).gameObject;
-
-        GameObject creatingobj = new GameObject();
-        creatingobj.transform.position = actual_child.transform.position;
-        creatingobj.transform.rotation = rootnode.rotation;
-
-        creatingobj.name = name_of_objects;
-        if (isnumered) creatingobj.name += "(" + (i + 1) + ")";
-        creatingobj.transform.SetParent(wheels_parent_node.transform);
-        creatingobj.transform.localPosition = new Vector3(creatingobj.transform.localPosition.x, creatingobj.transform.localPosition.y+Y_offset, creatingobj.transform.localPosition.z);
-
-        GameObject creating_holder = new GameObject();
-        creating_holder.transform.position = creatingobj.transform.position;
-        creating_holder.transform.rotation = creatingobj.transform.rotation;
-
-        creating_holder.name = "HOLDER";
-        creating_holder.transform.SetParent(creatingobj.transform);
-        creating_holder.transform.localPosition = Vector3.zero;
-
-        actual_child.transform.SetParent(creating_holder.transform);
-        creatingobj.transform.SetSiblingIndex(i);
-        //Debug.Log("actual_child"+actual_child.name);
-    }
-    bool anyError()
-    {
-        if (string.IsNullOrEmpty(name_of_objects))
+        private bool AnyError()
         {
-            Debug.LogError("You have to enter the name of objects first!");
-            return true;
+            if (string.IsNullOrEmpty(nameOfObjects))
+            {
+                Debug.LogError("You have to enter the name of objects first!");
+                return true;
+            }
+            if (wheelsParentNode == null)
+            {
+                Debug.LogError("You have to select a parent node first!");
+                return true;
+            }
+            if (childRange[0] < 0 || childRange[1] < 0)
+            {
+                Debug.LogError("Incorrect range values!");
+                return true;
+            }
+            return false;
         }
-        if (wheels_parent_node == null)
-        {
-            Debug.LogError("You have to select a parent node first!");
-            return true;
-        }
-        if(child_range[0]<0 || child_range[1] < 0)
-        {
-            Debug.LogError("Incorrect range values!");
-            return true;
-        }
-        
-        return false;
     }
 }
