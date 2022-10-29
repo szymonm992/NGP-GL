@@ -115,6 +115,10 @@
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\States\OnLoginState.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTWheelFrictionCurve.cs" />
     <Compile Include="Assets\Frontend\Scripts\Extensions\UTWheelExtensions.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\WheelRepositionBase.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Interfaces\IWheelReposition.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\WheelsRepositioning\TankRepositioning.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\WheelsRepositioning\CarRepositioning.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

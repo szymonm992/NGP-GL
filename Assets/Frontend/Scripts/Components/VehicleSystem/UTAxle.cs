@@ -15,6 +15,7 @@ namespace Frontend.Scripts.Components
         [Inject(Id = "mainRig")] private readonly Rigidbody rig;
         [Inject] private readonly IVehicleController controller;
         [Inject] private readonly IPlayerInputProvider inputProvider;
+        [Inject] private readonly IWheelReposition wheelReposition;
 
         [SerializeField] private UTAxlePair[] wheelPairs;
         [SerializeField] private bool canDrive;
@@ -129,6 +130,8 @@ namespace Frontend.Scripts.Components
 
             float dir = -inputProvider.SignedVertical;
             Vector3 rotateAroundAxis = -tireTransform.right;
+
+
             float currentMaxSpeed = controller.GetCurrentMaxSpeed();
             var currentToMaxRatio = 0.5f;
             if (currentMaxSpeed != 0)
