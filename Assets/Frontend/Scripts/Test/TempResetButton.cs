@@ -11,5 +11,10 @@ namespace Frontend.Scripts.Temporary
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+
+        public void QuitApplication()
+        {
+            Application.Quit();
+        }
     }
 }
