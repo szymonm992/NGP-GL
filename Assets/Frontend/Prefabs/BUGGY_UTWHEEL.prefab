@@ -1297,6 +1297,7 @@ GameObject:
   - component: {fileID: 1502350205}
   - component: {fileID: 7623138870644961535}
   - component: {fileID: 1502350197}
+  - component: {fileID: 3183221227695854892}
   m_Layer: 0
   m_Name: BUGGY_UTWHEEL
   m_TagString: Untagged
@@ -1442,6 +1443,7 @@ MonoBehaviour:
   - {fileID: 7623138870644961511}
   - {fileID: 1502350205}
   - {fileID: 1502350197}
+  - {fileID: 3183221227695854892}
   _identifier: 
   _useSceneContext: 0
   _context: {fileID: 0}
@@ -1561,6 +1563,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocityText: {fileID: 0}
+--- !u!114 &3183221227695854892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7623138870644961530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3094d0b42ac34fe45bf8db5e64145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7623138870716910070
 GameObject:
   m_ObjectHideFlags: 0

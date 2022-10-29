@@ -1276,6 +1276,7 @@ GameObject:
   - component: {fileID: 8538173465996744460}
   - component: {fileID: 4152437520905381390}
   - component: {fileID: 8538173465996744463}
+  - component: {fileID: 5537619904413959821}
   m_Layer: 0
   m_Name: AFK_BOT
   m_TagString: Untagged
@@ -1328,8 +1329,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89f58c655304a0b4aa59f2eb70176347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSlopeAngle: 45
   centerOfMass: {fileID: 4152437521288818381}
+  vehicleType: 1
+  maxSlopeAngle: 45
   enginePowerCurve:
     serializedVersion: 2
     m_Curve:
@@ -1381,6 +1383,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  doesGravityDamping: 1
+  brakesForceApplyPoint: 0
+  accelerationForceApplyPoint: 0
   airControl: 1
 --- !u!114 &4152437520905381394
 MonoBehaviour:
@@ -1520,6 +1525,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c3cff0dce926fa145b00f6c4919f0f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5537619904413959821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4152437520905381387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3094d0b42ac34fe45bf8db5e64145deb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4152437520948440021
@@ -2033,6 +2050,7 @@ MonoBehaviour:
     tireModel: {fileID: 4152437520135058556}
   canDrive: 1
   canSteer: 0
+  repositionVisuals: 1
   applyAntiroll: 1
   antiRollForce: 10000
   debugSettings:
@@ -2145,6 +2163,7 @@ MonoBehaviour:
     tireModel: {fileID: 4152437521583407514}
   canDrive: 1
   canSteer: 1
+  repositionVisuals: 1
   applyAntiroll: 1
   antiRollForce: 10000
   debugSettings:

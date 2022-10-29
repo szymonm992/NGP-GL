@@ -131,15 +131,8 @@ namespace Frontend.Scripts.Components
             float dir = -inputProvider.SignedVertical;
             Vector3 rotateAroundAxis = -tireTransform.right;
 
-
-            float currentMaxSpeed = controller.GetCurrentMaxSpeed();
-            var currentToMaxRatio = 0.5f;
-            if (currentMaxSpeed != 0)
-            {
-                currentToMaxRatio = controller.CurrentSpeed / currentMaxSpeed;
-                pair.RotationalPartOfTire.RotateAround(tireTransform.position, rotateAroundAxis, dir * (currentToMaxRatio * 1300f) * Time.deltaTime);
-            }
-
+            wheelReposition.RotateWheels(dir, rotateAroundAxis, tireTransform, pair,  out float currentToMaxRatio);
+            
             Vector3 tireDesiredPosition = pair.Wheel.TireWorldPosition;
             tireTransform.position = Vector3.Lerp(tireTransform.position, tireDesiredPosition, (75f * Mathf.Max(0.5f, currentToMaxRatio)) * Time.deltaTime);
             

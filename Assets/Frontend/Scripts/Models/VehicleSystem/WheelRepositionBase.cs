@@ -9,8 +9,12 @@ namespace Frontend.Scripts.Models
 {
     public abstract class WheelRepositionBase : MonoBehaviour, IWheelReposition
     {
-        public virtual void RotateWheels()
+        [Inject] protected readonly IVehicleController controller;
+        [Inject] protected readonly IPlayerInputProvider inputProvider;
+
+        public virtual void RotateWheels(float verticalDir, Vector3 rotateAroundAxis, Transform tireTransform, UTAxlePair pair, out float currentToMaxRatio)
         {
+            currentToMaxRatio = 0f;
         }
     }
 }
