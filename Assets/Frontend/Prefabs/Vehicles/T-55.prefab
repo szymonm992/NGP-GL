@@ -679,8 +679,8 @@ MonoBehaviour:
   tireMass: 500
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
-  spring: 200000
-  damper: 35000
+  spring: 220000
+  damper: 40000
   hardPointOfTire: -1.1
   upperConstraintTransform: {fileID: 3771933979916672494}
   lowerConstraintTransform: {fileID: 4815945557993453120}
@@ -1498,8 +1498,8 @@ MonoBehaviour:
   tireMass: 500
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
-  spring: 200000
-  damper: 35000
+  spring: 220000
+  damper: 40000
   hardPointOfTire: -1.1
   upperConstraintTransform: {fileID: 786353861587049245}
   lowerConstraintTransform: {fileID: 8530397427334865705}
@@ -1612,8 +1612,8 @@ MonoBehaviour:
   tireMass: 500
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
-  spring: 200000
-  damper: 35000
+  spring: 220000
+  damper: 40000
   hardPointOfTire: -1.1
   upperConstraintTransform: {fileID: 5181003692618335335}
   lowerConstraintTransform: {fileID: 4754514802404298877}
@@ -2318,7 +2318,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3841322671672741804}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000333786, y: -2.4999993, z: 0.00000054999333}
+  m_LocalPosition: {x: 0.00000333786, y: -2.6666658, z: -0.000006783251}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2453,13 +2453,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.5
+  suspensionTravel: 0.6
   wheelRadius: 0.7
   tireMass: 500
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
-  spring: 200000
-  damper: 35000
+  spring: 220000
+  damper: 40000
   hardPointOfTire: -1
   upperConstraintTransform: {fileID: 313854361456630449}
   lowerConstraintTransform: {fileID: 1743268128366700711}
@@ -2846,13 +2846,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.5
+  suspensionTravel: 0.6
   wheelRadius: 0.7
   tireMass: 500
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
-  spring: 200000
-  damper: 35000
+  spring: 220000
+  damper: 40000
   hardPointOfTire: -1
   upperConstraintTransform: {fileID: 2541086236997176550}
   lowerConstraintTransform: {fileID: 2155041215754974456}
@@ -3011,7 +3011,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4269984874411470892}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0000038146973, y: -2.4999993, z: -0.00000091665555}
+  m_LocalPosition: {x: 0.0000038146973, y: -2.6666658, z: -0.000007761017}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3808,8 +3808,8 @@ MonoBehaviour:
   tireMass: 500
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
-  spring: 200000
-  damper: 35000
+  spring: 220000
+  damper: 40000
   hardPointOfTire: -1.1
   upperConstraintTransform: {fileID: 5798816346615259177}
   lowerConstraintTransform: {fileID: 1686242051622670364}
@@ -4667,8 +4667,8 @@ MonoBehaviour:
   tireMass: 500
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
-  spring: 200000
-  damper: 35000
+  spring: 220000
+  damper: 40000
   hardPointOfTire: -1.1
   upperConstraintTransform: {fileID: 2907590295914218565}
   lowerConstraintTransform: {fileID: 4025014656387528112}
@@ -4952,13 +4952,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.5
+  suspensionTravel: 0.6
   wheelRadius: 0.7
   tireMass: 500
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
-  spring: 200000
-  damper: 35000
+  spring: 220000
+  damper: 40000
   hardPointOfTire: -1
   upperConstraintTransform: {fileID: 1749254080224678542}
   lowerConstraintTransform: {fileID: 628488706378738389}
@@ -5379,13 +5379,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6016fbb46f68458a407c09114a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.5
+  suspensionTravel: 0.6
   wheelRadius: 0.7
   tireMass: 500
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
-  spring: 200000
-  damper: 35000
+  spring: 220000
+  damper: 40000
   hardPointOfTire: -1
   upperConstraintTransform: {fileID: 3298110511796560541}
   lowerConstraintTransform: {fileID: 2036099969381696979}
@@ -6249,7 +6249,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7747364438819799608}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000333786, y: -2.4999993, z: 0.000011305418}
+  m_LocalPosition: {x: -0.00000333786, y: -2.6666658, z: 0.0000034832913}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6887,8 +6887,8 @@ MonoBehaviour:
   tireMass: 500
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
-  spring: 200000
-  damper: 35000
+  spring: 220000
+  damper: 40000
   hardPointOfTire: -1.1
   upperConstraintTransform: {fileID: 6493775342327608729}
   lowerConstraintTransform: {fileID: 4145680243440292694}
@@ -7306,7 +7306,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8857126714526320503}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0000038146973, y: -2.499999, z: -0.0000004277726}
+  m_LocalPosition: {x: -0.0000038146973, y: -2.6666653, z: -0.000007761017}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
