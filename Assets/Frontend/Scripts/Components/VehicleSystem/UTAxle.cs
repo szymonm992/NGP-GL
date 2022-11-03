@@ -140,6 +140,8 @@ namespace Frontend.Scripts.Components
             {
                 tireTransform.localRotation = Quaternion.Euler(tireTransform.localRotation.eulerAngles.x, pair.Wheel.SteerAngle, tireTransform.localRotation.eulerAngles.z);
             }
+
+            wheelReposition.TrackMovement(tireTransform, pair, tireDesiredPosition);
         }
 
         private void OnDrawGizmos()

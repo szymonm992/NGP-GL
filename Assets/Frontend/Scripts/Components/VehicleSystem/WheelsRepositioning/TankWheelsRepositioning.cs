@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Frontend.Scripts.Models;
+using System;
 
 namespace Frontend.Scripts.Components
 {
@@ -34,10 +35,20 @@ namespace Frontend.Scripts.Components
             
         }
 
+        public override void TrackMovement(Transform tireTransform, UTAxlePair pair, Vector3 finalWheelPosition)
+        {
+            base.TrackMovement(tireTransform, pair, finalWheelPosition);
+            var dummyPair = pair.WheelDummyPair;
+            if (dummyPair.trackDummy != null)
+            {
+                Vector3 desiredPos = finalWheelPosition + new Vector3(0, dummyPair.dummyOffsetY, 0);
+                dummyPair.trackDummy.position = desiredPos;
+            }
+        }
+
         private float GetTankWheelRotationInputDir(float rawHorizontal, UTAxlePair pair)
         {
             return pair.Axis == GLShared.General.Enums.DriveAxisSite.Left ? -rawHorizontal : rawHorizontal;
         }
-
     }
 }

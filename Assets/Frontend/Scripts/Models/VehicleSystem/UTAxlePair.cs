@@ -9,9 +9,17 @@ namespace Frontend.Scripts.Models
     [System.Serializable]
     public class UTAxlePair
     {
+        [System.Serializable]
+        public struct DummyPair
+        {
+            public Transform trackDummy;
+            public float dummyOffsetY;
+        }
+
         [SerializeField] private UTWheel wheel;
         [SerializeField] private DriveAxisSite axis;
         [SerializeField] private Transform tireModel;
+        [SerializeField] private DummyPair dummyPair;
 
         private Transform visualPartOfTire;
         private Transform rotationalPartOfTire;
@@ -20,6 +28,7 @@ namespace Frontend.Scripts.Models
         public UTWheel Wheel => wheel;
         public Transform RotationalPartOfTire => rotationalPartOfTire;
         public Transform VisualPartOfTire => visualPartOfTire;
+        public DummyPair WheelDummyPair => dummyPair;
 
         public void Initialize()
         {

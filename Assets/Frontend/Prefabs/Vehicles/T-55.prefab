@@ -637,7 +637,7 @@ Transform:
   - {fileID: 1518967296516002424}
   - {fileID: 1621456623347007510}
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 12
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5609061393133542706
 MonoBehaviour:
@@ -655,9 +655,15 @@ MonoBehaviour:
   - wheel: {fileID: 310769619700757793}
     axis: -1
     tireModel: {fileID: 7596579702292883806}
+    dummyPair:
+      trackDummy: {fileID: 5384927435435937423}
+      dummyOffsetY: -0.6
   - wheel: {fileID: 1260713995757995336}
     axis: 1
     tireModel: {fileID: 7596579701972947085}
+    dummyPair:
+      trackDummy: {fileID: 2010080455494019903}
+      dummyOffsetY: -0.6
   canDrive: 1
   canSteer: 0
   repositionVisuals: 1
@@ -2342,9 +2348,15 @@ MonoBehaviour:
   - wheel: {fileID: 7087325070007002966}
     axis: -1
     tireModel: {fileID: 7596579703721343222}
+    dummyPair:
+      trackDummy: {fileID: 5384927436056507012}
+      dummyOffsetY: -0.63
   - wheel: {fileID: 7221617021755300185}
     axis: 1
     tireModel: {fileID: 7596579702804501731}
+    dummyPair:
+      trackDummy: {fileID: 780878500319016753}
+      dummyOffsetY: -0.63
   canDrive: 1
   canSteer: 0
   repositionVisuals: 1
@@ -3081,7 +3093,7 @@ GameObject:
   m_Component:
   - component: {fileID: 780878500319016753}
   m_Layer: 0
-  m_Name: DUMMY_R(4)
+  m_Name: DUMMY_R(3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3263,7 +3275,7 @@ Transform:
   - {fileID: 5384927434602103579}
   - {fileID: 5384927434743924538}
   m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3839261258758284351
 GameObject:
@@ -3297,7 +3309,7 @@ Transform:
   - {fileID: 5384927434471498820}
   - {fileID: 5384927435244212871}
   m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3839261258819079633
 GameObject:
@@ -3361,7 +3373,7 @@ Transform:
   m_Children:
   - {fileID: 3839261258735569953}
   m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3839261258877823571
 GameObject:
@@ -3939,7 +3951,7 @@ Transform:
   - {fileID: 5384927434988915378}
   - {fileID: 5384927434103580477}
   m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3839261259736823074
 GameObject:
@@ -4165,7 +4177,7 @@ Transform:
   - {fileID: 5384927434967889098}
   - {fileID: 5384927434433093952}
   m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3839261260197088027
 GameObject:
@@ -6350,7 +6362,7 @@ Transform:
   m_Children:
   - {fileID: 3839261259605005830}
   m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5384927434398287839
 GameObject:
@@ -6376,13 +6388,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5384927434398287839}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.054818, y: 0.23773012, z: 3.3018348}
-  m_LocalScale: {x: 1, y: 1.0000006, z: 1.0000006}
+  m_LocalPosition: {x: 0, y: 0.14202148, z: 0.5635609}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3839261259165916217}
-  m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 5
+  m_Father: {fileID: 5384927435113682993}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5384927434433093955
 GameObject:
@@ -6446,7 +6458,7 @@ Transform:
   m_Children:
   - {fileID: 3839261259105784598}
   m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5384927434471498823
 GameObject:
@@ -6510,7 +6522,7 @@ Transform:
   m_Children:
   - {fileID: 3839261260231442709}
   m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 19
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5384927434602103578
 GameObject:
@@ -6574,7 +6586,7 @@ Transform:
   m_Children:
   - {fileID: 3839261260422123318}
   m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5384927434734678835
 GameObject:
@@ -6586,7 +6598,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5384927434734678832}
   m_Layer: 0
-  m_Name: DUMMY_L(1)
+  m_Name: DUMMY_L(4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6601,12 +6613,12 @@ Transform:
   m_GameObject: {fileID: 5384927434734678835}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2.0548172, y: 0.061022304, z: -1.2753532}
-  m_LocalScale: {x: 1, y: 1.0000006, z: 1.0000006}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4373665650790666739}
   m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5384927434743924533
 GameObject:
@@ -6734,7 +6746,7 @@ Transform:
   m_Children:
   - {fileID: 3839261259576853269}
   m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5384927434967889093
 GameObject:
@@ -6810,7 +6822,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5384927435013291296}
   m_Layer: 0
-  m_Name: DUMMY_L(4)
+  m_Name: DUMMY_L(2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6825,12 +6837,12 @@ Transform:
   m_GameObject: {fileID: 5384927435013291299}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2.0548177, y: 0.061022524, z: 1.204849}
-  m_LocalScale: {x: 1, y: 1.0000006, z: 1.0000006}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3839261259377185947}
   m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5384927435111706439
 GameObject:
@@ -6862,7 +6874,7 @@ Transform:
   m_Children:
   - {fileID: 3839261259170734568}
   m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5384927435113682992
 GameObject:
@@ -6874,7 +6886,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5384927435113682993}
   m_Layer: 0
-  m_Name: DUMMY_L(3)
+  m_Name: DUMMY_L(1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6889,12 +6901,13 @@ Transform:
   m_GameObject: {fileID: 5384927435113682992}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2.0548177, y: 0.095708564, z: 2.7382736}
-  m_LocalScale: {x: 1, y: 1.0000006, z: 1.0000006}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3839261259622273609}
+  - {fileID: 5384927434398287836}
   m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5384927435158690775
 GameObject:
@@ -6958,7 +6971,7 @@ Transform:
   m_Children:
   - {fileID: 3839261260197088026}
   m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5384927435234437767
 GameObject:
@@ -6990,7 +7003,7 @@ Transform:
   m_Children:
   - {fileID: 3839261259450055452}
   m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5384927435244212870
 GameObject:
@@ -7054,7 +7067,7 @@ Transform:
   m_Children:
   - {fileID: 3839261259243695618}
   m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 21
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5384927435435937422
 GameObject:
@@ -7118,7 +7131,7 @@ Transform:
   m_Children:
   - {fileID: 3839261259405880736}
   m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5384927435590152772
 GameObject:
@@ -7150,7 +7163,7 @@ Transform:
   m_Children:
   - {fileID: 3839261259736823085}
   m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 20
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5384927436056507015
 GameObject:
@@ -7162,7 +7175,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5384927436056507012}
   m_Layer: 0
-  m_Name: DUMMY_L(2)
+  m_Name: DUMMY_L(3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7182,7 +7195,7 @@ Transform:
   m_Children:
   - {fileID: 3839261258877823570}
   m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5387661011807019205
 GameObject:
@@ -8026,7 +8039,7 @@ Transform:
   - {fileID: 3270974469563774907}
   - {fileID: 6243855045970331588}
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 13
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7025292178035462788
 MonoBehaviour:
@@ -8044,9 +8057,15 @@ MonoBehaviour:
   - wheel: {fileID: 6100220381526500438}
     axis: -1
     tireModel: {fileID: 7596579703005490176}
+    dummyPair:
+      trackDummy: {fileID: 5384927434734678832}
+      dummyOffsetY: -0.63
   - wheel: {fileID: 693474897284252281}
     axis: 1
     tireModel: {fileID: 7596579702870883016}
+    dummyPair:
+      trackDummy: {fileID: 3673657846686429875}
+      dummyOffsetY: -0.63
   canDrive: 1
   canSteer: 0
   repositionVisuals: 1
@@ -8345,7 +8364,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3673657846686429875}
   m_Layer: 0
-  m_Name: DUMMY_R(5)
+  m_Name: DUMMY_R(4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8681,11 +8700,11 @@ Transform:
   - {fileID: 6249164837334670879}
   - {fileID: 2787589473323767504}
   - {fileID: 6720865080760643584}
-  - {fileID: 78898047732443529}
-  - {fileID: 6561096766411856440}
-  - {fileID: 7869203467639036251}
-  - {fileID: 9143605104445032942}
   - {fileID: 167280985932337310}
+  - {fileID: 9143605104445032942}
+  - {fileID: 7869203467639036251}
+  - {fileID: 6561096766411856440}
+  - {fileID: 78898047732443529}
   m_Father: {fileID: 5497972940232234640}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9286,7 +9305,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5505756303890752968}
   m_Layer: 0
-  m_Name: DUMMY_R(3)
+  m_Name: DUMMY_R(2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10550,7 +10569,7 @@ Transform:
   - {fileID: 752513509937358995}
   - {fileID: 6253762050043709091}
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 15
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3615179528330050901
 MonoBehaviour:
@@ -10568,9 +10587,15 @@ MonoBehaviour:
   - wheel: {fileID: 1960491814880612298}
     axis: -1
     tireModel: {fileID: 7596579702848731597}
+    dummyPair:
+      trackDummy: {fileID: 5384927435013291296}
+      dummyOffsetY: -0.63
   - wheel: {fileID: 4664111438085651965}
     axis: 1
     tireModel: {fileID: 7596579703514932358}
+    dummyPair:
+      trackDummy: {fileID: 5505756303890752968}
+      dummyOffsetY: -0.63
   canDrive: 1
   canSteer: 1
   repositionVisuals: 1
@@ -10755,7 +10780,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2010080455494019903}
   m_Layer: 0
-  m_Name: DUMMY_R(6)
+  m_Name: DUMMY_R(5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10904,7 +10929,7 @@ Transform:
   - {fileID: 6696100114257518006}
   - {fileID: 2490935781343491376}
   m_Father: {fileID: 181178416564340224}
-  m_RootOrder: 16
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1297935779540435686
 MonoBehaviour:
@@ -10922,9 +10947,15 @@ MonoBehaviour:
   - wheel: {fileID: 3080014985020610548}
     axis: -1
     tireModel: {fileID: 7596579702710604512}
+    dummyPair:
+      trackDummy: {fileID: 5384927435113682993}
+      dummyOffsetY: -0.6
   - wheel: {fileID: 6426444880548961647}
     axis: 1
     tireModel: {fileID: 7596579702179268639}
+    dummyPair:
+      trackDummy: {fileID: 7170899358023143660}
+      dummyOffsetY: -0.6
   canDrive: 1
   canSteer: 1
   repositionVisuals: 1
@@ -11511,12 +11542,11 @@ Transform:
   m_LocalScale: {x: 0.0254, y: 0.025400003, z: 0.025400003}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5384927434734678832}
-  - {fileID: 5384927436056507012}
   - {fileID: 5384927435113682993}
   - {fileID: 5384927435013291296}
+  - {fileID: 5384927436056507012}
+  - {fileID: 5384927434734678832}
   - {fileID: 5384927435435937423}
-  - {fileID: 5384927434398287836}
   - {fileID: 5384927434662200123}
   - {fileID: 5384927435481216090}
   - {fileID: 5384927435225666523}
