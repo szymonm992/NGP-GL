@@ -74,26 +74,18 @@ namespace Frontend.Scripts.Components
             }
 
             float currentMaxSpeed = controller.GetCurrentMaxSpeed();
-            if (tracksList != null && tracksList.Any() && currentMaxSpeed != 0)
+            if (tracksList != null && tracksList.Any() && controller.CurrentSpeed != 0)
             {
                 var leftAndRight = GetTrackSideMultipliers();
 
                 float l = leftAndRight.Item1;
                 float r = leftAndRight.Item2;
 
-                float trackRotSpeed = 30f;
                 float offset;
 
                 if (l == r)
                 {
-                    if (controller.CurrentSpeedRatio < (currentMaxSpeed / 1.5f))
-                    {
-                        offset = (trackRotSpeed * controller.CurrentSpeedRatio) * Time.deltaTime;
-                    }
-                    else
-                    {
-                        offset = (currentMaxSpeed / 1.5f) * trackRotSpeed * Time.deltaTime;
-                    }
+                   offset = (controller.CurrentSpeed/6f) * Time.deltaTime;
                 }
                 else
                 { 
@@ -131,6 +123,12 @@ namespace Frontend.Scripts.Components
         {
             if(inputProvider.AbsoluteHorizontal > 0)
             {
+                if (inputProvider.AbsoluteVertical > 0)
+                {
+                    float leftSigned = inputProvider.SignedHorizontal > 0 ? inputProvider.AbsoluteHorizontal : inputProvider.AbsoluteHorizontal / 2;
+                    float rightSigned = inputProvider.SignedHorizontal > 0 ? inputProvider.AbsoluteHorizontal / 2 : inputProvider.AbsoluteHorizontal;
+                    return (leftSigned, rightSigned);
+                }
                 return (inputProvider.SignedHorizontal, -inputProvider.SignedHorizontal);
             }
             else

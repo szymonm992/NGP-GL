@@ -73,7 +73,7 @@ namespace Frontend.Scripts.Models
 
         public float GetCurrentMaxSpeed()
         {
-            return signedInputY == 0 ? 0 : (signedInputY > 0 ? maxForwardSpeed : maxBackwardsSpeed);
+            return absoluteInputY == 0 ? 0 : (signedInputY > 0 ? maxForwardSpeed : maxBackwardsSpeed);
         }
 
         public virtual void Initialize()
