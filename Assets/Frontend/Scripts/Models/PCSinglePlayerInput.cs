@@ -26,7 +26,7 @@ namespace Frontend.Scripts.Models
         public float RawHorizontal => ReturnRawInput(ref horizontal);
         public float RawVertical => ReturnRawInput(ref vertical);
         public float AbsoluteVertical => ReturnAbsoluteVertical(ref vertical);
-        public float AbsoluteHorizontal => ReturnAbsoluteHorizontal(ref vertical);
+        public float AbsoluteHorizontal => ReturnAbsoluteHorizontal(ref horizontal);
         public float SignedVertical => ReturnSignedInput(ref vertical);
         public float SignedHorizontal => ReturnSignedInput(ref horizontal);
 
@@ -42,7 +42,7 @@ namespace Frontend.Scripts.Models
 
         private float ReturnAbsoluteHorizontal (ref float input)
         {
-            return Mathf.Abs(input) * Mathf.Sign(input);
+            return Mathf.Abs(input);
         }
 
         private float ReturnAbsoluteVertical(ref float input)

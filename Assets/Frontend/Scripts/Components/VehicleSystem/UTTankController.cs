@@ -26,7 +26,7 @@ namespace Frontend.Scripts.Components
                 Brakes();
                 ApplyFrictionForces();
 
-                currentSpeed = rig.velocity.magnitude * gameParameters.SpeedMultiplier;
+                SetCurrentSpeed();
                 speedometer?.SetSpeedometr(currentSpeed);
             }
         }

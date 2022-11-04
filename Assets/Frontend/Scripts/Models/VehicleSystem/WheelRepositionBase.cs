@@ -4,13 +4,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+using System.Linq;
 
 namespace Frontend.Scripts.Models
 {
-    public abstract class WheelRepositionBase : MonoBehaviour, IWheelReposition
+    public abstract class WheelRepositionBase : MonoBehaviour, IWheelReposition, IInitializable
     {
         [Inject] protected readonly IVehicleController controller;
         [Inject] protected readonly IPlayerInputProvider inputProvider;
+        [Inject(Id = "mainRig")] protected readonly Rigidbody rig;
+
+        public virtual void Initialize()
+        {
+        }
 
         public virtual void RotateWheels(float verticalDir, Vector3 rotateAroundAxis, Transform tireTransform, UTAxlePair pair, out float currentToMaxRatio)
         {

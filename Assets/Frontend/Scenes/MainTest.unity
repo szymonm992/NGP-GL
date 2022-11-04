@@ -11047,6 +11047,11 @@ Transform:
   m_Father: {fileID: 1502229001}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!137 &2800344563884726592 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7811432478117862914, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+  m_PrefabInstance: {fileID: 3839261258793936677}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3839261258793936677
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11054,34 +11059,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 813952591896513546, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: wheelPairs.Array.data[0].dummyPair.dummyOffsetY
-      value: -0.63
-      objectReference: {fileID: 0}
-    - target: {fileID: 813952591896513546, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: wheelPairs.Array.data[1].dummyPair.dummyOffsetY
-      value: -0.63
-      objectReference: {fileID: 0}
-    - target: {fileID: 1297935779540435686, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: wheelPairs.Array.data[0].dummyPair.dummyOffsetY
-      value: -0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1297935779540435686, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: wheelPairs.Array.data[1].dummyPair.dummyOffsetY
-      value: -0.6
-      objectReference: {fileID: 0}
     - target: {fileID: 2618250326273635535, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: velocityText
       value: 
       objectReference: {fileID: 7200623150865602637}
-    - target: {fileID: 3615179528330050901, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: wheelPairs.Array.data[0].dummyPair.dummyOffsetY
-      value: -0.63
+    - target: {fileID: 4703210311339521858, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: tracksList.Array.size
+      value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 3615179528330050901, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: wheelPairs.Array.data[1].dummyPair.dummyOffsetY
-      value: -0.63
+    - target: {fileID: 4703210311339521858, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: tracksList.Array.data[0].trackAxis
+      value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 4703210311339521858, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: tracksList.Array.data[1].trackAxis
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4703210311339521858, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: tracksList.Array.data[0].trackObject
+      value: 
+      objectReference: {fileID: 4990895258461585468}
+    - target: {fileID: 4703210311339521858, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: tracksList.Array.data[1].trackObject
+      value: 
+      objectReference: {fileID: 2800344563884726592}
     - target: {fileID: 5497972940232234640, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -11126,28 +11127,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5609061393133542706, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: wheelPairs.Array.data[0].dummyPair.dummyOffsetY
-      value: -0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5609061393133542706, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: wheelPairs.Array.data[1].dummyPair.dummyOffsetY
-      value: -0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7025292178035462788, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: wheelPairs.Array.data[0].dummyPair.dummyOffsetY
-      value: -0.63
-      objectReference: {fileID: 0}
-    - target: {fileID: 7025292178035462788, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: wheelPairs.Array.data[1].dummyPair.dummyOffsetY
-      value: -0.63
-      objectReference: {fileID: 0}
     - target: {fileID: 8797747351685325955, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_Name
       value: T-55
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+--- !u!137 &4990895258461585468 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1150707309679822718, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+  m_PrefabInstance: {fileID: 3839261258793936677}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7200623150865602636
 PrefabInstance:
   m_ObjectHideFlags: 0

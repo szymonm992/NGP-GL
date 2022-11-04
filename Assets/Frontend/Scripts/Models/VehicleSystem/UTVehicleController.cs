@@ -33,8 +33,10 @@ namespace Frontend.Scripts.Models
         protected bool hasAnyWheels;
         protected float currentSpeed;
         protected float absoluteInputY;
+        protected float absoluteInputX;
         protected float maxForwardSpeed;
         protected float maxBackwardsSpeed;
+        protected float currentSpeedRatio;
         protected float signedInputY;
         protected int allWheelsAmount = 0;
 
@@ -56,7 +58,9 @@ namespace Frontend.Scripts.Models
         public IEnumerable<UTAxle> AllAxles => allAxles;
         public bool HasAnyWheels => hasAnyWheels;
         public float CurrentSpeed => currentSpeed;
+        public float CurrentSpeedRatio =>  currentSpeedRatio;
         public float AbsoluteInputY => absoluteInputY;
+        public float AbsoluteInputX => absoluteInputX;
         public float SignedInputY => signedInputY;
         public float MaxForwardSpeed => maxForwardSpeed;
         public float MaxBackwardsSpeed => maxBackwardsSpeed;
@@ -109,9 +113,17 @@ namespace Frontend.Scripts.Models
                 inputY = inputProvider.Vertical;
 
                 absoluteInputY = inputProvider.AbsoluteVertical;
+                absoluteInputX = inputProvider.AbsoluteHorizontal;
 
                 signedInputY = inputProvider.SignedVertical;
             }
+        }
+        
+        protected void SetCurrentSpeed()
+        {
+            currentSpeed = rig.velocity.magnitude * gameParameters.SpeedMultiplier;
+            float maxSpeed = GetCurrentMaxSpeed();
+            currentSpeedRatio = maxSpeed != 0 ? currentSpeed / maxSpeed : 0f;
         }
 
         protected bool CheckUpsideDown()

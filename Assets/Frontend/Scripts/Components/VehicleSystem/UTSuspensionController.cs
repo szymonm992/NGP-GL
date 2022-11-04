@@ -29,7 +29,7 @@ namespace Frontend.Scripts.Components
                 ApplyFrictionForces();
                 AirControl();
 
-                currentSpeed = rig.velocity.magnitude * gameParameters.SpeedMultiplier;
+                SetCurrentSpeed();
                 speedometer?.SetSpeedometr(currentSpeed);
             }
         }

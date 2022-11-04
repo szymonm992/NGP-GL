@@ -16,6 +16,8 @@ namespace Frontend.Scripts
         private float steerInput;
         private float currentSteerSpeed;
 
+        public float SteerForce => steerForce;
+
         public void SetSteeringInput(float input)
         {
             steerInput = inputProvider.AbsoluteVertical != 0 ?  input * inputProvider.SignedVertical : input;

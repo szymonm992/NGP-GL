@@ -13,7 +13,9 @@ namespace Frontend.Scripts.Interfaces
         bool DoesGravityDamping { get; }
         IEnumerable<UTAxle> AllAxles { get; }
         float CurrentSpeed { get; }
+        float CurrentSpeedRatio { get; }
         float AbsoluteInputY { get; }
+        float AbsoluteInputX { get; }
         float SignedInputY { get; }
 
         float MaxForwardSpeed { get; }
