@@ -128,7 +128,7 @@ namespace Frontend.Scripts.Components
         {
             var tireTransform = pair.VisualPartOfTire;
 
-            float dir = -inputProvider.SignedVertical;
+            float dir = -inputProvider.LastVerticalInput;
             Vector3 rotateAroundAxis = -tireTransform.right;
 
             wheelReposition.RotateWheels(dir, rotateAroundAxis, tireTransform, pair,  out float currentToMaxRatio);
