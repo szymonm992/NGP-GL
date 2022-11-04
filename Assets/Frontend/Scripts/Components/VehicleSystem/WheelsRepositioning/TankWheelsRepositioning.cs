@@ -44,7 +44,7 @@ namespace Frontend.Scripts.Components
 
             float rawHorizontal = inputProvider.SignedHorizontal;
             if (inputProvider.SignedVertical == 0 && rawHorizontal != 0)//stationary tank rotating
-            {
+            { 
                 currentToMaxRatio = 0.3f;
                 pair.RotationalPartOfTire.RotateAround(tireTransform.position, rotateAroundAxis, GetTankWheelRotationInputDir(rawHorizontal, pair.Axis) * (currentToMaxRatio * 1300f) * Time.deltaTime);
             }
@@ -53,7 +53,6 @@ namespace Frontend.Scripts.Components
                 float speed = controller.CurrentSpeed;
                 if (speed != 0)
                 {
-                    speed = controller.CurrentSpeed;
                     if (rawHorizontal != 0 && (int)pair.Axis == rawHorizontal)//moving fwd/bwd and turning in the same time
                     {
                         speed /= 2f; //whenever we go forward we want one side of wheels to move slower

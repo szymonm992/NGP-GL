@@ -119,6 +119,11 @@
     <Compile Include="Assets\Frontend\Scripts\Models\StateFactory.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\States\OnLoginState.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTWheelFrictionCurve.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Components\VisualEffects\Outline.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Frontend\Materials\Effects\OutlineMask.shader" />
+    <None Include="Assets\Frontend\Materials\Effects\OutlineFill.shader" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
