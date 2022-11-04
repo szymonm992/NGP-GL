@@ -10,13 +10,12 @@ namespace Frontend.Scripts.Interfaces
         public float Horizontal { get; }
         public bool Brake { get; }
 
-        public float RawHorizontal { get; }
-        public float RawVertical { get; }
         public float CombinedInput { get; }
         public float SignedVertical { get; }
         public float SignedHorizontal { get; }
         public float AbsoluteVertical { get; }
         public float AbsoluteHorizontal { get; }
+        public float LastVerticalInput { get; }
 
     }
 }

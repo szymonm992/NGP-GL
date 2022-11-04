@@ -26,5 +26,7 @@ namespace Frontend.Scripts.Components
         public float AbsoluteVertical => 0;
 
         public float AbsoluteHorizontal => 0;
+
+        public float LastVerticalInput => 0;
     }
 }

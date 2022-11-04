@@ -9,13 +9,13 @@ namespace Frontend.Scripts.Models
 {
     public class PCSinglePlayerInput : MonoBehaviour, IPlayerInputProvider
     {
-        [Inject] private readonly IVehicleController controller;
         private float horizontal;
         private float vertical;
 
         private bool brake;
 
         private float combinedInput = 0f;
+        private float lastVerticalInput = 0f;
 
         public float Vertical => vertical;
         public float Horizontal => horizontal;
@@ -23,22 +23,12 @@ namespace Frontend.Scripts.Models
 
         public float CombinedInput => combinedInput;
 
-        public float RawHorizontal => ReturnRawInput(ref horizontal);
-        public float RawVertical => ReturnRawInput(ref vertical);
         public float AbsoluteVertical => ReturnAbsoluteVertical(ref vertical);
         public float AbsoluteHorizontal => ReturnAbsoluteHorizontal(ref horizontal);
         public float SignedVertical => ReturnSignedInput(ref vertical);
         public float SignedHorizontal => ReturnSignedInput(ref horizontal);
 
-        private float ReturnRawInput(ref float input)
-        {
-            if(input != 0)
-            {
-                if (input > 0) return 1f;
-                else return -1f;
-            }
-            return 0;
-        } 
+        public float LastVerticalInput => lastVerticalInput;
 
         private float ReturnAbsoluteHorizontal (ref float input)
         {
@@ -52,7 +42,7 @@ namespace Frontend.Scripts.Models
 
         private float ReturnSignedInput(ref float input)
         {
-            return Mathf.Sign(input);
+            return input != 0 ? Mathf.Sign(input) : 0f;
         }
 
         private void Update()
@@ -60,7 +50,11 @@ namespace Frontend.Scripts.Models
             brake = Input.GetButton("Brake");
             horizontal = !Brake ? Input.GetAxis("Horizontal") : 0f;
             vertical = !Brake ? Input.GetAxis("Vertical") : 0f;
-           
+
+            if (vertical != 0)
+            {
+                lastVerticalInput = SignedVertical;
+            }
 
             combinedInput = Mathf.Abs(horizontal) + Mathf.Abs(vertical);
         }
