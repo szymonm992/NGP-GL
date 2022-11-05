@@ -14,6 +14,15 @@ namespace Frontend.Scripts.Models
         {
             public Transform trackDummy;
             public float dummyOffsetY;
+
+            private Transform holder;
+
+            public Transform Holder => holder;
+
+            public void Initialize()
+            {
+                holder = trackDummy.GetChild(0);
+            }
         }
 
         [SerializeField] private UTWheel wheel;
@@ -34,6 +43,11 @@ namespace Frontend.Scripts.Models
         {
             visualPartOfTire = tireModel.GetChild(0);
             rotationalPartOfTire = visualPartOfTire.GetChild(0);
+
+            if(dummyPair.trackDummy != null)
+            {
+                dummyPair.Initialize();
+            }
         }
 
     }
