@@ -483,6 +483,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 60176540}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &85614564 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7861723728769588490, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+  m_PrefabInstance: {fileID: 3839261258793936677}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &107676949
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,6 +682,11 @@ Transform:
   m_Father: {fileID: 2105626272}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 10, y: -90, z: 0}
+--- !u!4 &158052476 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 293266357100651089, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+  m_PrefabInstance: {fileID: 3839261258793936677}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &178826662
 GameObject:
   m_ObjectHideFlags: 0
@@ -2790,6 +2800,11 @@ Transform:
   m_Father: {fileID: 2105626272}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &533063635 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2865548694180305202, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+  m_PrefabInstance: {fileID: 3839261258793936677}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &539795187
 GameObject:
   m_ObjectHideFlags: 0
@@ -11058,9 +11073,9 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -2.833333
       objectReference: {fileID: 0}
-    - target: {fileID: 310769619700757793, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tireContactOffset
-      value: 0.05
+    - target: {fileID: 183870405748755987, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0000028721875
       objectReference: {fileID: 0}
     - target: {fileID: 313854361456630449, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -11074,33 +11089,9 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -2.4999998
       objectReference: {fileID: 0}
-    - target: {fileID: 693474897284252281, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tireContactOffset
-      value: 0.05
-      objectReference: {fileID: 0}
     - target: {fileID: 786353861587049245, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.y
       value: -1.6666667
-      objectReference: {fileID: 0}
-    - target: {fileID: 813952591896513546, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tiresContactOffset
-      value: 0.03
-      objectReference: {fileID: 0}
-    - target: {fileID: 813952591896513546, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: wheelPairs.Array.data[0].dummyPair.dummyOffsetY
-      value: -0.57
-      objectReference: {fileID: 0}
-    - target: {fileID: 813952591896513546, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: wheelPairs.Array.data[1].dummyPair.dummyOffsetY
-      value: -0.57
-      objectReference: {fileID: 0}
-    - target: {fileID: 1260713995757995336, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tireContactOffset
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 1297935779540435686, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tiresContactOffset
-      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 1552812861655163382, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -11114,13 +11105,13 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -2.833333
       objectReference: {fileID: 0}
+    - target: {fileID: 1656161125688687013, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.000008372121
+      objectReference: {fileID: 0}
     - target: {fileID: 1719764415298310206, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.y
       value: -2.8333333
-      objectReference: {fileID: 0}
-    - target: {fileID: 1960491814880612298, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tireContactOffset
-      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 2618250326273635535, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: velocityText
@@ -11130,36 +11121,52 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.00000006111037
       objectReference: {fileID: 0}
-    - target: {fileID: 3080014985020610548, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tireContactOffset
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 3615179528330050901, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tiresContactOffset
-      value: 0.03
-      objectReference: {fileID: 0}
-    - target: {fileID: 3615179528330050901, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: wheelPairs.Array.data[0].dummyPair.dummyOffsetY
-      value: -0.57
-      objectReference: {fileID: 0}
-    - target: {fileID: 3615179528330050901, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: wheelPairs.Array.data[1].dummyPair.dummyOffsetY
-      value: -0.57
-      objectReference: {fileID: 0}
-    - target: {fileID: 3980291748074962606, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.8333324
-      objectReference: {fileID: 0}
-    - target: {fileID: 3980291748074962606, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.000005965601
-      objectReference: {fileID: 0}
     - target: {fileID: 4334366927601530381, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.y
       value: -1.6666667
       objectReference: {fileID: 0}
-    - target: {fileID: 4664111438085651965, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tireContactOffset
+    - target: {fileID: 4703210311339521858, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: tracksList.Array.data[1].helperDummies.Array.data[1].helperDummy
+      value: 
+      objectReference: {fileID: 158052476}
+    - target: {fileID: 4703210311339521858, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: tracksList.Array.data[1].helperDummies.Array.data[2].helperDummy
+      value: 
+      objectReference: {fileID: 85614564}
+    - target: {fileID: 4703210311339521858, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: tracksList.Array.data[1].helperDummies.Array.data[3].helperDummy
+      value: 
+      objectReference: {fileID: 533063635}
+    - target: {fileID: 4703210311339521858, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: tracksList.Array.data[0].helperDummies.Array.data[0].contactOffset
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 4703210311339521858, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: tracksList.Array.data[0].helperDummies.Array.data[1].contactOffset
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 4703210311339521858, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: tracksList.Array.data[0].helperDummies.Array.data[2].contactOffset
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 4703210311339521858, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: tracksList.Array.data[0].helperDummies.Array.data[3].contactOffset
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4703210311339521858, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: tracksList.Array.data[1].helperDummies.Array.data[0].contactOffset
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 4703210311339521858, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: tracksList.Array.data[1].helperDummies.Array.data[1].contactOffset
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 4703210311339521858, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: tracksList.Array.data[1].helperDummies.Array.data[2].contactOffset
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 4703210311339521858, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: tracksList.Array.data[1].helperDummies.Array.data[3].contactOffset
       value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 5006742732502896498, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
@@ -11180,7 +11187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5497972940232234640, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.12
+      value: 1.79
       objectReference: {fileID: 0}
     - target: {fileID: 5497972940232234640, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11214,49 +11221,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5609061393133542706, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tiresContactOffset
-      value: 0.04
-      objectReference: {fileID: 0}
-    - target: {fileID: 6100220381526500438, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tireContactOffset
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 6378113919566413452, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.8333324
-      objectReference: {fileID: 0}
-    - target: {fileID: 6378113919566413452, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.0000067600354
-      objectReference: {fileID: 0}
-    - target: {fileID: 6426444880548961647, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tireContactOffset
-      value: 0.05
-      objectReference: {fileID: 0}
     - target: {fileID: 6818007540150774422, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.y
       value: -2.499999
-      objectReference: {fileID: 0}
-    - target: {fileID: 7025292178035462788, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tiresContactOffset
-      value: 0.03
-      objectReference: {fileID: 0}
-    - target: {fileID: 7025292178035462788, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: wheelPairs.Array.data[0].dummyPair.dummyOffsetY
-      value: -0.57
-      objectReference: {fileID: 0}
-    - target: {fileID: 7025292178035462788, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: wheelPairs.Array.data[1].dummyPair.dummyOffsetY
-      value: -0.57
-      objectReference: {fileID: 0}
-    - target: {fileID: 7087325070007002966, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tireContactOffset
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 7221617021755300185, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: tireContactOffset
-      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 7568031967087253954, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.z

@@ -104,7 +104,7 @@ namespace Frontend.Scripts.Components
             if (dummyPair.trackDummy != null)
             {
                 Vector3 desiredPos = finalWheelPosition + (pair.Wheel.transform.up * dummyPair.dummyOffsetY);
-                dummyPair.trackDummy.position = desiredPos;
+                dummyPair.trackDummy.position = new Vector3(dummyPair.trackDummy.position.x, desiredPos.y, dummyPair.trackDummy.position.z);
             }
 
             
