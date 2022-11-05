@@ -669,6 +669,7 @@ MonoBehaviour:
   repositionVisuals: 1
   applyAntiroll: 0
   antiRollForce: 0
+  tiresContactOffset: 0.04
   debugSettings:
     drawGizmos: 0
     drawAxleCenter: 1
@@ -2290,7 +2291,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2706374231145263383}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.000003695488, y: -1.8333328, z: -0.0000059657286}
+  m_LocalPosition: {x: 0.000003695488, y: -1.8333324, z: -0.000005965601}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2350,18 +2351,19 @@ MonoBehaviour:
     tireModel: {fileID: 7596579703721343222}
     dummyPair:
       trackDummy: {fileID: 5384927436056507012}
-      dummyOffsetY: -0.6
+      dummyOffsetY: -0.57
   - wheel: {fileID: 7221617021755300185}
     axis: 1
     tireModel: {fileID: 7596579702804501731}
     dummyPair:
       trackDummy: {fileID: 780878500319016753}
-      dummyOffsetY: -0.6
+      dummyOffsetY: -0.57
   canDrive: 1
   canSteer: 0
   repositionVisuals: 1
   applyAntiroll: 0
   antiRollForce: 0
+  tiresContactOffset: 0.03
   debugSettings:
     drawGizmos: 0
     drawAxleCenter: 1
@@ -8059,18 +8061,19 @@ MonoBehaviour:
     tireModel: {fileID: 7596579703005490176}
     dummyPair:
       trackDummy: {fileID: 5384927434734678832}
-      dummyOffsetY: -0.6
+      dummyOffsetY: -0.57
   - wheel: {fileID: 693474897284252281}
     axis: 1
     tireModel: {fileID: 7596579702870883016}
     dummyPair:
       trackDummy: {fileID: 3673657846686429875}
-      dummyOffsetY: -0.6
+      dummyOffsetY: -0.57
   canDrive: 1
   canSteer: 0
   repositionVisuals: 1
   applyAntiroll: 0
   antiRollForce: 0
+  tiresContactOffset: 0.03
   debugSettings:
     drawGizmos: 0
     drawAxleCenter: 1
@@ -10589,18 +10592,19 @@ MonoBehaviour:
     tireModel: {fileID: 7596579702848731597}
     dummyPair:
       trackDummy: {fileID: 5384927435013291296}
-      dummyOffsetY: -0.6
+      dummyOffsetY: -0.57
   - wheel: {fileID: 4664111438085651965}
     axis: 1
     tireModel: {fileID: 7596579703514932358}
     dummyPair:
       trackDummy: {fileID: 5505756303890752968}
-      dummyOffsetY: -0.6
+      dummyOffsetY: -0.57
   canDrive: 1
   canSteer: 1
   repositionVisuals: 1
   applyAntiroll: 0
   antiRollForce: 0
+  tiresContactOffset: 0.03
   debugSettings:
     drawGizmos: 0
     drawAxleCenter: 1
@@ -10858,7 +10862,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8521941229957327311}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.000003695488, y: -1.8333328, z: -0.0000067601636}
+  m_LocalPosition: {x: -0.000003695488, y: -1.8333324, z: -0.0000067600354}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10961,6 +10965,7 @@ MonoBehaviour:
   repositionVisuals: 1
   applyAntiroll: 0
   antiRollForce: 0
+  tiresContactOffset: 0.04
   debugSettings:
     drawGizmos: 0
     drawAxleCenter: 1
@@ -11344,30 +11349,38 @@ MonoBehaviour:
     - helperDummy: {fileID: 5384927435481216090}
       raycastRange: 1.1
       restOffset: 0.8
+      contactOffset: 0
     - helperDummy: {fileID: 5384927434662200123}
       raycastRange: 1.1
       restOffset: 0.8
+      contactOffset: 0
     - helperDummy: {fileID: 5384927435234437764}
       raycastRange: 1.1
       restOffset: 0.8
+      contactOffset: 0
     - helperDummy: {fileID: 5384927435225666523}
       raycastRange: 1.1
       restOffset: 0.8
+      contactOffset: 0
   - trackObject: {fileID: 7811432478117862914}
     trackAxis: 1
     helperDummies:
     - helperDummy: {fileID: 251802872713203227}
       raycastRange: 1.1
       restOffset: 0.8
+      contactOffset: 0
     - helperDummy: {fileID: 293266357100651089}
       raycastRange: 1.1
       restOffset: 0.8
+      contactOffset: 0
     - helperDummy: {fileID: 7861723728769588490}
       raycastRange: 1.1
       restOffset: 0.8
+      contactOffset: 0
     - helperDummy: {fileID: 2865548694180305202}
       raycastRange: 1.1
       restOffset: 0.8
+      contactOffset: 0
 --- !u!114 &8908291513616745327
 MonoBehaviour:
   m_ObjectHideFlags: 0

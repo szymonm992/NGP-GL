@@ -26,6 +26,9 @@ namespace Frontend.Scripts.Components
         [SerializeField] private bool applyAntiroll;
         [SerializeField] private float antiRollForce = 0f;
 
+        [Header("Optional")]
+        [SerializeField] private float tiresContactOffset = 0f;
+
         private UTWheel leftAntirolled, rightAntirolled;
 
         public UTAxleDebug debugSettings = new UTAxleDebug()
@@ -133,7 +136,7 @@ namespace Frontend.Scripts.Components
 
             wheelReposition.RotateWheels(dir, rotateAroundAxis, tireTransform, pair,  out float currentToMaxRatio);
             
-            Vector3 tireDesiredPosition = pair.Wheel.TireWorldPosition;
+            Vector3 tireDesiredPosition = pair.Wheel.TireWorldPosition + (pair.Wheel.transform.up * tiresContactOffset);
             tireTransform.position = Vector3.Lerp(tireTransform.position, tireDesiredPosition, (75f * Mathf.Max(0.5f, currentToMaxRatio)) * Time.deltaTime);
             
             if(canSteer)

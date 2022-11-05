@@ -26,11 +26,13 @@ namespace Frontend.Scripts.Components
             public float raycastRange;
 
             [SerializeField] private float restOffset = 0.8f;
+            [SerializeField] private float contactOffset = 0f;
 
             private Transform holder;
             
             public Transform Holder => holder;
             public float RestOffset => restOffset;
+            public float ContactOffset => contactOffset;
 
             public void Initialize()
             {
@@ -170,13 +172,13 @@ namespace Frontend.Scripts.Components
                         Ray ray = new Ray(helperDummy.position, -helperDummy.up);
                         if (Physics.Raycast(ray, out RaycastHit hit, dummy.raycastRange))
                         {
-                            dummy.Holder.position = new Vector3(helperDummy.position.x, hit.point.y, helperDummy.position.z);
+                            dummy.Holder.position = new Vector3(helperDummy.position.x, hit.point.y, helperDummy.position.z) + (helperDummy.up * dummy.ContactOffset);
                         }
                         else
                         {
                             dummy.Holder.position = helperDummy.position - (helperDummy.up * dummy.RestOffset);
                         }
-                        Debug.DrawRay(ray.origin, ray.direction, Color.cyan);
+                        //Debug.DrawRay(ray.origin, ray.direction, Color.cyan);
                     }
                     
                 }
