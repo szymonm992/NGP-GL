@@ -33,7 +33,7 @@ namespace Frontend.Scripts.Components
             public void Initialize()
             {
                 holder = helperDummy.GetChild(0);
-                startOffset = helperDummy.position.y - holder.position.y;
+                startOffset = Mathf.Abs(holder.localPosition.y);
             }
         }
 
