@@ -89,6 +89,7 @@
     <Compile Include="Assets\Frontend\Scripts\Components\SceneManagers\GameplayManager.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\SceneManagers\WelcomeManager.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\Debug\UTAxleDebug.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Components\VisualEffects\Outline.cs" />
     <Compile Include="Assets\UInc\Core\Scripts\Utilities\DebugExtension.cs" />
     <Compile Include="Assets\Frontend\Scripts\Interfaces\IPlayerInput.cs" />
     <Compile Include="Assets\Frontend\Scripts\Extensions\UTWheelExtensions.cs" />
@@ -119,7 +120,6 @@
     <Compile Include="Assets\Frontend\Scripts\Models\StateFactory.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\States\OnLoginState.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTWheelFrictionCurve.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\VisualEffects\Outline.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Frontend\Materials\Effects\OutlineMask.shader" />

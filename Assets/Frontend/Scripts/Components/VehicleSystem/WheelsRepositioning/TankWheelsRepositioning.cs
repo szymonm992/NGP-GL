@@ -16,6 +16,25 @@ namespace Frontend.Scripts.Components
         {
             public Renderer trackObject;
             public DriveAxisSite trackAxis;
+
+            public TrackHeleperDummy[] helperDummies;
+        }
+        [System.Serializable]
+        public class TrackHeleperDummy
+        {
+            public Transform helperDummy;
+            public float raycastRange;
+
+            private Transform holder;
+            private float startOffset = 0;
+            public Transform Holder => holder;
+            public float StartOffset => startOffset;
+
+            public void Initialize()
+            {
+                holder = helperDummy.GetChild(0);
+                startOffset = helperDummy.position.y - holder.position.y;
+            }
         }
 
         [Inject] private readonly UTTankSteering tankSteering;
@@ -34,6 +53,18 @@ namespace Frontend.Scripts.Components
                 leftTracks = tracksList.Where(track => track.trackAxis == DriveAxisSite.Left);
                 rightTracks = tracksList.Where(track => track.trackAxis == DriveAxisSite.Right);
                 trackTurningRotationSpeed = tankSteering.SteerForce / 10f;
+
+                
+                foreach(var track in tracksList)//additional dummies initialization (inbewtween bones)
+                {
+                    if(track.helperDummies.Any())
+                    {
+                        foreach(var dummy in track.helperDummies)
+                        {
+                            dummy.Initialize();
+                        }
+                    }
+                }
             }
         }
 
@@ -126,6 +157,27 @@ namespace Frontend.Scripts.Components
 
                     materials[0].SetTextureOffset("_BaseMap", new Vector2(0, currentTextureOffset - (currentOffset / 70f) * sideInput));
                     rend.trackObject.materials = materials;
+                    
+                    if(!rend.helperDummies.Any())
+                    {
+                        return;
+                    }
+
+                    foreach(var dummy in rend.helperDummies)
+                    {
+                        var helperDummy = dummy.helperDummy;
+                        Ray ray = new Ray(helperDummy.position, -helperDummy.up);
+                        if (Physics.Raycast(ray, out RaycastHit hit, dummy.raycastRange))
+                        {
+                            dummy.Holder.position = new Vector3(helperDummy.position.x, hit.point.y, helperDummy.position.z);
+                        }
+                        else
+                        {
+                            dummy.Holder.position = helperDummy.position - (helperDummy.up * dummy.StartOffset);
+                        }
+                        Debug.DrawRay(ray.origin, ray.direction, Color.cyan);
+                    }
+                    
                 }
             }
         }

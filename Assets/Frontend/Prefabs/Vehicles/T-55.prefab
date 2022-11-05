@@ -346,7 +346,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 996a3ff3d4ff6f348a739349cab89443, type: 2}
+  - {fileID: 2100000, guid: 6d24aecc219489d48b52244d33ac9efa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -657,13 +657,13 @@ MonoBehaviour:
     tireModel: {fileID: 7596579702292883806}
     dummyPair:
       trackDummy: {fileID: 5384927435435937423}
-      dummyOffsetY: -0.6
+      dummyOffsetY: -0.61
   - wheel: {fileID: 1260713995757995336}
     axis: 1
     tireModel: {fileID: 7596579701972947085}
     dummyPair:
       trackDummy: {fileID: 2010080455494019903}
-      dummyOffsetY: -0.6
+      dummyOffsetY: -0.61
   canDrive: 1
   canSteer: 0
   repositionVisuals: 1
@@ -2350,13 +2350,13 @@ MonoBehaviour:
     tireModel: {fileID: 7596579703721343222}
     dummyPair:
       trackDummy: {fileID: 5384927436056507012}
-      dummyOffsetY: -0.63
+      dummyOffsetY: -0.6
   - wheel: {fileID: 7221617021755300185}
     axis: 1
     tireModel: {fileID: 7596579702804501731}
     dummyPair:
       trackDummy: {fileID: 780878500319016753}
-      dummyOffsetY: -0.63
+      dummyOffsetY: -0.6
   canDrive: 1
   canSteer: 0
   repositionVisuals: 1
@@ -3655,7 +3655,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3839261259405880737}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 0.9999999, z: 0.9999999}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3751,7 +3751,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3839261259450055453}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 0.9999999, z: 0.9999999}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4203,7 +4203,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3839261260197088027}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 0.9999999, z: 0.9999999}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4299,7 +4299,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3839261260422123319}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 0.9999999, z: 0.9999999}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4911,7 +4911,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2865548694180305202}
   m_Layer: 0
-  m_Name: DUMMY_R(10)
+  m_Name: DUMMY_B_M
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4925,7 +4925,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4265469882151115258}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.080029, y: 0.065506294, z: -1.9126898}
+  m_LocalPosition: {x: 2.080029, y: 0.5655063, z: -1.9126898}
   m_LocalScale: {x: 1, y: 1.0000006, z: 1.0000006}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5068,7 +5068,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7861723728769588490}
   m_Layer: 0
-  m_Name: DUMMY_R(9)
+  m_Name: DUMMY_B_M
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5082,7 +5082,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4383020074366315088}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.0800288, y: 0.055613227, z: -0.67157}
+  m_LocalPosition: {x: 2.0800288, y: 0.5556132, z: -0.67157}
   m_LocalScale: {x: 1, y: 1.0000006, z: 1.0000006}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5581,7 +5581,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4859904300007238671}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5994,7 +5994,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 996a3ff3d4ff6f348a739349cab89443, type: 2}
+  - {fileID: 2100000, guid: 6d24aecc219489d48b52244d33ac9efa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6566,7 +6566,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5384927434662200123}
   m_Layer: 0
-  m_Name: DUMMY_L(7)
+  m_Name: DUMMY_B_M
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6580,13 +6580,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5384927434662200122}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.0548174, y: 0.055612896, z: 0.58522004}
+  m_LocalPosition: {x: -2.0548174, y: 0.5556129, z: 0.58522004}
   m_LocalScale: {x: 1, y: 1.0000006, z: 1.0000006}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3839261260422123318}
   m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5384927434734678835
 GameObject:
@@ -6951,7 +6951,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5384927435225666523}
   m_Layer: 0
-  m_Name: DUMMY_L(9)
+  m_Name: DUMMY_B_M
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6965,13 +6965,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5384927435225666522}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.0548172, y: 0.06550585, z: -1.9126904}
+  m_LocalPosition: {x: -2.0548172, y: 0.56550586, z: -1.9126904}
   m_LocalScale: {x: 1, y: 1.0000006, z: 1.0000006}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3839261260197088026}
   m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5384927435234437767
 GameObject:
@@ -6983,7 +6983,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5384927435234437764}
   m_Layer: 0
-  m_Name: DUMMY_L(10)
+  m_Name: DUMMY_B_M
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6997,13 +6997,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5384927435234437767}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.0548174, y: 0.055612788, z: -0.67157036}
-  m_LocalScale: {x: 1, y: 1.0000006, z: 1.0000006}
+  m_LocalPosition: {x: -2.0548174, y: 0.5556128, z: -0.67157036}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3839261259450055452}
   m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5384927435244212870
 GameObject:
@@ -7111,7 +7111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5384927435481216090}
   m_Layer: 0
-  m_Name: DUMMY_L(8)
+  m_Name: DUMMY_B_M
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7125,13 +7125,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5384927435481216085}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.0548177, y: 0.060553707, z: 1.9961776}
-  m_LocalScale: {x: 1, y: 1.0000006, z: 1.0000006}
+  m_LocalPosition: {x: -2.0548177, y: 0.5605537, z: 1.9961776}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3839261259405880736}
   m_Father: {fileID: 9196781075656988355}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5384927435590152772
 GameObject:
@@ -8059,13 +8059,13 @@ MonoBehaviour:
     tireModel: {fileID: 7596579703005490176}
     dummyPair:
       trackDummy: {fileID: 5384927434734678832}
-      dummyOffsetY: -0.63
+      dummyOffsetY: -0.6
   - wheel: {fileID: 693474897284252281}
     axis: 1
     tireModel: {fileID: 7596579702870883016}
     dummyPair:
       trackDummy: {fileID: 3673657846686429875}
-      dummyOffsetY: -0.63
+      dummyOffsetY: -0.6
   canDrive: 1
   canSteer: 0
   repositionVisuals: 1
@@ -8346,7 +8346,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6288336765084539555}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8908,7 +8908,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6885415200063260975}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9114,7 +9114,7 @@ GameObject:
   m_Component:
   - component: {fileID: 293266357100651089}
   m_Layer: 0
-  m_Name: DUMMY_R(8)
+  m_Name: DUMMY_B_M
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9128,7 +9128,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7031577246636397865}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.0800288, y: 0.055613335, z: 0.5852204}
+  m_LocalPosition: {x: 2.0800288, y: 0.55561334, z: 0.5852204}
   m_LocalScale: {x: 1, y: 1.0000006, z: 1.0000006}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9287,7 +9287,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7431360283384589598}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9369,7 +9369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 251802872713203227}
   m_Layer: 0
-  m_Name: DUMMY_R(7)
+  m_Name: DUMMY_B_M
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9383,7 +9383,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7582059740765990943}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.0800285, y: 0.06055444, z: 1.9961783}
+  m_LocalPosition: {x: 2.0800285, y: 0.56055444, z: 1.9961783}
   m_LocalScale: {x: 1, y: 1.0000006, z: 1.0000006}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10589,13 +10589,13 @@ MonoBehaviour:
     tireModel: {fileID: 7596579702848731597}
     dummyPair:
       trackDummy: {fileID: 5384927435013291296}
-      dummyOffsetY: -0.63
+      dummyOffsetY: -0.6
   - wheel: {fileID: 4664111438085651965}
     axis: 1
     tireModel: {fileID: 7596579703514932358}
     dummyPair:
       trackDummy: {fileID: 5505756303890752968}
-      dummyOffsetY: -0.63
+      dummyOffsetY: -0.6
   canDrive: 1
   canSteer: 1
   repositionVisuals: 1
@@ -10949,13 +10949,13 @@ MonoBehaviour:
     tireModel: {fileID: 7596579702710604512}
     dummyPair:
       trackDummy: {fileID: 5384927435113682993}
-      dummyOffsetY: -0.6
+      dummyOffsetY: -0.61
   - wheel: {fileID: 6426444880548961647}
     axis: 1
     tireModel: {fileID: 7596579702179268639}
     dummyPair:
       trackDummy: {fileID: 7170899358023143660}
-      dummyOffsetY: -0.6
+      dummyOffsetY: -0.61
   canDrive: 1
   canSteer: 1
   repositionVisuals: 1
@@ -11066,6 +11066,7 @@ GameObject:
   - component: {fileID: 2618250326273635535}
   - component: {fileID: 8255813644745574887}
   - component: {fileID: 4703210311339521858}
+  - component: {fileID: 8908291513616745327}
   m_Layer: 0
   m_Name: T-55
   m_TagString: Untagged
@@ -11339,8 +11340,44 @@ MonoBehaviour:
   tracksList:
   - trackObject: {fileID: 1150707309679822718}
     trackAxis: -1
+    helperDummies:
+    - helperDummy: {fileID: 5384927435481216090}
+      raycastRange: 1.3
+    - helperDummy: {fileID: 5384927434662200123}
+      raycastRange: 1.3
+    - helperDummy: {fileID: 5384927435234437764}
+      raycastRange: 1.3
+    - helperDummy: {fileID: 5384927435225666523}
+      raycastRange: 1.3
   - trackObject: {fileID: 7811432478117862914}
     trackAxis: 1
+    helperDummies:
+    - helperDummy: {fileID: 251802872713203227}
+      raycastRange: 1.3
+    - helperDummy: {fileID: 293266357100651089}
+      raycastRange: 1.3
+    - helperDummy: {fileID: 7861723728769588490}
+      raycastRange: 1.3
+    - helperDummy: {fileID: 2865548694180305202}
+      raycastRange: 1.3
+--- !u!114 &8908291513616745327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8797747351685325955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0849996fc0a7e8408896993ed6e1706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 2
+  outlineColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  outlineWidth: 3
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &8892547876041660417
 GameObject:
   m_ObjectHideFlags: 0
@@ -11552,10 +11589,10 @@ Transform:
   - {fileID: 5384927436056507012}
   - {fileID: 5384927434734678832}
   - {fileID: 5384927435435937423}
-  - {fileID: 5384927434662200123}
   - {fileID: 5384927435481216090}
-  - {fileID: 5384927435225666523}
+  - {fileID: 5384927434662200123}
   - {fileID: 5384927435234437764}
+  - {fileID: 5384927435225666523}
   - {fileID: 5384927434926019266}
   - {fileID: 5384927434371789021}
   - {fileID: 5384927435111706436}
