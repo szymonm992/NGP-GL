@@ -96,16 +96,16 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        public override void TrackMovement(Transform tireTransform, UTAxlePair pair, Vector3 finalWheelPosition)
+        public override void TrackMovement(Transform tireTransform, UTAxlePair pair, Vector3 finalWheelPosition, float trackMovementSpeed)
         {
-            base.TrackMovement(tireTransform, pair, finalWheelPosition);
+            base.TrackMovement(tireTransform, pair, finalWheelPosition, trackMovementSpeed);
             var dummyPair = pair.WheelDummyPair;
 
             if (dummyPair.trackDummy != null)
             {
                 Vector3 desiredPos = finalWheelPosition + (pair.Wheel.transform.up * dummyPair.dummyOffsetY);
                 Vector3 local = dummyPair.trackDummy.InverseTransformPoint(desiredPos);
-                dummyPair.Holder.localPosition = new Vector3(0, local.y, 0);
+                dummyPair.Holder.localPosition = Vector3.Lerp(dummyPair.Holder.localPosition, new Vector3(0, local.y, 0), trackMovementSpeed);
             }
 
             
@@ -127,8 +127,8 @@ namespace Frontend.Scripts.Components
                     offset = trackTurningRotationSpeed * Time.deltaTime; 
                 }
 
-                RotateTrackTexture(leftTracks, offset, l);
-                RotateTrackTexture(rightTracks, offset, r);
+                RotateTrackTexture(leftTracks, offset, l, trackMovementSpeed);
+                RotateTrackTexture(rightTracks, offset, r, trackMovementSpeed);
             }
         }
 
@@ -150,7 +150,7 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        private void RotateTrackTexture(IEnumerable<TrackProperties> trackList, float currentOffset, float sideInput)
+        private void RotateTrackTexture(IEnumerable<TrackProperties> trackList, float currentOffset, float sideInput,float movementSpeed)
         {
             if (trackList.Any())
             {
@@ -171,17 +171,19 @@ namespace Frontend.Scripts.Components
                     {
                         var helperDummy = dummy.helperDummy;
                         Ray ray = new Ray(helperDummy.position, -helperDummy.up);
+                        Vector3 desiredDummyHolderPos;
                         if (Physics.Raycast(ray, out RaycastHit hit, dummy.raycastRange))
                         {
-                            dummy.Holder.position = new Vector3(helperDummy.position.x, hit.point.y, helperDummy.position.z) + (helperDummy.up * dummy.ContactOffset);
+                            desiredDummyHolderPos = new Vector3(helperDummy.position.x, hit.point.y, helperDummy.position.z) + (helperDummy.up * dummy.ContactOffset);
                         }
                         else
                         {
-                            dummy.Holder.position = helperDummy.position - (helperDummy.up * dummy.RestOffset);
+                            desiredDummyHolderPos = helperDummy.position - (helperDummy.up * dummy.RestOffset);
                         }
+                        dummy.Holder.position = Vector3.Lerp(dummy.Holder.position, desiredDummyHolderPos, movementSpeed);
                         //Debug.DrawRay(ray.origin, ray.direction, Color.cyan);
                     }
-                    
+
                 }
             }
         }

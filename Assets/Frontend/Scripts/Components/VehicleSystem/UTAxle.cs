@@ -12,6 +12,8 @@ namespace Frontend.Scripts.Components
 {
     public class UTAxle : MonoBehaviour, IInitializable
     {
+        public const float SUSPENSION_VISUALS_MOVEMENT_SPEED = 75F;
+
         [Inject(Id = "mainRig")] private readonly Rigidbody rig;
         [Inject] private readonly IVehicleController controller;
         [Inject] private readonly IPlayerInputProvider inputProvider;
@@ -137,14 +139,15 @@ namespace Frontend.Scripts.Components
             wheelReposition.RotateWheels(dir, rotateAroundAxis, tireTransform, pair,  out float currentToMaxRatio);
             
             Vector3 tireDesiredPosition = pair.Wheel.TireWorldPosition + (pair.Wheel.transform.up * tiresContactOffset);
-            tireTransform.position = Vector3.Lerp(tireTransform.position, tireDesiredPosition, (75f * Mathf.Max(0.5f, currentToMaxRatio)) * Time.deltaTime);
+            float movementSpeed = (SUSPENSION_VISUALS_MOVEMENT_SPEED * Mathf.Max(0.35f, currentToMaxRatio)) * Time.deltaTime;
+            tireTransform.position = Vector3.Lerp(tireTransform.position, tireDesiredPosition, movementSpeed);
             
             if(canSteer)
             {
                 tireTransform.localRotation = Quaternion.Euler(tireTransform.localRotation.eulerAngles.x, pair.Wheel.SteerAngle, tireTransform.localRotation.eulerAngles.z);
             }
 
-            wheelReposition.TrackMovement(tireTransform, pair, tireDesiredPosition);
+            wheelReposition.TrackMovement(tireTransform, pair, tireDesiredPosition, movementSpeed);
         }
 
         private void OnDrawGizmos()

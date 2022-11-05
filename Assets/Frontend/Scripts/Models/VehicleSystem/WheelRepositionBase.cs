@@ -23,7 +23,7 @@ namespace Frontend.Scripts.Models
             currentToMaxRatio = 0f;
         }
 
-        public virtual void TrackMovement(Transform tireTransform, UTAxlePair pair, Vector3 finalWheelPosition)
+        public virtual void TrackMovement(Transform tireTransform, UTAxlePair pair, Vector3 finalWheelPosition, float trackMovementSpeed)
         {
         }
     }
