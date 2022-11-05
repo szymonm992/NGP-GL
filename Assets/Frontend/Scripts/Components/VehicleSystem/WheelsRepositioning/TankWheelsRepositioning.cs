@@ -25,15 +25,16 @@ namespace Frontend.Scripts.Components
             public Transform helperDummy;
             public float raycastRange;
 
+            [SerializeField] private float restOffset = 0.8f;
+
             private Transform holder;
-            private float startOffset = 0;
+            
             public Transform Holder => holder;
-            public float StartOffset => startOffset;
+            public float RestOffset => restOffset;
 
             public void Initialize()
             {
                 holder = helperDummy.GetChild(0);
-                startOffset = Mathf.Abs(holder.localPosition.y);
             }
         }
 
@@ -100,7 +101,7 @@ namespace Frontend.Scripts.Components
 
             if (dummyPair.trackDummy != null)
             {
-                Vector3 desiredPos = finalWheelPosition + new Vector3(0, dummyPair.dummyOffsetY, 0);
+                Vector3 desiredPos = finalWheelPosition + (pair.Wheel.transform.up * dummyPair.dummyOffsetY);
                 dummyPair.trackDummy.position = desiredPos;
             }
 
@@ -173,7 +174,7 @@ namespace Frontend.Scripts.Components
                         }
                         else
                         {
-                            dummy.Holder.position = helperDummy.position - (helperDummy.up * dummy.StartOffset);
+                            dummy.Holder.position = helperDummy.position - (helperDummy.up * dummy.RestOffset);
                         }
                         Debug.DrawRay(ray.origin, ray.direction, Color.cyan);
                     }
