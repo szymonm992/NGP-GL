@@ -18,9 +18,8 @@ namespace Frontend.Scripts.Models
         {
         }
 
-        public virtual void RotateWheels(float verticalDir, Vector3 rotateAroundAxis, Transform tireTransform, UTAxlePair pair, out float currentToMaxRatio)
+        public virtual void RotateWheels(float verticalDir, Vector3 rotateAroundAxis, Transform tireTransform, UTAxlePair pair)
         {
-            currentToMaxRatio = 0f;
         }
 
         public virtual void TrackMovement(Transform tireTransform, UTAxlePair pair, Vector3 finalWheelPosition, float trackMovementSpeed)

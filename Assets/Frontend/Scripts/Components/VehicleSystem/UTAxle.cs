@@ -133,13 +133,15 @@ namespace Frontend.Scripts.Components
         {
             var tireTransform = pair.VisualPartOfTire;
 
-            float dir = -inputProvider.LastVerticalInput;
-            Vector3 rotateAroundAxis = -tireTransform.right;
-
-            wheelReposition.RotateWheels(dir, rotateAroundAxis, tireTransform, pair,  out float currentToMaxRatio);
-            
+            if(controller.CurrentSpeed != 0)
+            {
+                float dir = -inputProvider.LastVerticalInput;
+                Vector3 rotateAroundAxis = -tireTransform.right;
+                wheelReposition.RotateWheels(dir, rotateAroundAxis, tireTransform, pair);
+            }
+           
             Vector3 tireDesiredPosition = pair.Wheel.TireWorldPosition + (pair.Wheel.transform.up * tiresContactOffset);
-            float movementSpeed = (SUSPENSION_VISUALS_MOVEMENT_SPEED * Mathf.Max(0.35f, currentToMaxRatio)) * Time.deltaTime;
+            float movementSpeed = (SUSPENSION_VISUALS_MOVEMENT_SPEED * Mathf.Max(0.35f, controller.CurrentSpeedRatio)) * Time.deltaTime;
             tireTransform.position = Vector3.Lerp(tireTransform.position, tireDesiredPosition, movementSpeed);
             
             if(canSteer)

@@ -71,28 +71,26 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        public override void RotateWheels(float verticalDir, Vector3 rotateAroundAxis, Transform tireTransform, UTAxlePair pair, out float currentToMaxRatio)
+        public override void RotateWheels(float verticalDir, Vector3 rotateAroundAxis, Transform tireTransform, UTAxlePair pair)
         {
-            base.RotateWheels(verticalDir, rotateAroundAxis, tireTransform, pair, out _);
-            currentToMaxRatio = 0.5f;
+            base.RotateWheels(verticalDir, rotateAroundAxis, tireTransform, pair);
 
             float rawHorizontal = inputProvider.SignedHorizontal;
             if (inputProvider.SignedVertical == 0 && rawHorizontal != 0)//stationary tank rotating
-            { 
-                currentToMaxRatio = 0.3f;
-                pair.RotationalPartOfTire.RotateAround(tireTransform.position, rotateAroundAxis, GetTankWheelRotationInputDir(rawHorizontal, pair.Axis) * (currentToMaxRatio * 1300f) * Time.deltaTime);
+            {
+                var multiplier = 0.3f;
+                pair.RotationalPartOfTire.RotateAround(tireTransform.position, rotateAroundAxis, GetTankWheelRotationInputDir(rawHorizontal, pair.Axis) * (multiplier * 1300f) * Time.deltaTime);
             }
             else
             {
                 float speed = controller.CurrentSpeed;
-                if (speed != 0)
+
+                if (rawHorizontal != 0 && (int)pair.Axis == rawHorizontal)//moving fwd/bwd and turning in the same time
                 {
-                    if (rawHorizontal != 0 && (int)pair.Axis == rawHorizontal)//moving fwd/bwd and turning in the same time
-                    {
-                        speed /= 2f; //whenever we go forward we want one side of wheels to move slower
-                    }
-                    pair.RotationalPartOfTire.RotateAround(tireTransform.position, rotateAroundAxis, verticalDir * (speed * 25f) * Time.deltaTime);
+                    speed /= 2f; //whenever we go forward we want one side of wheels to move slower
                 }
+                pair.RotationalPartOfTire.RotateAround(tireTransform.position, rotateAroundAxis, verticalDir * (speed * 25f) * Time.deltaTime);
+
             }
         }
 
