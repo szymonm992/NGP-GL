@@ -6,6 +6,7 @@ using Frontend.Scripts.Interfaces;
 using GLShared.General.Enums;
 using System.Linq;
 using Zenject;
+using Unity.Burst.CompilerServices;
 
 namespace Frontend.Scripts.Components
 {
@@ -25,12 +26,17 @@ namespace Frontend.Scripts.Components
             public Transform helperDummy;
             public float raycastRange;
 
+            [SerializeField] private Transform forwardWheel;
+            [SerializeField] private Transform backWheel;
+
             [SerializeField] private float restOffset = 0.8f;
             [SerializeField] private float contactOffset = 0f;
 
             private Transform holder;
             
             public Transform Holder => holder;
+            public Transform BackWheel => backWheel;
+            public Transform ForwardWheel => forwardWheel;
             public float RestOffset => restOffset;
             public float ContactOffset => contactOffset;
 
@@ -167,19 +173,27 @@ namespace Frontend.Scripts.Components
 
                     foreach(var dummy in rend.helperDummies)
                     {
-                        var helperDummy = dummy.helperDummy;
-                        Ray ray = new Ray(helperDummy.position, -helperDummy.up);
-                        Vector3 desiredDummyHolderPos;
-                        if (Physics.Raycast(ray, out RaycastHit hit, dummy.raycastRange))
+                        if(dummy.ForwardWheel != null && dummy.BackWheel != null)
                         {
-                            desiredDummyHolderPos = new Vector3(helperDummy.position.x, hit.point.y, helperDummy.position.z) + (helperDummy.up * dummy.ContactOffset);
+                            var helperDummy = dummy.helperDummy;
+                            float middleY = (dummy.ForwardWheel.position.y + dummy.BackWheel.position.y) / 2 + dummy.ContactOffset;
+
+                            Vector3 desiredDummyHolderPos = new Vector3(helperDummy.position.x, middleY, helperDummy.position.z);
+                            dummy.Holder.position = Vector3.Lerp(dummy.Holder.position, desiredDummyHolderPos, movementSpeed);
                         }
-                        else
-                        {
-                            desiredDummyHolderPos = helperDummy.position - (helperDummy.up * dummy.RestOffset);
-                        }
-                        dummy.Holder.position = Vector3.Lerp(dummy.Holder.position, desiredDummyHolderPos, movementSpeed);
-                        //Debug.DrawRay(ray.origin, ray.direction, Color.cyan);
+                        /* var helperDummy = dummy.helperDummy;
+                         Ray ray = new Ray(helperDummy.position, -helperDummy.up);
+                         Vector3 desiredDummyHolderPos;
+                         if (Physics.Raycast(ray, out RaycastHit hit, dummy.raycastRange))
+                         {
+                             desiredDummyHolderPos = new Vector3(helperDummy.position.x, hit.point.y, helperDummy.position.z) + (helperDummy.up * dummy.ContactOffset);
+                         }
+                         else
+                         {
+                             desiredDummyHolderPos = helperDummy.position - (helperDummy.up * dummy.RestOffset);
+                         }
+                         dummy.Holder.position = Vector3.Lerp(dummy.Holder.position, desiredDummyHolderPos, movementSpeed);
+                         //Debug.DrawRay(ray.origin, ray.direction, Color.cyan);*/
                     }
 
                 }
