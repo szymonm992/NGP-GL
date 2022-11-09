@@ -11347,40 +11347,40 @@ MonoBehaviour:
     trackAxis: -1
     helperDummies:
     - helperDummy: {fileID: 5384927435481216090}
-      raycastRange: 1.1
-      restOffset: 0.8
-      contactOffset: 0.03
+      raycastRange: 1
+      forwardDummy: {fileID: 5384927435113682993}
+      backwardDummy: {fileID: 5384927435013291296}
     - helperDummy: {fileID: 5384927434662200123}
-      raycastRange: 1.1
-      restOffset: 0.8
-      contactOffset: 0.04
+      raycastRange: 1
+      forwardDummy: {fileID: 5384927435013291296}
+      backwardDummy: {fileID: 5384927436056507012}
     - helperDummy: {fileID: 5384927435234437764}
-      raycastRange: 1.1
-      restOffset: 0.8
-      contactOffset: 0.04
+      raycastRange: 1
+      forwardDummy: {fileID: 5384927436056507012}
+      backwardDummy: {fileID: 5384927434734678832}
     - helperDummy: {fileID: 5384927435225666523}
-      raycastRange: 1.1
-      restOffset: 0.8
-      contactOffset: 0.05
+      raycastRange: 1
+      forwardDummy: {fileID: 5384927434734678832}
+      backwardDummy: {fileID: 5384927435435937423}
   - trackObject: {fileID: 7811432478117862914}
     trackAxis: 1
     helperDummies:
     - helperDummy: {fileID: 251802872713203227}
-      raycastRange: 1.1
-      restOffset: 0.8
-      contactOffset: 0.03
+      raycastRange: 1
+      forwardDummy: {fileID: 7170899358023143660}
+      backwardDummy: {fileID: 5505756303890752968}
     - helperDummy: {fileID: 293266357100651089}
-      raycastRange: 1.1
-      restOffset: 0.8
-      contactOffset: 0.04
+      raycastRange: 1
+      forwardDummy: {fileID: 5505756303890752968}
+      backwardDummy: {fileID: 780878500319016753}
     - helperDummy: {fileID: 7861723728769588490}
-      raycastRange: 1.1
-      restOffset: 0.8
-      contactOffset: 0.04
+      raycastRange: 1
+      forwardDummy: {fileID: 780878500319016753}
+      backwardDummy: {fileID: 3673657846686429875}
     - helperDummy: {fileID: 2865548694180305202}
-      raycastRange: 1.1
-      restOffset: 0.8
-      contactOffset: 0.05
+      raycastRange: 1
+      forwardDummy: {fileID: 3673657846686429875}
+      backwardDummy: {fileID: 2010080455494019903}
 --- !u!114 &8908291513616745327
 MonoBehaviour:
   m_ObjectHideFlags: 0

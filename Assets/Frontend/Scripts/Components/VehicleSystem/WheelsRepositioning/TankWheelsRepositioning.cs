@@ -26,23 +26,26 @@ namespace Frontend.Scripts.Components
             public Transform helperDummy;
             public float raycastRange;
 
-            [SerializeField] private Transform forwardWheel;
-            [SerializeField] private Transform backWheel;
-
-            [SerializeField] private float restOffset = 0.8f;
-            [SerializeField] private float contactOffset = 0f;
+            [SerializeField] private Transform forwardDummy;
+            [SerializeField] private Transform backwardDummy;
 
             private Transform holder;
+            private Transform forwardDummyHolder;
+            private Transform backwardDummyHolder;
             
             public Transform Holder => holder;
-            public Transform BackWheel => backWheel;
-            public Transform ForwardWheel => forwardWheel;
-            public float RestOffset => restOffset;
-            public float ContactOffset => contactOffset;
+            public Transform BackwardDummy => backwardDummy;
+            public Transform ForwardDummy => forwardDummy;
+            public Transform ForwardDummyHolder => forwardDummyHolder;
+            public Transform BackwardDummyHolder => backwardDummyHolder;
+
 
             public void Initialize()
             {
-                holder = helperDummy.GetChild(0);
+                holder = helperDummy?.GetChild(0);
+
+                forwardDummyHolder = forwardDummy?.GetChild(0);
+                backwardDummyHolder = backwardDummy?.GetChild(0);
             }
         }
 
@@ -173,27 +176,14 @@ namespace Frontend.Scripts.Components
 
                     foreach(var dummy in rend.helperDummies)
                     {
-                        if(dummy.ForwardWheel != null && dummy.BackWheel != null)
+                        if(dummy.ForwardDummy != null && dummy.BackwardDummy != null)
                         {
                             var helperDummy = dummy.helperDummy;
-                            float middleY = (dummy.ForwardWheel.position.y + dummy.BackWheel.position.y) / 2 + dummy.ContactOffset;
+                            float middleY = (dummy.ForwardDummyHolder.position.y + dummy.BackwardDummyHolder.position.y) / 2f;
 
                             Vector3 desiredDummyHolderPos = new Vector3(helperDummy.position.x, middleY, helperDummy.position.z);
-                            dummy.Holder.position = Vector3.Lerp(dummy.Holder.position, desiredDummyHolderPos, movementSpeed);
+                            dummy.Holder.position = desiredDummyHolderPos;
                         }
-                        /* var helperDummy = dummy.helperDummy;
-                         Ray ray = new Ray(helperDummy.position, -helperDummy.up);
-                         Vector3 desiredDummyHolderPos;
-                         if (Physics.Raycast(ray, out RaycastHit hit, dummy.raycastRange))
-                         {
-                             desiredDummyHolderPos = new Vector3(helperDummy.position.x, hit.point.y, helperDummy.position.z) + (helperDummy.up * dummy.ContactOffset);
-                         }
-                         else
-                         {
-                             desiredDummyHolderPos = helperDummy.position - (helperDummy.up * dummy.RestOffset);
-                         }
-                         dummy.Holder.position = Vector3.Lerp(dummy.Holder.position, desiredDummyHolderPos, movementSpeed);
-                         //Debug.DrawRay(ray.origin, ray.direction, Color.cyan);*/
                     }
 
                 }
