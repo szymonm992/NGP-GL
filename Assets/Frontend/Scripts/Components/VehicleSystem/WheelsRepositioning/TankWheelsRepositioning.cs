@@ -32,7 +32,7 @@ namespace Frontend.Scripts.Components
             private Transform holder;
             private Transform forwardDummyHolder;
             private Transform backwardDummyHolder;
-            
+
             public Transform Holder => holder;
             public Transform BackwardDummy => backwardDummy;
             public Transform ForwardDummy => forwardDummy;

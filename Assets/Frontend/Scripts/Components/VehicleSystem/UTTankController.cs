@@ -34,8 +34,6 @@ namespace Frontend.Scripts.Components
 
         private void CustomGravityLogic()
         {
-            int groundedWheelsAmount = allGroundedWheels.Count();
-
             if (!allGroundedWheels.Any())
             {
                 rig.AddForce(Physics.gravity, ForceMode.Acceleration);
@@ -53,8 +51,6 @@ namespace Frontend.Scripts.Components
                     rig.AddForce(Physics.gravity, ForceMode.Acceleration);
                 }
             }
-           
         }
-
     }
 }
