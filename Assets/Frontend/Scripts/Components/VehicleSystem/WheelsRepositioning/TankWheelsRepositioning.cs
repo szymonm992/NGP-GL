@@ -110,9 +110,17 @@ namespace Frontend.Scripts.Components
 
             if (dummyPair.trackDummy != null)
             {
+                var mainDummy = dummyPair.trackDummy;
                 Vector3 desiredPos = finalWheelPosition + (pair.Wheel.transform.up * dummyPair.dummyOffsetY);
-                Vector3 local = dummyPair.trackDummy.transform.InverseTransformPoint(desiredPos);
-                dummyPair.trackDummy.Holder.localPosition = Vector3.Lerp(dummyPair.trackDummy.Holder.localPosition, new Vector3(0, local.y, 0), trackMovementSpeed);
+                float localDesiredOffsetY = mainDummy.transform.InverseTransformPoint(desiredPos).y;
+                mainDummy.Holder.localPosition = Vector3.Lerp(mainDummy.Holder.localPosition, new Vector3(0, localDesiredOffsetY, 0), trackMovementSpeed);
+            
+                if(mainDummy.UpwardDummy != null)
+                {
+                    float desiredUpwardsOffsetY = mainDummy.transform.InverseTransformPoint(desiredPos + (mainDummy.UpwardDummy.up * mainDummy.UpwardDummyOffset)).y;
+                    mainDummy.UpwardDummyHolder.localPosition =
+                        new Vector3(0, desiredUpwardsOffsetY, 0);
+                }
             }
 
             
