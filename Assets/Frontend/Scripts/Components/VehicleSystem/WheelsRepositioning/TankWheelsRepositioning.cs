@@ -23,8 +23,7 @@ namespace Frontend.Scripts.Components
         [System.Serializable]
         public class TrackHeleperDummy
         {
-            public Transform helperDummy;
-            public float raycastRange;
+            [SerializeField] private Transform helperDummy;
 
             [SerializeField] private Transform forwardDummy;
             [SerializeField] private Transform backwardDummy;
@@ -33,10 +32,11 @@ namespace Frontend.Scripts.Components
             private Transform forwardDummyHolder;
             private Transform backwardDummyHolder;
 
+            public Transform HelperDummy => helperDummy;
             public Transform Holder => holder;
-            public Transform BackwardDummy => backwardDummy;
             public Transform ForwardDummy => forwardDummy;
             public Transform ForwardDummyHolder => forwardDummyHolder;
+            public Transform BackwardDummy => backwardDummy;
             public Transform BackwardDummyHolder => backwardDummyHolder;
 
 
@@ -186,7 +186,7 @@ namespace Frontend.Scripts.Components
                     {
                         if(dummy.ForwardDummy != null && dummy.BackwardDummy != null)
                         {
-                            var helperDummy = dummy.helperDummy;
+                            var helperDummy = dummy.HelperDummy;
                             float middleY = (dummy.ForwardDummyHolder.position.y + dummy.BackwardDummyHolder.position.y) / 2f;
 
                             Vector3 desiredDummyHolderPos = new Vector3(helperDummy.position.x, middleY, helperDummy.position.z);
