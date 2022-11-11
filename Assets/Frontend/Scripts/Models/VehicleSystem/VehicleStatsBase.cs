@@ -20,11 +20,7 @@ namespace Frontend.Scripts.Models
         [SerializeField] protected float gunDepression;
         [SerializeField] protected float gunElevation;
 
-        #region MAIN
-        //main
         public string VehicleName => vehicleName;
-
-        #endregion
 
         #region MOVEMENT PARAMETERS
         //general

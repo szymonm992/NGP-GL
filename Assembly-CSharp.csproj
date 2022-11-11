@@ -69,6 +69,7 @@
     <Compile Include="Assets\UInc\Core\Scripts\Utilities\GeneralAttributesHelper.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\DDOL\UIManager.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\PCSinglePlayerInput.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\WheelDummy.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTSuspensionController.cs" />
     <Compile Include="Assets\Frontend\Scripts\Enums\UTDebugMode.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\Camera\CameraController.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="Assets\Frontend\Scripts\Interfaces\IWheelReposition.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\TankStats.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\Connection\ConnectionManager.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Installers\PlayerInstaller.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\UTVehicleController.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTWheel.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTAxle.cs" />
@@ -120,8 +122,6 @@
     <Compile Include="Assets\Frontend\Scripts\Models\StateFactory.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\States\OnLoginState.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTWheelFrictionCurve.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\WheelDummy.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Installers\PlayerInstaller.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Frontend\Materials\Effects\OutlineMask.shader" />
