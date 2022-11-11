@@ -187,10 +187,10 @@ namespace Frontend.Scripts.Components
                         if(dummy.ForwardDummy != null && dummy.BackwardDummy != null)
                         {
                             var helperDummy = dummy.HelperDummy;
-                            float middleY = (dummy.ForwardDummyHolder.position.y + dummy.BackwardDummyHolder.position.y) / 2f;
+                            float middleY = dummy.HelperDummy.InverseTransformPoint((dummy.ForwardDummyHolder.position + dummy.BackwardDummyHolder.position) / 2f).y;
 
-                            Vector3 desiredDummyHolderPos = new Vector3(helperDummy.position.x, middleY, helperDummy.position.z);
-                            dummy.Holder.position = desiredDummyHolderPos;
+                            Vector3 desiredDummyHolderPos = new Vector3(0, middleY, 0);
+                            dummy.Holder.localPosition = desiredDummyHolderPos;
                         }
                     }
 

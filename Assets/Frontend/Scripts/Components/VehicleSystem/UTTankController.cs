@@ -12,7 +12,6 @@ namespace Frontend.Scripts.Components
 {
     public class UTTankController : UTVehicleController
     {
-
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
@@ -31,12 +30,11 @@ namespace Frontend.Scripts.Components
             }
         }
 
-
         private void CustomGravityLogic()
         {
             if (!allGroundedWheels.Any())
             {
-                rig.AddForce(Physics.gravity, ForceMode.Acceleration);
+                rig.AddForce(Physics.gravity, ForceMode.Acceleration); 
             }
             else
             {
