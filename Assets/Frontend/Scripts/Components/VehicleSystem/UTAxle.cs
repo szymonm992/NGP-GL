@@ -32,6 +32,7 @@ namespace Frontend.Scripts.Components
         [SerializeField] private float tiresContactOffset = 0f;
 
         private UTWheel leftAntirolled, rightAntirolled;
+        private IEnumerable<UTWheel> allWheels;
 
         public UTAxleDebug debugSettings = new UTAxleDebug()
         {
@@ -42,6 +43,8 @@ namespace Frontend.Scripts.Components
         };
 
         public IEnumerable<UTAxlePair> WheelPairs => wheelPairs;
+        public IEnumerable<UTWheel> AllWheels => allWheels;
+
         public bool CanDrive => canDrive;
         public bool CanSteer => canSteer;
         public bool HasAnyWheelPair => wheelPairs.Any();
@@ -57,17 +60,15 @@ namespace Frontend.Scripts.Components
             }
             leftAntirolled = GetAllWheelsOfAxis(DriveAxisSite.Left).First();
             rightAntirolled = GetAllWheelsOfAxis(DriveAxisSite.Right).First();
+
+            allWheels = wheelPairs.Select(pair => pair.Wheel).ToArray();
         }
 
         public IEnumerable<UTWheel> GetGroundedWheels()
         {
-            return wheelPairs.Where(pair => pair.Wheel.IsGrounded == true).Select(pair => pair.Wheel).ToArray();
+            return allWheels.Where(wheel => wheel.IsGrounded == true).ToArray();
         } 
 
-        public IEnumerable<UTWheel> GetAllWheels()
-        {
-            return wheelPairs.Select(pair => pair.Wheel).ToArray();
-        }
         public IEnumerable<UTWheel> GetAllWheelsOfAxis(DriveAxisSite axis)
         {
             return wheelPairs.Where(pair => pair.Axis == axis).Select(pair => pair.Wheel).ToArray();

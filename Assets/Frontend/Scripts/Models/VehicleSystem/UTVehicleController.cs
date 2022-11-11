@@ -171,7 +171,7 @@ namespace Frontend.Scripts.Models
 
                     if (!groundedWheels.Any())
                     {
-                        return;
+                        continue;
                     }
 
                     foreach (var wheel in groundedWheels)
@@ -240,7 +240,7 @@ namespace Frontend.Scripts.Models
             {
                 foreach (var axle in allAxles)
                 {
-                    result.AddRange(axle.GetAllWheels());
+                    result.AddRange(axle.AllWheels);
                 }
             }
             return result;
