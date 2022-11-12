@@ -11064,6 +11064,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5497972940232234640}
   - component: {fileID: 3538563863834346540}
+  - component: {fileID: 1914052247926745667}
   - component: {fileID: 5464753448514719513}
   - component: {fileID: 8461231185396291856}
   - component: {fileID: 3648750447937278445}
@@ -11075,7 +11076,6 @@ GameObject:
   - component: {fileID: 8255813644745574887}
   - component: {fileID: 4703210311339521858}
   - component: {fileID: 8908291513616745327}
-  - component: {fileID: 1914052247926745667}
   m_Layer: 0
   m_Name: T-55
   m_TagString: Untagged
@@ -11118,6 +11118,18 @@ MonoBehaviour:
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
+--- !u!114 &1914052247926745667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8797747351685325955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0caa172a6dd5fb949ac12f971f3300c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &5464753448514719513
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11387,18 +11399,6 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
---- !u!114 &1914052247926745667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8797747351685325955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0caa172a6dd5fb949ac12f971f3300c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8810563544327286280
 GameObject:
   m_ObjectHideFlags: 0

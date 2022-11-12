@@ -13,6 +13,8 @@ namespace Frontend.Scripts.Components
 {
     public class UTWheel : MonoBehaviour, IInitializable
     {
+        private const float WHEEL_TURN_RATIO = 8f;
+
         [Inject] private readonly GameParameters gameParameters;
         [Inject(Id = "mainRig")] private Rigidbody rig;
         [Inject] private readonly IVehicleController vehicleController;
@@ -132,7 +134,7 @@ namespace Frontend.Scripts.Components
         {
             if (wheelAngle != steerAngle)
             {
-                wheelAngle = Mathf.Lerp(wheelAngle, steerAngle, Time.deltaTime * 8f);
+                wheelAngle = Mathf.Lerp(wheelAngle, steerAngle, Time.deltaTime * WHEEL_TURN_RATIO);
                 transform.localRotation = Quaternion.Euler(transform.localRotation.x,
                     transform.localRotation.y + wheelAngle,
                     transform.localRotation.z);

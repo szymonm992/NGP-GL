@@ -167,7 +167,7 @@ namespace Frontend.Scripts.Models
             {
                 if (axle.CanDrive && !isBrake)
                 {
-                    var groundedWheels = axle.GetGroundedWheels();
+                    var groundedWheels = axle.GroundedWheels;
 
                     if (!groundedWheels.Any())
                     {
@@ -179,7 +179,7 @@ namespace Frontend.Scripts.Models
                         if (wheel.HitInfo.NormalAndUpAngle <= gameParameters.MaxWheelDetectionAngle)
                         {
                             wheelVelocityLocal = wheel.transform.InverseTransformDirection(rig.GetPointVelocity(wheel.UpperConstraintPoint));
-
+                         
                             forwardForce = inputY * currentDriveForce;
                             turnForce = wheelVelocityLocal.x * currentDriveForce;
 
@@ -227,7 +227,7 @@ namespace Frontend.Scripts.Models
             {
                 foreach (var axle in allAxles)
                 {
-                    result.AddRange(axle.GetGroundedWheels());
+                    result.AddRange(axle.GroundedWheels);
                 }
             }
             return result;
