@@ -12,7 +12,7 @@ namespace Frontend.Scripts.Components
 {
     public class UTAxle : MonoBehaviour, IInitializable
     {
-        public const float SUSPENSION_VISUALS_MOVEMENT_SPEED = 75F;
+        public const float SUSPENSION_VISUALS_MOVEMENT_SPEED = 50F;
 
         [Inject(Id = "mainRig")] private readonly Rigidbody rig;
         [Inject] private readonly IVehicleController controller;
@@ -146,7 +146,7 @@ namespace Frontend.Scripts.Components
             }
            
             Vector3 tireDesiredPosition = pair.Wheel.TireWorldPosition + (pair.Wheel.transform.up * tiresContactOffset);
-            float movementSpeed = (SUSPENSION_VISUALS_MOVEMENT_SPEED * Mathf.Max(0.35f, controller.CurrentSpeedRatio)) * Time.deltaTime;
+            float movementSpeed = (SUSPENSION_VISUALS_MOVEMENT_SPEED * Mathf.Max(0.2f, controller.CurrentSpeedRatio)) * Time.deltaTime;
             tireTransform.position = Vector3.Lerp(tireTransform.position, tireDesiredPosition, movementSpeed);
             
             if(canSteer)
