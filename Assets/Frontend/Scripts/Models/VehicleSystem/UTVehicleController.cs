@@ -52,7 +52,7 @@ namespace Frontend.Scripts.Models
         #endregion 
 
         protected IEnumerable<UTWheel> allGroundedWheels;
-        protected UTWheel[] allWheels;
+        protected IEnumerable<UTWheel> allWheels;
 
         public VehicleType VehicleType => vehicleType;
         public IEnumerable<UTAxle> AllAxles => allAxles;
@@ -83,9 +83,9 @@ namespace Frontend.Scripts.Models
             maxForwardSpeed = enginePowerCurve.keys[enginePowerCurve.keys.Length - 1].time;
             maxBackwardsSpeed = maxForwardSpeed / 2f;
 
-            hasAnyWheels = allAxles.Any() && allAxles.Where(axle => axle.HasAnyWheelPair).Any();
+            hasAnyWheels = allAxles.Any() && allAxles.Where(axle => axle.HasAnyWheelPair && axle.HasAnyWheel).Any();
             allWheels = GetAllWheelsInAllAxles().ToArray();
-            allWheelsAmount = allWheels.Length;
+            allWheelsAmount = allWheels.Count();
         }
 
         public virtual void SetupRigidbody()
@@ -101,7 +101,7 @@ namespace Frontend.Scripts.Models
 
         protected virtual void FixedUpdate()
         {
-            allGroundedWheels = GetGroundedWheelsInAllAxles();
+            allGroundedWheels = GetGroundedWheelsInAllAxles().ToArray();
             isUpsideDown = CheckUpsideDown();
         }
 
@@ -128,6 +128,7 @@ namespace Frontend.Scripts.Models
 
         protected bool CheckUpsideDown()
         {
+            Debug.Log("asd "+transform.up.y);
             return !allGroundedWheels.Any() && transform.up.y <= 0f;
         }
 
@@ -227,7 +228,10 @@ namespace Frontend.Scripts.Models
             {
                 foreach (var axle in allAxles)
                 {
-                    result.AddRange(axle.GroundedWheels);
+                    if(axle.GroundedWheels.Any())
+                    {
+                        result.AddRange(axle.GroundedWheels);
+                    }
                 }
             }
             return result;
@@ -240,7 +244,10 @@ namespace Frontend.Scripts.Models
             {
                 foreach (var axle in allAxles)
                 {
-                    result.AddRange(axle.AllWheels);
+                    if(axle.HasAnyWheelPair && axle.HasAnyWheel)
+                    {
+                        result.AddRange(axle.AllWheels);
+                    }
                 }
             }
             return result;

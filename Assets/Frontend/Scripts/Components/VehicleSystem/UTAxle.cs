@@ -34,6 +34,7 @@ namespace Frontend.Scripts.Components
         private UTWheel leftAntirolled, rightAntirolled;
         private IEnumerable<UTWheel> allWheels;
         private IEnumerable<UTWheel> groundedWheels;
+        private bool hasAnyWheel = false;
 
         public UTAxleDebug debugSettings = new UTAxleDebug()
         {
@@ -50,10 +51,14 @@ namespace Frontend.Scripts.Components
         public bool CanDrive => canDrive;
         public bool CanSteer => canSteer;
         public bool HasAnyWheelPair => wheelPairs.Any();
+        public bool HasAnyWheel => hasAnyWheel;
 
         public void Initialize()
         {
-            if(HasAnyWheelPair)
+            allWheels = wheelPairs.Select(pair => pair.Wheel).ToArray();
+            hasAnyWheel = allWheels.Any();
+
+            if (HasAnyWheelPair)
             {
                 foreach(var pair in wheelPairs)
                 {
@@ -62,13 +67,11 @@ namespace Frontend.Scripts.Components
             }
             leftAntirolled = GetAllWheelsOfAxis(DriveAxisSite.Left).First();
             rightAntirolled = GetAllWheelsOfAxis(DriveAxisSite.Right).First();
-
-            allWheels = wheelPairs.Select(pair => pair.Wheel).ToArray();
         }
 
         private IEnumerable<UTWheel> GetGroundedWheels()
         {
-            return allWheels.Where(wheel => wheel.IsGrounded == true).ToArray();
+            return allWheels.Where(wheel => wheel.IsGrounded == true);
         } 
 
         public IEnumerable<UTWheel> GetAllWheelsOfAxis(DriveAxisSite axis)
