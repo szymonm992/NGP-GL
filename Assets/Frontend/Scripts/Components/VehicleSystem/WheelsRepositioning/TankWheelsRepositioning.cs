@@ -64,7 +64,7 @@ namespace Frontend.Scripts.Components
             {
                 leftTracks = tracksList.Where(track => track.trackAxis == DriveAxisSite.Left);
                 rightTracks = tracksList.Where(track => track.trackAxis == DriveAxisSite.Right);
-                trackTurningRotationSpeed = tankSteering.SteerForce / 10f;
+                trackTurningRotationSpeed = tankSteering.SteerForce;
 
                 
                 foreach(var track in tracksList)//additional dummies initialization (inbewtween bones)

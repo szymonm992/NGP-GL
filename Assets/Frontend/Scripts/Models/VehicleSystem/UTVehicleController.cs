@@ -30,6 +30,8 @@ namespace Frontend.Scripts.Models
         [SerializeField] protected ForceApplyPoint brakesForceApplyPoint = ForceApplyPoint.WheelConstraintUpperPoint;
         [SerializeField] protected ForceApplyPoint accelerationForceApplyPoint = ForceApplyPoint.WheelHitPoint;
 
+        [SerializeField] protected float visualsMovementSpeed = 50f;
+
         protected bool hasAnyWheels;
         protected float currentSpeed;
         protected float absoluteInputY;
@@ -71,7 +73,7 @@ namespace Frontend.Scripts.Models
         public ForceApplyPoint AccelerationForceApplyPoint => accelerationForceApplyPoint;
 
         public IEnumerable<UTWheel> AllWheels => allWheels;
-
+        public float VisualsMovementSpeed => visualsMovementSpeed;
         public float GetCurrentMaxSpeed()
         {
             return absoluteInputY == 0 ? 0 : (signedInputY > 0 ? maxForwardSpeed : maxBackwardsSpeed);

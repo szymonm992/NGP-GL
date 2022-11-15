@@ -822,14 +822,22 @@ MonoBehaviour:
   - wheel: {fileID: 7623138870994850139}
     axis: -1
     tireModel: {fileID: 7623138869349937442}
+    dummyPair:
+      trackDummy: {fileID: 0}
+      dummyOffsetY: 0
   - wheel: {fileID: 7623138870119329035}
     axis: 1
     tireModel: {fileID: 7623138870346195597}
+    dummyPair:
+      trackDummy: {fileID: 0}
+      dummyOffsetY: 0
   canDrive: 1
   canSteer: 0
-  repositionVisuals: 1
+  invertSteer: 0
   applyAntiroll: 1
   antiRollForce: 15000
+  tiresContactOffset: 0
+  repositionVisuals: 1
   debugSettings:
     drawGizmos: 1
     drawAxleCenter: 1
@@ -935,14 +943,22 @@ MonoBehaviour:
   - wheel: {fileID: 7623138870716910074}
     axis: -1
     tireModel: {fileID: 7623138869231358979}
+    dummyPair:
+      trackDummy: {fileID: 0}
+      dummyOffsetY: 0
   - wheel: {fileID: 7623138869674847901}
     axis: 1
     tireModel: {fileID: 7623138869703726955}
+    dummyPair:
+      trackDummy: {fileID: 0}
+      dummyOffsetY: 0
   canDrive: 1
   canSteer: 1
-  repositionVisuals: 1
+  invertSteer: 0
   applyAntiroll: 1
   antiRollForce: 15000
+  tiresContactOffset: 0
+  repositionVisuals: 1
   debugSettings:
     drawGizmos: 1
     drawAxleCenter: 1
@@ -1407,6 +1423,7 @@ MonoBehaviour:
   doesGravityDamping: 1
   brakesForceApplyPoint: 0
   accelerationForceApplyPoint: 1
+  visualsMovementSpeed: 50
   airControl: 1
 --- !u!114 &7623138870644961507
 MonoBehaviour:

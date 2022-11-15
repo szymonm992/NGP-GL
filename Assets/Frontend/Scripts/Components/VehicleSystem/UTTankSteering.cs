@@ -20,7 +20,7 @@ namespace Frontend.Scripts
 
         public void SetSteeringInput(float input)
         {
-            steerInput = inputProvider.AbsoluteVertical != 0 ?  input * inputProvider.SignedVertical : inputProvider.SignedHorizontal;
+            steerInput = inputProvider.AbsoluteVertical != 0 ?  input * inputProvider.SignedVertical : input;
         }
 
         private void Update()
@@ -53,7 +53,7 @@ namespace Frontend.Scripts
                         if(wheel.IsGrounded)
                         {
                             int invertValue = axle.InvertSteer ? -1 : 1;
-                            rig.AddForceAtPosition(invertValue * rig.mass * steerForce * steerInput * rig.transform.right, wheel.HitInfo.Point);
+                            rig.AddForceAtPosition(invertValue  * steerForce * steerInput * rig.transform.right, wheel.HitInfo.Point, ForceMode.Acceleration);
                         }
                         
                     }

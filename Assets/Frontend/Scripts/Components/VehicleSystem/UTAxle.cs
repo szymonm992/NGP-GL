@@ -152,7 +152,7 @@ namespace Frontend.Scripts.Components
             }
            
             Vector3 tireDesiredPosition = pair.Wheel.TireWorldPosition + (pair.Wheel.transform.up * tiresContactOffset);
-            float movementSpeed = (SUSPENSION_VISUALS_MOVEMENT_SPEED * Mathf.Max(0.2f, controller.CurrentSpeedRatio)) * Time.deltaTime;
+            float movementSpeed = (controller.VisualsMovementSpeed * Mathf.Max(0.2f, controller.CurrentSpeedRatio)) * Time.deltaTime;
             tireTransform.position = Vector3.Lerp(tireTransform.position, tireDesiredPosition, movementSpeed);
             
             if(canSteer)

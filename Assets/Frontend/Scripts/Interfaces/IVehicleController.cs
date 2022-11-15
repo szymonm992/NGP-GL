@@ -24,7 +24,8 @@ namespace Frontend.Scripts.Interfaces
         bool IsUpsideDown { get; }
         ForceApplyPoint BrakesForceApplyPoint { get; }
         ForceApplyPoint AccelerationForceApplyPoint { get; }
-        
+        float VisualsMovementSpeed { get; }
+
         abstract float GetCurrentMaxSpeed();
         abstract void SetupRigidbody();
     }
