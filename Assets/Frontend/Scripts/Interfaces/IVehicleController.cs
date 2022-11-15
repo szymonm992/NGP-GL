@@ -12,21 +12,19 @@ namespace Frontend.Scripts.Interfaces
         bool HasAnyWheels { get; }
         bool DoesGravityDamping { get; }
         IEnumerable<UTAxle> AllAxles { get; }
-        float CurrentSpeed { get; }
-        float CurrentSpeedRatio { get; }
+        IEnumerable<UTWheel> AllWheels { get; }
         float AbsoluteInputY { get; }
         float AbsoluteInputX { get; }
         float SignedInputY { get; }
 
+        float CurrentSpeed { get; }
+        float CurrentSpeedRatio { get; }
         float MaxForwardSpeed { get; }
         float MaxBackwardsSpeed { get; }
-
         bool IsUpsideDown { get; }
-
         ForceApplyPoint BrakesForceApplyPoint { get; }
         ForceApplyPoint AccelerationForceApplyPoint { get; }
-        IEnumerable<UTWheel> AllWheels { get; }
-
+        
         abstract float GetCurrentMaxSpeed();
         abstract void SetupRigidbody();
     }

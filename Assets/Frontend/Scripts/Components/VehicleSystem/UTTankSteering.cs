@@ -14,13 +14,13 @@ namespace Frontend.Scripts
 
         [SerializeField] private float steerForce;
         private float steerInput;
-        private float currentSteerSpeed;
+        private float currentSteerForce;
 
         public float SteerForce => steerForce;
 
         public void SetSteeringInput(float input)
         {
-            steerInput = inputProvider.AbsoluteVertical != 0 ?  input * inputProvider.SignedVertical : input;
+            steerInput = inputProvider.AbsoluteVertical != 0 ?  input * inputProvider.SignedVertical : inputProvider.SignedHorizontal;
         }
 
         private void Update()
@@ -36,11 +36,11 @@ namespace Frontend.Scripts
                 return;
             }
 
-            currentSteerSpeed = steerForce;
+            currentSteerForce = steerForce;
 
             if (inputProvider.CombinedInput > 1)
             {
-                currentSteerSpeed *= (1.0f / Mathf.Sqrt(2));
+                currentSteerForce *= (1.0f / Mathf.Sqrt(2));
             }
 
             foreach(var axle in suspensionController.AllAxles)
@@ -52,19 +52,13 @@ namespace Frontend.Scripts
                     {
                         if(wheel.IsGrounded)
                         {
-                            int invert = axle.SteeringInverted ? -1 : 1;
-                            rig.AddForceAtPosition(rig.mass * steerForce * rig.transform.right * steerInput * invert, wheel.HitInfo.Point);
+                            int invertValue = axle.InvertSteer ? -1 : 1;
+                            rig.AddForceAtPosition(invertValue * rig.mass * steerForce * steerInput * rig.transform.right, wheel.HitInfo.Point);
                         }
                         
                     }
                 }
             }
-            /*
-            if (Mathf.Abs(rig.angularVelocity.y) < 1f)
-            {
-                rig.AddRelativeTorque(Vector3.up * steerInput * currentSteerSpeed * 50f * Time.deltaTime, ForceMode.Acceleration);
-            }*/
-
         }
     }
 }

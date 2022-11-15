@@ -22,8 +22,8 @@ namespace Frontend.Scripts.Components
         [SerializeField] private UTAxlePair[] wheelPairs;
         [SerializeField] private bool canDrive;
         [SerializeField] private bool canSteer;
-        [SerializeField] private bool steeringInverted = false;
-        [SerializeField] private bool repositionVisuals = true;
+        [SerializeField] private bool invertSteer = false;
+        
 
         [Header("Antiroll")]
         [SerializeField] private bool applyAntiroll;
@@ -31,6 +31,7 @@ namespace Frontend.Scripts.Components
 
         [Header("Optional")]
         [SerializeField] private float tiresContactOffset = 0f;
+        [SerializeField] private bool repositionVisuals = true;
 
         private UTWheel leftAntirolled, rightAntirolled;
         private IEnumerable<UTWheel> allWheels;
@@ -51,7 +52,7 @@ namespace Frontend.Scripts.Components
 
         public bool CanDrive => canDrive;
         public bool CanSteer => canSteer;
-        public bool SteeringInverted => steeringInverted;
+        public bool InvertSteer => invertSteer;
         public bool HasAnyWheelPair => wheelPairs.Any();
         public bool HasAnyWheel => hasAnyWheel;
 
