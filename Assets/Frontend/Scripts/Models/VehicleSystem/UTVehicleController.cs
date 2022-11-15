@@ -70,6 +70,7 @@ namespace Frontend.Scripts.Models
         public ForceApplyPoint BrakesForceApplyPoint => brakesForceApplyPoint;
         public ForceApplyPoint AccelerationForceApplyPoint => accelerationForceApplyPoint;
 
+        public IEnumerable<UTWheel> AllWheels => allWheels;
 
         public float GetCurrentMaxSpeed()
         {
@@ -128,7 +129,6 @@ namespace Frontend.Scripts.Models
 
         protected bool CheckUpsideDown()
         {
-            Debug.Log("asd "+transform.up.y);
             return !allGroundedWheels.Any() && transform.up.y <= 0f;
         }
 

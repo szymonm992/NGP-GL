@@ -25,7 +25,7 @@ namespace Frontend.Scripts.Interfaces
 
         ForceApplyPoint BrakesForceApplyPoint { get; }
         ForceApplyPoint AccelerationForceApplyPoint { get; }
-
+        IEnumerable<UTWheel> AllWheels { get; }
 
         abstract float GetCurrentMaxSpeed();
         abstract void SetupRigidbody();

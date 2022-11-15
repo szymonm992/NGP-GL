@@ -43,10 +43,27 @@ namespace Frontend.Scripts
                 currentSteerSpeed *= (1.0f / Mathf.Sqrt(2));
             }
 
+            foreach(var axle in suspensionController.AllAxles)
+            {
+                if(axle.CanSteer)
+                {
+                    var wheelsInAxle = axle.AllWheels;
+                    foreach(var wheel in wheelsInAxle)
+                    {
+                        if(wheel.IsGrounded)
+                        {
+                            int invert = axle.SteeringInverted ? -1 : 1;
+                            rig.AddForceAtPosition(rig.mass * steerForce * rig.transform.right * steerInput * invert, wheel.HitInfo.Point);
+                        }
+                        
+                    }
+                }
+            }
+            /*
             if (Mathf.Abs(rig.angularVelocity.y) < 1f)
             {
                 rig.AddRelativeTorque(Vector3.up * steerInput * currentSteerSpeed * 50f * Time.deltaTime, ForceMode.Acceleration);
-            }
+            }*/
 
         }
     }

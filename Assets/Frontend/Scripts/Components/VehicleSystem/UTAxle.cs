@@ -22,6 +22,7 @@ namespace Frontend.Scripts.Components
         [SerializeField] private UTAxlePair[] wheelPairs;
         [SerializeField] private bool canDrive;
         [SerializeField] private bool canSteer;
+        [SerializeField] private bool steeringInverted = false;
         [SerializeField] private bool repositionVisuals = true;
 
         [Header("Antiroll")]
@@ -50,6 +51,7 @@ namespace Frontend.Scripts.Components
 
         public bool CanDrive => canDrive;
         public bool CanSteer => canSteer;
+        public bool SteeringInverted => steeringInverted;
         public bool HasAnyWheelPair => wheelPairs.Any();
         public bool HasAnyWheel => hasAnyWheel;
 
