@@ -1,5 +1,5 @@
 using System.Linq;
-using UInc.Core.Utilities;
+using GLShared.General.Utilities;
 using UnityEditor;
 using UnityEngine;
 using Zenject;
@@ -9,6 +9,7 @@ using GLShared.General.ScriptableObjects;
 using GLShared.General.Models;
 using Frontend.Scripts.Interfaces;
 using GLShared.General.Interfaces;
+using GLShared.General.Enums;
 
 namespace Frontend.Scripts.Components
 {

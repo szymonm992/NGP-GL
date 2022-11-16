@@ -57,13 +57,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IRNGHandler.cs" />
+    <Compile Include="Assets\Plugins\GLShared\Utilities\Linq.cs" />
+    <Compile Include="Assets\Plugins\GLShared\Utilities\GizmosExtend.cs" />
+    <Compile Include="Assets\Plugins\GLShared\Utilities\SelectableExtensions.cs" />
+    <Compile Include="Assets\Plugins\GLShared\Utilities\GeneralAttributesHelper.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\ScriptableObjects\GameParameters.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Enums\DriveAxisSite.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\Gravity\CarGravity.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Enums\ForceApplyPoint.cs" />
+    <Compile Include="Assets\Plugins\GLShared\Utilities\RendererExtensions.cs" />
+    <Compile Include="Assets\Plugins\GLShared\Utilities\GeneralHelper.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IGravityProvider.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IPhysicsWheel.cs" />
     <Compile Include="Assets\Plugins\GLShared\Networking\Enums\NetworkEntityType.cs" />
+    <Compile Include="Assets\Plugins\GLShared\Utilities\DebugExtension.cs" />
     <Compile Include="Assets\Plugins\GLShared\Networking\Components\SmartFoxConnection.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\GameWorld.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Enums\VehicleType.cs" />
@@ -71,7 +78,12 @@
     <Compile Include="Assets\Plugins\GLShared\Networking\Components\NetworkEntity.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\HitInfo.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\RNGHandler.cs" />
+    <Compile Include="Assets\Plugins\GLShared\Utilities\ZenjectExtensions.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IGameWorld.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Models\UTWheelBase.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Models\Debug\UTAxleDebug.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Enums\UTDebugMode.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Models\Debug\UTWheelDebug.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\SmartFox2X.dll" />
