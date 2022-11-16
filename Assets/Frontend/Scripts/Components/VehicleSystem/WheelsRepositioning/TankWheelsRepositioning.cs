@@ -192,7 +192,6 @@ namespace Frontend.Scripts.Components
                             dummy.Holder.localPosition = desiredDummyHolderPos;
                         }
                     }
-
                 }
             }
         }
