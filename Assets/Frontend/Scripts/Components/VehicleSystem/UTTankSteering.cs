@@ -55,7 +55,6 @@ namespace Frontend.Scripts
                             int invertValue = axle.InvertSteer ? -1 : 1;
                             rig.AddForceAtPosition(invertValue  * currentSteerForce * steerInput * rig.transform.right, wheel.HitInfo.Point, ForceMode.Acceleration);
                         }
-                        
                     }
                 }
             }
