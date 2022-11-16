@@ -11,7 +11,7 @@ using Frontend.Scripts.Interfaces;
 
 namespace Frontend.Scripts.Components
 {
-    public class UTWheel : MonoBehaviour, IInitializable
+    public class UTWheel : MonoBehaviour, IInitializable, IPhysicsWheel
     {
         private const float WHEEL_TURN_RATIO = 8f;
 
@@ -69,6 +69,7 @@ namespace Frontend.Scripts.Components
 
         #endregion
 
+        public Transform Transform => transform;
         public bool IsGrounded => isGrounded;
         public HitInfo HitInfo => hitInfo;
         public float WheelRadius => wheelRadius;

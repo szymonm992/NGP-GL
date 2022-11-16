@@ -63,7 +63,7 @@ namespace Frontend.Scripts.Components
                 {
                     if (!wheel.IsGrounded)
                     {
-                        rig.AddForceAtPosition((Physics.gravity / notGroundedAmount), wheel.transform.position, ForceMode.Acceleration);
+                        rig.AddForceAtPosition((Physics.gravity / notGroundedAmount), wheel.Transform.position, ForceMode.Acceleration);
                     }
                 }
             }

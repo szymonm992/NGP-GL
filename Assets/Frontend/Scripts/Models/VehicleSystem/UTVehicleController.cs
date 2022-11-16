@@ -53,8 +53,8 @@ namespace Frontend.Scripts.Models
         protected Vector3 wheelVelocityLocal;
         #endregion 
 
-        protected IEnumerable<UTWheel> allGroundedWheels;
-        protected IEnumerable<UTWheel> allWheels;
+        protected IEnumerable<IPhysicsWheel> allGroundedWheels;
+        protected IEnumerable<IPhysicsWheel> allWheels;
 
         public VehicleType VehicleType => vehicleType;
         public IEnumerable<UTAxle> AllAxles => allAxles;
@@ -72,7 +72,7 @@ namespace Frontend.Scripts.Models
         public ForceApplyPoint BrakesForceApplyPoint => brakesForceApplyPoint;
         public ForceApplyPoint AccelerationForceApplyPoint => accelerationForceApplyPoint;
 
-        public IEnumerable<UTWheel> AllWheels => allWheels;
+        public IEnumerable<IPhysicsWheel> AllWheels => allWheels;
         public float VisualElementsMovementSpeed => visualElementsMovementSpeed;
         public float GetCurrentMaxSpeed()
         {
@@ -148,7 +148,7 @@ namespace Frontend.Scripts.Models
 
             foreach (var wheel in allGroundedWheels)
             {
-                Vector3 steeringDir = wheel.transform.right;
+                Vector3 steeringDir = wheel.Transform.right;
                 Vector3 tireVel = rig.GetPointVelocity(wheel.HitInfo.Point);
 
                 float steeringVel = Vector3.Dot(steeringDir, tireVel);
@@ -211,7 +211,7 @@ namespace Frontend.Scripts.Models
                 {
                     Vector3 brakesPoint = wheel.ReturnWheelPoint(brakesForceApplyPoint);
 
-                    Vector3 forwardDir = wheel.transform.forward;
+                    Vector3 forwardDir = wheel.Transform.forward;
                     Vector3 tireVel = rig.GetPointVelocity(brakesPoint);
 
                     float steeringVel = Vector3.Dot(forwardDir, tireVel);

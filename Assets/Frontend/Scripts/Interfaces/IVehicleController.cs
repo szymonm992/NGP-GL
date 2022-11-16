@@ -12,7 +12,7 @@ namespace Frontend.Scripts.Interfaces
         bool HasAnyWheels { get; }
         bool DoesGravityDamping { get; }
         IEnumerable<UTAxle> AllAxles { get; }
-        IEnumerable<UTWheel> AllWheels { get; }
+        IEnumerable<IPhysicsWheel> AllWheels { get; }
         float AbsoluteInputY { get; }
         float AbsoluteInputX { get; }
         float SignedInputY { get; }

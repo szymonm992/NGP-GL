@@ -1,4 +1,5 @@
 using Frontend.Scripts.Components;
+using Frontend.Scripts.Interfaces;
 using GLShared.General.Enums;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace Frontend.Scripts.Extensions
 {
     public static class UTWheelExtensions 
     {
-        public static Vector3 ReturnWheelPoint(this UTWheel wheel, ForceApplyPoint forceApplyPoint)
+        public static Vector3 ReturnWheelPoint(this IPhysicsWheel wheel, ForceApplyPoint forceApplyPoint)
         {
             if (forceApplyPoint == ForceApplyPoint.WheelConstraintUpperPoint)
             {
