@@ -3,7 +3,7 @@ using Frontend.Scripts.Interfaces;
 using GLShared.General.Enums;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using GLShared.General.Interfaces;
 using UnityEngine;
 
 namespace Frontend.Scripts.Extensions

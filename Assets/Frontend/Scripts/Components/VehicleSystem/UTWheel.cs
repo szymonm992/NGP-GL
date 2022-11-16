@@ -8,6 +8,7 @@ using Frontend.Scripts.Models;
 using GLShared.General.ScriptableObjects;
 using GLShared.General.Models;
 using Frontend.Scripts.Interfaces;
+using GLShared.General.Interfaces;
 
 namespace Frontend.Scripts.Components
 {

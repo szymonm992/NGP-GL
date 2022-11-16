@@ -7,6 +7,7 @@ using Frontend.Scripts.Enums;
 using Frontend.Scripts.Interfaces;
 using Frontend.Scripts.Models;
 using GLShared.General.Enums;
+using GLShared.General.Interfaces;
 
 namespace Frontend.Scripts.Components
 {
@@ -33,9 +34,9 @@ namespace Frontend.Scripts.Components
         [SerializeField] private float tiresContactOffset = 0f;
         [SerializeField] private bool repositionVisuals = true;
 
-        private UTWheel leftAntirolled, rightAntirolled;
-        private IEnumerable<UTWheel> allWheels;
-        private IEnumerable<UTWheel> groundedWheels;
+        private IPhysicsWheel leftAntirolled, rightAntirolled;
+        private IEnumerable<IPhysicsWheel> allWheels;
+        private IEnumerable<IPhysicsWheel> groundedWheels;
         private bool hasAnyWheel = false;
 
         public UTAxleDebug debugSettings = new UTAxleDebug()
@@ -47,8 +48,8 @@ namespace Frontend.Scripts.Components
         };
 
         public IEnumerable<UTAxlePair> WheelPairs => wheelPairs;
-        public IEnumerable<UTWheel> AllWheels => allWheels;
-        public IEnumerable<UTWheel> GroundedWheels => groundedWheels;
+        public IEnumerable<IPhysicsWheel> AllWheels => allWheels;
+        public IEnumerable<IPhysicsWheel> GroundedWheels => groundedWheels;
 
         public bool CanDrive => canDrive;
         public bool CanSteer => canSteer;
@@ -58,7 +59,7 @@ namespace Frontend.Scripts.Components
 
         public void Initialize()
         {
-            allWheels = wheelPairs.Select(pair => pair.Wheel).ToArray();
+            allWheels = wheelPairs.Select(pair => pair.Wheel as IPhysicsWheel).ToArray();
             hasAnyWheel = allWheels.Any();
 
             if (HasAnyWheelPair)
@@ -72,14 +73,14 @@ namespace Frontend.Scripts.Components
             rightAntirolled = GetAllWheelsOfAxis(DriveAxisSite.Right).First();
         }
 
-        private IEnumerable<UTWheel> GetGroundedWheels()
+        private IEnumerable<IPhysicsWheel> GetGroundedWheels()
         {
             return allWheels.Where(wheel => wheel.IsGrounded == true);
         } 
 
-        public IEnumerable<UTWheel> GetAllWheelsOfAxis(DriveAxisSite axis)
+        public IEnumerable<IPhysicsWheel> GetAllWheelsOfAxis(DriveAxisSite axis)
         {
-            return wheelPairs.Where(pair => pair.Axis == axis).Select(pair => pair.Wheel).ToArray();
+            return wheelPairs.Where(pair => pair.Axis == axis).Select(pair => pair.Wheel as IPhysicsWheel).ToArray();
         }
 
         public void SetSteerAngle(float angleLeftAxis, float angleRightAxis)
@@ -129,13 +130,13 @@ namespace Frontend.Scripts.Components
             float antiRollFinalForce = (leftAntirolled.CompressionRate - rightAntirolled.CompressionRate) * antiRollForce;
             if (leftAntirolled.IsGrounded)
             {
-                rig.AddForceAtPosition(leftAntirolled.transform.up * antiRollFinalForce,
+                rig.AddForceAtPosition(leftAntirolled.Transform.up * antiRollFinalForce,
                           leftAntirolled.UpperConstraintPoint);
             }
             
             if(rightAntirolled.IsGrounded)
             {
-                rig.AddForceAtPosition(rightAntirolled.transform.up * -antiRollFinalForce,
+                rig.AddForceAtPosition(rightAntirolled.Transform.up * -antiRollFinalForce,
                  rightAntirolled.UpperConstraintPoint);
             }
         }

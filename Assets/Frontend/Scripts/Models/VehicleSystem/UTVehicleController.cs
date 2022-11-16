@@ -6,6 +6,7 @@ using Frontend.Scripts.Interfaces;
 using Frontend.Scripts.Models;
 using GLShared.General.Enums;
 using GLShared.General.ScriptableObjects;
+using GLShared.General.Interfaces;
 using Frontend.Scripts.Components;
 using Frontend.Scripts.Extensions;
 
@@ -181,15 +182,15 @@ namespace Frontend.Scripts.Models
                     {
                         if (wheel.HitInfo.NormalAndUpAngle <= gameParameters.MaxWheelDetectionAngle)
                         {
-                            wheelVelocityLocal = wheel.transform.InverseTransformDirection(rig.GetPointVelocity(wheel.UpperConstraintPoint));
+                            wheelVelocityLocal = wheel.Transform.InverseTransformDirection(rig.GetPointVelocity(wheel.UpperConstraintPoint));
                          
                             forwardForce = inputY * currentDriveForce;
                             turnForce = wheelVelocityLocal.x * currentDriveForce;
 
                             Vector3 acceleratePoint = wheel.ReturnWheelPoint(accelerationForceApplyPoint);
 
-                            rig.AddForceAtPosition((forwardForce * wheel.transform.forward), acceleratePoint);
-                            rig.AddForceAtPosition((turnForce * -wheel.transform.right), wheel.UpperConstraintPoint);
+                            rig.AddForceAtPosition((forwardForce * wheel.Transform.forward), acceleratePoint);
+                            rig.AddForceAtPosition((turnForce * -wheel.Transform.right), wheel.UpperConstraintPoint);
                         }
                     }
                 }
@@ -223,9 +224,9 @@ namespace Frontend.Scripts.Models
             }
         }
 
-        protected IEnumerable<UTWheel> GetGroundedWheelsInAllAxles()
+        protected IEnumerable<IPhysicsWheel> GetGroundedWheelsInAllAxles()
         {
-            var result = new List<UTWheel>();
+            var result = new List<IPhysicsWheel>();
             if (allAxles.Any())
             {
                 foreach (var axle in allAxles)
@@ -239,9 +240,9 @@ namespace Frontend.Scripts.Models
             return result;
         }
 
-        protected IEnumerable<UTWheel> GetAllWheelsInAllAxles()
+        protected IEnumerable<IPhysicsWheel> GetAllWheelsInAllAxles()
         {
-            var result = new List<UTWheel>();
+            var result = new List<IPhysicsWheel>();
             if (allAxles.Any())
             {
                 foreach (var axle in allAxles)

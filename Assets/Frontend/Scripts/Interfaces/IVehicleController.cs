@@ -3,6 +3,7 @@ using Frontend.Scripts.Enums;
 using GLShared.General.Enums;
 using System.Collections.Generic;
 using Zenject;
+using GLShared.General.Interfaces;
 
 namespace Frontend.Scripts.Interfaces
 {
