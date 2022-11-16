@@ -54,7 +54,8 @@ namespace Frontend.Scripts.Components
                 {
                     if (axle.CanSteer)
                     {
-                        axle.SetSteerAngle(ackermannAngleLeft, ackermannAngleRight);
+                        int multiplier = axle.InvertSteer ? -1 : 1;
+                        axle.SetSteerAngle(ackermannAngleLeft * multiplier, ackermannAngleRight * multiplier);
                     }
                 }
             }
