@@ -3,6 +3,7 @@ using Frontend.Scripts.Enums;
 using GLShared.General.Enums;
 using UnityEngine;
 using Zenject;
+using GLShared.General.Components;
 
 namespace Frontend.Scripts.Models
 {
