@@ -9,7 +9,7 @@ using GLShared.General.ScriptableObjects;
 
 namespace Frontend.Scripts.Components
 {
-    public class UTSuspensionController : UTVehicleController, IVehicleController
+    public class UTSuspensionController : UTVehicleController
     {
         [Header("Additional")]
         [SerializeField] private bool airControl = true;

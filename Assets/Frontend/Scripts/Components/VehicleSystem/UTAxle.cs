@@ -12,7 +12,7 @@ using GLShared.General.Models;
 
 namespace Frontend.Scripts.Components
 {
-    public class UTAxle : MonoBehaviour, IInitializable
+    public class UTAxle : MonoBehaviour, IInitializable, IVehicleAxle
     {
         public const float SUSPENSION_VISUALS_MOVEMENT_SPEED = 50F;
 

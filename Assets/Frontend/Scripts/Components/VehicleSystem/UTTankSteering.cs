@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+using GLShared.General.Interfaces;
 
 namespace Frontend.Scripts
 {

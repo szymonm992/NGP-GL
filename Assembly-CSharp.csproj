@@ -56,11 +56,9 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Frontend\Scripts\Interfaces\IVehicleController.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\GameStateEntity.cs" />
     <Compile Include="Assets\Frontend\Scripts\Signals\BattleSignals.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\StateChanger.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Interfaces\IVehicleSteering.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTTankController.cs" />
     <Compile Include="Assets\Frontend\Scripts\Signals\GameStateChangedSignal.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\DDOL\UIManager.cs" />

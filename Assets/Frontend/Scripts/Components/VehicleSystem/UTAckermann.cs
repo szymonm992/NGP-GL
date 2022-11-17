@@ -1,6 +1,7 @@
 using Frontend.Scripts.Interfaces;
 using UnityEngine;
 using Zenject;
+using GLShared.General.Interfaces;
 
 namespace Frontend.Scripts.Components
 {

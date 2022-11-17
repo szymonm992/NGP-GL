@@ -58,7 +58,7 @@ namespace Frontend.Scripts.Models
         protected IEnumerable<IPhysicsWheel> allWheels;
 
         public VehicleType VehicleType => vehicleType;
-        public IEnumerable<UTAxle> AllAxles => allAxles;
+        public IEnumerable<IVehicleAxle> AllAxles => allAxles;
         public bool HasAnyWheels => hasAnyWheels;
         public float CurrentSpeed => currentSpeed;
         public float CurrentSpeedRatio =>  currentSpeedRatio;

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 using System.Linq;
+using GLShared.General.Interfaces;
 
 namespace Frontend.Scripts.Models
 {
