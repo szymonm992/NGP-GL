@@ -60,9 +60,9 @@ namespace Frontend.Scripts.Components
 
         public void Initialize()
         {
-            allWheels = wheelPairs.Select(pair => pair.Wheel as IPhysicsWheel).ToArray();
+            allWheels = wheelPairs.Select(pair => pair.Wheel).ToArray();
             hasAnyWheel = allWheels.Any();
-
+            
             if (HasAnyWheelPair)
             {
                 foreach(var pair in wheelPairs)
@@ -70,6 +70,8 @@ namespace Frontend.Scripts.Components
                     pair.Initialize();
                 }
             }
+
+            groundedWheels = GetGroundedWheels();
             leftAntirolled = GetAllWheelsOfAxis(DriveAxisSite.Left).First();
             rightAntirolled = GetAllWheelsOfAxis(DriveAxisSite.Right).First();
         }
@@ -81,7 +83,7 @@ namespace Frontend.Scripts.Components
 
         public IEnumerable<IPhysicsWheel> GetAllWheelsOfAxis(DriveAxisSite axis)
         {
-            return wheelPairs.Where(pair => pair.Axis == axis).Select(pair => pair.Wheel as IPhysicsWheel).ToArray();
+            return wheelPairs.Where(pair => pair.Axis == axis).Select(pair => pair.Wheel).ToArray();
         }
 
         public void SetSteerAngle(float angleLeftAxis, float angleRightAxis)
@@ -153,7 +155,7 @@ namespace Frontend.Scripts.Components
                 wheelReposition.RotateWheels(dir, rotateAroundAxis, tireTransform, pair);
             }
            
-            Vector3 tireDesiredPosition = pair.Wheel.TireWorldPosition + (pair.Wheel.transform.up * tiresContactOffset);
+            Vector3 tireDesiredPosition = pair.Wheel.TireWorldPosition + (pair.Wheel.Transform.up * tiresContactOffset);
             float movementSpeed = (controller.VisualElementsMovementSpeed * Mathf.Max(0.4f, controller.CurrentSpeedRatio)) * Time.deltaTime;
             tireTransform.position = Vector3.Lerp(tireTransform.position, tireDesiredPosition, movementSpeed);
             
@@ -190,7 +192,7 @@ namespace Frontend.Scripts.Components
                     foreach (var pair in wheelPairs)
                     {
                         Handles.color = Color.white;
-                        Handles.DrawLine(pair.Wheel.transform.position, transform.position, 1.2f);
+                        Handles.DrawLine(pair.Wheel.Transform.position, transform.position, 1.2f);
                     }
                 }
                 

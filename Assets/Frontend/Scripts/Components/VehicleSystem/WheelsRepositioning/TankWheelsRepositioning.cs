@@ -111,7 +111,7 @@ namespace Frontend.Scripts.Components
             if (dummyPair.trackDummy != null)
             {
                 var mainDummy = dummyPair.trackDummy;
-                Vector3 desiredPos = finalWheelPosition + (pair.Wheel.transform.up * dummyPair.dummyOffsetY);
+                Vector3 desiredPos = finalWheelPosition + (pair.Wheel.Transform.up * dummyPair.dummyOffsetY);
                 float localDesiredOffsetY = mainDummy.transform.InverseTransformPoint(desiredPos).y;
                 mainDummy.Holder.localPosition = Vector3.Lerp(mainDummy.Holder.localPosition, new Vector3(0, localDesiredOffsetY, 0), trackMovementSpeed);
             

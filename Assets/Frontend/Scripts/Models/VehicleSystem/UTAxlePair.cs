@@ -4,6 +4,7 @@ using GLShared.General.Enums;
 using UnityEngine;
 using Zenject;
 using GLShared.General.Components;
+using GLShared.General.Interfaces;
 
 namespace Frontend.Scripts.Models
 {
@@ -26,7 +27,7 @@ namespace Frontend.Scripts.Models
         private Transform rotationalPartOfTire;
         public DriveAxisSite Axis => axis;
         public Transform TireModel => tireModel;
-        public UTWheel Wheel => wheel;
+        public IPhysicsWheel Wheel => wheel;
         public Transform RotationalPartOfTire => rotationalPartOfTire;
         public Transform VisualPartOfTire => visualPartOfTire;
         public DummyPair WheelDummyPair => dummyPair;
