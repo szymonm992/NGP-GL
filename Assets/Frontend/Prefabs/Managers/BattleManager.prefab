@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 5671069293832410393}
   - component: {fileID: 5351831411207673511}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Speedometer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -169,7 +169,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 16
+    m_FontSize: 18
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 1
@@ -468,7 +468,7 @@ MonoBehaviour:
   sensitivityX: 1
   sensitivityY: 1
   orbitMinDist: 2
-  orbitMaxDist: 17
+  orbitMaxDist: 27
   orbitVertMinRange: -30
   orbitVertMaxRange: 60
   orbitFov: 60
