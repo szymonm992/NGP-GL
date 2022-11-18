@@ -68,6 +68,7 @@
     <Compile Include="Assets\Plugins\GLShared\Utilities\RendererExtensions.cs" />
     <Compile Include="Assets\Plugins\GLShared\Utilities\GeneralHelper.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IGravityProvider.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Interfaces\VehicleSystem\IVehicleSteering.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\VehicleSystem\IPhysicsWheel.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\UTWheelBase.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\Debug\UTAxleDebug.cs" />
@@ -78,16 +79,15 @@
     <Compile Include="Assets\Plugins\GLShared\General\Models\GameWorld.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Enums\VehicleType.cs" />
     <Compile Include="Assets\Plugins\GLShared\Networking\Interfaces\INetworkEntity.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Components\UTWheel.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Interfaces\VehicleSystem\IVehicleAxle.cs" />
     <Compile Include="Assets\Plugins\GLShared\Networking\Components\NetworkEntity.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\HitInfo.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\Debug\UTWheelDebug.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\RNGHandler.cs" />
     <Compile Include="Assets\Plugins\GLShared\Utilities\ZenjectExtensions.cs" />
-    <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IGameWorld.cs" />
-    <Compile Include="Assets\Plugins\GLShared\General\Interfaces\VehicleSystem\IVehicleSteering.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\VehicleSystem\IVehicleController.cs" />
-    <Compile Include="Assets\Plugins\GLShared\General\Interfaces\VehicleSystem\IVehicleAxle.cs" />
-    <Compile Include="Assets\Plugins\GLShared\General\Components\UTWheel.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IGameWorld.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\SmartFox2X.dll" />
