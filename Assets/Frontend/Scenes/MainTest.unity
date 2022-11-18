@@ -2911,6 +2911,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1381698131419342062, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: visualElementsMovementSpeed
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 1496185453100401851, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.00000071525574
@@ -10410,7 +10414,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7171168433413352623, guid: 9e789f1c8f9f9b14699c59f0e8719cb4, type: 3}
       propertyPath: near clip plane
-      value: 0.1
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 7200623150744985338, guid: 9e789f1c8f9f9b14699c59f0e8719cb4, type: 3}
       propertyPath: playerContext

@@ -96,26 +96,12 @@ namespace Frontend.Scripts.Components
 
         private void Update()
         {
-            if (!wheelPairs.Any() || controller == null || controller.IsUpsideDown)
-            {
-                return;
-            }
-
-            if(repositionVisuals)
-            {
-                foreach (var pair in wheelPairs)
-                {
-                    if (pair.TireModel != null)
-                    {
-                        RepositionTireModel(pair);
-                    }
-                }
-            }
+            
             
         }
         private void FixedUpdate()
         {
-            if (!wheelPairs.Any() || controller.IsUpsideDown)
+            if (!wheelPairs.Any() || controller == null || controller.IsUpsideDown)
             {
                 return;
             }
@@ -125,6 +111,17 @@ namespace Frontend.Scripts.Components
             if (applyAntiroll)
             {
                 CalculateAndApplyAntiroll();
+            }
+
+            if (repositionVisuals)
+            {
+                foreach (var pair in wheelPairs)
+                {
+                    if (pair.TireModel != null)
+                    {
+                        RepositionTireModel(pair);
+                    }
+                }
             }
         }
 
