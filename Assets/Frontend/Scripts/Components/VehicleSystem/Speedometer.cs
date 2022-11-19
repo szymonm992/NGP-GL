@@ -13,7 +13,10 @@ namespace Frontend.Scripts
 
         public void SetSpeedometr(float currentSpeed)
         {
-            velocityText.text = $"{currentSpeed:F0}";
+            if(velocityText != null)
+            {
+                velocityText.text = $"{currentSpeed:F0}";
+            }
         }
     }
 }

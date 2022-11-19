@@ -94,11 +94,6 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        private void Update()
-        {
-            
-            
-        }
         private void FixedUpdate()
         {
             if (!wheelPairs.Any() || controller == null || controller.IsUpsideDown)
