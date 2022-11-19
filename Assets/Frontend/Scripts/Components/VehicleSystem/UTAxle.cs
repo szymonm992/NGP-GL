@@ -58,11 +58,14 @@ namespace Frontend.Scripts.Components
         public bool HasAnyWheelPair => wheelPairs.Any();
         public bool HasAnyWheel => hasAnyWheel;
 
-        public void Initialize()
+        private void Awake()
         {
             allWheels = wheelPairs.Select(pair => pair.Wheel).ToArray();
             hasAnyWheel = allWheels.Any();
-            
+        }
+
+        public void Initialize()
+        {
             if (HasAnyWheelPair)
             {
                 foreach(var pair in wheelPairs)

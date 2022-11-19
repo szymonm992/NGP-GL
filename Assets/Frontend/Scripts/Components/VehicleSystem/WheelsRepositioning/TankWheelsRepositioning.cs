@@ -6,7 +6,6 @@ using Frontend.Scripts.Interfaces;
 using GLShared.General.Enums;
 using System.Linq;
 using Zenject;
-using Unity.Burst.CompilerServices;
 
 namespace Frontend.Scripts.Components
 {

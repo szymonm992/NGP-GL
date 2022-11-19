@@ -462,7 +462,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2348337400702107847}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -1.7142855, z: 0.00000006130538}
+  m_LocalPosition: {x: 0.00000011920929, y: -1.7142857, z: -0.0000006198905}
   m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -493,7 +493,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2348337400929571283}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -1.7142855, z: 0.00000006130538}
+  m_LocalPosition: {x: -0.00000035762787, y: -1.7142857, z: 0.00000006130536}
   m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -524,7 +524,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2348337401372693365}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.9999998, z: 0.0000001776773}
+  m_LocalPosition: {x: 0.00000035762787, y: -1, z: 0.00000017767725}
   m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -555,7 +555,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2348337401499262424}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.9999998, z: 0.0000001776773}
+  m_LocalPosition: {x: 0.00000011920929, y: -1, z: -0.00000050351866}
   m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -586,7 +586,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2348337402244441509}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -1.7142855, z: 0.00000006130538}
+  m_LocalPosition: {x: 0.00000035762787, y: -1.7142857, z: 0.00000006130536}
   m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -617,7 +617,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2348337402562220034}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.9999998, z: 0.0000000073783157}
+  m_LocalPosition: {x: -0.00000035762787, y: -1, z: 0.0000000073782855}
   m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -648,7 +648,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5717451354827124294}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -1.7142855, z: 0.00000006130538}
+  m_LocalPosition: {x: -0.00000011920929, y: -1.7142857, z: 0.0000007425013}
   m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -679,7 +679,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5717451355497676276}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.9999998, z: 0.0000000073783157}
+  m_LocalPosition: {x: -0.00000011920929, y: -1, z: 0.0000006885742}
   m_LocalScale: {x: 1.4285711, y: 1.4285713, z: 0.99999976}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1186,7 +1186,7 @@ MonoBehaviour:
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
-    drawWheelDirection: 1
+    drawWheelDirection: 0
     drawShapeGizmo: 1
     drawSprings: 1
     drawMode: 0
@@ -1335,7 +1335,7 @@ MonoBehaviour:
   canSteer: 0
   invertSteer: 0
   applyAntiroll: 1
-  antiRollForce: 15000
+  antiRollForce: 30000
   tiresContactOffset: 0
   repositionVisuals: 1
   debugSettings:
@@ -1456,7 +1456,7 @@ MonoBehaviour:
   canSteer: 1
   invertSteer: 0
   applyAntiroll: 1
-  antiRollForce: 15000
+  antiRollForce: 30000
   tiresContactOffset: 0
   repositionVisuals: 1
   debugSettings:
@@ -1709,7 +1709,7 @@ MonoBehaviour:
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
-    drawWheelDirection: 1
+    drawWheelDirection: 0
     drawShapeGizmo: 1
     drawSprings: 1
     drawMode: 0
@@ -2154,7 +2154,7 @@ MonoBehaviour:
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
-    drawWheelDirection: 1
+    drawWheelDirection: 0
     drawShapeGizmo: 1
     drawSprings: 1
     drawMode: 0
@@ -2301,7 +2301,7 @@ MonoBehaviour:
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
-    drawWheelDirection: 1
+    drawWheelDirection: 0
     drawShapeGizmo: 1
     drawSprings: 1
     drawMode: 0

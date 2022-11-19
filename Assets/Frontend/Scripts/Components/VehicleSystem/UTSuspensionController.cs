@@ -37,13 +37,11 @@ namespace Frontend.Scripts.Components
         private void CustomGravityLogic()
         {
 
-            int groundedWheelsAmount = allGroundedWheels.Count();
-
             if (!allGroundedWheels.Any())
             {
-                rig.AddForce(Physics.gravity, ForceMode.Acceleration);
+                rig.AddForce(Physics.gravity, ForceMode.Acceleration); 
             }
-            else if (allWheelsAmount == groundedWheelsAmount)
+            else
             {
                 float angle = Vector3.Angle(transform.up, -Physics.gravity.normalized);
 
@@ -54,17 +52,6 @@ namespace Frontend.Scripts.Components
                 else
                 {
                     rig.AddForce(Physics.gravity, ForceMode.Acceleration);
-                }
-            }
-            else
-            {
-                var notGroundedAmount = (allWheelsAmount - groundedWheelsAmount);
-                foreach (var wheel in allWheels)
-                {
-                    if (!wheel.IsGrounded)
-                    {
-                        rig.AddForceAtPosition((Physics.gravity / notGroundedAmount), wheel.Transform.position, ForceMode.Acceleration);
-                    }
                 }
             }
         }
