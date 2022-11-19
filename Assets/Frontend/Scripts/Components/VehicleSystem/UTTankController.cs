@@ -23,7 +23,6 @@ namespace Frontend.Scripts.Components
                 EvaluateDriveParams();
                 Accelerate();
                 Brakes();
-                ApplyFrictionForces();
 
                 SetCurrentSpeed();
                 speedometer?.SetSpeedometr(currentSpeed);

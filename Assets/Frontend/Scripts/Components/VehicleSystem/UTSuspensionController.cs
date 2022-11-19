@@ -26,7 +26,6 @@ namespace Frontend.Scripts.Components
                 EvaluateDriveParams();
                 Accelerate();
                 Brakes();
-                ApplyFrictionForces();
                 AirControl();
 
                 SetCurrentSpeed();

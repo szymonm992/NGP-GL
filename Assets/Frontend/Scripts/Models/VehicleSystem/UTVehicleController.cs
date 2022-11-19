@@ -140,26 +140,6 @@ namespace Frontend.Scripts.Models
             currentDriveForce = enginePowerCurve.Evaluate(currentSpeed);
         }
 
-        protected void ApplyFrictionForces()
-        {
-            if (!allGroundedWheels.Any())
-            {
-                return;
-            }
-
-            foreach (var wheel in allGroundedWheels)
-            {
-                Vector3 steeringDir = wheel.Transform.right;
-                Vector3 tireVel = rig.GetPointVelocity(wheel.HitInfo.Point);
-
-                float steeringVel = Vector3.Dot(steeringDir, tireVel);
-                float desiredVelChange = -steeringVel * wheel.SidewaysTireGripFactor;
-                float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
-
-                rig.AddForceAtPosition(desiredAccel * wheel.TireMass * steeringDir, wheel.HitInfo.Point);
-            }
-        }
-
         protected void Accelerate()
         {
             if (absoluteInputY == 0 || isBrake)
@@ -219,7 +199,7 @@ namespace Frontend.Scripts.Models
                     float desiredVelChange = -steeringVel * currentLongitudalGrip;
                     float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
 
-                    rig.AddForceAtPosition(desiredAccel * wheel.TireMass/2 * forwardDir, brakesPoint);
+                    rig.AddForceAtPosition(desiredAccel * wheel.TireMass/2f * forwardDir, brakesPoint);
                 }
             }
         }
