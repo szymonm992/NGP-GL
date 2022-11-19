@@ -149,8 +149,8 @@ namespace Frontend.Scripts.Components
                 Vector3 rotateAroundAxis = -tireTransform.right;
                 wheelReposition.RotateWheels(dir, rotateAroundAxis, tireTransform, pair);
             }
-           
-            Vector3 tireDesiredPosition = pair.Wheel.TireWorldPosition + (pair.Wheel.Transform.up * tiresContactOffset);
+            Vector3 tireWorldPos = pair.Wheel.CompressionRate < 1 ? pair.Wheel.TireWorldPosition : pair.Wheel.UpperConstraintPoint;
+            Vector3 tireDesiredPosition = tireWorldPos + (pair.Wheel.Transform.up * tiresContactOffset);
             float movementSpeed = (controller.VisualElementsMovementSpeed * Mathf.Max(0.4f, controller.CurrentSpeedRatio)) * Time.deltaTime;
             tireTransform.position = Vector3.Lerp(tireTransform.position, tireDesiredPosition, movementSpeed);
             
