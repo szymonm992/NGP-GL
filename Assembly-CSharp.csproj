@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\GameStateEntity.cs" />
     <Compile Include="Assets\Frontend\Scripts\Signals\BattleSignals.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTIdlerAxle.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\StateChanger.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTTankController.cs" />
     <Compile Include="Assets\Frontend\Scripts\Signals\GameStateChangedSignal.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Assets\Frontend\Scripts\Components\SceneManagers\WelcomeManager.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VisualEffects\Outline.cs" />
     <Compile Include="Assets\Frontend\Scripts\Interfaces\IPlayerInput.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Models\UTAxleBase.cs" />
     <Compile Include="Assets\Frontend\Scripts\Extensions\UTWheelExtensions.cs" />
     <Compile Include="Assets\Frontend\Scripts\Installers\GameSceneInstaller.cs" />
     <Compile Include="Assets\Frontend\Scripts\Enums\GameState.cs" />

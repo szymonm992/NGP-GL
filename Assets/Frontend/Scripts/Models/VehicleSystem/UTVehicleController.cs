@@ -15,7 +15,7 @@ namespace Frontend.Scripts.Models
     public abstract class UTVehicleController : MonoBehaviour, IVehicleController
     {
         [Inject(Id = "mainRig")] protected Rigidbody rig;
-        [Inject] protected readonly IEnumerable<UTAxle> allAxles;
+        [Inject] protected readonly IEnumerable<IVehicleAxle> allAxles;
         [Inject] protected readonly GameParameters gameParameters;
         [Inject] protected readonly IPlayerInputProvider inputProvider;
         [Inject] protected readonly VehicleStatsBase vehicleStats;

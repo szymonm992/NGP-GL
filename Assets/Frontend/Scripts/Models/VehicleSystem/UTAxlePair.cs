@@ -5,6 +5,7 @@ using UnityEngine;
 using Zenject;
 using GLShared.General.Components;
 using GLShared.General.Interfaces;
+using GLShared.General.Models;
 
 namespace Frontend.Scripts.Models
 {
@@ -18,7 +19,7 @@ namespace Frontend.Scripts.Models
             public float dummyOffsetY;
         }
 
-        [SerializeField] private UTWheel wheel;
+        [SerializeField] private UTPhysicWheelBase wheel;
         [SerializeField] private DriveAxisSite axis;
         [SerializeField] private Transform tireModel;
         [SerializeField] private DummyPair dummyPair;

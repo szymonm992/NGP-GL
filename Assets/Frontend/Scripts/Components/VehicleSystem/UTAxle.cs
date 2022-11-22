@@ -12,84 +12,25 @@ using GLShared.General.Models;
 
 namespace Frontend.Scripts.Components
 {
-    public class UTAxle : MonoBehaviour, IInitializable, IVehicleAxle
+    public class UTAxle : UTAxleBase
     {
-        public const float SUSPENSION_VISUALS_MOVEMENT_SPEED = 50F;
-
-        [Inject(Id = "mainRig")] private readonly Rigidbody rig;
-        [Inject] private readonly IVehicleController controller;
-        [Inject] private readonly IPlayerInputProvider inputProvider;
-        [Inject] private readonly IWheelReposition wheelReposition;
-
-        [SerializeField] private UTAxlePair[] wheelPairs;
-        [SerializeField] private bool canDrive;
-        [SerializeField] private bool canSteer;
-        [SerializeField] private bool invertSteer = false;
-        
-
         [Header("Antiroll")]
-        [SerializeField] private bool applyAntiroll;
-        [SerializeField] private float antiRollForce = 0f;
+        [SerializeField] protected bool applyAntiroll;
+        [SerializeField] protected float antiRollForce = 0f;
 
         [Header("Optional")]
-        [SerializeField] private float tiresContactOffset = 0f;
-        [SerializeField] private bool repositionVisuals = true;
+        [SerializeField] protected float tiresContactOffset = 0f;
 
         private IPhysicsWheel leftAntirolled, rightAntirolled;
-        private IEnumerable<IPhysicsWheel> allWheels;
-        private IEnumerable<IPhysicsWheel> groundedWheels;
-        private bool hasAnyWheel = false;
 
-        public UTAxleDebug debugSettings = new UTAxleDebug()
+        public override void Initialize()
         {
-            DrawGizmos = true,
-            DrawAxleCenter = true,
-            DrawAxlePipes = true,
-            DrawMode = UTDebugMode.All
-        };
-
-        public IEnumerable<UTAxlePair> WheelPairs => wheelPairs;
-        public IEnumerable<IPhysicsWheel> AllWheels => allWheels;
-        public IEnumerable<IPhysicsWheel> GroundedWheels => groundedWheels;
-
-        public bool CanDrive => canDrive;
-        public bool CanSteer => canSteer;
-        public bool InvertSteer => invertSteer;
-        public bool HasAnyWheelPair => wheelPairs.Any();
-        public bool HasAnyWheel => hasAnyWheel;
-
-        private void Awake()
-        {
-            allWheels = wheelPairs.Select(pair => pair.Wheel).ToArray();
-            hasAnyWheel = allWheels.Any();
-        }
-
-        public void Initialize()
-        {
-            if (HasAnyWheelPair)
-            {
-                foreach(var pair in wheelPairs)
-                {
-                    pair.Initialize();
-                }
-            }
-
-            groundedWheels = GetGroundedWheels();
+            base.Initialize();
             leftAntirolled = GetAllWheelsOfAxis(DriveAxisSite.Left).First();
             rightAntirolled = GetAllWheelsOfAxis(DriveAxisSite.Right).First();
         }
 
-        private IEnumerable<IPhysicsWheel> GetGroundedWheels()
-        {
-            return allWheels.Where(wheel => wheel.IsGrounded == true);
-        } 
-
-        public IEnumerable<IPhysicsWheel> GetAllWheelsOfAxis(DriveAxisSite axis)
-        {
-            return wheelPairs.Where(pair => pair.Axis == axis).Select(pair => pair.Wheel).ToArray();
-        }
-
-        public void SetSteerAngle(float angleLeftAxis, float angleRightAxis)
+        public override void SetSteerAngle(float angleLeftAxis, float angleRightAxis)
         {
             foreach(var pair in wheelPairs)
             {
@@ -139,11 +80,12 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        private void RepositionTireModel(UTAxlePair pair)
+        protected override void RepositionTireModel(UTAxlePair pair)
         {
+            base.RepositionTireModel(pair);
             var tireTransform = pair.VisualPartOfTire;
 
-            if(controller.CurrentSpeed != 0)
+            if (controller.CurrentSpeed != 0)
             {
                 float dir = -inputProvider.LastVerticalInput;
                 Vector3 rotateAroundAxis = -tireTransform.right;
@@ -154,8 +96,8 @@ namespace Frontend.Scripts.Components
             Vector3 tireDesiredPosition = tireWorldPos + (pair.Wheel.Transform.up * tiresContactOffset);
             float movementSpeed = (controller.VisualElementsMovementSpeed * Mathf.Max(0.4f, controller.CurrentSpeedRatio)) * Time.deltaTime;
             tireTransform.position = Vector3.Lerp(tireTransform.position, tireDesiredPosition, movementSpeed);
-            
-            if(canSteer)
+
+            if (canSteer)
             {
                 tireTransform.localRotation = Quaternion.Euler(tireTransform.localRotation.eulerAngles.x, pair.Wheel.SteerAngle, tireTransform.localRotation.eulerAngles.z);
             }
@@ -163,37 +105,8 @@ namespace Frontend.Scripts.Components
             wheelReposition.TrackMovement(tireTransform, pair, tireDesiredPosition, movementSpeed);
         }
 
-        private void OnDrawGizmos()
-        {
-            #if UNITY_EDITOR
-            bool drawCurrently = (debugSettings.DrawGizmos) && (debugSettings.DrawMode == UTDebugMode.All)
-               || (debugSettings.DrawMode == UTDebugMode.EditorOnly && !Application.isPlaying)
-               || (debugSettings.DrawMode == UTDebugMode.PlaymodeOnly && Application.isPlaying);
 
-            if (drawCurrently)
-            {
-                Gizmos.color = Color.white;
-                if(debugSettings.DrawAxleCenter)
-                {
-                    Gizmos.DrawSphere(transform.position, .11f);
-                }
-                
-                if(debugSettings.DrawAxlePipes)
-                {
-                    if(!wheelPairs.Any())
-                    {
-                        return;
-                    }
 
-                    foreach (var pair in wheelPairs)
-                    {
-                        Handles.color = Color.white;
-                        Handles.DrawLine(pair.Wheel.Transform.position, transform.position, 1.2f);
-                    }
-                }
-                
-            }
-            #endif
-        }
+
     }
 }
