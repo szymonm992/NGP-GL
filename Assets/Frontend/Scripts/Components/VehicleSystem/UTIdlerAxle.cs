@@ -14,6 +14,11 @@ namespace Frontend.Scripts.Components
     {
         private void FixedUpdate()
         {
+            if (!wheelPairs.Any() || controller == null || controller.IsUpsideDown)
+            {
+                return;
+            }
+
             if (repositionVisuals)
             {
                 foreach (var pair in wheelPairs)
