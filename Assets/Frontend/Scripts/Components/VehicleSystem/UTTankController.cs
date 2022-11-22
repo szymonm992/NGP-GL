@@ -1,17 +1,18 @@
-using Frontend.Scripts.Interfaces;
 using Frontend.Scripts.Models;
-using GLShared.General.Enums;
-using GLShared.General.ScriptableObjects;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 using System.Linq;
+using GLShared.General.Components;
 
 namespace Frontend.Scripts.Components
 {
     public class UTTankController : UTVehicleController
     {
+        [Inject] private readonly IEnumerable<UTIdlerWheel> idlerWheels;
+
+        public IEnumerable<UTIdlerWheel> IdlerWheels => idlerWheels;
+
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
@@ -29,7 +30,7 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        private void CustomGravityLogic()
+        protected override void CustomGravityLogic()
         {
             if (!allGroundedWheels.Any())
             {

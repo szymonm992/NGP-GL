@@ -33,7 +33,7 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        private void CustomGravityLogic()
+        protected override void CustomGravityLogic()
         {
 
             if (!allGroundedWheels.Any())

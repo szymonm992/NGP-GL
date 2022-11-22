@@ -203,6 +203,9 @@ namespace Frontend.Scripts.Models
                 }
             }
         }
+        protected virtual void CustomGravityLogic()
+        {
+        }
 
         protected IEnumerable<IPhysicsWheel> GetGroundedWheelsInAllAxles()
         {
