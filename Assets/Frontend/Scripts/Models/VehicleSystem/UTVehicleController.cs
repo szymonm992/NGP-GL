@@ -180,7 +180,7 @@ namespace Frontend.Scripts.Models
                         {
                             wheelVelocityLocal = wheel.Transform.InverseTransformDirection(rig.GetPointVelocity(wheel.UpperConstraintPoint));
 
-                            forwardForce = inputY * currentDriveForce;
+                            forwardForce = inputY * currentDriveForce * 3f;
                             turnForce = wheelVelocityLocal.x * currentDriveForce;
 
                             rig.AddForceAtPosition((forwardForce * wheel.Transform.up),wheel.Transform.position);
@@ -205,16 +205,20 @@ namespace Frontend.Scripts.Models
             {
                 foreach (var wheel in allGroundedWheels)
                 {
-                    Vector3 brakesPoint = wheel.ReturnWheelPoint(brakesForceApplyPoint);
+                    if (wheel is UTWheel)
+                    {
+                        Vector3 brakesPoint = wheel.ReturnWheelPoint(brakesForceApplyPoint);
 
-                    Vector3 forwardDir = wheel.Transform.forward;
-                    Vector3 tireVel = rig.GetPointVelocity(brakesPoint);
+                        Vector3 forwardDir = wheel.Transform.forward;
+                        Vector3 tireVel = rig.GetPointVelocity(brakesPoint);
 
-                    float steeringVel = Vector3.Dot(forwardDir, tireVel);
-                    float desiredVelChange = -steeringVel * currentLongitudalGrip;
-                    float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
+                        float steeringVel = Vector3.Dot(forwardDir, tireVel);
+                        float desiredVelChange = -steeringVel * currentLongitudalGrip;
+                        float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
 
-                    rig.AddForceAtPosition(desiredAccel * wheel.TireMass/2f * forwardDir, brakesPoint);
+                        rig.AddForceAtPosition(desiredAccel * wheel.TireMass / 2f * forwardDir, brakesPoint);
+                    }
+                   
                 }
             }
         }

@@ -32,7 +32,7 @@ namespace Frontend.Scripts.Components
 
         protected override void CustomGravityLogic()
         {
-            if (!allGroundedWheels.Any())
+            if (!allGroundedWheels.Where(wheel => wheel is UTWheel).Any())
             {
                 rig.AddForce(Physics.gravity, ForceMode.Acceleration); 
             }
