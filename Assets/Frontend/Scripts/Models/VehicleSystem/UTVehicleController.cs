@@ -9,6 +9,7 @@ using GLShared.General.ScriptableObjects;
 using GLShared.General.Interfaces;
 using Frontend.Scripts.Components;
 using Frontend.Scripts.Extensions;
+using GLShared.General.Components;
 
 namespace Frontend.Scripts.Models
 {
@@ -160,18 +161,32 @@ namespace Frontend.Scripts.Models
 
                     foreach (var wheel in groundedWheels)
                     {
-                        if (wheel.HitInfo.NormalAndUpAngle <= gameParameters.MaxWheelDetectionAngle)
+                        if(wheel is UTWheel)
+                        {
+                            if (wheel.HitInfo.NormalAndUpAngle <= gameParameters.MaxWheelDetectionAngle)
+                            {
+                                wheelVelocityLocal = wheel.Transform.InverseTransformDirection(rig.GetPointVelocity(wheel.UpperConstraintPoint));
+
+                                forwardForce = inputY * currentDriveForce;
+                                turnForce = wheelVelocityLocal.x * currentDriveForce;
+
+                                Vector3 acceleratePoint = wheel.ReturnWheelPoint(accelerationForceApplyPoint);
+
+                                rig.AddForceAtPosition((forwardForce * wheel.Transform.forward), acceleratePoint);
+                                rig.AddForceAtPosition((turnForce * -wheel.Transform.right), wheel.UpperConstraintPoint);
+                            }
+                        }
+                        else
                         {
                             wheelVelocityLocal = wheel.Transform.InverseTransformDirection(rig.GetPointVelocity(wheel.UpperConstraintPoint));
-                         
+
                             forwardForce = inputY * currentDriveForce;
                             turnForce = wheelVelocityLocal.x * currentDriveForce;
 
-                            Vector3 acceleratePoint = wheel.ReturnWheelPoint(accelerationForceApplyPoint);
-
-                            rig.AddForceAtPosition((forwardForce * wheel.Transform.forward), acceleratePoint);
+                            rig.AddForceAtPosition((forwardForce * wheel.Transform.up),wheel.Transform.position);
                             rig.AddForceAtPosition((turnForce * -wheel.Transform.right), wheel.UpperConstraintPoint);
                         }
+                        
                     }
                 }
             }
