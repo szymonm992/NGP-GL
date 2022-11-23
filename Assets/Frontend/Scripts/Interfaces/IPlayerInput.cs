@@ -16,6 +16,6 @@ namespace Frontend.Scripts.Interfaces
         public float AbsoluteVertical { get; }
         public float AbsoluteHorizontal { get; }
         public float LastVerticalInput { get; }
-
+        public bool PressedSnipingKey { get; }
     }
 }

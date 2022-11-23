@@ -5,21 +5,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-using Frontend.Scripts.Models.VehicleSystem;
 using Frontend.Scripts.Models;
 using Frontend.Scripts.Interfaces;
+using Frontend.Scripts.Signals;
 
 namespace Frontend.Scripts.Components
 {
-    public class CameraController : MonoBehaviour, IInitializable
+    public class FrontendCameraController : MonoBehaviour, IInitializable
     {
         [Inject] private readonly Camera controlledCamera;
         [Inject] private readonly SignalBus signalBus;
-
+        [Inject] private readonly IPlayerInputProvider inputProvider;
 
         [Header("General Settings")]
-        // offset kursora od œrodka ekranu w górê, w pikselach
-        [SerializeField] int crosshairOffset = 75;
+        [SerializeField] int crosshairOffset = 75;//cursor offset from middle of screen, measured in pixels
 
         [SerializeField] float sensitivityX = 1f;
         [SerializeField] float sensitivityY = 1f;
@@ -42,8 +41,6 @@ namespace Frontend.Scripts.Components
         [SerializeField] private float snipingSensScale = 0.2f;
         [SerializeField] private float snipingMaxSensScale = 0.15f;
 
-
-        private GameObjectContext currentContext;
         private VehicleStatsBase parameters;
 
         [Header("Object Attachment")]
@@ -71,14 +68,12 @@ namespace Frontend.Scripts.Components
 
         public void Initialize()
         {
-            signalBus.Subscribe<Signals.BattleSignals.OnCameraBound>(AssignController);
+            signalBus.Subscribe<BattleSignals.CameraSignals.OnCameraBound>(AssignController);
         }
 
         
-        public void AssignController(Signals.BattleSignals.OnCameraBound onCameraBound)
+        public void AssignController(BattleSignals.CameraSignals.OnCameraBound onCameraBound)
         {
-            //assigning controller with null ctrl argument means that  we reassigning the target and player died
-            currentContext = onCameraBound.context;
             playerObject = onCameraBound.context.transform.GetChild(0).gameObject;
             parameters = onCameraBound.context.Container.Resolve<VehicleStatsBase>();
             FurtherAssigningLogic(onCameraBound.startingEulerAngles);
@@ -102,12 +97,16 @@ namespace Frontend.Scripts.Components
 
         private void OnDestroy()
         {
-            signalBus.Unsubscribe<Signals.BattleSignals.OnCameraBound>(AssignController);
+            signalBus.Unsubscribe<Signals.BattleSignals.CameraSignals.OnCameraBound>(AssignController);
         }
 
         private void LateUpdate()
         {
-            if (!playerObject || blockCtrl) return;
+            if (!playerObject || blockCtrl)
+            {
+                return;
+            }
+
             // najpierw ogarn¹æ obrót po¿¹dany przez gracza
             HandleCameraControl();
             UpdatePosition();
@@ -118,15 +117,21 @@ namespace Frontend.Scripts.Components
             //prze³¹czanie pomiêdzy trybami
             if (isAlive)
             {
-                if (GetUserInputs().zoomKeyPressed)
-                { SetSniping(!isSniping); }
+                if (inputProvider.PressedSnipingKey)
+                {
+                    SetSniping(!isSniping);
+                }
             }
 
             // odpowiedni update w zale¿noœci od trybu
             if (isSniping)
-            { UpdateSnipingCamera(); }
+            { 
+                UpdateSnipingCamera();
+            }
             else
-            { UpdateOrbitCamera(); }
+            { 
+                UpdateOrbitCamera();
+            }
             // target lock jest wykonany tylko jeœli jest aktywna orbitralna kamera
             // lub nast¹pi³o przejœcie pomiêdzy trybami
             ApplyTargetLock();
@@ -135,7 +140,10 @@ namespace Frontend.Scripts.Components
 
         private void FixedUpdate()
         {
-            if (!playerObject) return;
+            if (!playerObject)
+            {
+                return;
+            }
             //we send camera targeting position on the server
             turrentRotationLock = Input.GetMouseButton(1);
 
@@ -319,15 +327,19 @@ namespace Frontend.Scripts.Components
             oldSnipingFollowRot = snipingFollowPoint.rotation;
         }
 
-        public void SetSniping(bool sniping)
+        public void SetSniping(bool snipingValue)
         {
-            if (sniping == isSniping) return;
-            isSniping = sniping;
+            if (isSniping == snipingValue)
+            {
+                return;
+            }
+
+            isSniping = snipingValue;
 
             UpdatePosition();
 
             // naprawa zmiennych przy zmianie
-            if (!sniping)
+            if (!snipingValue)
             {
                 controlledCamera.cullingMask |= 1 << LayerMask.NameToLayer("ExcludedFromSniper");
                 controlledCamera.fieldOfView = orbitFov;
@@ -342,6 +354,11 @@ namespace Frontend.Scripts.Components
 
                 oldSnipingFollowRot = Quaternion.identity;
             }
+
+            signalBus.Fire(new BattleSignals.CameraSignals.OnCameraZoomChanged()
+            {
+                zoomValue = isSniping
+            });
         }
 
 
@@ -364,6 +381,7 @@ namespace Frontend.Scripts.Components
                 // quick fix: przesuniêcie punktu pocz¹tkowego (ignorowanie elementów za wie¿yczk¹)
                 camTransform += rayDir * orbitDist;
             }
+
             Ray r = new Ray(camTransform, rayDir * targetDist);
             if (!Physics.Raycast(r, out hit, targetDist, targetMask))
             {
@@ -462,8 +480,8 @@ namespace Frontend.Scripts.Components
             public float axisX;
             public float axisY;
             public float zoomValue;
-            public bool zoomKeyPressed;
         }
+
         private Inputs GetUserInputs()
         {
             Inputs inputs;
@@ -471,7 +489,6 @@ namespace Frontend.Scripts.Components
             inputs.axisX = Input.GetAxis("Mouse X");
             inputs.axisY = Input.GetAxis("Mouse Y");
             inputs.zoomValue = Input.GetAxis("Zoom");
-            inputs.zoomKeyPressed = Input.GetKeyDown(KeyCode.LeftShift);
             return inputs;
         }
 
@@ -489,7 +506,7 @@ namespace Frontend.Scripts.Components
             return controlledCamera.fieldOfView;
         }
 
-        public bool isInSnipingMode()
+        public bool IsInSnipingMode()
         {
             return isSniping;
         }

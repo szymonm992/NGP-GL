@@ -13,12 +13,12 @@ namespace Frontend.Scripts.Components
 
         private void Start()
         {
-            signalBus.Subscribe<GameStateChangedSignal>(UpdateGameStateUI);
+           // signalBus.Subscribe<GameStateChangedSignal>(UpdateGameStateUI);
         }
 
-        private void UpdateGameStateUI(GameStateChangedSignal args)
-        {
-            Debug.Log("State was changed to: "+args.gameState);
-        }
+        //private void UpdateGameStateUI(GameStateChangedSignal args)
+        //{
+         //   Debug.Log("State was changed to: "+args.gameState);
+        //}
     }
 }

@@ -28,5 +28,7 @@ namespace Frontend.Scripts.Components
         public float AbsoluteHorizontal => 0;
 
         public float LastVerticalInput => 0;
+
+        public bool PressedSnipingKey => false;
     }
 }

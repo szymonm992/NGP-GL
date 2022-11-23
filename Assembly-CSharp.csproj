@@ -56,41 +56,31 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Frontend\Scripts\Components\GameState\GameStateEntity.cs" />
     <Compile Include="Assets\Frontend\Scripts\Signals\BattleSignals.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTIdlerAxle.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\StateChanger.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTTankController.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Signals\GameStateChangedSignal.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\DDOL\UIManager.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\PCSinglePlayerInput.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\WheelDummy.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTSuspensionController.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\Camera\CameraController.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Components\Camera\FrontendCameraController.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\VehicleStatsBase.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTAckermann.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\GameState\States\GameplayState.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Interfaces\IGameState.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\SpringInfo.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\AssociatedUI\WelcomeUI.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\WheelsRepositioning\TankWheelsRepositioning.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\WheelsRepositioning\CarWheelsRepositioning.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\GameState\AsyncProcessor.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\DDOL\DDOLManager.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\CarStats.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\SceneManagers\GameplayManager.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\SceneManagers\WelcomeManager.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VisualEffects\Outline.cs" />
     <Compile Include="Assets\Frontend\Scripts\Interfaces\IPlayerInput.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\UTAxleBase.cs" />
     <Compile Include="Assets\Frontend\Scripts\Extensions\UTWheelExtensions.cs" />
     <Compile Include="Assets\Frontend\Scripts\Installers\GameSceneInstaller.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Enums\GameState.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\AdditionalObjectsStruct.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\Speedometer.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\DDOL\GameStateManager.cs" />
     <Compile Include="Assets\Frontend\Scripts\Test\TempResetButton.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\GameState\States\LobbyState.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\UTAxlePair.cs" />
     <Compile Include="Assets\Frontend\Scripts\Test\TempBotInputProvider.cs" />
     <Compile Include="Assets\Frontend\Scripts\Interfaces\IWheelReposition.cs" />
@@ -104,11 +94,8 @@
     <Compile Include="Assets\Frontend\Scripts\Models\AssociatedUI\AssociatedUI.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\FormValidator.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTTankSteering.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\GameState\States\WelcomeState.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\GameState\States\UnknownState.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Models\StateFactory.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\GameState\States\OnLoginState.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTWheelFrictionCurve.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Test\TempGameManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Frontend\Materials\Effects\OutlineMask.shader" />

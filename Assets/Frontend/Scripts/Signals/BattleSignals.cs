@@ -7,12 +7,18 @@ namespace Frontend.Scripts.Signals
 {
     public class BattleSignals
     {
-        public class OnCameraBound
+        public class CameraSignals
         {
-            public GameObjectContext context;
-            public Vector3 startingEulerAngles;
+            public struct OnCameraBound
+            {
+                public GameObjectContext context;
+                public Vector3 startingEulerAngles;
+            }
+
+            public struct OnCameraZoomChanged
+            {
+                public bool zoomValue;
+            }
         }
     }
-    
-
 }
