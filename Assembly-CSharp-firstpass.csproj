@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IRNGHandler.cs" />
     <Compile Include="Assets\Plugins\GLShared\Utilities\Linq.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IVehicleStats.cs" />
     <Compile Include="Assets\Plugins\GLShared\Utilities\GizmosExtend.cs" />
     <Compile Include="Assets\Plugins\GLShared\Utilities\SelectableExtensions.cs" />
     <Compile Include="Assets\Plugins\GLShared\Utilities\GeneralAttributesHelper.cs" />
@@ -89,7 +90,6 @@
     <Compile Include="Assets\Plugins\GLShared\Utilities\ZenjectExtensions.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\VehicleSystem\IVehicleController.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IGameWorld.cs" />
-    <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IVehicleStats.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\SmartFox2X.dll" />

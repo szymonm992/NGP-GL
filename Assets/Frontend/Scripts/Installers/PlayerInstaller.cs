@@ -19,11 +19,9 @@ namespace Frontend.Scripts.Components
 
             Container.BindInterfacesAndSelfTo<UTVehicleController>().FromComponentOnRoot().AsCached().NonLazy();
             Container.BindInterfacesAndSelfTo<UTTankSteering>().FromComponentOnRoot().AsCached().NonLazy();
-            Container.BindInterfacesAndSelfTo<WheelRepositionBase>().FromComponentOnRoot().AsCached().NonLazy();
-
-
-            Container.BindInterfacesAndSelfTo<UTWheel>().FromComponentsInChildren().AsCached();
-            Container.BindInterfacesAndSelfTo<UTAxle>().FromComponentsInChildren().AsCached();*/
+            Container.BindInterfacesAndSelfTo<WheelRepositionBase>().FromComponentOnRoot().AsCached().NonLazy();*/
+            Container.BindInterfacesAndSelfTo<UTAxleBase>().FromComponentsInHierarchy().AsCached();
+            Container.BindInterfacesAndSelfTo<UTPhysicWheelBase>().FromComponentsInHierarchy().AsCached().NonLazy();
 
             Container.Bind<Renderer>().FromComponentsInChildren().AsCached();
             Container.BindInterfacesAndSelfTo<WheelDummy>().FromComponentsInHierarchy().AsCached();
