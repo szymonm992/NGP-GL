@@ -96,7 +96,7 @@ namespace Frontend.Scripts.Components
 
         private void OnDestroy()
         {
-            signalBus.Unsubscribe<Signals.BattleSignals.CameraSignals.OnCameraBound>(OnCameraBoundToPlayer);
+            signalBus.Unsubscribe<BattleSignals.CameraSignals.OnCameraBound>(OnCameraBoundToPlayer);
         }
 
         private void LateUpdate()

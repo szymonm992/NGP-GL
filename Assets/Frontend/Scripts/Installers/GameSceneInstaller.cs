@@ -36,7 +36,7 @@ namespace Frontend.Scripts
             Container.Bind<ConnectionManager>().FromComponentInHierarchy().AsCached();
 
 
-            Container.BindInterfacesAndSelfTo<UIManager>().FromComponentInHierarchy().AsSingle();
+          
             Container.Bind<FormValidator>().AsSingle();
 
             Container.Bind<GameParameters>().FromInstance(gameParameters).AsSingle();
