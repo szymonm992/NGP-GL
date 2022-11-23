@@ -11,9 +11,9 @@ namespace Frontend.Scripts.Components
     public class CarWheelsRepositioning : WheelRepositionBase
     {
 
-        public override void RotateWheels(float verticalDir, Vector3 rotateAroundAxis, Transform tireTransform, UTAxlePair pair)
+        public override void RotateWheel(float verticalDir, Vector3 rotateAroundAxis, Transform tireTransform, UTAxlePair pair)
         {
-            base.RotateWheels(verticalDir, rotateAroundAxis, tireTransform, pair);
+            base.RotateWheel(verticalDir, rotateAroundAxis, tireTransform, pair);
             float speed = controller.CurrentSpeed;
             pair.RotationalPartOfTire.RotateAround(tireTransform.position, rotateAroundAxis, verticalDir * (speed * 25f) * Time.deltaTime);
         }

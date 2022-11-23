@@ -19,7 +19,7 @@ namespace Frontend.Scripts.Models
         {
         }
 
-        public virtual void RotateWheels(float verticalDir, Vector3 rotateAroundAxis, Transform tireTransform, UTAxlePair pair)
+        public virtual void RotateWheel(float verticalDir, Vector3 rotateAroundAxis, Transform tireTransform, UTAxlePair pair)
         {
         }
 

@@ -26,7 +26,7 @@ namespace Frontend.Scripts.Components
 
             [SerializeField] private Transform forwardDummy;
             [SerializeField] private Transform backwardDummy;
-
+            
             private Transform holder;
             private Transform forwardDummyHolder;
             private Transform backwardDummyHolder;
@@ -49,7 +49,8 @@ namespace Frontend.Scripts.Components
         }
 
         [Inject] private readonly UTTankSteering tankSteering;
-        
+
+        [SerializeField] private float idlersRotatingSpeedMultiplier = 3f;
         [SerializeField] private TrackProperties[] tracksList;
 
         private IEnumerable<TrackProperties> leftTracks;
@@ -79,15 +80,16 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        public override void RotateWheels(float verticalDir, Vector3 rotateAroundAxis, Transform tireTransform, UTAxlePair pair)
+        public override void RotateWheel(float verticalDir, Vector3 rotateAroundAxis, Transform tireTransform, UTAxlePair pair)
         {
-            base.RotateWheels(verticalDir, rotateAroundAxis, tireTransform, pair);
-
+            base.RotateWheel(verticalDir, rotateAroundAxis, tireTransform, pair);
             float rawHorizontal = inputProvider.SignedHorizontal;
+            float idlerMultiplier = pair.IsIdler ? idlersRotatingSpeedMultiplier : 1f; //we want idler wheels to rotate faster than normal wheels if they are smaller
+
             if (inputProvider.SignedVertical == 0 && rawHorizontal != 0)//stationary tank rotating
             {
                 var multiplier = 0.3f;
-                pair.RotationalPartOfTire.RotateAround(tireTransform.position, rotateAroundAxis, GetTankWheelRotationInputDir(rawHorizontal, pair.Axis) * (multiplier * 1300f) * Time.deltaTime);
+                pair.RotationalPartOfTire.RotateAround(tireTransform.position, rotateAroundAxis, GetTankWheelRotationInputDir(rawHorizontal, pair.Axis) * (multiplier * idlerMultiplier * 1300f) * Time.deltaTime);
             }
             else
             {
@@ -97,8 +99,8 @@ namespace Frontend.Scripts.Components
                 {
                     speed /= 2f; //whenever we go forward we want one side of wheels to move slower
                 }
-                pair.RotationalPartOfTire.RotateAround(tireTransform.position, rotateAroundAxis, verticalDir * (speed * 25f) * Time.deltaTime);
-
+                
+                pair.RotationalPartOfTire.RotateAround(tireTransform.position, rotateAroundAxis, verticalDir  * (speed * idlerMultiplier * 25f) * Time.deltaTime);
             }
         }
 

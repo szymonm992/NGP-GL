@@ -25,17 +25,19 @@ namespace Frontend.Scripts.Models
 
         private Transform visualPartOfTire;
         private Transform rotationalPartOfTire;
+        private bool isIdler = false;
         public DriveAxisSite Axis => axis;
         public Transform TireModel => tireModel;
         public IPhysicsWheel Wheel => wheel;
         public Transform RotationalPartOfTire => rotationalPartOfTire;
         public Transform VisualPartOfTire => visualPartOfTire;
         public DummyPair WheelDummyPair => dummyPair;
-
+        public bool IsIdler => isIdler;
         public void Initialize()
         {
             visualPartOfTire = tireModel.GetChild(0);
             rotationalPartOfTire = visualPartOfTire.GetChild(0);
+            isIdler = wheel is UTIdlerWheel;
         }
 
     }

@@ -40,7 +40,7 @@ namespace Frontend.Scripts.Components
             {
                 float dir = -inputProvider.LastVerticalInput;
                 Vector3 rotateAroundAxis = -tireTransform.right;
-                wheelReposition.RotateWheels(dir, rotateAroundAxis, tireTransform, pair);
+                wheelReposition.RotateWheel(dir, rotateAroundAxis, tireTransform, pair);
             }
 
             if (canSteer)

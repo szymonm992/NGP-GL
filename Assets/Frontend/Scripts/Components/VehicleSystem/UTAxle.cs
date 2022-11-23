@@ -88,7 +88,7 @@ namespace Frontend.Scripts.Components
             {
                 float dir = -inputProvider.LastVerticalInput;
                 Vector3 rotateAroundAxis = -tireTransform.right;
-                wheelReposition.RotateWheels(dir, rotateAroundAxis, tireTransform, pair);
+                wheelReposition.RotateWheel(dir, rotateAroundAxis, tireTransform, pair);
             }
 
             Vector3 tireWorldPos = pair.Wheel.CompressionRate < 1 ? pair.Wheel.TireWorldPosition : pair.Wheel.UpperConstraintPoint;
