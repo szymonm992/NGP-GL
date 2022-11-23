@@ -106,14 +106,14 @@ namespace Frontend.Scripts.Components
                 return;
             }
 
-            // najpierw ogarn¹æ obrót po¿¹dany przez gracza
+            //handle rotation desired by player first
             HandleCameraControl();
             UpdatePosition();
 
-            // teraz przygotowaæ siê do zarz¹dania "target lockiem"
+            //prefpare for handling target lock
             PrepareTargetLock();
 
-            //prze³¹czanie pomiêdzy trybami
+            //switching camera modes
             if (isAlive)
             {
                 if (inputProvider.PressedSnipingKey)
@@ -122,7 +122,7 @@ namespace Frontend.Scripts.Components
                 }
             }
 
-            // odpowiedni update w zale¿noœci od trybu
+            // update depending on camera mode
             if (isSniping)
             { 
                 UpdateSnipingCamera();
@@ -131,8 +131,9 @@ namespace Frontend.Scripts.Components
             { 
                 UpdateOrbitCamera();
             }
-            // target lock jest wykonany tylko jeœli jest aktywna orbitralna kamera
-            // lub nast¹pi³o przejœcie pomiêdzy trybami
+
+            //target lock is being executed only if active camera is orbiting camera
+            //or it has begun a transition between camera modes
             ApplyTargetLock();
 
         }
@@ -186,7 +187,7 @@ namespace Frontend.Scripts.Components
                 transform.rotation = Quaternion.Inverse(snipingFollowPoint.rotation) * transform.rotation;
             }
 
-            // TODO: Zrobiæ to w kwaternionie a nie euler jak jakiœ prostak
+            // TODO: rework it to use quaternion instead of filthy, feeble, misrable fucking euler angles btw
             Vector3 angles = transform.localEulerAngles;
 
             angles.x += rotX;
@@ -196,12 +197,12 @@ namespace Frontend.Scripts.Components
 
             if (isSniping)
             {
-                // ponowne aplikowanie rotacji wzglêdej kamery snajperskiej
+                //applying again the rotation of sniping camera
                 transform.rotation = snipingFollowPoint.rotation * transform.rotation;
             }
 
 
-            // limit k¹tu do range'a
+            // limiting the angle range
             float yMinRange = orbitVertMinRange;
             float yMaxRange = orbitVertMaxRange;
 
@@ -215,18 +216,18 @@ namespace Frontend.Scripts.Components
 
         }
 
-        // limituje rotacjê kamery do okreœlonych wartoœci
+        //limits rotation of camera into set ranges
         private Quaternion LimitCameraRange(Quaternion oldRotation, float yMinRange, float yMaxRange)
         {
             Quaternion newRotation = oldRotation;
 
             if (isSniping)
             {
-                // TODO - dodaæ range
+                // TODO - adding a range here
                 yMaxRange = parameters.GunDepression;
                 yMinRange = -parameters.GunElevation;
 
-                // anulowanie poprzedniej rotacji wzglêdnej kamery snajperskiej
+                //canceling previous relative rotation of sniping camera
                 newRotation = Quaternion.Inverse(snipingFollowPoint.rotation) * newRotation;
             }
 
@@ -239,7 +240,7 @@ namespace Frontend.Scripts.Components
 
             if (isSniping)
             {
-                // ponowne aplikowanie rotacji wzglêdej kamery snajperskiej
+                //applying again the relative rotation of sniping camera
                 newRotation = snipingFollowPoint.rotation * newRotation;
             }
 
@@ -271,23 +272,19 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        // update wszystkiego innego co z orbitem zwi¹zane
         private void UpdateOrbitCamera()
         {
-            // zarz¹dzanie zoomowaniem
             if (GetUserInputs().zoomValue != 0)
             {
                 var newOrbitDist = desiredOrbitDist - GetUserInputs().zoomValue * 10.0f * orbitZoomStep;
                 desiredOrbitDist = Mathf.Clamp(newOrbitDist, orbitMinDist, orbitMaxDist);
-                //Debug.Log(orbitDist);
             }
 
-            // interpolacja orbitDist
-            // system target locka wszystko ogarnia, wiêc wystarczy zmieniaæ t¹ zmienn¹.
+            //target lock system handles everything so we only need to change this variable
             orbitDist = Mathf.Lerp(orbitDist, desiredOrbitDist, Time.deltaTime * orbitDistInterp * 10.0f);
             //orbitDist = desiredOrbitDist;
 
-            // zarz¹dzanie kolizj¹ ze œcianami
+            // handling walls collisions
             const float camOffset = 0.25f;
             RaycastHit hit;
             //Vector3 orbitCamDirVec = controlledCamera.transform.position - transform.position;
@@ -302,15 +299,12 @@ namespace Frontend.Scripts.Components
                 Debug.DrawRay(transform.position, orbitCamDirVec.normalized * hit.distance, Color.blue);
             }
 
-            // ustawienie lokalnej pozycji kamery
+            // setting the local position of camera
             controlledCamera.transform.localPosition = new Vector3(0, 0, -orbitDist);
         }
 
-        // update wszystkiego innego co ze sznajpieniem zwi¹zanie
-
         private void UpdateSnipingCamera()
         {
-            // zarz¹dzanie zoomowaniem
             if (GetUserInputs().zoomValue != 0)
             {
                 var newSnipingZoom = desiredSnipingZoom + GetUserInputs().zoomValue * 10.0f * snipingZoomStep;
@@ -321,7 +315,7 @@ namespace Frontend.Scripts.Components
             controlledCamera.fieldOfView = (float)(snipingFov / Math.Pow(snipingZoom, 4.0f));
             controlledCamera.transform.localPosition = Vector3.zero;
 
-            // update rotacji. wykonywany tutaj, ¿eby target lock móg³ to ogarn¹æ
+            //rotation update executed here, so target lock can handle it
             transform.rotation = snipingFollowPoint.rotation * Quaternion.Inverse(oldSnipingFollowRot) * transform.rotation;
             oldSnipingFollowRot = snipingFollowPoint.rotation;
         }
@@ -337,7 +331,7 @@ namespace Frontend.Scripts.Components
 
             UpdatePosition();
 
-            // naprawa zmiennych przy zmianie
+            //fixing variables while change
             if (!snipingValue)
             {
                 controlledCamera.cullingMask |= 1 << LayerMask.NameToLayer("ExcludedFromSniper");
