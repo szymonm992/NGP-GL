@@ -6,6 +6,7 @@ using Frontend.Scripts.Signals;
 using Frontend.Scripts.Interfaces;
 using GLShared.Networking;
 using GLShared.General.ScriptableObjects;
+using Frontend.Scripts.Components.Temporary;
 
 namespace Frontend.Scripts
 {
@@ -17,6 +18,7 @@ namespace Frontend.Scripts
         {
             InstallMain();
             InstallSignals();
+            InstallTemporary();
         }
 
       
@@ -32,10 +34,17 @@ namespace Frontend.Scripts
         {
             Container.Bind<SmartFoxConnection>().FromComponentInHierarchy().AsCached();
             Container.Bind<ConnectionManager>().FromComponentInHierarchy().AsCached();
+
+
             Container.BindInterfacesAndSelfTo<UIManager>().FromComponentInHierarchy().AsSingle();
             Container.Bind<FormValidator>().AsSingle();
-            Container.Bind<GameParameters>().FromInstance(gameParameters).AsSingle();
 
+            Container.Bind<GameParameters>().FromInstance(gameParameters).AsSingle();
+        }
+
+        private void InstallTemporary() //TO BE REMOVED WHEN ACTUAL GAME ARCHITECTURE COMES IN
+        {
+            Container.BindInterfacesAndSelfTo<TempGameManager>().FromComponentInHierarchy().AsCached();
         }
 
         public void OnValidate()

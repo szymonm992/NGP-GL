@@ -1,3 +1,4 @@
+using Frontend.Scripts.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,13 +10,14 @@ namespace Frontend.Scripts.Signals
     {
         public class CameraSignals
         {
-            public struct OnCameraBound
+            public class OnCameraBound
             {
                 public GameObjectContext context;
                 public Vector3 startingEulerAngles;
+                public IPlayerInputProvider inputProvider;
             }
 
-            public struct OnCameraZoomChanged
+            public class OnCameraZoomChanged
             {
                 public bool zoomValue;
             }

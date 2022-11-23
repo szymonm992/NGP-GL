@@ -15,7 +15,6 @@ namespace Frontend.Scripts.Components
     {
         [Inject] private readonly Camera controlledCamera;
         [Inject] private readonly SignalBus signalBus;
-        [Inject] private readonly IPlayerInputProvider inputProvider;
 
         [Header("General Settings")]
         [SerializeField] int crosshairOffset = 75;//cursor offset from middle of screen, measured in pixels
@@ -42,6 +41,7 @@ namespace Frontend.Scripts.Components
         [SerializeField] private float snipingMaxSensScale = 0.15f;
 
         private VehicleStatsBase parameters;
+        private IPlayerInputProvider inputProvider;
 
         [Header("Object Attachment")]
         public LayerMask targetMask;
@@ -68,17 +68,16 @@ namespace Frontend.Scripts.Components
 
         public void Initialize()
         {
-            signalBus.Subscribe<BattleSignals.CameraSignals.OnCameraBound>(AssignController);
+            signalBus.Subscribe<BattleSignals.CameraSignals.OnCameraBound>(OnCameraBoundToPlayer);
         }
 
-        
-        public void AssignController(BattleSignals.CameraSignals.OnCameraBound onCameraBound)
+        private void OnCameraBoundToPlayer(BattleSignals.CameraSignals.OnCameraBound OnCameraBound)
         {
-            playerObject = onCameraBound.context.transform.GetChild(0).gameObject;
-            parameters = onCameraBound.context.Container.Resolve<VehicleStatsBase>();
-            FurtherAssigningLogic(onCameraBound.startingEulerAngles);
+            playerObject = OnCameraBound.context.transform.GetChild(0).gameObject;
+            parameters = OnCameraBound.context.Container.Resolve<VehicleStatsBase>();
+            inputProvider = OnCameraBound.inputProvider;
+            FurtherAssigningLogic(OnCameraBound.startingEulerAngles);
         }
-
 
         private void FurtherAssigningLogic(Vector3 startingEA)
         {
@@ -97,7 +96,7 @@ namespace Frontend.Scripts.Components
 
         private void OnDestroy()
         {
-            signalBus.Unsubscribe<Signals.BattleSignals.CameraSignals.OnCameraBound>(AssignController);
+            signalBus.Unsubscribe<Signals.BattleSignals.CameraSignals.OnCameraBound>(OnCameraBoundToPlayer);
         }
 
         private void LateUpdate()
@@ -183,7 +182,7 @@ namespace Frontend.Scripts.Components
                 rotX *= finalSensScale;
                 rotY *= finalSensScale;
 
-                // anulowanie poprzedniej rotacji wzglêdnej kamery snajperskiej
+                //cancelling previous rotation relative sniping camera
                 transform.rotation = Quaternion.Inverse(snipingFollowPoint.rotation) * transform.rotation;
             }
 
