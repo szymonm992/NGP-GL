@@ -89,7 +89,7 @@ namespace Frontend.Scripts.Models
 
         protected void OnDrawGizmos()
         {
-#if UNITY_EDITOR
+            #if UNITY_EDITOR
             bool drawCurrently = (debugSettings.DrawGizmos) && (debugSettings.DrawMode == UTDebugMode.All)
                || (debugSettings.DrawMode == UTDebugMode.EditorOnly && !Application.isPlaying)
                || (debugSettings.DrawMode == UTDebugMode.PlaymodeOnly && Application.isPlaying);
@@ -117,7 +117,7 @@ namespace Frontend.Scripts.Models
                 }
 
             }
-#endif
+            #endif
         }
     }
 }

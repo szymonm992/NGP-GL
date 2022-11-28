@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Frontend.Scripts.Models;
-using Frontend.Scripts.Interfaces;
 using GLShared.General.Enums;
 using System.Linq;
 using Zenject;
@@ -38,7 +37,6 @@ namespace Frontend.Scripts.Components
             public Transform BackwardDummy => backwardDummy;
             public Transform BackwardDummyHolder => backwardDummyHolder;
 
-
             public void Initialize()
             {
                 holder = helperDummy?.GetChild(0);
@@ -66,7 +64,6 @@ namespace Frontend.Scripts.Components
                 rightTracks = tracksList.Where(track => track.trackAxis == DriveAxisSite.Right);
                 trackTurningRotationSpeed = tankSteering.SteerForce;
 
-                
                 foreach(var track in tracksList)//additional dummies initialization (inbewtween bones)
                 {
                     if(track.helperDummies.Any())
@@ -154,8 +151,8 @@ namespace Frontend.Scripts.Components
             {
                 if (inputProvider.AbsoluteVertical > 0)
                 {
-                    float leftSigned = inputProvider.SignedHorizontal > 0 ? inputProvider.AbsoluteHorizontal : inputProvider.AbsoluteHorizontal / 2;
-                    float rightSigned = inputProvider.SignedHorizontal > 0 ? inputProvider.AbsoluteHorizontal / 2 : inputProvider.AbsoluteHorizontal;
+                    float leftSigned = inputProvider.SignedHorizontal > 0 ? inputProvider.AbsoluteHorizontal : inputProvider.AbsoluteHorizontal / 2f;
+                    float rightSigned = inputProvider.SignedHorizontal > 0 ? inputProvider.AbsoluteHorizontal / 2f : inputProvider.AbsoluteHorizontal;
                     return (leftSigned, rightSigned);
                 }
                 return (inputProvider.SignedHorizontal, -inputProvider.SignedHorizontal);

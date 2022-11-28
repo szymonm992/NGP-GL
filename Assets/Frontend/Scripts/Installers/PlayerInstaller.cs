@@ -14,12 +14,6 @@ namespace Frontend.Scripts.Components
     {
         public override void InstallBindings()
         {
-            /*Container.BindInterfacesAndSelfTo<IVehicleStats>().FromComponentOnRoot().AsCached().NonLazy();
-            Container.BindInterfacesAndSelfTo<PCSinglePlayerInput>().FromComponentOnRoot().AsCached().NonLazy();
-
-            Container.BindInterfacesAndSelfTo<UTVehicleController>().FromComponentOnRoot().AsCached().NonLazy();
-            Container.BindInterfacesAndSelfTo<UTTankSteering>().FromComponentOnRoot().AsCached().NonLazy();
-            Container.BindInterfacesAndSelfTo<WheelRepositionBase>().FromComponentOnRoot().AsCached().NonLazy();*/
             Container.BindInterfacesAndSelfTo<UTAxleBase>().FromComponentsInHierarchy().AsCached();
             Container.BindInterfacesAndSelfTo<UTPhysicWheelBase>().FromComponentsInHierarchy().AsCached().NonLazy();
 
