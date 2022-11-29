@@ -76,6 +76,7 @@ namespace Frontend.Scripts.Models
 
         public IEnumerable<IPhysicsWheel> AllWheels => allWheels;
         public float VisualElementsMovementSpeed => visualElementsMovementSpeed;
+
         public float GetCurrentMaxSpeed()
         {
             return absoluteInputY == 0 ? 0 : (signedInputY > 0 ? maxForwardSpeed : maxBackwardsSpeed);
@@ -203,6 +204,8 @@ namespace Frontend.Scripts.Models
 
             if (absoluteInputY == 0 || isBrake)
             {
+                float multiplier = isBrake ? 0.2f : 0.5f;
+
                 foreach (var wheel in allGroundedWheels)
                 {
                     if (wheel is UTWheel)
@@ -215,8 +218,8 @@ namespace Frontend.Scripts.Models
                         float steeringVel = Vector3.Dot(forwardDir, tireVel);
                         float desiredVelChange = -steeringVel * currentLongitudalGrip;
                         float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
-
-                        rig.AddForceAtPosition(desiredAccel * wheel.TireMass / 2f * forwardDir, brakesPoint);
+                        
+                        rig.AddForceAtPosition(desiredAccel * (wheel.TireMass * multiplier) * forwardDir, brakesPoint);
                     }
                    
                 }
