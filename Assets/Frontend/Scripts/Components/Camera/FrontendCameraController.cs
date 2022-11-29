@@ -385,7 +385,6 @@ namespace Frontend.Scripts.Components
             if (!Physics.Raycast(r, out hit, targetDist, targetMask))
             {
                 targetPosition = r.origin + r.direction * targetDist;
-
             }
             else
             {

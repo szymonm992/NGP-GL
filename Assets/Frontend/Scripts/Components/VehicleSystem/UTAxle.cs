@@ -91,9 +91,12 @@ namespace Frontend.Scripts.Components
                 wheelReposition.RotateWheel(dir, rotateAroundAxis, tireTransform, pair);
             }
 
-            Vector3 tireWorldPos = pair.Wheel.CompressionRate < 1 ? pair.Wheel.TireWorldPosition : pair.Wheel.UpperConstraintPoint;
+            bool isNotfullyCompressed = pair.Wheel.CompressionRate < 1f;
+            Vector3 tireWorldPos = isNotfullyCompressed ? pair.Wheel.TireWorldPosition : pair.Wheel.UpperConstraintPoint;
             Vector3 tireDesiredPosition = tireWorldPos + (pair.Wheel.Transform.up * tiresContactOffset);
-            float movementSpeed = (controller.VisualElementsMovementSpeed * Mathf.Max(0.4f, controller.CurrentSpeedRatio)) * Time.deltaTime;
+
+            float wheelRepositionSpeedMultiplier = isNotfullyCompressed ? controller.VisualElementsMovementSpeed * Mathf.Max(0.4f, controller.CurrentSpeedRatio) : 0.1f;
+            float movementSpeed = wheelRepositionSpeedMultiplier * Time.deltaTime;
             tireTransform.position = Vector3.Lerp(tireTransform.position, tireDesiredPosition, movementSpeed);
 
             if (canSteer)
