@@ -14,16 +14,16 @@ namespace Frontend.Scripts.Components
 
         public void Initialize()
         {
-            signalBus.Subscribe<BattleSignals.CameraSignals.OnCameraZoomChanged>(OnCameraZoomChanged);
+            signalBus.Subscribe<BattleSignals.CameraSignals.OnCameraModeChanged>(OnCameraZoomChanged);
         }
 
-        private void OnCameraZoomChanged(BattleSignals.CameraSignals.OnCameraZoomChanged OnCameraZoomChanged)
+        private void OnCameraZoomChanged(BattleSignals.CameraSignals.OnCameraModeChanged OnCameraZoomChanged)
         {
             if(allPlayerRenderers.Any())
             {
                 foreach(var renderer in allPlayerRenderers)
                 {
-                    renderer.enabled = !OnCameraZoomChanged.zoomValue;
+                    renderer.enabled = !OnCameraZoomChanged.IsSniping;
                 }
             }
         }

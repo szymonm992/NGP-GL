@@ -12,14 +12,14 @@ namespace Frontend.Scripts.Signals
         {
             public class OnCameraBound
             {
-                public GameObjectContext context;
-                public Vector3 startingEulerAngles;
-                public IPlayerInputProvider inputProvider;
+                public GameObjectContext context { get; set; }
+                public Vector3 startingEulerAngles { get; set; }
+                public IPlayerInputProvider inputProvider { get; set; }
             }
 
-            public class OnCameraZoomChanged
+            public class OnCameraModeChanged
             {
-                public bool zoomValue;
+                public bool IsSniping { get; set; }
             }
         }
     }

@@ -27,13 +27,14 @@ namespace Frontend.Scripts
             SignalBusInstaller.Install(Container);
 
             Container.DeclareSignal<BattleSignals.CameraSignals.OnCameraBound>();
-            Container.DeclareSignal<BattleSignals.CameraSignals.OnCameraZoomChanged>();
+            Container.DeclareSignal<BattleSignals.CameraSignals.OnCameraModeChanged>();
         }
 
         private void InstallMain()
         {
             Container.Bind<SmartFoxConnection>().FromComponentInHierarchy().AsCached();
             Container.Bind<ConnectionManager>().FromComponentInHierarchy().AsCached();
+            Container.BindInterfacesAndSelfTo<ReticleController>().FromComponentInHierarchy().AsSingle();
 
 
           

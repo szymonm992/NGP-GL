@@ -8,19 +8,20 @@ using Zenject;
 using Frontend.Scripts.Models;
 using Frontend.Scripts.Interfaces;
 using Frontend.Scripts.Signals;
+using GLShared.General.Interfaces;
 
 namespace Frontend.Scripts.Components
 {
-    public class FrontendCameraController : MonoBehaviour, IInitializable
+    public class FrontendCameraController : MonoBehaviour, IInitializable, IMouseActionsProvider
     {
         [Inject] private readonly Camera controlledCamera;
         [Inject] private readonly SignalBus signalBus;
 
         [Header("General Settings")]
-        [SerializeField] int crosshairOffset = 75;//cursor offset from middle of screen, measured in pixels
+        [SerializeField] private int reticlePixelsOffset = 75;//cursor offset from middle of screen, measured in pixels
 
-        [SerializeField] float sensitivityX = 1f;
-        [SerializeField] float sensitivityY = 1f;
+        [SerializeField] private float sensitivityX = 1f;
+        [SerializeField] private float sensitivityY = 1f;
 
         [Header("Orbit Camera")]
         [SerializeField] private float orbitMinDist = 2f;
@@ -62,13 +63,15 @@ namespace Frontend.Scripts.Components
 
         private Quaternion oldSnipingFollowRot;
 
-        private GameObject currentObject, lastOBject;
-
         private bool turrentRotationLock = false, isAlive = true, blockCtrl = false;
+
+        public float ReticlePixelsOffset => reticlePixelsOffset;
+        public Vector3 CameraTargetingPosition => targetPosition;
 
         public void Initialize()
         {
             signalBus.Subscribe<BattleSignals.CameraSignals.OnCameraBound>(OnCameraBoundToPlayer);
+
         }
 
         private void OnCameraBoundToPlayer(BattleSignals.CameraSignals.OnCameraBound OnCameraBound)
@@ -92,6 +95,10 @@ namespace Frontend.Scripts.Components
             oldSnipingFollowRot = Quaternion.identity;
             transform.root.rotation = Quaternion.Euler(startingEA);
 
+            signalBus.Fire(new BattleSignals.CameraSignals.OnCameraModeChanged()
+            {
+                IsSniping = isSniping
+            });
         }
 
         private void OnDestroy()
@@ -348,9 +355,9 @@ namespace Frontend.Scripts.Components
                 oldSnipingFollowRot = Quaternion.identity;
             }
 
-            signalBus.Fire(new BattleSignals.CameraSignals.OnCameraZoomChanged()
+            signalBus.Fire(new BattleSignals.CameraSignals.OnCameraModeChanged()
             {
-                zoomValue = isSniping
+                IsSniping = isSniping
             });
         }
 
@@ -380,18 +387,10 @@ namespace Frontend.Scripts.Components
             {
                 targetPosition = r.origin + r.direction * targetDist;
 
-                if (currentObject != null)
-                {
-                    currentObject = null;
-                }
             }
             else
             {
                 targetPosition = hit.point;
-
-                lastOBject = currentObject;
-
-                currentObject = hit.transform.root.gameObject;
             }
 
         }
@@ -422,7 +421,7 @@ namespace Frontend.Scripts.Components
         // pobranie dodatkowego k¹ta celowania bazuj¹cego na offsecie pionowym kursora
         private float GetCrosshairAngle()
         {
-            return Mathf.Atan(crosshairOffset * 2f * Mathf.Tan(controlledCamera.fieldOfView * 0.5f * Mathf.Deg2Rad) / Screen.height) * Mathf.Rad2Deg;
+            return Mathf.Atan(reticlePixelsOffset * 2f * Mathf.Tan(controlledCamera.fieldOfView * 0.5f * Mathf.Deg2Rad) / Screen.height) * Mathf.Rad2Deg;
         }
 
 
