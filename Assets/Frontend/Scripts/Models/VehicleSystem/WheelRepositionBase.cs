@@ -15,6 +15,8 @@ namespace Frontend.Scripts.Models
         [Inject] protected readonly IPlayerInputProvider inputProvider;
         [Inject(Id = "mainRig")] protected readonly Rigidbody rig;
 
+        public virtual float RepositionSpeed => 0;
+
         public virtual void Initialize()
         {
         }
@@ -23,8 +25,9 @@ namespace Frontend.Scripts.Models
         {
         }
 
-        public virtual void TrackMovement(Transform tireTransform, UTAxlePair pair, Vector3 finalWheelPosition, float trackMovementSpeed)
+        public virtual void DummiesMovement(Transform tireTransform, UTAxlePair pair, Vector3 finalWheelPosition, float movementSpeed)
         {
         }
+
     }
 }

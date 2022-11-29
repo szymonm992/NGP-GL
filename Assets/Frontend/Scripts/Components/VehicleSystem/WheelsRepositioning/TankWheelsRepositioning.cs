@@ -5,6 +5,7 @@ using Frontend.Scripts.Models;
 using GLShared.General.Enums;
 using System.Linq;
 using Zenject;
+using Sfs2X.Bitswarm;
 
 namespace Frontend.Scripts.Components
 {
@@ -29,7 +30,7 @@ namespace Frontend.Scripts.Components
             private Transform holder;
             private Transform forwardDummyHolder;
             private Transform backwardDummyHolder;
-
+            
             public Transform HelperDummy => helperDummy;
             public Transform Holder => holder;
             public Transform ForwardDummy => forwardDummy;
@@ -54,6 +55,9 @@ namespace Frontend.Scripts.Components
         private IEnumerable<TrackProperties> leftTracks;
         private IEnumerable<TrackProperties> rightTracks;
         private float trackTurningRotationSpeed;
+        private float repositionSpeed;
+
+        public override float RepositionSpeed => repositionSpeed;
 
         public override void Initialize()
         {
@@ -62,7 +66,7 @@ namespace Frontend.Scripts.Components
             {
                 leftTracks = tracksList.Where(track => track.trackAxis == DriveAxisSite.Left);
                 rightTracks = tracksList.Where(track => track.trackAxis == DriveAxisSite.Right);
-                trackTurningRotationSpeed = tankSteering.SteerForce;
+                trackTurningRotationSpeed = tankSteering.SteerForce * 5f;
 
                 foreach(var track in tracksList)//additional dummies initialization (inbewtween bones)
                 {
@@ -75,6 +79,13 @@ namespace Frontend.Scripts.Components
                     }
                 }
             }
+        }
+
+
+        private void FixedUpdate()
+        {
+            repositionSpeed = controller.VisualElementsMovementSpeed * Mathf.Max(0.4f, controller.CurrentSpeedRatio);
+            TrackMovement();
         }
 
         public override void RotateWheel(float verticalDir, Vector3 rotateAroundAxis, Transform tireTransform, UTAxlePair pair)
@@ -101,9 +112,9 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        public override void TrackMovement(Transform tireTransform, UTAxlePair pair, Vector3 finalWheelPosition, float trackMovementSpeed)
+        public override void DummiesMovement(Transform tireTransform, UTAxlePair pair, Vector3 finalWheelPosition, float trackMovementSpeed)
         {
-            base.TrackMovement(tireTransform, pair, finalWheelPosition, trackMovementSpeed);
+            base.DummiesMovement(tireTransform, pair, finalWheelPosition, trackMovementSpeed);
             var dummyPair = pair.WheelDummyPair;
 
             if (dummyPair.trackDummy != null)
@@ -120,8 +131,10 @@ namespace Frontend.Scripts.Components
                         new Vector3(0, desiredUpwardsOffsetY, 0);
                 }
             }
+        }
 
-            
+        private void TrackMovement()
+        {
             if (tracksList != null && tracksList.Any() && controller.CurrentSpeed != 0)
             {
                 var leftAndRight = GetTrackSideMultipliers(inputProvider.LastVerticalInput);
@@ -133,15 +146,15 @@ namespace Frontend.Scripts.Components
 
                 if (l == r)
                 {
-                   offset = (controller.CurrentSpeed / 5f) * Time.deltaTime;
+                   offset = controller.CurrentSpeed * Time.deltaTime;
                 }
                 else
                 { 
                     offset = trackTurningRotationSpeed * Time.deltaTime; 
                 }
 
-                RotateTrackTexture(leftTracks, offset, l, trackMovementSpeed);
-                RotateTrackTexture(rightTracks, offset, r, trackMovementSpeed);
+                RotateTrackTexture(leftTracks, offset, l);
+                RotateTrackTexture(rightTracks, offset, r);
             }
         }
 
@@ -163,33 +176,32 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        private void RotateTrackTexture(IEnumerable<TrackProperties> trackList, float currentOffset, float sideInput,float movementSpeed)
+        private void RotateTrackTexture(IEnumerable<TrackProperties> trackList, float currentOffset, float sideInput)
         {
             if (trackList.Any())
             {
                 foreach (var rend in trackList)
                 {
-                    var materials = rend.trackObject.materials;
-                    float currentTextureOffset = materials[0].GetTextureOffset("_BaseMap").y;
+                    var material = rend.trackObject.materials[0];
+                    float currentTextureOffset = material.GetTextureOffset("_BaseMap").y;
+                    rend.trackObject.materials[0].SetTextureOffset("_BaseMap", new Vector2(0, currentTextureOffset - (currentOffset / 70f) * sideInput));
 
-                    materials[0].SetTextureOffset("_BaseMap", new Vector2(0, currentTextureOffset - (currentOffset / 70f) * sideInput));
-                    rend.trackObject.materials = materials;
-                    
-                    if(!rend.helperDummies.Any())
+
+                    if (!rend.helperDummies.Any())
                     {
                         return;
                     }
 
-                    foreach(var dummy in rend.helperDummies)
-                    {
-                        if(dummy.ForwardDummy != null && dummy.BackwardDummy != null)
-                        {
-                            float middleY = dummy.HelperDummy.InverseTransformPoint((dummy.ForwardDummyHolder.position + dummy.BackwardDummyHolder.position) / 2f).y;
+                     foreach(var dummy in rend.helperDummies)
+                     {
+                         if(dummy.ForwardDummy != null && dummy.BackwardDummy != null)
+                         {
+                             float middleY = dummy.HelperDummy.InverseTransformPoint((dummy.ForwardDummyHolder.position + dummy.BackwardDummyHolder.position) / 2f).y;
 
-                            Vector3 desiredDummyHolderPos = new Vector3(0, middleY, 0);
-                            dummy.Holder.localPosition = desiredDummyHolderPos;
-                        }
-                    }
+                             Vector3 desiredDummyHolderPos = new Vector3(0, middleY, 0);
+                             dummy.Holder.localPosition = desiredDummyHolderPos;
+                         }
+                     }
                 }
             }
         }

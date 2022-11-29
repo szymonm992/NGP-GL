@@ -90,21 +90,24 @@ namespace Frontend.Scripts.Components
                 Vector3 rotateAroundAxis = -tireTransform.right;
                 wheelReposition.RotateWheel(dir, rotateAroundAxis, tireTransform, pair);
             }
-
+            
             bool isNotfullyCompressed = pair.Wheel.CompressionRate < 1f;
             Vector3 tireWorldPos = isNotfullyCompressed ? pair.Wheel.TireWorldPosition : pair.Wheel.UpperConstraintPoint;
             Vector3 tireDesiredPosition = tireWorldPos + (pair.Wheel.Transform.up * tiresContactOffset);
 
-            float wheelRepositionSpeedMultiplier = isNotfullyCompressed ? controller.VisualElementsMovementSpeed * Mathf.Max(0.4f, controller.CurrentSpeedRatio) : 0.1f;
+            float wheelRepositionSpeedMultiplier = isNotfullyCompressed ? wheelReposition.RepositionSpeed : 0.1f;
             float movementSpeed = wheelRepositionSpeedMultiplier * Time.deltaTime;
             tireTransform.position = Vector3.Lerp(tireTransform.position, tireDesiredPosition, movementSpeed);
 
             if (canSteer)
             {
-                tireTransform.localRotation = Quaternion.Euler(tireTransform.localRotation.eulerAngles.x, pair.Wheel.SteerAngle, tireTransform.localRotation.eulerAngles.z);
+                if(tireTransform.localEulerAngles.y != pair.Wheel.SteerAngle)
+                {
+                    tireTransform.localRotation = Quaternion.Euler(tireTransform.localRotation.eulerAngles.x, pair.Wheel.SteerAngle, tireTransform.localRotation.eulerAngles.z);
+                }
             }
 
-            wheelReposition.TrackMovement(tireTransform, pair, tireDesiredPosition, movementSpeed);
+            wheelReposition.DummiesMovement(tireTransform, pair, tireDesiredPosition, movementSpeed);
         }
 
 

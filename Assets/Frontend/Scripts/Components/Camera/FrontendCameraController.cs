@@ -48,7 +48,7 @@ namespace Frontend.Scripts.Components
         public LayerMask targetMask;
         private Transform orbitFollowPoint;
         private Transform snipingFollowPoint;
-        private GameObject playerObject;
+        public GameObject currentPlayerObject;
 
         private float desiredOrbitDist;
         private float desiredSnipingZoom;
@@ -75,7 +75,7 @@ namespace Frontend.Scripts.Components
 
         private void OnCameraBoundToPlayer(BattleSignals.CameraSignals.OnCameraBound OnCameraBound)
         {
-            playerObject = OnCameraBound.context.transform.gameObject;
+            currentPlayerObject = OnCameraBound.context.transform.gameObject;
             parameters = OnCameraBound.context.Container.Resolve<VehicleStatsBase>();
             inputProvider = OnCameraBound.inputProvider;
             FurtherAssigningLogic(OnCameraBound.startingEulerAngles);
@@ -96,6 +96,7 @@ namespace Frontend.Scripts.Components
 
             signalBus.Fire(new BattleSignals.CameraSignals.OnCameraModeChanged()
             {
+                playerObject = currentPlayerObject,
                 IsSniping = isSniping
             });
         }
@@ -107,7 +108,7 @@ namespace Frontend.Scripts.Components
 
         private void LateUpdate()
         {
-            if (!playerObject || blockCtrl)
+            if (!currentPlayerObject || blockCtrl)
             {
                 return;
             }
@@ -146,7 +147,7 @@ namespace Frontend.Scripts.Components
 
         private void FixedUpdate()
         {
-            if (!playerObject)
+            if (!currentPlayerObject)
             {
                 return;
             }
@@ -356,6 +357,7 @@ namespace Frontend.Scripts.Components
 
             signalBus.Fire(new BattleSignals.CameraSignals.OnCameraModeChanged()
             {
+                playerObject = currentPlayerObject,
                 IsSniping = isSniping
             });
         }
@@ -447,7 +449,7 @@ namespace Frontend.Scripts.Components
         #region HELPERS&STRUCTS
         private void FindCameraTargetObjects()
         {
-            var all_objects_inside = playerObject.GetComponentsInChildren<Transform>();
+            var all_objects_inside = currentPlayerObject.GetComponentsInChildren<Transform>();
             foreach (var child in all_objects_inside)
             {
                 if (child.name == "CAMERA_CENTER")
@@ -459,7 +461,7 @@ namespace Frontend.Scripts.Components
                     snipingFollowPoint = child;
                 }
             }
-            if (!playerObject)
+            if (!currentPlayerObject)
             {
                 Debug.LogError("Player object not found");
             }

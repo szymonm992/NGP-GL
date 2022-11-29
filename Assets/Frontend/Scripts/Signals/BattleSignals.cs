@@ -20,6 +20,7 @@ namespace Frontend.Scripts.Signals
 
             public class OnCameraModeChanged
             {
+                public GameObject playerObject { get; set; }
                 public bool IsSniping { get; set; }
             }
         }
