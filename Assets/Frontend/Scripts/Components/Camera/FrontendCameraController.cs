@@ -71,7 +71,6 @@ namespace Frontend.Scripts.Components
         public void Initialize()
         {
             signalBus.Subscribe<BattleSignals.CameraSignals.OnCameraBound>(OnCameraBoundToPlayer);
-
         }
 
         private void OnCameraBoundToPlayer(BattleSignals.CameraSignals.OnCameraBound OnCameraBound)
