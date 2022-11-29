@@ -1,5 +1,5 @@
-using Frontend.Scripts.Interfaces;
 using Frontend.Scripts.Signals;
+using GLShared.General.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

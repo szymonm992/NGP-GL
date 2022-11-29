@@ -76,7 +76,7 @@ namespace Frontend.Scripts.Components
 
         private void OnCameraBoundToPlayer(BattleSignals.CameraSignals.OnCameraBound OnCameraBound)
         {
-            playerObject = OnCameraBound.context.transform.GetChild(0).gameObject;
+            playerObject = OnCameraBound.context.transform.gameObject;
             parameters = OnCameraBound.context.Container.Resolve<VehicleStatsBase>();
             inputProvider = OnCameraBound.inputProvider;
             FurtherAssigningLogic(OnCameraBound.startingEulerAngles);
@@ -123,7 +123,7 @@ namespace Frontend.Scripts.Components
             //switching camera modes
             if (isAlive)
             {
-                if (inputProvider.PressedSnipingKey)
+                if (inputProvider.SnipingKey)
                 {
                     SetSniping(!isSniping);
                 }

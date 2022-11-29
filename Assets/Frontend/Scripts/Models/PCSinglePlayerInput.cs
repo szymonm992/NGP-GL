@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
-
-using Frontend.Scripts.Interfaces;
+using GLShared.General.Interfaces;
 
 namespace Frontend.Scripts.Models
 {
@@ -14,6 +10,7 @@ namespace Frontend.Scripts.Models
 
         private bool brake;
         private bool pressedSnipingKey;
+        private bool pressedTurretLockKey;
 
         private float combinedInput = 0f;
         private float lastVerticalInput = 0f;
@@ -22,8 +19,8 @@ namespace Frontend.Scripts.Models
         public float Horizontal => horizontal;
 
         public bool Brake => brake;
-        public bool PressedSnipingKey => pressedSnipingKey;
-
+        public bool SnipingKey => pressedSnipingKey;
+        public bool TurretLockKey => pressedTurretLockKey;
         public float CombinedInput => combinedInput;
         public float LastVerticalInput => lastVerticalInput;
         public float AbsoluteVertical => ReturnAbsoluteVertical(ref vertical);
@@ -53,6 +50,7 @@ namespace Frontend.Scripts.Models
             horizontal = !Brake ? Input.GetAxis("Horizontal") : 0f;
             vertical = !Brake ? Input.GetAxis("Vertical") : 0f;
             pressedSnipingKey = Input.GetKeyDown(KeyCode.LeftShift);
+            pressedTurretLockKey = Input.GetMouseButton(1);
 
             if (vertical != 0)
             {

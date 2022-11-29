@@ -1,4 +1,5 @@
 using Frontend.Scripts.Interfaces;
+using GLShared.General.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +30,8 @@ namespace Frontend.Scripts.Components
 
         public float LastVerticalInput => 0;
 
-        public bool PressedSnipingKey => false;
+        public bool SnipingKey => false;
+
+        public bool TurretLockKey => false;
     }
 }
