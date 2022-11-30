@@ -51,7 +51,7 @@ namespace Frontend.Scripts.Components
                 CalculateAndApplyAntiroll();
             }
 
-            if (repositionVisuals)
+            if (repositionVisuals && vehicleModelEffects.IsInsideCameraView)
             {
                 foreach (var pair in wheelPairs)
                 {

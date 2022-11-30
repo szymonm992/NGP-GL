@@ -1,3 +1,4 @@
+using Frontend.Scripts.Components;
 using Frontend.Scripts.Interfaces;
 using GLShared.General.Enums;
 using GLShared.General.Interfaces;
@@ -19,6 +20,7 @@ namespace Frontend.Scripts.Models
         [Inject] protected readonly IVehicleController controller;
         [Inject] protected readonly IPlayerInputProvider inputProvider;
         [Inject] protected readonly IWheelReposition wheelReposition;
+        [Inject] protected readonly VehicleModelEffects vehicleModelEffects;
 
         [SerializeField] protected UTAxlePair[] wheelPairs;
         [SerializeField] protected bool canDrive;
@@ -85,6 +87,7 @@ namespace Frontend.Scripts.Models
 
         protected virtual void RepositionTireModel(UTAxlePair pair)
         {
+
         }
 
         protected void OnDrawGizmos()

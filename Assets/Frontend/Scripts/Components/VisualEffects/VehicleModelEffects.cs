@@ -12,6 +12,10 @@ namespace Frontend.Scripts.Components
         [Inject] private readonly Renderer[] allPlayerRenderers;
         [Inject] private readonly SignalBus signalBus;
 
+        private bool isInsideCameraView;
+
+        public bool IsInsideCameraView => isInsideCameraView;
+
         public void Initialize()
         {
             signalBus.Subscribe<BattleSignals.CameraSignals.OnCameraModeChanged>(OnCameraZoomChanged);
@@ -31,6 +35,11 @@ namespace Frontend.Scripts.Components
                     renderer.enabled = !OnCameraZoomChanged.IsSniping;
                 }
             }
+        }
+
+        private void Update()
+        {
+            isInsideCameraView = (Vector3.Dot(Camera.main.transform.forward, transform.position - Camera.main.transform.position) >= 0);
         }
     }
 }
