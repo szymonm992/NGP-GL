@@ -187,7 +187,6 @@ namespace Frontend.Scripts.Models
                             rig.AddForceAtPosition((forwardForce * wheel.Transform.up),wheel.Transform.position);
                             rig.AddForceAtPosition((turnForce * -wheel.Transform.right), wheel.UpperConstraintPoint);
                         }
-                        
                     }
                 }
             }

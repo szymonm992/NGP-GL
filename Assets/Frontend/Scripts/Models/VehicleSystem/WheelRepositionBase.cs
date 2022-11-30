@@ -6,6 +6,7 @@ using UnityEngine;
 using Zenject;
 using System.Linq;
 using GLShared.General.Interfaces;
+using Frontend.Scripts.Components;
 
 namespace Frontend.Scripts.Models
 {
@@ -13,14 +14,24 @@ namespace Frontend.Scripts.Models
     {
         [Inject] protected readonly IVehicleController controller;
         [Inject] protected readonly IPlayerInputProvider inputProvider;
+        [Inject] protected readonly VehicleModelEffects vehicleModelEffects;
+
         [Inject(Id = "mainRig")] protected readonly Rigidbody rig;
 
-        public virtual float RepositionSpeed => 0;
+        protected float repositionSpeed = 0;
+        public float RepositionSpeed => repositionSpeed;
 
         public virtual void Initialize()
         {
         }
 
+        protected virtual void FixedUpdate()
+        {
+            if (vehicleModelEffects.IsInsideCameraView)
+            {
+                repositionSpeed = controller.VisualElementsMovementSpeed * Mathf.Max(0.4f, controller.CurrentSpeedRatio);
+            }
+        }
         public virtual void RotateWheel(float verticalDir, Vector3 rotateAroundAxis, Transform tireTransform, UTAxlePair pair)
         {
         }

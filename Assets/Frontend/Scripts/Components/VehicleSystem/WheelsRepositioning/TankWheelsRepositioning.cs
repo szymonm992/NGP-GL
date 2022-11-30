@@ -48,7 +48,6 @@ namespace Frontend.Scripts.Components
         }
 
         [Inject] private readonly UTTankSteering tankSteering;
-        [Inject] protected readonly VehicleModelEffects vehicleModelEffects;
 
         [SerializeField] private float idlersRotatingSpeedMultiplier = 3f;
         [SerializeField] private TrackProperties[] tracksList;
@@ -56,9 +55,6 @@ namespace Frontend.Scripts.Components
         private IEnumerable<TrackProperties> leftTracks;
         private IEnumerable<TrackProperties> rightTracks;
         private float trackTurningRotationSpeed;
-        private float repositionSpeed;
-
-        public override float RepositionSpeed => repositionSpeed;
 
         public override void Initialize()
         {
@@ -83,11 +79,11 @@ namespace Frontend.Scripts.Components
         }
 
 
-        private void FixedUpdate()
+        protected override void FixedUpdate()
         {
+            base.FixedUpdate();
             if(vehicleModelEffects.IsInsideCameraView)
             {
-                repositionSpeed = controller.VisualElementsMovementSpeed * Mathf.Max(0.4f, controller.CurrentSpeedRatio);
                 TrackMovement();
             }
         }
