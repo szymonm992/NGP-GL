@@ -101,10 +101,7 @@ namespace Frontend.Scripts.Models
 
             hasTurret = container.TryResolve<ITurretController>() != null;
 
-            signalBus.Fire(new BattleSignals.PlayerSignals.OnLocalPlayerInitialized()
-            {
-
-            });
+            signalBus.Fire(new BattleSignals.PlayerSignals.OnLocalPlayerInitialized() { });
         }
 
         public virtual void SetupRigidbody()

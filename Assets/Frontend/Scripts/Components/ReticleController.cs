@@ -60,23 +60,16 @@ namespace Frontend.Scripts.Components
         {
             if(Vector3.Dot(Camera.main.transform.forward, gunPosition - Camera.main.transform.position) >= 0)
             {
-                if(!gunReticle.gameObject.activeInHierarchy)
-                {
-                    gunReticle.gameObject.SetActive(true);
-                }
-                
+                gunReticle.gameObject.ToggleGameObjectIfActive(true);
+
                 Vector2 screenPosition = Camera.main.WorldToScreenPoint(gunPosition);
                 gunReticle.position = Vector2.Lerp(gunReticle.position, screenPosition, Time.deltaTime * 20f);
             }
             else
             {
-                if (gunReticle.gameObject.activeInHierarchy)
-                {
-                    gunReticle.gameObject.SetActive(false);
-                }
+                gunReticle.gameObject.ToggleGameObjectIfActive(false);
             }
         }
-
 
         private void OnCameraModeChanged(BattleSignals.CameraSignals.OnCameraModeChanged OnCameraModeChanged)
         {

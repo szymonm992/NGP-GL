@@ -225,11 +225,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 15587735}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &18644873 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 569633314609841620, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-  m_PrefabInstance: {fileID: 755691424}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &47302552
 GameObject:
   m_ObjectHideFlags: 0
@@ -3248,18 +3243,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.0000073179663
       objectReference: {fileID: 0}
-    - target: {fileID: 1880442767355745896, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: gun
-      value: 
-      objectReference: {fileID: 18644873}
-    - target: {fileID: 1880442767355745896, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1880442767355745897, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2618250326273635535, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: velocityText
       value: 
@@ -3359,10 +3342,6 @@ PrefabInstance:
     - target: {fileID: 7713781332823525988, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.000007745653
-      objectReference: {fileID: 0}
-    - target: {fileID: 7838278336644869095, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.4
       objectReference: {fileID: 0}
     - target: {fileID: 8578679170379535311, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.z
