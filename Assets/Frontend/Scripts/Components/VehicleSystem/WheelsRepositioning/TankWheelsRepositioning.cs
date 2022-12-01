@@ -69,7 +69,7 @@ namespace Frontend.Scripts.Components
 
                 foreach(var track in tracksList)//additional dummies initialization (inbewtween bones)
                 {
-                    if(track.helperDummies.Any())
+                    if (track.helperDummies.Any())
                     {
                         foreach(var dummy in track.helperDummies)
                         {
@@ -84,7 +84,7 @@ namespace Frontend.Scripts.Components
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-            if(vehicleModelEffects.IsInsideCameraView)
+            if (vehicleModelEffects.IsInsideCameraView)
             {
                 TrackMovement();
             }
@@ -126,7 +126,7 @@ namespace Frontend.Scripts.Components
                 float localDesiredOffsetY = mainDummy.transform.InverseTransformPoint(desiredPos).y;
                 mainDummy.Holder.localPosition = Vector3.Lerp(mainDummy.Holder.localPosition, new Vector3(0, localDesiredOffsetY, 0), trackMovementSpeed);
             
-                if(mainDummy.UpwardDummy != null)
+                if (mainDummy.UpwardDummy != null)
                 {
                     float desiredUpwardsOffsetY = mainDummy.transform.InverseTransformPoint(desiredPos + (mainDummy.UpwardDummy.up * mainDummy.UpwardDummyOffset)).y;
                     mainDummy.UpwardDummyHolder.localPosition =
@@ -162,7 +162,7 @@ namespace Frontend.Scripts.Components
 
         private (float, float) GetTrackSideMultipliers(float lastSignedVertical)
         {
-            if(inputProvider.AbsoluteHorizontal > 0)
+            if (inputProvider.AbsoluteHorizontal > 0)
             {
                 if (inputProvider.AbsoluteVertical > 0)
                 {
@@ -196,7 +196,7 @@ namespace Frontend.Scripts.Components
 
                      foreach(var dummy in rend.helperDummies)
                      {
-                         if(dummy.ForwardDummy != null && dummy.BackwardDummy != null)
+                         if (dummy.ForwardDummy != null && dummy.BackwardDummy != null)
                          {
                              float middleY = dummy.HelperDummy.InverseTransformPoint((dummy.ForwardDummyHolder.position + dummy.BackwardDummyHolder.position) / 2f).y;
 

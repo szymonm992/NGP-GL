@@ -105,6 +105,9 @@ namespace Frontend.Scripts.Models
             signalBus.Fire(new PlayerSignals.OnLocalPlayerInitialized() 
             {
                 TurretRotationSpeed = hasTurret ? vehicleStats.TurretRotationSpeed : 0,
+                GunRotationSpeed = hasTurret ? vehicleStats.GunRotationSpeed : 0,
+                GunDepression = vehicleStats.GunDepression,
+                GunElevation = vehicleStats.GunElevation,
             });
         }
 

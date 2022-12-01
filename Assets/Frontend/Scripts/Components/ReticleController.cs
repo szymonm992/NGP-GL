@@ -44,7 +44,7 @@ namespace Frontend.Scripts.Components
 
         private void Update()
         {
-            if(gun != null)
+            if (gun != null)
             {
                 Vector3 gunPosition = gun.position + gun.forward * gameParameters.GunMaxAimingDistance;
 
@@ -59,7 +59,7 @@ namespace Frontend.Scripts.Components
 
         private void UpdateGunReticle(Vector3 gunPosition)
         {
-            if(Vector3.Dot(Camera.main.transform.forward, gunPosition - Camera.main.transform.position) >= 0)
+            if (Vector3.Dot(Camera.main.transform.forward, gunPosition - Camera.main.transform.position) >= 0)
             {
                 gunReticle.gameObject.ToggleGameObjectIfActive(true);
 

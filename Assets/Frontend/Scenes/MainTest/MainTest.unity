@@ -235,7 +235,7 @@ GameObject:
   m_Component:
   - component: {fileID: 47302553}
   - component: {fileID: 47302554}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2232,7 +2232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 501099466}
   - component: {fileID: 501099467}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3356,8 +3356,8 @@ PrefabInstance:
       value: 0.000010083211
       objectReference: {fileID: 0}
     - target: {fileID: 8992989569556248829, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-      propertyPath: turretRotationSpeed
-      value: 48
+      propertyPath: gunRotationSpeed
+      value: 33
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
@@ -5289,7 +5289,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1115455512}
   - component: {fileID: 1115455513}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9703,7 +9703,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1996563193}
   - component: {fileID: 1996563194}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
