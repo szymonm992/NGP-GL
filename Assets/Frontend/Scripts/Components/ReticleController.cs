@@ -2,6 +2,7 @@ using Frontend.Scripts.Components.Temporary;
 using Frontend.Scripts.Signals;
 using GLShared.General.Interfaces;
 using GLShared.General.ScriptableObjects;
+using GLShared.General.Signals;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,10 +28,10 @@ namespace Frontend.Scripts.Components
         public void Initialize()
         {
             signalBus.Subscribe<BattleSignals.CameraSignals.OnCameraModeChanged>(OnCameraModeChanged);
-            signalBus.Subscribe<BattleSignals.PlayerSignals.OnLocalPlayerInitialized>(CreateLocalPlayerSettings);
+            signalBus.Subscribe<PlayerSignals.OnLocalPlayerInitialized>(CreateLocalPlayerSettings);
         }
 
-        private void CreateLocalPlayerSettings(BattleSignals.PlayerSignals.OnLocalPlayerInitialized OnLocalPlayerInitialized)
+        private void CreateLocalPlayerSettings(PlayerSignals.OnLocalPlayerInitialized OnLocalPlayerInitialized)
         {
             var vehicleController = tempGameManager.PlayerContext.Container.Resolve<IVehicleController>();
 

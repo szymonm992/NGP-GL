@@ -7,6 +7,7 @@ using Frontend.Scripts.Interfaces;
 using GLShared.Networking;
 using GLShared.General.ScriptableObjects;
 using Frontend.Scripts.Components.Temporary;
+using GLShared.General.Signals;
 
 namespace Frontend.Scripts
 {
@@ -28,7 +29,7 @@ namespace Frontend.Scripts
 
             Container.DeclareSignal<BattleSignals.CameraSignals.OnCameraBound>();
             Container.DeclareSignal<BattleSignals.CameraSignals.OnCameraModeChanged>();
-            Container.DeclareSignal<BattleSignals.PlayerSignals.OnLocalPlayerInitialized>();
+            Container.DeclareSignal<PlayerSignals.OnLocalPlayerInitialized>();
         }
 
         private void InstallMain()

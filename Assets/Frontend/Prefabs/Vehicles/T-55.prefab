@@ -8550,7 +8550,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09b9c4e122ea38f4a81dfe8a2bbfa4bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretRotationSpeed: 48
   turret: {fileID: 8913179709298987666}
   gun: {fileID: 569633314609841620}
 --- !u!114 &1880442767355745897
@@ -11869,6 +11868,7 @@ MonoBehaviour:
   mass: 36500
   drag: 0.2
   angularDrag: 0.5
+  turretRotationSpeed: 48
   gunDepression: 5
   gunElevation: 15
 --- !u!114 &7057069551729104832

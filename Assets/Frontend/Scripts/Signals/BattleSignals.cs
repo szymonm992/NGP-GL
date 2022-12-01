@@ -24,13 +24,5 @@ namespace Frontend.Scripts.Signals
                 public bool IsSniping { get; set; }
             }
         }
-
-        public class PlayerSignals
-        {
-            public class OnLocalPlayerInitialized
-            {
-
-            }
-        }
     }
 }

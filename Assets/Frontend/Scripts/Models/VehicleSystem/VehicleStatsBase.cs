@@ -18,8 +18,10 @@ namespace Frontend.Scripts.Models
         [SerializeField] protected float angularDrag;
 
         [Header("Combat")]
+        [SerializeField] protected float turretRotationSpeed;
         [SerializeField] protected float gunDepression;
         [SerializeField] protected float gunElevation;
+       
 
         public string VehicleName => vehicleName;
 
@@ -32,7 +34,7 @@ namespace Frontend.Scripts.Models
 
 
         #region COMBAT
-
+        public float TurretRotationSpeed => turretRotationSpeed;
         public float GunDepression => gunDepression;
         public float GunElevation => gunElevation;
         #endregion

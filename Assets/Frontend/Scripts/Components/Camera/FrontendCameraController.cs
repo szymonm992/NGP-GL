@@ -48,7 +48,7 @@ namespace Frontend.Scripts.Components
         public LayerMask targetMask;
         private Transform orbitFollowPoint;
         private Transform snipingFollowPoint;
-        public GameObject currentPlayerObject;
+        private GameObject currentPlayerObject;
 
         private float desiredOrbitDist;
         private float desiredSnipingZoom;

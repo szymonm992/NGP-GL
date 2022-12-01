@@ -3355,6 +3355,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.000010083211
       objectReference: {fileID: 0}
+    - target: {fileID: 8992989569556248829, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: turretRotationSpeed
+      value: 48
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
 --- !u!1 &757113166
@@ -9363,7 +9367,7 @@ GameObject:
   - component: {fileID: 1920897234}
   - component: {fileID: 1920897233}
   m_Layer: 5
-  m_Name: Crosshair (1)
+  m_Name: MiddlePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10911,7 +10915,6 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 64
-  currentPlayerObject: {fileID: 0}
 --- !u!1 &7058011787981289066
 GameObject:
   m_ObjectHideFlags: 0
@@ -11171,7 +11174,7 @@ MonoBehaviour:
   gunReticle: {fileID: 2062297782}
   gunMask:
     serializedVersion: 2
-    m_Bits: 2147483647
+    m_Bits: 64
 --- !u!114 &8932732112044172368
 MonoBehaviour:
   m_ObjectHideFlags: 0

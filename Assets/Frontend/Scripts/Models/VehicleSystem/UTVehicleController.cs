@@ -12,6 +12,7 @@ using Frontend.Scripts.Extensions;
 using GLShared.General.Components;
 using System.ComponentModel;
 using Frontend.Scripts.Signals;
+using GLShared.General.Signals;
 
 namespace Frontend.Scripts.Models
 {
@@ -101,7 +102,10 @@ namespace Frontend.Scripts.Models
 
             hasTurret = container.TryResolve<ITurretController>() != null;
 
-            signalBus.Fire(new BattleSignals.PlayerSignals.OnLocalPlayerInitialized() { });
+            signalBus.Fire(new PlayerSignals.OnLocalPlayerInitialized() 
+            {
+                TurretRotationSpeed = hasTurret ? vehicleStats.TurretRotationSpeed : 0,
+            });
         }
 
         public virtual void SetupRigidbody()
