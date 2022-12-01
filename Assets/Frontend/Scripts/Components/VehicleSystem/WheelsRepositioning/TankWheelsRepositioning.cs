@@ -11,6 +11,7 @@ namespace Frontend.Scripts.Components
 {
     public class TankWheelsRepositioning : WheelRepositionBase
     {
+
         [System.Serializable]
         public struct TrackProperties
         {
@@ -19,6 +20,7 @@ namespace Frontend.Scripts.Components
 
             public TrackHeleperDummy[] helperDummies;
         }
+
         [System.Serializable]
         public class TrackHeleperDummy
         {

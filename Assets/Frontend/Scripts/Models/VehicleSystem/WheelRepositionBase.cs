@@ -15,7 +15,6 @@ namespace Frontend.Scripts.Models
         [Inject] protected readonly IVehicleController controller;
         [Inject] protected readonly IPlayerInputProvider inputProvider;
         [Inject] protected readonly VehicleModelEffects vehicleModelEffects;
-
         [Inject(Id = "mainRig")] protected readonly Rigidbody rig;
 
         protected float repositionSpeed = 0;

@@ -10,7 +10,7 @@ namespace Frontend.Scripts.Components
 {
     public class CarWheelsRepositioning : WheelRepositionBase
     {
-
+        
         public override void RotateWheel(float verticalDir, Vector3 rotateAroundAxis, Transform tireTransform, UTAxlePair pair)
         {
             base.RotateWheel(verticalDir, rotateAroundAxis, tireTransform, pair);

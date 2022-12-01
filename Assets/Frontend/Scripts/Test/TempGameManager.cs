@@ -13,6 +13,8 @@ namespace Frontend.Scripts.Components.Temporary
 
         [SerializeField] private GameObjectContext playerContext;
 
+        public GameObjectContext PlayerContext => playerContext;
+
         public void Initialize()
         {
             signalBus.Fire(new BattleSignals.CameraSignals.OnCameraBound()

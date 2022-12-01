@@ -10,16 +10,20 @@ using GLShared.General.Interfaces;
 using Frontend.Scripts.Components;
 using Frontend.Scripts.Extensions;
 using GLShared.General.Components;
+using System.ComponentModel;
+using Frontend.Scripts.Signals;
 
 namespace Frontend.Scripts.Models
 {
     public abstract class UTVehicleController : MonoBehaviour, IVehicleController
     {
         [Inject(Id = "mainRig")] protected Rigidbody rig;
+        [Inject] protected readonly SignalBus signalBus;
         [Inject] protected readonly IEnumerable<IVehicleAxle> allAxles;
         [Inject] protected readonly GameParameters gameParameters;
         [Inject] protected readonly IPlayerInputProvider inputProvider;
         [Inject] protected readonly VehicleStatsBase vehicleStats;
+        [Inject] protected readonly DiContainer container;
         [Inject(Optional = true)] protected readonly Speedometer speedometer;
 
         [SerializeField] protected Transform centerOfMass;
@@ -35,6 +39,7 @@ namespace Frontend.Scripts.Models
         [SerializeField] protected float visualElementsMovementSpeed = 50f;
 
         protected bool hasAnyWheels;
+        protected bool hasTurret;
         protected float currentSpeed;
         protected float absoluteInputY;
         protected float absoluteInputX;
@@ -70,6 +75,7 @@ namespace Frontend.Scripts.Models
         public float MaxBackwardsSpeed => maxBackwardsSpeed;
         public bool DoesGravityDamping => doesGravityDamping;
         public bool IsUpsideDown => isUpsideDown;
+        public bool HasTurret => hasTurret;
 
         public ForceApplyPoint BrakesForceApplyPoint => brakesForceApplyPoint;
         public ForceApplyPoint AccelerationForceApplyPoint => accelerationForceApplyPoint;
@@ -92,6 +98,13 @@ namespace Frontend.Scripts.Models
             hasAnyWheels = allAxles.Any() && allAxles.Where(axle => axle.HasAnyWheelPair && axle.HasAnyWheel).Any();
             allWheels = GetAllWheelsInAllAxles().ToArray();
             allWheelsAmount = allWheels.Count();
+
+            hasTurret = container.TryResolve<ITurretController>() != null;
+
+            signalBus.Fire(new BattleSignals.PlayerSignals.OnLocalPlayerInitialized()
+            {
+
+            });
         }
 
         public virtual void SetupRigidbody()

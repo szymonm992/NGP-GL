@@ -1,4 +1,7 @@
+using Frontend.Scripts.Components.Temporary;
 using Frontend.Scripts.Signals;
+using GLShared.General.Interfaces;
+using GLShared.General.ScriptableObjects;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,16 +13,70 @@ namespace Frontend.Scripts.Components
     {
         [Inject] private readonly SignalBus signalBus;
         [Inject] private readonly FrontendCameraController cameraController;
+        [Inject] private readonly GameParameters gameParameters;
+        [Inject] private readonly TempGameManager tempGameManager;
 
         [SerializeField] private RectTransform middleScreenCrosshair;
         [SerializeField] private RectTransform gunReticle;
+        [SerializeField] private LayerMask gunMask;
+
 
         private bool isSniping = false;
+        private Transform gun;
 
         public void Initialize()
         {
             signalBus.Subscribe<BattleSignals.CameraSignals.OnCameraModeChanged>(OnCameraModeChanged);
+            signalBus.Subscribe<BattleSignals.PlayerSignals.OnLocalPlayerInitialized>(CreateLocalPlayerSettings);
         }
+
+        private void CreateLocalPlayerSettings(BattleSignals.PlayerSignals.OnLocalPlayerInitialized OnLocalPlayerInitialized)
+        {
+            var vehicleController = tempGameManager.PlayerContext.Container.Resolve<IVehicleController>();
+
+            if (vehicleController.HasTurret)
+            {
+                var gunController = tempGameManager.PlayerContext.Container.Resolve<ITurretController>();
+                gun = gunController.Gun;
+            }
+        }
+
+        private void Update()
+        {
+            if(gun != null)
+            {
+                Vector3 gunPosition = gun.position + gun.forward * gameParameters.GunMaxAimingDistance;
+
+                if (Physics.Raycast(gun.position, gun.forward, out RaycastHit hit, gameParameters.GunMaxAimingDistance, gunMask))
+                {
+                    gunPosition = hit.point;
+                }
+
+                UpdateGunReticle(gunPosition);
+            }
+        }
+
+        private void UpdateGunReticle(Vector3 gunPosition)
+        {
+            if(Vector3.Dot(Camera.main.transform.forward, gunPosition - Camera.main.transform.position) >= 0)
+            {
+                if(!gunReticle.gameObject.activeInHierarchy)
+                {
+                    gunReticle.gameObject.SetActive(true);
+                }
+                
+                Vector2 screenPosition = Camera.main.WorldToScreenPoint(gunPosition);
+                gunReticle.position = Vector2.Lerp(gunReticle.position, screenPosition, Time.deltaTime * 20f);
+            }
+            else
+            {
+                if (gunReticle.gameObject.activeInHierarchy)
+                {
+                    gunReticle.gameObject.SetActive(false);
+                }
+            }
+        }
+
 
         private void OnCameraModeChanged(BattleSignals.CameraSignals.OnCameraModeChanged OnCameraModeChanged)
         {
