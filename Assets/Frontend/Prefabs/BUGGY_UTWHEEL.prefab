@@ -1412,6 +1412,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   doesGravityDamping: 1
+  wheelsCollisionDetectionMask:
+    serializedVersion: 2
+    m_Bits: 67109111
   brakesForceApplyPoint: 0
   accelerationForceApplyPoint: 1
   visualElementsMovementSpeed: 50
