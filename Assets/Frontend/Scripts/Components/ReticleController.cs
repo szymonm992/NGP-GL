@@ -21,7 +21,6 @@ namespace Frontend.Scripts.Components
         [SerializeField] private RectTransform gunReticle;
         [SerializeField] private LayerMask gunMask;
 
-
         private bool isSniping = false;
         private Transform gun;
 
