@@ -83,9 +83,9 @@ namespace Frontend.Scripts.Components
 
         protected override void FixedUpdate()
         {
-            base.FixedUpdate();
             if (vehicleModelEffects.IsInsideCameraView)
             {
+                base.FixedUpdate();
                 TrackMovement();
             }
         }
@@ -137,7 +137,7 @@ namespace Frontend.Scripts.Components
 
         private void TrackMovement()
         {
-            if (tracksList != null && tracksList.Any() && controller.CurrentSpeed != 0)
+            if (tracksList != null && tracksList.Any() && !controller.IsUpsideDown && controller.CurrentSpeed != 0)
             {
                 var leftAndRight = GetTrackSideMultipliers(inputProvider.LastVerticalInput);
 

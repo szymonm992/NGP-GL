@@ -321,16 +321,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c3d4ca24070a54c979c68ef5a20307, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.5
   wheelRadius: 0.7
+  spring: 20000
+  damper: 3000
   tireMass: 60
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
-  spring: 20000
-  damper: 3000
-  hardPointOfTire: -0.7
   upperConstraintTransform: {fileID: 5000877419043204763}
   lowerConstraintTransform: {fileID: 5000877417767229515}
+  notGroundedTransform: {fileID: 0}
+  hardPointOfTire: -0.7
+  suspensionTravel: 0.5
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -569,16 +570,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c3d4ca24070a54c979c68ef5a20307, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.5
   wheelRadius: 0.7
+  spring: 20000
+  damper: 3000
   tireMass: 60
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
-  spring: 20000
-  damper: 3000
-  hardPointOfTire: -0.7
   upperConstraintTransform: {fileID: 5000877419186511924}
   lowerConstraintTransform: {fileID: 5000877419446402341}
+  notGroundedTransform: {fileID: 0}
+  hardPointOfTire: -0.7
+  suspensionTravel: 0.5
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -706,6 +708,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerOfMass: {fileID: 4152437521288818381}
+  centerOfMassUngrounded: {fileID: 4152437521288818381}
   vehicleType: 1
   maxSlopeAngle: 45
   enginePowerCurve:
@@ -780,6 +783,8 @@ MonoBehaviour:
   mass: 1400
   drag: 0.2
   angularDrag: 0.5
+  turretRotationSpeed: 0
+  gunRotationSpeed: 0
   gunDepression: -5
   gunElevation: 15
 --- !u!114 &4152437520905381399
@@ -999,16 +1004,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c3d4ca24070a54c979c68ef5a20307, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.5
   wheelRadius: 0.7
+  spring: 20000
+  damper: 3000
   tireMass: 60
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
-  spring: 20000
-  damper: 3000
-  hardPointOfTire: -0.7
   upperConstraintTransform: {fileID: 5000877418093669870}
   lowerConstraintTransform: {fileID: 5000877419623164985}
+  notGroundedTransform: {fileID: 0}
+  hardPointOfTire: -0.7
+  suspensionTravel: 0.5
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -1307,16 +1313,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c3d4ca24070a54c979c68ef5a20307, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspensionTravel: 0.5
   wheelRadius: 0.7
+  spring: 20000
+  damper: 3000
   tireMass: 60
   forwardTireGripFactor: 1
   sidewaysTireGripFactor: 1
-  spring: 20000
-  damper: 3000
-  hardPointOfTire: -0.7
   upperConstraintTransform: {fileID: 2248079281676134515}
   lowerConstraintTransform: {fileID: 2248079282004794838}
+  notGroundedTransform: {fileID: 0}
+  hardPointOfTire: -0.7
+  suspensionTravel: 0.5
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -1435,15 +1442,15 @@ MonoBehaviour:
   canDrive: 1
   canSteer: 0
   invertSteer: 0
-  applyAntiroll: 1
-  antiRollForce: 10000
-  tiresContactOffset: 0
   repositionVisuals: 1
   debugSettings:
     drawGizmos: 1
     drawAxleCenter: 1
     drawAxlePipes: 1
     drawMode: 0
+  applyAntiroll: 1
+  antiRollForce: 10000
+  tiresContactOffset: 0
 --- !u!114 &3140385089612817197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1556,15 +1563,15 @@ MonoBehaviour:
   canDrive: 1
   canSteer: 1
   invertSteer: 0
-  applyAntiroll: 1
-  antiRollForce: 10000
-  tiresContactOffset: 0
   repositionVisuals: 1
   debugSettings:
     drawGizmos: 1
     drawAxleCenter: 1
     drawAxlePipes: 1
     drawMode: 0
+  applyAntiroll: 1
+  antiRollForce: 10000
+  tiresContactOffset: 0
 --- !u!114 &3140385089463722222
 MonoBehaviour:
   m_ObjectHideFlags: 0

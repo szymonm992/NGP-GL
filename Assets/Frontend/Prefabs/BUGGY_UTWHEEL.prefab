@@ -1357,6 +1357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerOfMass: {fileID: 7623138868924921916}
+  centerOfMassUngrounded: {fileID: 7623138868924921916}
   vehicleType: 1
   maxSlopeAngle: 45
   enginePowerCurve:
@@ -1431,6 +1432,8 @@ MonoBehaviour:
   mass: 1400
   drag: 0.2
   angularDrag: 0.5
+  turretRotationSpeed: 0
+  gunRotationSpeed: 0
   gunDepression: -5
   gunElevation: 15
 --- !u!114 &7623138870644961510

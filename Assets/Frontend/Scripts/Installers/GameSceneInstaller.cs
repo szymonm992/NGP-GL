@@ -38,10 +38,7 @@ namespace Frontend.Scripts
             Container.Bind<ConnectionManager>().FromComponentInHierarchy().AsCached();
             Container.BindInterfacesAndSelfTo<ReticleController>().FromComponentInHierarchy().AsSingle();
 
-
-          
             Container.Bind<FormValidator>().AsSingle();
-
             Container.Bind<GameParameters>().FromInstance(gameParameters).AsSingle();
         }
 

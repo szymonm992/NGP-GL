@@ -27,11 +27,14 @@ namespace Frontend.Scripts.Models
         [Inject] protected readonly DiContainer container;
         [Inject(Optional = true)] protected readonly Speedometer speedometer;
 
+
         [SerializeField] protected Transform centerOfMass;
+        [SerializeField] protected Transform centerOfMassUngrounded;
         [SerializeField] protected VehicleType vehicleType = VehicleType.Car;
         [SerializeField] protected float maxSlopeAngle = 45f;
         [SerializeField] protected AnimationCurve enginePowerCurve;
         [SerializeField] protected bool doesGravityDamping = true;
+        [SerializeField] protected LayerMask wheelsCollisionDetectionMask;
 
         [Header("Force apply points")]
         [SerializeField] protected ForceApplyPoint brakesForceApplyPoint = ForceApplyPoint.WheelConstraintUpperPoint;
@@ -41,6 +44,7 @@ namespace Frontend.Scripts.Models
 
         protected bool hasAnyWheels;
         protected bool hasTurret;
+
         protected float currentSpeed;
         protected float absoluteInputY;
         protected float absoluteInputX;
@@ -48,7 +52,9 @@ namespace Frontend.Scripts.Models
         protected float maxBackwardsSpeed;
         protected float currentSpeedRatio;
         protected float signedInputY;
+
         protected int allWheelsAmount = 0;
+
 
         #region Computed variables
         protected bool isBrake;
@@ -57,8 +63,12 @@ namespace Frontend.Scripts.Models
         protected float currentLongitudalGrip;
         protected float forwardForce;
         protected float turnForce;
+        protected float verticalAngle;
+        protected float horizontalAngle;
         protected bool isUpsideDown = false;
         protected Vector3 wheelVelocityLocal;
+
+        private GameObject currentComTrans;
         #endregion 
 
         protected IEnumerable<IPhysicsWheel> allGroundedWheels;
@@ -78,6 +88,7 @@ namespace Frontend.Scripts.Models
         public bool IsUpsideDown => isUpsideDown;
         public bool HasTurret => hasTurret;
 
+        public LayerMask WheelsCollisionDetectionMask => wheelsCollisionDetectionMask;
         public ForceApplyPoint BrakesForceApplyPoint => brakesForceApplyPoint;
         public ForceApplyPoint AccelerationForceApplyPoint => accelerationForceApplyPoint;
 
@@ -116,14 +127,33 @@ namespace Frontend.Scripts.Models
             rig.mass = vehicleStats.Mass;
             rig.drag = vehicleStats.Drag;
             rig.angularDrag = vehicleStats.AngularDrag;
+
             if (centerOfMass != null)
             {
-                rig.centerOfMass = centerOfMass.localPosition;
+                SetCenterOfMassToPoint(centerOfMass);
+            }
+        }
+
+        protected void CalculateVehicleAngles()
+        {
+            verticalAngle = 90f - Vector3.Angle(Vector3.up, transform.forward);
+            horizontalAngle = 90f - Vector3.Angle(Vector3.up, transform.right);
+        }
+        
+        protected void SetCenterOfMassToPoint(Transform comPoint)
+        {
+            if(!currentComTrans || currentComTrans.gameObject != comPoint.gameObject)
+            {
+                currentComTrans = comPoint.gameObject;
+                rig.centerOfMass = comPoint.localPosition;
             }
         }
 
         protected virtual void FixedUpdate()
         {
+            CalculateVehicleAngles();
+            SetCenterOfMassToPoint(horizontalAngle >= 50f ? centerOfMassUngrounded : centerOfMass);
+
             allGroundedWheels = GetGroundedWheelsInAllAxles().ToArray();
             isUpsideDown = CheckUpsideDown();
         }
@@ -151,7 +181,7 @@ namespace Frontend.Scripts.Models
 
         protected bool CheckUpsideDown()
         {
-            return !allGroundedWheels.Any() && transform.up.y <= 0f;
+            return !allGroundedWheels.Any() || transform.up.y <= 0.2f;
         }
 
         protected void EvaluateDriveParams()
