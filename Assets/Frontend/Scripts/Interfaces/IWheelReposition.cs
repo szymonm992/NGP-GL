@@ -6,6 +6,7 @@ namespace Frontend.Scripts.Interfaces
     public interface IWheelReposition 
     {
         float RepositionSpeed { get; }
+        float VisualElementsMovementSpeed { get; }
         public abstract void RotateWheel(float verticalDir, Vector3 rotateAroundAxis, Transform tireTransform, UTAxlePair pair);
 
         void DummiesMovement(Transform tireTransform, UTAxlePair pair, Vector3 finalWheelPosition, float movementSpeed);

@@ -17,9 +17,11 @@ namespace Frontend.Scripts.Models
         [Inject] protected readonly VehicleModelEffects vehicleModelEffects;
         [Inject(Id = "mainRig")] protected readonly Rigidbody rig;
 
+        [SerializeField] protected float visualElementsMovementSpeed = 50f;
+
         protected float repositionSpeed = 0;
         public float RepositionSpeed => repositionSpeed;
-
+        public float VisualElementsMovementSpeed => visualElementsMovementSpeed;
         public virtual void Initialize()
         {
         }
@@ -28,7 +30,7 @@ namespace Frontend.Scripts.Models
         {
             if (vehicleModelEffects.IsInsideCameraView)
             {
-                repositionSpeed = controller.VisualElementsMovementSpeed * Mathf.Max(0.4f, controller.CurrentSpeedRatio);
+                repositionSpeed = visualElementsMovementSpeed * Mathf.Max(0.4f, controller.CurrentSpeedRatio);
             }
         }
         public virtual void RotateWheel(float verticalDir, Vector3 rotateAroundAxis, Transform tireTransform, UTAxlePair pair)

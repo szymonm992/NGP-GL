@@ -22,7 +22,7 @@ namespace Frontend.Scripts.Components
         [SerializeField] private LayerMask gunMask;
 
         private bool isSniping = false;
-        private Transform gun;
+        private Transform localPlayerGun;
 
         public void Initialize()
         {
@@ -37,17 +37,17 @@ namespace Frontend.Scripts.Components
             if (vehicleController.HasTurret)
             {
                 var gunController = tempGameManager.PlayerContext.Container.Resolve<ITurretController>();
-                gun = gunController.Gun;
+                localPlayerGun = gunController.Gun;
             }
         }
 
         private void Update()
         {
-            if (gun != null)
+            if (localPlayerGun != null)
             {
-                Vector3 gunPosition = gun.position + gun.forward * gameParameters.GunMaxAimingDistance;
+                Vector3 gunPosition = localPlayerGun.position + localPlayerGun.forward * gameParameters.GunMaxAimingDistance;
 
-                if (Physics.Raycast(gun.position, gun.forward, out RaycastHit hit, gameParameters.GunMaxAimingDistance, gunMask))
+                if (Physics.Raycast(localPlayerGun.position, localPlayerGun.forward, out RaycastHit hit, gameParameters.GunMaxAimingDistance, gunMask))
                 {
                     gunPosition = hit.point;
                 }

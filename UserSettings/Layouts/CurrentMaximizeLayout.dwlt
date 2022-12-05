@@ -23,7 +23,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 300}
   m_MaxSize: {x: 24288, y: 24288}
   vertical: 1
-  controlID: 5306
+  controlID: 7422
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 300}
   m_MaxSize: {x: 24288, y: 24288}
   vertical: 0
-  controlID: 5307
+  controlID: 7423
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 300}
   m_MaxSize: {x: 16192, y: 24288}
   vertical: 1
-  controlID: 5295
+  controlID: 7424
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -190,7 +190,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 0
-  controlID: 5296
+  controlID: 7399
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -210,8 +210,8 @@ MonoBehaviour:
     y: 0
     width: 242
     height: 680
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 7}
   m_Panes:
   - {fileID: 7}
@@ -250,7 +250,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: c6f5ffffd8f5fffffcfaffff18fbffff1afbffff
+      m_ExpandedIDs: fcfaffff18fbffff1afbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -298,7 +298,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 5297
+  controlID: 7400
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -625,13 +625,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.000013385484, y: 0.9999864, z: 0.00450006, w: 0.0029998987}
+    m_Target: {x: 0.004188345, y: -0.99576545, z: 0.059817582, w: 0.06972425}
     speed: 2
-    m_Value: {x: -0.000013385471, y: 0.99998546, z: 0.0045000557, w: 0.002999896}
+    m_Value: {x: 0.0041883322, y: -0.99576247, z: 0.059817404, w: 0.06972404}
   m_Size:
-    m_Target: 2.9198124
+    m_Target: 3.1996105
     speed: 2
-    m_Value: 2.9198124
+    m_Value: 3.1996105
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -724,22 +724,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Plugins/GLShared/General/Components
+    - Assets/Frontend/Prefabs
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Plugins/GLShared/General/Components
+  - Assets/Frontend/Prefabs
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Administrator.QED\Desktop\UT\NGP-GL
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 174}
-    m_SelectedIDs: 5e9d0000
-    m_LastClickedID: 40286
-    m_ExpandedIDs: 00000000407b0000427b0000447b0000467b0000487b00004a7b00004c7b00004e7b0000507b0000727d0000609d0000629d000000ca9a3b
+    scrollPos: {x: 0, y: 79}
+    m_SelectedIDs: 647d0000
+    m_LastClickedID: 32100
+    m_ExpandedIDs: 00000000407b0000427b0000447b0000467b0000487b00004a7b00004c7b00004e7b0000507b000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -792,9 +792,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: c0f5ffffbaf5ffff
-    m_LastClickedInstanceID: -2624
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000e0a90200e8a90200
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -811,7 +811,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 0}
+      m_ClientGUIView: {fileID: 12}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -911,7 +911,7 @@ MonoBehaviour:
     m_CachedPref: 323
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: -2630
+  m_LastInspectedObjectInstanceID: -1
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
