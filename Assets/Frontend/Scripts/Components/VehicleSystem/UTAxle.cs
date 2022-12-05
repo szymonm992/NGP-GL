@@ -96,7 +96,7 @@ namespace Frontend.Scripts.Components
             Vector3 tireDesiredPosition = tireWorldPos + (pair.Wheel.Transform.up * tiresContactOffset);
 
             float wheelRepositionSpeedMultiplier = isNotfullyCompressed ? wheelReposition.RepositionSpeed : 0.1f;
-            float movementSpeed = wheelRepositionSpeedMultiplier * Time.deltaTime;
+            float movementSpeed = (pair.Wheel.IsGrounded ? wheelRepositionSpeedMultiplier : 5f) * Time.deltaTime;
             tireTransform.position = Vector3.Lerp(tireTransform.position, tireDesiredPosition, movementSpeed);
 
             if (canSteer)
