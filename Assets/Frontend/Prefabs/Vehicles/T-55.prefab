@@ -1100,6 +1100,7 @@ MonoBehaviour:
   terrainMask:
     serializedVersion: 2
     m_Bits: 64
+  idlerWheelOffset: {x: 0, y: 0, z: 0.2}
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -1155,6 +1156,7 @@ MonoBehaviour:
   terrainMask:
     serializedVersion: 2
     m_Bits: 64
+  idlerWheelOffset: {x: 0, y: 0, z: 0.2}
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -2833,6 +2835,7 @@ MonoBehaviour:
   terrainMask:
     serializedVersion: 2
     m_Bits: 64
+  idlerWheelOffset: {x: 0, y: 0, z: -0.2}
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -2981,6 +2984,7 @@ MonoBehaviour:
   terrainMask:
     serializedVersion: 2
     m_Bits: 64
+  idlerWheelOffset: {x: 0, y: 0, z: -0.2}
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -11842,7 +11846,7 @@ MonoBehaviour:
     m_Bits: 2147483647
   brakesForceApplyPoint: 1
   accelerationForceApplyPoint: 1
-  visualElementsMovementSpeed: 40
+  visualElementsMovementSpeed: 70
 --- !u!114 &2404649941768873089
 MonoBehaviour:
   m_ObjectHideFlags: 0

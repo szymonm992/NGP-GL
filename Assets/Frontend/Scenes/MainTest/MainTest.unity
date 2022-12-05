@@ -1160,11 +1160,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 980613772252854007, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: wheelRadius
-      value: 0.75
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 980613772252854007, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: idlerWheelOffset.z
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 980613773236984899, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: wheelRadius
-      value: 0.75
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 980613773236984899, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: idlerWheelOffset.z
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1381698131419342062, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: visualElementsMovementSpeed
@@ -1180,11 +1188,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2892712202545565127, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: wheelRadius
-      value: 0.75
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2892712202545565127, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: idlerWheelOffset.z
+      value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 2892712203473086323, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: wheelRadius
-      value: 0.75
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2892712203473086323, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
+      propertyPath: idlerWheelOffset.z
+      value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4249867249464716953, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
       propertyPath: m_LocalPosition.z
