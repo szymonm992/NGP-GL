@@ -12,10 +12,8 @@ namespace Frontend.Scripts.Components
 {
     public class RandomBattleManager : AutomachineEntity<BattleStage>
     {
-        [Inject] private readonly RandomBattleParameters randomBattleParameters;
-
-        [SerializeField] private bool allPlayersSpawned;
-        [SerializeField] private bool allPlayersConnectionsEstablished;
+        [SerializeField] private bool allPlayersSpawned = true;
+        [SerializeField] private bool allPlayersConnectionsEstablished = true;
 
         private BattleCountdownStage countdownState;
 

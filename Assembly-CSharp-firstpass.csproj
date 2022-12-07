@@ -56,14 +56,18 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IBattleParameters.cs" />
     <Compile Include="Assets\Plugins\Automachine\Attributes\DefaultStateAttribute.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Components\GameState\BattleInProgressStage.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IRNGHandler.cs" />
     <Compile Include="Assets\Plugins\GLShared\Utilities\Linq.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IVehicleStats.cs" />
     <Compile Include="Assets\Plugins\GLShared\Utilities\GizmosExtend.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Enums\RandomBattleStage.cs" />
     <Compile Include="Assets\Plugins\GLShared\Utilities\SelectableExtensions.cs" />
     <Compile Include="Assets\Plugins\GLShared\Utilities\GeneralAttributesHelper.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\ScriptableObjects\GameParameters.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Components\GameState\BattleCountdownStage.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Enums\DriveAxisSite.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\Gravity\CarGravity.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Enums\ForceApplyPoint.cs" />
@@ -71,6 +75,7 @@
     <Compile Include="Assets\Plugins\GLShared\Utilities\RendererExtensions.cs" />
     <Compile Include="Assets\Plugins\Automachine\Models\StateTransition.cs" />
     <Compile Include="Assets\Plugins\GLShared\Utilities\GeneralHelper.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\ScriptableObjects\RandomBattleParameters.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IGravityProvider.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\VehicleSystem\IVehicleSteering.cs" />
     <Compile Include="Assets\Plugins\GLShared\Utilities\GameObjectExtensions.cs" />
@@ -86,6 +91,7 @@
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IPlayerInputProvider.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Components\UTIdlerWheel.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\ITurretController.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Components\GameState\BattleBeginningStage.cs" />
     <Compile Include="Assets\Plugins\Automachine\Components\State.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Enums\UTDebugMode.cs" />
     <Compile Include="Assets\Plugins\Automachine\Models\AutomachineDebugSettings.cs" />
@@ -112,12 +118,6 @@
     <Compile Include="Assets\Plugins\Automachine\Installers\StateInstaller.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\VehicleSystem\IVehicleController.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IGameWorld.cs" />
-    <Compile Include="Assets\Plugins\GLShared\General\Enums\RandomBattleStage.cs" />
-    <Compile Include="Assets\Plugins\GLShared\General\Components\GameState\BattleBeginningStage.cs" />
-    <Compile Include="Assets\Plugins\GLShared\General\Components\GameState\BattleCountdownStage.cs" />
-    <Compile Include="Assets\Plugins\GLShared\General\ScriptableObjects\RandomBattleParameters.cs" />
-    <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IBattleParameters.cs" />
-    <Compile Include="Assets\Plugins\GLShared\General\Components\GameState\BattleInProgressStage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\SmartFox2X.dll" />
