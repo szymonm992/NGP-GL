@@ -14,6 +14,7 @@ namespace Frontend.Scripts
     public class GameSceneInstaller : MonoInstaller
     {
         [SerializeField] private GameParameters gameParameters;
+        [SerializeField] private RandomBattleParameters randomBattleParameters;
 
         public override void InstallBindings()
         {
@@ -40,6 +41,7 @@ namespace Frontend.Scripts
 
             Container.Bind<FormValidator>().AsSingle();
             Container.Bind<GameParameters>().FromInstance(gameParameters).AsSingle();
+            Container.BindInterfacesAndSelfTo<RandomBattleParameters>().FromInstance(randomBattleParameters).AsSingle();
         }
 
         private void InstallTemporary() //TO BE REMOVED WHEN ACTUAL GAME ARCHITECTURE COMES IN
