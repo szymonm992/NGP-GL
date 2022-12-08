@@ -9,6 +9,9 @@ using Frontend.Scripts.Models;
 using Frontend.Scripts.Interfaces;
 using Frontend.Scripts.Signals;
 using GLShared.General.Interfaces;
+using GLShared.General.Signals;
+using static GLShared.General.Signals.PlayerSignals;
+using GLShared.General.Models;
 
 namespace Frontend.Scripts.Components
 {
@@ -71,6 +74,21 @@ namespace Frontend.Scripts.Components
         public void Initialize()
         {
             signalBus.Subscribe<BattleSignals.CameraSignals.OnCameraBound>(OnCameraBoundToPlayer);
+            signalBus.Subscribe<PlayerSignals.OnPlayerInitialized>(OnPlayerInitialized);
+        }
+
+        private void OnPlayerInitialized(OnPlayerInitialized OnPlayerInitialized)
+        {
+            var playerProperties = OnPlayerInitialized.PlayerProperties;
+            if (playerProperties.IsLocal)
+            {
+                signalBus.Fire(new BattleSignals.CameraSignals.OnCameraBound()
+                {
+                    PlayerContext = playerProperties.PlayerContext,
+                    StartingEulerAngles = playerProperties.PlayerContext.transform.eulerAngles,
+                    InputProvider = playerProperties.PlayerContext.Container.Resolve<IPlayerInputProvider>()
+                });
+            }
         }
 
         private void OnCameraBoundToPlayer(BattleSignals.CameraSignals.OnCameraBound OnCameraBound)

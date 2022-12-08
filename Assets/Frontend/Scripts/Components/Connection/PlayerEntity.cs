@@ -16,12 +16,6 @@ namespace Frontend.Scripts.Components
         public bool IsLocalPlayer => isLocalPlayer;
         public PlayerProperties PlayerProperties => playerProperties;
 
-        [Inject]
-        public void Construct(PlayerProperties properties)
-        {
-            UpdateProperties(properties);
-        }
-
         public void UpdateProperties(PlayerProperties properties)
         {
             playerProperties = properties;

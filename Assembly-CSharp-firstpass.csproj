@@ -60,6 +60,7 @@
     <Compile Include="Assets\Plugins\Automachine\Attributes\DefaultStateAttribute.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Components\GameState\BattleInProgressStage.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IRNGHandler.cs" />
+    <Compile Include="Assets\Plugins\GLShared\Networking\Models\PlayerProperties.cs" />
     <Compile Include="Assets\Plugins\GLShared\Utilities\Linq.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IVehicleStats.cs" />
     <Compile Include="Assets\Plugins\GLShared\Utilities\GizmosExtend.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Assets\Plugins\GLShared\General\Models\Gravity\CarGravity.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Enums\ForceApplyPoint.cs" />
     <Compile Include="Assets\Plugins\Automachine\Models\TransitionManager.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IVehicleEntryInfo.cs" />
     <Compile Include="Assets\Plugins\GLShared\Utilities\RendererExtensions.cs" />
     <Compile Include="Assets\Plugins\Automachine\Models\StateTransition.cs" />
     <Compile Include="Assets\Plugins\GLShared\Utilities\GeneralHelper.cs" />
@@ -87,6 +89,7 @@
     <Compile Include="Assets\Plugins\Automachine\Interfaces\IAutomachineState.cs" />
     <Compile Include="Assets\Plugins\GLShared\Networking\Enums\NetworkEntityType.cs" />
     <Compile Include="Assets\Plugins\Automachine\Models\StateManager.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Interfaces\ISyncManager.cs" />
     <Compile Include="Assets\Plugins\GLShared\Utilities\DebugExtension.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IPlayerInputProvider.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Components\UTIdlerWheel.cs" />
@@ -94,6 +97,8 @@
     <Compile Include="Assets\Plugins\GLShared\General\Components\GameState\BattleBeginningStage.cs" />
     <Compile Include="Assets\Plugins\Automachine\Components\State.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Enums\UTDebugMode.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Installers\SettingsInstaller.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IVehiclesDatabase.cs" />
     <Compile Include="Assets\Plugins\Automachine\Models\AutomachineDebugSettings.cs" />
     <Compile Include="Assets\Plugins\GLShared\Networking\Components\SmartFoxConnection.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\GameWorld.cs" />
@@ -106,6 +111,7 @@
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\VehicleSystem\IVehicleAxle.cs" />
     <Compile Include="Assets\Plugins\Automachine\Enums\StateRebindOption.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IMouseActionsProvider.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\ScriptableObjects\VehiclesDatabase.cs" />
     <Compile Include="Assets\Plugins\GLShared\Networking\Components\NetworkEntity.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\HitInfo.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\Debug\UTWheelDebug.cs" />
@@ -116,15 +122,9 @@
     <Compile Include="Assets\Plugins\GLShared\Utilities\ZenjectExtensions.cs" />
     <Compile Include="Assets\Plugins\Automachine\Signals\StateSignals.cs" />
     <Compile Include="Assets\Plugins\Automachine\Installers\StateInstaller.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Models\VehicleEntryInfo.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\VehicleSystem\IVehicleController.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IGameWorld.cs" />
-    <Compile Include="Assets\Plugins\GLShared\General\Interfaces\ISyncManager.cs" />
-    <Compile Include="Assets\Plugins\GLShared\General\ScriptableObjects\VehiclesDatabase.cs" />
-    <Compile Include="Assets\Plugins\GLShared\General\Models\VehicleEntryInfo.cs" />
-    <Compile Include="Assets\Plugins\GLShared\General\Installers\SettingsInstaller.cs" />
-    <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IVehicleEntryInfo.cs" />
-    <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IVehiclesDatabase.cs" />
-    <Compile Include="Assets\Plugins\GLShared\Networking\Models\PlayerProperties.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\SmartFox2X.dll" />

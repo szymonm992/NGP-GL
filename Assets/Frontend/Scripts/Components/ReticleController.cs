@@ -26,10 +26,10 @@ namespace Frontend.Scripts.Components
         public void Initialize()
         {
             signalBus.Subscribe<BattleSignals.CameraSignals.OnCameraModeChanged>(OnCameraModeChanged);
-            signalBus.Subscribe<PlayerSignals.OnLocalPlayerInitialized>(CreateLocalPlayerSettings);
+            signalBus.Subscribe<PlayerSignals.OnPlayerInitialized>(CreateLocalPlayerSettings);
         }
 
-        private void CreateLocalPlayerSettings(PlayerSignals.OnLocalPlayerInitialized OnLocalPlayerInitialized)
+        private void CreateLocalPlayerSettings(PlayerSignals.OnPlayerInitialized OnLocalPlayerInitialized)
         {
             var playerContext = OnLocalPlayerInitialized.PlayerProperties.PlayerContext;
             var vehicleController = playerContext.Container.Resolve<IVehicleController>();

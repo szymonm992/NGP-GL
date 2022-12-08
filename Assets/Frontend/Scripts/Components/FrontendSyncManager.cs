@@ -22,57 +22,43 @@ namespace Frontend.Scripts.Components
 
         public void SpawnPlayer(string vehicleName, Vector3 spawnPosition, Quaternion spawnRotation)
         {
-            var playerInitData = GetPlayerInitData(vehicleName, spawnPosition, spawnRotation);
-            var playerProperties = playerInitData.Item2;
-            var playerContext = CreatePlayerContext(playerInitData.Item1, playerProperties);
+            var playerProperties = GetPlayerInitData(vehicleName, spawnPosition, spawnRotation);
+            var playerContext = CreatePlayerContext(playerProperties);
+            var playerEntity = playerContext.gameObject.GetComponent<PlayerEntity>();
 
-            connectedPlayers.Add("localPlayer", playerContext.Container.Resolve<INetworkEntity>());
+            playerEntity.UpdateProperties(playerProperties);
 
+            connectedPlayers.Add("localPlayer", playerEntity);
             signalBus.Fire(new PlayerSignals.OnPlayerSpawned()
             {
                 PlayerProperties = playerProperties,
             });
-
-            if(playerProperties.IsLocal)
-            {
-                if (playerProperties.IsLocal)
-                {
-                    signalBus.Fire(new BattleSignals.CameraSignals.OnCameraBound()
-                    {
-                        PlayerContext = playerProperties.PlayerContext,
-                        StartingEulerAngles = playerProperties.PlayerContext.transform.eulerAngles,
-                        InputProvider = playerProperties.PlayerContext.Container.Resolve<IPlayerInputProvider>()
-                    });
-                }
-            }
         }
 
-        private GameObjectContext CreatePlayerContext(GameObject prefab, PlayerProperties properties)
+        private GameObjectContext CreatePlayerContext(PlayerProperties properties)
         {
-            GameObject playerObject = Instantiate(prefab, properties.SpawnPosition, properties.SpawnRotation);
-            var playerContext = playerObject.GetComponent<GameObjectContext>();
+            GameObjectContext playerObject = Instantiate(properties.PlayerContext, properties.SpawnPosition, properties.SpawnRotation);
             playerObject.name = properties.PlayerVehicleName;
-            return playerContext;
+            return playerObject;
         }
 
-        private (GameObject, PlayerProperties) GetPlayerInitData(string vehicleName, Vector3 spawnPosition, Quaternion spawnRotation)
+        private PlayerProperties GetPlayerInitData(string vehicleName, Vector3 spawnPosition, Quaternion spawnRotation)
         {
             //TODO: handling check whether the player is local or not
 
-            (GameObject, PlayerProperties) retVal = default;
             var vehicleData = vehicleDatabase.GetVehicleInfo(vehicleName);
             if(vehicleData != null)
             {
-                retVal = (vehicleData.VehiclePrefab, new PlayerProperties()
+                return new PlayerProperties()
                 {
-                    PlayerContext = vehicleData.VehiclePrefab.GetComponent<GameObjectContext>(),
+                    PlayerContext = vehicleData.VehiclePrefab,
                     PlayerVehicleName = vehicleData.VehicleName,
                     IsLocal = true,
                     SpawnPosition = spawnPosition,
                     SpawnRotation = spawnRotation,
-                });
+                };
             }
-            return retVal;
+            return null;
         }
     }
 }

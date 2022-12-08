@@ -54,7 +54,7 @@ namespace Frontend.Scripts.Models
         protected float signedInputY;
 
         protected int allWheelsAmount;
-
+        protected bool isReady = false;
         #region Computed variables
         protected bool isBrake;
         protected float inputY;
@@ -110,7 +110,7 @@ namespace Frontend.Scripts.Models
 
             hasTurret = container.TryResolve<ITurretController>() != null;
 
-            signalBus.Fire(new PlayerSignals.OnLocalPlayerInitialized() 
+            signalBus.Fire(new PlayerSignals.OnPlayerInitialized() 
             {
                 PlayerProperties = playerEntity.PlayerProperties,
                 TurretRotationSpeed = hasTurret ? vehicleStats.TurretRotationSpeed : 0,
@@ -118,7 +118,7 @@ namespace Frontend.Scripts.Models
                 GunDepression = vehicleStats.GunDepression,
                 GunElevation = vehicleStats.GunElevation,
             });
-
+            isReady = true;
         }
 
         public virtual void SetupRigidbody()
@@ -150,6 +150,11 @@ namespace Frontend.Scripts.Models
 
         protected virtual void FixedUpdate()
         {
+            if(!isReady)
+            {
+                return;
+            }
+
             CalculateVehicleAngles();
             SetCenterOfMassToPoint(horizontalAngle >= 50f ? centerOfMassUngrounded : centerOfMass);
 

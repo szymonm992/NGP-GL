@@ -14,6 +14,7 @@ namespace Frontend.Scripts.Components
     {
         public override void InstallBindings()
         {
+            Container.BindInterfacesAndSelfTo<PlayerEntity>().FromComponentInHierarchy().AsCached();
             Container.BindInterfacesAndSelfTo<UTAxleBase>().FromComponentsInHierarchy().AsCached();
             Container.BindInterfacesAndSelfTo<UTPhysicWheelBase>().FromComponentsInHierarchy().AsCached().NonLazy();
 

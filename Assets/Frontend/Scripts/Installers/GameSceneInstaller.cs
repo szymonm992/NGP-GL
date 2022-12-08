@@ -17,9 +17,6 @@ namespace Frontend.Scripts
         [SerializeField] private GameParameters gameParameters;
         [SerializeField] private RandomBattleParameters randomBattleParameters;
 
-
-        [SerializeField] private GameObject t55prefab;
-
         public override void InstallBindings()
         {
             InstallMain();
@@ -34,7 +31,7 @@ namespace Frontend.Scripts
 
             Container.DeclareSignal<BattleSignals.CameraSignals.OnCameraBound>();
             Container.DeclareSignal<BattleSignals.CameraSignals.OnCameraModeChanged>();
-            Container.DeclareSignal<PlayerSignals.OnLocalPlayerInitialized>();
+            Container.DeclareSignal<PlayerSignals.OnPlayerInitialized>();
             Container.DeclareSignal<PlayerSignals.OnPlayerSpawned>();
         }
 
@@ -42,7 +39,6 @@ namespace Frontend.Scripts
         {
             Container.Bind<SmartFoxConnection>().FromComponentInHierarchy().AsCached();
             Container.Bind<ConnectionManager>().FromComponentInHierarchy().AsCached();
-            Container.BindFactory<PlayerProperties, PlayerEntity, PlaceholderFactory<PlayerProperties, PlayerEntity>>().FromComponentInNewPrefab(t55prefab);
 
             Container.BindInterfacesAndSelfTo<ReticleController>().FromComponentInHierarchy().AsSingle();
 

@@ -69,6 +69,7 @@
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTAckermann.cs" />
     <Compile Include="Assets\Frontend\Scripts\Interfaces\IPlayerEntity.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\SpringInfo.cs" />
+    <Compile Include="Assets\Frontend\Scripts\ScriptableObjects\FrontendVehicleDatabase.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VisualEffects\VehicleModelEffects.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\AssociatedUI\WelcomeUI.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\Connection\PlayerEntity.cs" />
@@ -96,12 +97,11 @@
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTAxle.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\WheelRepositionBase.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\SelectableKVP.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Components\FrontendSyncManager.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\AssociatedUI\AssociatedUI.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\FormValidator.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTTankSteering.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTWheelFrictionCurve.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\FrontendSyncManager.cs" />
-    <Compile Include="Assets\Frontend\Scripts\ScriptableObjects\FrontendVehicleDatabase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
