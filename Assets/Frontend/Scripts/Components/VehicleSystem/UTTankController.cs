@@ -16,11 +16,6 @@ namespace Frontend.Scripts.Components
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-            if (!isReady)
-            {
-                return;
-            }
-
             CustomGravityLogic();
 
             if (!isUpsideDown)

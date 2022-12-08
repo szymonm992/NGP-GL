@@ -15,7 +15,7 @@ namespace Frontend.Scripts.Components
 
         private readonly Dictionary<string, INetworkEntity> connectedPlayers = new Dictionary<string, INetworkEntity>();
       
-        public void SpawnPlayer(string vehicleName, Vector3 spawnPosition, Quaternion spawnRotation)
+        public void CreatePlayer(string vehicleName, Vector3 spawnPosition, Quaternion spawnRotation)
         {
             var playerProperties = GetPlayerInitData(vehicleName, spawnPosition, spawnRotation);
             var prefabEntity = playerProperties.PlayerContext.gameObject.GetComponent<PlayerEntity>();//this references only to prefab

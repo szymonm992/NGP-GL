@@ -1303,6 +1303,7 @@ GameObject:
   - component: {fileID: 1502350197}
   - component: {fileID: 3183221227695854892}
   - component: {fileID: 7022303003981034235}
+  - component: {fileID: 5861442966897584549}
   m_Layer: 0
   m_Name: BUGGY_UTWHEEL
   m_TagString: Untagged
@@ -1417,7 +1418,6 @@ MonoBehaviour:
     m_Bits: 67109111
   brakesForceApplyPoint: 0
   accelerationForceApplyPoint: 1
-  visualElementsMovementSpeed: 50
   airControl: 1
 --- !u!114 &7623138870644961507
 MonoBehaviour:
@@ -1452,11 +1452,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _components:
+  - {fileID: 5861442966897584549}
   - {fileID: 7623138870644961508}
   - {fileID: 7623138870644961511}
   - {fileID: 1502350205}
-  - {fileID: 1502350197}
   - {fileID: 3183221227695854892}
+  - {fileID: 1502350197}
   _identifier: 
   _useSceneContext: 0
   _context: {fileID: 0}
@@ -1588,6 +1589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3094d0b42ac34fe45bf8db5e64145deb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visualElementsMovementSpeed: 50
 --- !u!114 &7022303003981034235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1600,6 +1602,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0caa172a6dd5fb949ac12f971f3300c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5861442966897584549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7623138870644961530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 900b18bb264b97849909b65c01e35819, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectType: 0
+  isLocalPlayer: 0
 --- !u!1 &7623138870716910070
 GameObject:
   m_ObjectHideFlags: 0

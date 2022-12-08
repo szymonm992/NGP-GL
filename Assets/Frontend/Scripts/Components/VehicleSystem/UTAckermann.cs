@@ -26,7 +26,10 @@ namespace Frontend.Scripts.Components
 
         private void Update()
         {
-            SetSteeringInput(inputProvider.Horizontal);
+            if (suspensionController != null)
+            {
+                SetSteeringInput(inputProvider.Horizontal);
+            }
         }
 
         private void FixedUpdate()
@@ -49,8 +52,9 @@ namespace Frontend.Scripts.Components
                 ackermannAngleRight = 0;
             }
 
-            if(suspensionController.HasAnyWheels)
+            if (suspensionController.HasAnyWheels)
             {
+                Debug.Log("bbb");
                 foreach (var axle in suspensionController.AllAxles)
                 {
                     if (axle.CanSteer)
@@ -59,6 +63,10 @@ namespace Frontend.Scripts.Components
                         axle.SetSteerAngle(ackermannAngleLeft * multiplier, ackermannAngleRight * multiplier);
                     }
                 }
+            }
+            else
+            {
+                Debug.Log("aaa" );
             }
         }
     }

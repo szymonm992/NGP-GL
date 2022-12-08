@@ -58,7 +58,7 @@ namespace Frontend.Scripts.Models
         protected float signedInputY;
 
         protected int allWheelsAmount;
-        protected bool isReady = false;
+   
         #region Computed variables
         protected bool isBrake;
         protected float inputY;
@@ -90,7 +90,6 @@ namespace Frontend.Scripts.Models
         public bool DoesGravityDamping => doesGravityDamping;
         public bool IsUpsideDown => isUpsideDown;
         public bool HasTurret => hasTurret;
-        public bool IsReady => isReady;
         public LayerMask WheelsCollisionDetectionMask => wheelsCollisionDetectionMask;
         public ForceApplyPoint BrakesForceApplyPoint => brakesForceApplyPoint;
         public ForceApplyPoint AccelerationForceApplyPoint => accelerationForceApplyPoint;
@@ -115,7 +114,7 @@ namespace Frontend.Scripts.Models
             hasTurret = container.TryResolve<ITurretController>() != null;
 
             signalBus.Subscribe<PlayerSignals.OnPlayerSpawned>(OnPlayerSpawned);
-            isReady = true;
+
         }
 
         private void OnPlayerSpawned()
@@ -160,11 +159,6 @@ namespace Frontend.Scripts.Models
 
         protected virtual void FixedUpdate()
         {
-            if(!isReady)
-            {
-                return;
-            }
-
             CalculateVehicleAngles();
             SetCenterOfMassToPoint(horizontalAngle >= 50f ? centerOfMassUngrounded : centerOfMass);
 

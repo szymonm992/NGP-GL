@@ -33,10 +33,8 @@ namespace Frontend.Scripts.Components
         private void OnPlayerInitialized(PlayerSignals.OnPlayerInitialized OnLocalPlayerInitialized)
         {
             var playerContext = OnLocalPlayerInitialized.PlayerProperties.PlayerContext;
+            var vehicleController = playerContext.Container.Resolve<IVehicleController>();
 
-            Debug.Log(playerContext.Container == null);
-            var vehicleController = playerContext.Container.TryResolve<IVehicleController>();
-            Debug.Log(vehicleController == null);
             if (vehicleController.HasTurret)
             {
                 var gunController = playerContext.Container.Resolve<ITurretController>();
