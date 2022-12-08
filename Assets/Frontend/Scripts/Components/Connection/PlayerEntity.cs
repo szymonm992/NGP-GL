@@ -1,3 +1,5 @@
+using Frontend.Scripts.Models;
+using GLShared.General.Interfaces;
 using GLShared.General.Models;
 using GLShared.Networking.Components;
 using System.Collections;
@@ -16,13 +18,27 @@ namespace Frontend.Scripts.Components
         public bool IsLocalPlayer => isLocalPlayer;
         public PlayerProperties PlayerProperties => playerProperties;
 
+        [Inject]
+        public void Construct(PlayerProperties properties)
+        {
+            UpdateProperties(properties);
+            
+        }
+
         public void UpdateProperties(PlayerProperties properties)
         {
             playerProperties = properties;
 
-            transform.position = playerProperties.SpawnPosition;
-            transform.rotation = playerProperties.SpawnRotation;
+            transform.SetPositionAndRotation(playerProperties.SpawnPosition, playerProperties.SpawnRotation);
             isLocalPlayer = playerProperties.IsLocal;
+
+            Debug.Log("0");
         }
+
+        public class Factory : PlaceholderFactory<PlayerProperties, PlayerEntity>
+        {
+
+        }
+
     }
 }

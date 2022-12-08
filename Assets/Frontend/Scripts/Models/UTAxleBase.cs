@@ -52,11 +52,6 @@ namespace Frontend.Scripts.Models
         public bool HasAnyWheelPair => wheelPairs.Any();
         public bool HasAnyWheel => hasAnyWheel;
 
-        protected void Awake()
-        {
-            allWheels = wheelPairs.Select(pair => pair.Wheel).ToArray();
-            hasAnyWheel = allWheels.Any();
-        }
 
         protected IEnumerable<IPhysicsWheel> GetGroundedWheels()
         {
@@ -70,6 +65,9 @@ namespace Frontend.Scripts.Models
 
         public virtual void Initialize()
         {
+            allWheels = wheelPairs.Select(pair => pair.Wheel).ToArray();
+            hasAnyWheel = allWheels.Any();
+
             if (HasAnyWheelPair)
             {
                 foreach (var pair in wheelPairs)

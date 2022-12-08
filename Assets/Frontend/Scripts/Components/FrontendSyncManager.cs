@@ -17,11 +17,26 @@ namespace Frontend.Scripts.Components
     {
         [Inject] private readonly SignalBus signalBus;
         [Inject] private readonly IVehiclesDatabase vehicleDatabase;
+        [Inject] private readonly PlayerEntity.Factory playerFactory;
 
         private readonly Dictionary<string, INetworkEntity> connectedPlayers = new Dictionary<string, INetworkEntity>();
 
+
         public void SpawnPlayer(string vehicleName, Vector3 spawnPosition, Quaternion spawnRotation)
         {
+            var playerProperties = GetPlayerInitData(vehicleName, spawnPosition, spawnRotation);
+
+            if(playerProperties != null)
+            {
+                var newPlayer = playerFactory.Create(playerProperties);
+            }
+            else
+            {
+                Debug.LogError("No such vehicle found!");
+            }
+            
+
+            /*
             var playerProperties = GetPlayerInitData(vehicleName, spawnPosition, spawnRotation);
             var playerContext = CreatePlayerContext(playerProperties);
             var playerEntity = playerContext.gameObject.GetComponent<PlayerEntity>();
@@ -32,7 +47,7 @@ namespace Frontend.Scripts.Components
             signalBus.Fire(new PlayerSignals.OnPlayerSpawned()
             {
                 PlayerProperties = playerProperties,
-            });
+            });*/
         }
 
         private GameObjectContext CreatePlayerContext(PlayerProperties properties)

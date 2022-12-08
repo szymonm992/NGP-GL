@@ -83,7 +83,7 @@ namespace Frontend.Scripts.Components
 
         protected override void FixedUpdate()
         {
-            if (vehicleModelEffects.IsInsideCameraView)
+            if (vehicleModelEffects != null && vehicleModelEffects.IsInsideCameraView)
             {
                 base.FixedUpdate();
                 TrackMovement();

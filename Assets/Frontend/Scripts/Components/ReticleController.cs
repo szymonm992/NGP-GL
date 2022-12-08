@@ -32,6 +32,8 @@ namespace Frontend.Scripts.Components
         private void CreateLocalPlayerSettings(PlayerSignals.OnPlayerInitialized OnLocalPlayerInitialized)
         {
             var playerContext = OnLocalPlayerInitialized.PlayerProperties.PlayerContext;
+
+            Debug.Log((OnLocalPlayerInitialized.PlayerProperties==null) +" | "+ (playerContext == null));
             var vehicleController = playerContext.Container.Resolve<IVehicleController>();
 
             if (vehicleController.HasTurret)

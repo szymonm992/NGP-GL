@@ -16,7 +16,8 @@ namespace Frontend.Scripts
     {
         [SerializeField] private GameParameters gameParameters;
         [SerializeField] private RandomBattleParameters randomBattleParameters;
-
+        [SerializeField] private PlayerEntity testGoprefab;
+        
         public override void InstallBindings()
         {
             InstallMain();
@@ -39,6 +40,8 @@ namespace Frontend.Scripts
         {
             Container.Bind<SmartFoxConnection>().FromComponentInHierarchy().AsCached();
             Container.Bind<ConnectionManager>().FromComponentInHierarchy().AsCached();
+
+            Container.BindFactory<PlayerProperties, PlayerEntity, PlayerEntity.Factory>().FromComponentInNewPrefab(testGoprefab);
 
             Container.BindInterfacesAndSelfTo<ReticleController>().FromComponentInHierarchy().AsSingle();
 

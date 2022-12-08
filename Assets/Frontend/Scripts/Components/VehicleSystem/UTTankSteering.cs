@@ -26,7 +26,10 @@ namespace Frontend.Scripts
 
         private void Update()
         {
-            SetSteeringInput(inputProvider.Horizontal);
+            if(suspensionController != null && suspensionController.IsReady)
+            {
+                SetSteeringInput(inputProvider.Horizontal);
+            }
         }
 
 

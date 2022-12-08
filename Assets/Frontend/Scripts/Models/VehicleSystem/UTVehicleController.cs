@@ -14,6 +14,7 @@ using System.ComponentModel;
 using Frontend.Scripts.Signals;
 using GLShared.General.Signals;
 using GLShared.Networking.Interfaces;
+using GLShared.General.Models;
 
 namespace Frontend.Scripts.Models
 {
@@ -26,7 +27,7 @@ namespace Frontend.Scripts.Models
         [Inject] protected readonly IPlayerInputProvider inputProvider;
         [Inject] protected readonly VehicleStatsBase vehicleStats;
         [Inject] protected readonly DiContainer container;
-        [Inject] protected readonly PlayerEntity playerEntity;
+ 
         [Inject(Optional = true)] protected readonly Speedometer speedometer;
 
 
@@ -44,7 +45,7 @@ namespace Frontend.Scripts.Models
 
         protected bool hasAnyWheels;
         protected bool hasTurret;
-
+        private PlayerProperties playerProperties;
         protected float currentSpeed;
         protected float absoluteInputY;
         protected float absoluteInputX;
@@ -86,7 +87,7 @@ namespace Frontend.Scripts.Models
         public bool DoesGravityDamping => doesGravityDamping;
         public bool IsUpsideDown => isUpsideDown;
         public bool HasTurret => hasTurret;
-
+        public bool IsReady => isReady;
         public LayerMask WheelsCollisionDetectionMask => wheelsCollisionDetectionMask;
         public ForceApplyPoint BrakesForceApplyPoint => brakesForceApplyPoint;
         public ForceApplyPoint AccelerationForceApplyPoint => accelerationForceApplyPoint;
@@ -110,9 +111,9 @@ namespace Frontend.Scripts.Models
 
             hasTurret = container.TryResolve<ITurretController>() != null;
 
-            signalBus.Fire(new PlayerSignals.OnPlayerInitialized() 
+            signalBus.Fire(new PlayerSignals.OnPlayerInitialized()
             {
-                PlayerProperties = playerEntity.PlayerProperties,
+                PlayerProperties = playerProperties,
                 TurretRotationSpeed = hasTurret ? vehicleStats.TurretRotationSpeed : 0,
                 GunRotationSpeed = hasTurret ? vehicleStats.GunRotationSpeed : 0,
                 GunDepression = vehicleStats.GunDepression,
@@ -120,6 +121,7 @@ namespace Frontend.Scripts.Models
             });
             isReady = true;
         }
+
 
         public virtual void SetupRigidbody()
         {
