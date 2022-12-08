@@ -75,10 +75,10 @@ namespace Frontend.Scripts.Components
 
         private void OnCameraBoundToPlayer(BattleSignals.CameraSignals.OnCameraBound OnCameraBound)
         {
-            currentPlayerObject = OnCameraBound.context.transform.gameObject;
-            parameters = OnCameraBound.context.Container.Resolve<VehicleStatsBase>();
-            inputProvider = OnCameraBound.inputProvider;
-            FurtherAssigningLogic(OnCameraBound.startingEulerAngles);
+            currentPlayerObject = OnCameraBound.PlayerContext.transform.gameObject;
+            parameters = OnCameraBound.PlayerContext.Container.Resolve<VehicleStatsBase>();
+            inputProvider = OnCameraBound.InputProvider;
+            FurtherAssigningLogic(OnCameraBound.StartingEulerAngles);
         }
 
         private void FurtherAssigningLogic(Vector3 startingEA)
@@ -96,7 +96,7 @@ namespace Frontend.Scripts.Components
 
             signalBus.Fire(new BattleSignals.CameraSignals.OnCameraModeChanged()
             {
-                playerObject = currentPlayerObject,
+                PlayerObject = currentPlayerObject,
                 IsSniping = isSniping
             });
         }
@@ -357,7 +357,7 @@ namespace Frontend.Scripts.Components
 
             signalBus.Fire(new BattleSignals.CameraSignals.OnCameraModeChanged()
             {
-                playerObject = currentPlayerObject,
+                PlayerObject = currentPlayerObject,
                 IsSniping = isSniping
             });
         }

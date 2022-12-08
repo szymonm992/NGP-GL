@@ -15,7 +15,6 @@ namespace Frontend.Scripts.Components
         [Inject] private readonly SignalBus signalBus;
         [Inject] private readonly FrontendCameraController cameraController;
         [Inject] private readonly GameParameters gameParameters;
-        [Inject] private readonly TempGameManager tempGameManager;
 
         [SerializeField] private RectTransform middleScreenCrosshair;
         [SerializeField] private RectTransform gunReticle;
@@ -32,11 +31,12 @@ namespace Frontend.Scripts.Components
 
         private void CreateLocalPlayerSettings(PlayerSignals.OnLocalPlayerInitialized OnLocalPlayerInitialized)
         {
-            var vehicleController = tempGameManager.PlayerContext.Container.Resolve<IVehicleController>();
+            var playerContext = OnLocalPlayerInitialized.PlayerProperties.PlayerContext;
+            var vehicleController = playerContext.Container.Resolve<IVehicleController>();
 
             if (vehicleController.HasTurret)
             {
-                var gunController = tempGameManager.PlayerContext.Container.Resolve<ITurretController>();
+                var gunController = playerContext.Container.Resolve<ITurretController>();
                 localPlayerGun = gunController.Gun;
             }
         }

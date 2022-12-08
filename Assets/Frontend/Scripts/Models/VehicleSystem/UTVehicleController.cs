@@ -13,6 +13,7 @@ using GLShared.General.Components;
 using System.ComponentModel;
 using Frontend.Scripts.Signals;
 using GLShared.General.Signals;
+using GLShared.Networking.Interfaces;
 
 namespace Frontend.Scripts.Models
 {
@@ -25,6 +26,7 @@ namespace Frontend.Scripts.Models
         [Inject] protected readonly IPlayerInputProvider inputProvider;
         [Inject] protected readonly VehicleStatsBase vehicleStats;
         [Inject] protected readonly DiContainer container;
+        [Inject] protected readonly PlayerEntity playerEntity;
         [Inject(Optional = true)] protected readonly Speedometer speedometer;
 
 
@@ -110,11 +112,13 @@ namespace Frontend.Scripts.Models
 
             signalBus.Fire(new PlayerSignals.OnLocalPlayerInitialized() 
             {
+                PlayerProperties = playerEntity.PlayerProperties,
                 TurretRotationSpeed = hasTurret ? vehicleStats.TurretRotationSpeed : 0,
                 GunRotationSpeed = hasTurret ? vehicleStats.GunRotationSpeed : 0,
                 GunDepression = vehicleStats.GunDepression,
                 GunElevation = vehicleStats.GunElevation,
             });
+
         }
 
         public virtual void SetupRigidbody()

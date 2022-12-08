@@ -23,7 +23,7 @@ namespace Frontend.Scripts.Components
 
         private void OnCameraZoomChanged(BattleSignals.CameraSignals.OnCameraModeChanged OnCameraZoomChanged)
         {
-            if (OnCameraZoomChanged.playerObject != gameObject)
+            if (OnCameraZoomChanged.PlayerObject != gameObject)
             {
                 return;
             }

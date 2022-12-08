@@ -8,6 +8,7 @@ using GLShared.Networking;
 using GLShared.General.ScriptableObjects;
 using Frontend.Scripts.Components.Temporary;
 using GLShared.General.Signals;
+using GLShared.General.Models;
 
 namespace Frontend.Scripts
 {
@@ -15,6 +16,9 @@ namespace Frontend.Scripts
     {
         [SerializeField] private GameParameters gameParameters;
         [SerializeField] private RandomBattleParameters randomBattleParameters;
+
+
+        [SerializeField] private GameObject t55prefab;
 
         public override void InstallBindings()
         {
@@ -31,12 +35,15 @@ namespace Frontend.Scripts
             Container.DeclareSignal<BattleSignals.CameraSignals.OnCameraBound>();
             Container.DeclareSignal<BattleSignals.CameraSignals.OnCameraModeChanged>();
             Container.DeclareSignal<PlayerSignals.OnLocalPlayerInitialized>();
+            Container.DeclareSignal<PlayerSignals.OnPlayerSpawned>();
         }
 
         private void InstallMain()
         {
             Container.Bind<SmartFoxConnection>().FromComponentInHierarchy().AsCached();
             Container.Bind<ConnectionManager>().FromComponentInHierarchy().AsCached();
+            Container.BindFactory<PlayerProperties, PlayerEntity, PlaceholderFactory<PlayerProperties, PlayerEntity>>().FromComponentInNewPrefab(t55prefab);
+
             Container.BindInterfacesAndSelfTo<ReticleController>().FromComponentInHierarchy().AsSingle();
 
             Container.Bind<FormValidator>().AsSingle();
@@ -44,9 +51,9 @@ namespace Frontend.Scripts
             Container.BindInterfacesAndSelfTo<RandomBattleParameters>().FromInstance(randomBattleParameters).AsSingle();
         }
 
-        private void InstallTemporary() //TO BE REMOVED WHEN ACTUAL GAME ARCHITECTURE COMES IN
+        private void InstallTemporary() 
         {
-            Container.BindInterfacesAndSelfTo<TempGameManager>().FromComponentInHierarchy().AsCached();
+            
         }
 
         public void OnValidate()

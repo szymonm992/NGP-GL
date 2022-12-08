@@ -128,7 +128,10 @@ namespace Frontend.Scripts.Components
             
                 if (mainDummy.UpwardDummy != null)
                 {
-                    float desiredUpwardsOffsetY = mainDummy.transform.InverseTransformPoint(desiredPos + (mainDummy.UpwardDummy.up * mainDummy.UpwardDummyOffset)).y;
+                    float desiredUpwardsOffsetY = Mathf.Lerp(mainDummy.UpwardDummyHolder.localPosition.y, 
+                        mainDummy.transform.InverseTransformPoint(desiredPos + (mainDummy.UpwardDummy.up * mainDummy.UpwardDummyOffset)).y,
+                        trackMovementSpeed);
+
                     mainDummy.UpwardDummyHolder.localPosition =
                         new Vector3(0, desiredUpwardsOffsetY, 0);
                 }

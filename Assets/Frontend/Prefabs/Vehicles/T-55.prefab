@@ -9365,8 +9365,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 181178416564340224}
-  - component: {fileID: 3716642657863847833}
-  - component: {fileID: 8768334246357682406}
   m_Layer: 0
   m_Name: T-55
   m_TagString: Untagged
@@ -9406,38 +9404,6 @@ Transform:
   m_Father: {fileID: 5497972940232234640}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3716642657863847833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6680552026902107739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9fd81bbf54f2214cb0a3e62a09defbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectType: 0
-  isLocalPlayer: 0
---- !u!114 &8768334246357682406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6680552026902107739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0166d8ff8d905b048b2448179e1f5d11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _components:
-  - {fileID: 3716642657863847833}
-  _identifier: 
-  _useSceneContext: 0
-  _context: {fileID: 0}
-  _bindType: 2
 --- !u!1 &6743236196089298293
 GameObject:
   m_ObjectHideFlags: 0
@@ -11846,6 +11812,7 @@ GameObject:
   - component: {fileID: 8255813644745574887}
   - component: {fileID: 4703210311339521858}
   - component: {fileID: 8908291513616745327}
+  - component: {fileID: 5277340808731574008}
   m_Layer: 0
   m_Name: T-55
   m_TagString: Untagged
@@ -11955,6 +11922,7 @@ MonoBehaviour:
   - {fileID: 2618250326273635535}
   - {fileID: 8255813644745574887}
   - {fileID: 4703210311339521858}
+  - {fileID: 5277340808731574008}
   _identifier: 
   _useSceneContext: 0
   _context: {fileID: 0}
@@ -12180,6 +12148,20 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &5277340808731574008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8797747351685325955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9fd81bbf54f2214cb0a3e62a09defbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectType: 0
+  isLocalPlayer: 0
 --- !u!1 &8913179709298987667
 GameObject:
   m_ObjectHideFlags: 0
