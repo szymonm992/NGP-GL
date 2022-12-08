@@ -16,16 +16,18 @@ namespace Frontend.Scripts.Components
         [SerializeField] private bool allPlayersConnectionsEstablished = true;
 
         private BattleCountdownStage countdownState;
+        private BattleBeginningStage beginningStage;
 
         public override void OnStateMachineInitialized(OnStateMachineInitialized<BattleStage> OnStateMachineInitialized)
         {
+            beginningStage = (BattleBeginningStage)stateMachine.GetState(BattleStage.Beginning);
             countdownState = (BattleCountdownStage)stateMachine.GetState(BattleStage.Countdown);
+            
             base.OnStateMachineInitialized(OnStateMachineInitialized);
             stateMachine.AddTransition(BattleStage.Beginning, BattleStage.Countdown
                 , () => allPlayersSpawned && allPlayersConnectionsEstablished);
 
             stateMachine.AddTransition(BattleStage.Countdown, BattleStage.InProgress, () => countdownState.FinishedCountdown);
-
         }
     }
 }
