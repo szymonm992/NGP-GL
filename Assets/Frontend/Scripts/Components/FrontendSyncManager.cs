@@ -1,60 +1,27 @@
-using Frontend.Scripts.ScriptableObjects;
-using Frontend.Scripts.Signals;
 using GLShared.General.Interfaces;
 using GLShared.General.Models;
-using GLShared.General.Signals;
+using GLShared.Networking.Components;
 using GLShared.Networking.Interfaces;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Zenject;
-using static GLShared.General.Signals.PlayerSignals;
 
 namespace Frontend.Scripts.Components
 {
     public class FrontendSyncManager : MonoBehaviour, ISyncManager
     {
-        [Inject] private readonly SignalBus signalBus;
         [Inject] private readonly IVehiclesDatabase vehicleDatabase;
-        [Inject] private readonly PlayerEntity.Factory playerFactory;
+        [Inject] private readonly PlayerSpawner playerSpawner;
 
         private readonly Dictionary<string, INetworkEntity> connectedPlayers = new Dictionary<string, INetworkEntity>();
-
-
+      
         public void SpawnPlayer(string vehicleName, Vector3 spawnPosition, Quaternion spawnRotation)
         {
             var playerProperties = GetPlayerInitData(vehicleName, spawnPosition, spawnRotation);
-
-            if(playerProperties != null)
-            {
-                var newPlayer = playerFactory.Create(playerProperties);
-            }
-            else
-            {
-                Debug.LogError("No such vehicle found!");
-            }
-            
-
-            /*
-            var playerProperties = GetPlayerInitData(vehicleName, spawnPosition, spawnRotation);
-            var playerContext = CreatePlayerContext(playerProperties);
-            var playerEntity = playerContext.gameObject.GetComponent<PlayerEntity>();
-
-            playerEntity.UpdateProperties(playerProperties);
+            var prefabEntity = playerProperties.PlayerContext.gameObject.GetComponent<PlayerEntity>();//this references only to prefab
+            var playerEntity = playerSpawner.Spawn(prefabEntity, playerProperties);
 
             connectedPlayers.Add("localPlayer", playerEntity);
-            signalBus.Fire(new PlayerSignals.OnPlayerSpawned()
-            {
-                PlayerProperties = playerProperties,
-            });*/
-        }
-
-        private GameObjectContext CreatePlayerContext(PlayerProperties properties)
-        {
-            GameObjectContext playerObject = Instantiate(properties.PlayerContext, properties.SpawnPosition, properties.SpawnRotation);
-            playerObject.name = properties.PlayerVehicleName;
-            return playerObject;
         }
 
         private PlayerProperties GetPlayerInitData(string vehicleName, Vector3 spawnPosition, Quaternion spawnRotation)

@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+using static GLShared.General.Signals.PlayerSignals;
 
 namespace Frontend.Scripts.Components
 {
@@ -26,16 +27,16 @@ namespace Frontend.Scripts.Components
         public void Initialize()
         {
             signalBus.Subscribe<BattleSignals.CameraSignals.OnCameraModeChanged>(OnCameraModeChanged);
-            signalBus.Subscribe<PlayerSignals.OnPlayerInitialized>(CreateLocalPlayerSettings);
+            signalBus.Subscribe<PlayerSignals.OnPlayerInitialized>(OnPlayerInitialized);
         }
 
-        private void CreateLocalPlayerSettings(PlayerSignals.OnPlayerInitialized OnLocalPlayerInitialized)
+        private void OnPlayerInitialized(PlayerSignals.OnPlayerInitialized OnLocalPlayerInitialized)
         {
             var playerContext = OnLocalPlayerInitialized.PlayerProperties.PlayerContext;
 
-            Debug.Log((OnLocalPlayerInitialized.PlayerProperties==null) +" | "+ (playerContext == null));
-            var vehicleController = playerContext.Container.Resolve<IVehicleController>();
-
+            Debug.Log(playerContext.Container == null);
+            var vehicleController = playerContext.Container.TryResolve<IVehicleController>();
+            Debug.Log(vehicleController == null);
             if (vehicleController.HasTurret)
             {
                 var gunController = playerContext.Container.Resolve<ITurretController>();

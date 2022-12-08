@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +9,6 @@ using Frontend.Scripts.Interfaces;
 using Frontend.Scripts.Signals;
 using GLShared.General.Interfaces;
 using GLShared.General.Signals;
-using static GLShared.General.Signals.PlayerSignals;
 using GLShared.General.Models;
 
 namespace Frontend.Scripts.Components
@@ -44,14 +42,16 @@ namespace Frontend.Scripts.Components
         [SerializeField] private float snipingSensScale = 0.2f;
         [SerializeField] private float snipingMaxSensScale = 0.15f;
 
-        private VehicleStatsBase parameters;
         private IPlayerInputProvider inputProvider;
+
+        private float gunDepression;
+        private float gunElevation;
 
         [Header("Object Attachment")]
         public LayerMask targetMask;
         private Transform orbitFollowPoint;
         private Transform snipingFollowPoint;
-        private GameObject currentPlayerObject;
+        public GameObject currentPlayerObject;
 
         private float desiredOrbitDist;
         private float desiredSnipingZoom;
@@ -70,23 +70,27 @@ namespace Frontend.Scripts.Components
 
         public float ReticlePixelsOffset => reticlePixelsOffset;
         public Vector3 CameraTargetingPosition => targetPosition;
-
+        public GameObjectContext context;
         public void Initialize()
         {
             signalBus.Subscribe<BattleSignals.CameraSignals.OnCameraBound>(OnCameraBoundToPlayer);
             signalBus.Subscribe<PlayerSignals.OnPlayerInitialized>(OnPlayerInitialized);
         }
 
-        private void OnPlayerInitialized(OnPlayerInitialized OnPlayerInitialized)
+        private void OnPlayerInitialized(PlayerSignals.OnPlayerInitialized OnPlayerInitialized)
         {
             var playerProperties = OnPlayerInitialized.PlayerProperties;
+            context = playerProperties.PlayerContext;
+
             if (playerProperties.IsLocal)
             {
                 signalBus.Fire(new BattleSignals.CameraSignals.OnCameraBound()
                 {
                     PlayerContext = playerProperties.PlayerContext,
                     StartingEulerAngles = playerProperties.PlayerContext.transform.eulerAngles,
-                    InputProvider = playerProperties.PlayerContext.Container.Resolve<IPlayerInputProvider>()
+                    InputProvider = OnPlayerInitialized.InputProvider,
+                    GunDepression = OnPlayerInitialized.GunDepression,
+                    GunElevation = OnPlayerInitialized.GunElevation,
                 });
             }
         }
@@ -94,8 +98,11 @@ namespace Frontend.Scripts.Components
         private void OnCameraBoundToPlayer(BattleSignals.CameraSignals.OnCameraBound OnCameraBound)
         {
             currentPlayerObject = OnCameraBound.PlayerContext.transform.gameObject;
-            parameters = OnCameraBound.PlayerContext.Container.Resolve<VehicleStatsBase>();
+
+            gunDepression = OnCameraBound.GunDepression;
+            gunElevation = OnCameraBound.GunElevation;
             inputProvider = OnCameraBound.InputProvider;
+
             FurtherAssigningLogic(OnCameraBound.StartingEulerAngles);
         }
 
@@ -233,8 +240,8 @@ namespace Frontend.Scripts.Components
 
             if (isSniping)
             {
-                yMaxRange = parameters.GunDepression;
-                yMinRange = -parameters.GunElevation;
+                yMaxRange = gunDepression;
+                yMinRange = -gunElevation;
             }
 
             transform.rotation = LimitCameraRange(transform.rotation, yMinRange, yMaxRange);
@@ -249,8 +256,8 @@ namespace Frontend.Scripts.Components
             if (isSniping)
             {
                 // TODO - adding a range here
-                yMaxRange = parameters.GunDepression;
-                yMinRange = -parameters.GunElevation;
+                yMaxRange = gunDepression;
+                yMinRange = -gunElevation;
 
                 //canceling previous relative rotation of sniping camera
                 newRotation = Quaternion.Inverse(snipingFollowPoint.rotation) * newRotation;

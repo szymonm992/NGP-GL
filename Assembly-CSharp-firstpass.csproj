@@ -71,6 +71,7 @@
     <Compile Include="Assets\Plugins\GLShared\General\Components\GameState\BattleCountdownStage.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Enums\DriveAxisSite.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\Gravity\CarGravity.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Models\VehicleStatsBase.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Enums\ForceApplyPoint.cs" />
     <Compile Include="Assets\Plugins\Automachine\Models\TransitionManager.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IVehicleEntryInfo.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\VehicleSystem\IVehicleSteering.cs" />
     <Compile Include="Assets\Plugins\GLShared\Utilities\GameObjectExtensions.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\VehicleSystem\IPhysicsWheel.cs" />
+    <Compile Include="Assets\Plugins\GLShared\Networking\Components\PlayerEntity.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Components\TurretController.cs" />
     <Compile Include="Assets\Plugins\Automachine\Extensions\AutomachineLogger.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\UTWheelBase.cs" />
@@ -89,6 +91,7 @@
     <Compile Include="Assets\Plugins\Automachine\Interfaces\IAutomachineState.cs" />
     <Compile Include="Assets\Plugins\GLShared\Networking\Enums\NetworkEntityType.cs" />
     <Compile Include="Assets\Plugins\Automachine\Models\StateManager.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Models\CarStats.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\ISyncManager.cs" />
     <Compile Include="Assets\Plugins\GLShared\Utilities\DebugExtension.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IPlayerInputProvider.cs" />
@@ -111,6 +114,7 @@
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\VehicleSystem\IVehicleAxle.cs" />
     <Compile Include="Assets\Plugins\Automachine\Enums\StateRebindOption.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IMouseActionsProvider.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Models\TankStats.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\ScriptableObjects\VehiclesDatabase.cs" />
     <Compile Include="Assets\Plugins\GLShared\Networking\Components\NetworkEntity.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\HitInfo.cs" />
@@ -125,6 +129,7 @@
     <Compile Include="Assets\Plugins\GLShared\General\Models\VehicleEntryInfo.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\VehicleSystem\IVehicleController.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IGameWorld.cs" />
+    <Compile Include="Assets\Plugins\GLShared\Networking\Components\PlayerSpawner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\SmartFox2X.dll" />

@@ -1,4 +1,5 @@
 using Frontend.Scripts.Interfaces;
+using Frontend.Scripts.Models;
 using GLShared.General.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,6 +17,8 @@ namespace Frontend.Scripts.Signals
                 public GameObjectContext PlayerContext { get; set; }
                 public Vector3 StartingEulerAngles { get; set; }
                 public IPlayerInputProvider InputProvider { get; set; }
+                public float GunDepression { get; set; }
+                public float GunElevation { get; set; }
             }
 
             public class OnCameraModeChanged

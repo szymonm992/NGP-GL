@@ -15,6 +15,8 @@ using Frontend.Scripts.Signals;
 using GLShared.General.Signals;
 using GLShared.Networking.Interfaces;
 using GLShared.General.Models;
+using GLShared.Networking.Components;
+using static GLShared.General.Signals.PlayerSignals;
 
 namespace Frontend.Scripts.Models
 {
@@ -27,6 +29,7 @@ namespace Frontend.Scripts.Models
         [Inject] protected readonly IPlayerInputProvider inputProvider;
         [Inject] protected readonly VehicleStatsBase vehicleStats;
         [Inject] protected readonly DiContainer container;
+        [Inject] protected readonly PlayerEntity playerEntity;
  
         [Inject(Optional = true)] protected readonly Speedometer speedometer;
 
@@ -45,7 +48,7 @@ namespace Frontend.Scripts.Models
 
         protected bool hasAnyWheels;
         protected bool hasTurret;
-        private PlayerProperties playerProperties;
+
         protected float currentSpeed;
         protected float absoluteInputY;
         protected float absoluteInputX;
@@ -111,18 +114,23 @@ namespace Frontend.Scripts.Models
 
             hasTurret = container.TryResolve<ITurretController>() != null;
 
+            signalBus.Subscribe<PlayerSignals.OnPlayerSpawned>(OnPlayerSpawned);
+            isReady = true;
+        }
+
+        private void OnPlayerSpawned()
+        {
             signalBus.Fire(new PlayerSignals.OnPlayerInitialized()
             {
-                PlayerProperties = playerProperties,
+                PlayerProperties = playerEntity.PlayerProperties,
+                InputProvider = inputProvider,
+                VehicleStats = vehicleStats,
                 TurretRotationSpeed = hasTurret ? vehicleStats.TurretRotationSpeed : 0,
                 GunRotationSpeed = hasTurret ? vehicleStats.GunRotationSpeed : 0,
                 GunDepression = vehicleStats.GunDepression,
                 GunElevation = vehicleStats.GunElevation,
             });
-            isReady = true;
         }
-
-
         public virtual void SetupRigidbody()
         {
             rig.mass = vehicleStats.Mass;

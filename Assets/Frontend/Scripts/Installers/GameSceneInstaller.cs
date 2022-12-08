@@ -9,6 +9,8 @@ using GLShared.General.ScriptableObjects;
 using Frontend.Scripts.Components.Temporary;
 using GLShared.General.Signals;
 using GLShared.General.Models;
+using GLShared.Networking.Components;
+using UnityEngine.TextCore.Text;
 
 namespace Frontend.Scripts
 {
@@ -16,16 +18,14 @@ namespace Frontend.Scripts
     {
         [SerializeField] private GameParameters gameParameters;
         [SerializeField] private RandomBattleParameters randomBattleParameters;
-        [SerializeField] private PlayerEntity testGoprefab;
-        
+
         public override void InstallBindings()
         {
-            InstallMain();
             InstallSignals();
+            InstallMain();
             InstallTemporary();
         }
 
-      
         private void InstallSignals()
         {
             SignalBusInstaller.Install(Container);
@@ -38,10 +38,15 @@ namespace Frontend.Scripts
 
         private void InstallMain()
         {
+
             Container.Bind<SmartFoxConnection>().FromComponentInHierarchy().AsCached();
             Container.Bind<ConnectionManager>().FromComponentInHierarchy().AsCached();
 
-            Container.BindFactory<PlayerProperties, PlayerEntity, PlayerEntity.Factory>().FromComponentInNewPrefab(testGoprefab);
+            //spawning players==
+            Container.BindInterfacesAndSelfTo<PlayerSpawner>().FromNewComponentOnNewGameObject().AsCached().NonLazy();
+            Container.Bind<PlayerProperties>().FromInstance(new PlayerProperties()).AsCached();
+            Container.BindFactory<PlayerEntity, PlayerProperties, PlayerEntity, PlayerSpawner.Factory>().FromSubContainerResolve().ByInstaller<PlayerSpawner.PlayerInstaller>();
+            //==================
 
             Container.BindInterfacesAndSelfTo<ReticleController>().FromComponentInHierarchy().AsSingle();
 
