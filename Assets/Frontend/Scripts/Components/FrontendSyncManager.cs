@@ -15,16 +15,16 @@ namespace Frontend.Scripts.Components
 
         private readonly Dictionary<string, INetworkEntity> connectedPlayers = new Dictionary<string, INetworkEntity>();
       
-        public void CreatePlayer(string vehicleName, Vector3 spawnPosition, Quaternion spawnRotation)
+        public void CreatePlayer(bool isLocal, string vehicleName, Vector3 spawnPosition, Quaternion spawnRotation)
         {
-            var playerProperties = GetPlayerInitData(vehicleName, spawnPosition, spawnRotation);
+            var playerProperties = GetPlayerInitData(isLocal, vehicleName, spawnPosition, spawnRotation);
             var prefabEntity = playerProperties.PlayerContext.gameObject.GetComponent<PlayerEntity>();//this references only to prefab
             var playerEntity = playerSpawner.Spawn(prefabEntity, playerProperties);
 
             connectedPlayers.Add("localPlayer", playerEntity);
         }
 
-        private PlayerProperties GetPlayerInitData(string vehicleName, Vector3 spawnPosition, Quaternion spawnRotation)
+        private PlayerProperties GetPlayerInitData(bool isLocal, string vehicleName, Vector3 spawnPosition, Quaternion spawnRotation)
         {
             //TODO: handling check whether the player is local or not
 
@@ -35,7 +35,7 @@ namespace Frontend.Scripts.Components
                 {
                     PlayerContext = vehicleData.VehiclePrefab,
                     PlayerVehicleName = vehicleData.VehicleName,
-                    IsLocal = true,
+                    IsLocal = isLocal,
                     SpawnPosition = spawnPosition,
                     SpawnRotation = spawnRotation,
                 };

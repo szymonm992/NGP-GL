@@ -92,6 +92,7 @@
     <Compile Include="Assets\Plugins\GLShared\Networking\Enums\NetworkEntityType.cs" />
     <Compile Include="Assets\Plugins\Automachine\Models\StateManager.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\CarStats.cs" />
+    <Compile Include="Assets\Plugins\GLShared\Networking\Components\PlayerSpawner.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\ISyncManager.cs" />
     <Compile Include="Assets\Plugins\GLShared\Utilities\DebugExtension.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IPlayerInputProvider.cs" />
@@ -129,7 +130,6 @@
     <Compile Include="Assets\Plugins\GLShared\General\Models\VehicleEntryInfo.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\VehicleSystem\IVehicleController.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IGameWorld.cs" />
-    <Compile Include="Assets\Plugins\GLShared\Networking\Components\PlayerSpawner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\SmartFox2X.dll" />

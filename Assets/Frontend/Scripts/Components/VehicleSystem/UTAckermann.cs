@@ -54,7 +54,6 @@ namespace Frontend.Scripts.Components
 
             if (suspensionController.HasAnyWheels)
             {
-                Debug.Log("bbb");
                 foreach (var axle in suspensionController.AllAxles)
                 {
                     if (axle.CanSteer)
@@ -63,10 +62,6 @@ namespace Frontend.Scripts.Components
                         axle.SetSteerAngle(ackermannAngleLeft * multiplier, ackermannAngleRight * multiplier);
                     }
                 }
-            }
-            else
-            {
-                Debug.Log("aaa" );
             }
         }
     }

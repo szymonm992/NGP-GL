@@ -65,6 +65,7 @@
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\WheelDummy.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTSuspensionController.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\Camera\FrontendCameraController.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Installers\PlayerEntityInstaller.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTAckermann.cs" />
     <Compile Include="Assets\Frontend\Scripts\Interfaces\IPlayerEntity.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\SpringInfo.cs" />
@@ -98,7 +99,6 @@
     <Compile Include="Assets\Frontend\Scripts\Components\FormValidator.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTTankSteering.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTWheelFrictionCurve.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Installers\PlayerEntityInstaller.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -336,7 +336,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vehiclesDatabase: {fileID: 11400000, guid: 7a48bb02f4524cb4db5772f2e42d30e5, type: 2}
-  testGoprefab: {fileID: 1617497954512939932, guid: 641499902827aac4482d46bc30a7cc3e, type: 3}
 --- !u!1 &3734888293150944640
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,6 +347,7 @@ GameObject:
   - component: {fileID: 4231370335325453925}
   - component: {fileID: 2457489490357408389}
   - component: {fileID: 3171061403119377848}
+  - component: {fileID: 3968112335108921302}
   m_Layer: 5
   m_Name: CountdownText
   m_TagString: Untagged
@@ -372,8 +372,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 400, y: 50}
+  m_AnchoredPosition: {x: 0, y: 150}
+  m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2457489490357408389
 CanvasRenderer:
@@ -403,7 +403,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: --start battle--
+  m_text: --start battle text--
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -472,6 +472,24 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3968112335108921302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3734888293150944640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0166d8ff8d905b048b2448179e1f5d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _components:
+  - {fileID: 3171061403119377848}
+  _identifier: countdownText
+  _useSceneContext: 0
+  _context: {fileID: 5773557732379388258}
+  _bindType: 0
 --- !u!1 &4672452738391445362
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,6 +724,8 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 64
+  currentPlayerObject: {fileID: 0}
+  context: {fileID: 0}
 --- !u!1 &8291823974604374561
 GameObject:
   m_ObjectHideFlags: 0
