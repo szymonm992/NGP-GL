@@ -40,6 +40,10 @@ namespace Frontend.Scripts.Components
                 var gunController = playerContext.Container.Resolve<ITurretController>();
                 localPlayerGun = gunController.Gun;
             }
+            else
+            {
+                gunReticle.gameObject.ToggleGameObjectIfActive(false);
+            }
         }
 
         private void Update()
