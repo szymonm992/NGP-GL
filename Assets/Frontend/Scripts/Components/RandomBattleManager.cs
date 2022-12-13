@@ -2,8 +2,9 @@ using Automachine.Scripts.Components;
 using Automachine.Scripts.Signals;
 using GLShared.General.Components;
 using GLShared.General.Enums;
+using GLShared.General.Interfaces;
 using GLShared.General.ScriptableObjects;
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
@@ -12,7 +13,9 @@ namespace Frontend.Scripts.Components
 {
     public class RandomBattleManager : AutomachineEntity<BattleStage>
     {
-        [SerializeField] private bool allPlayersSpawned = true;
+        [Inject] private readonly ISyncManager syncManager;
+        [Inject] private readonly RandomBattleParameters battleParameters;
+
         [SerializeField] private bool allPlayersConnectionsEstablished = true;
 
         private BattleCountdownStage countdownState;
@@ -22,11 +25,12 @@ namespace Frontend.Scripts.Components
         {
             beginningStage = (BattleBeginningStage)stateMachine.GetState(BattleStage.Beginning);
             countdownState = (BattleCountdownStage)stateMachine.GetState(BattleStage.Countdown);
-            
-            base.OnStateMachineInitialized(OnStateMachineInitialized);
-            stateMachine.AddTransition(BattleStage.Beginning, BattleStage.Countdown
-                , () => allPlayersSpawned && allPlayersConnectionsEstablished);
 
+            base.OnStateMachineInitialized(OnStateMachineInitialized);
+
+            stateMachine.AddTransition(BattleStage.Beginning, BattleStage.Countdown
+                , () => battleParameters.AreAllPlayersSpawned.Invoke(syncManager.SpawnedPlayersAmount)
+                && allPlayersConnectionsEstablished);
             stateMachine.AddTransition(BattleStage.Countdown, BattleStage.InProgress, () => countdownState.FinishedCountdown);
         }
     }

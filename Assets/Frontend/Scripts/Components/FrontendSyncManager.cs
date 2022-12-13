@@ -14,7 +14,11 @@ namespace Frontend.Scripts.Components
         [Inject] private readonly PlayerSpawner playerSpawner;
 
         private readonly Dictionary<string, INetworkEntity> connectedPlayers = new Dictionary<string, INetworkEntity>();
-      
+
+        private int spanwedPlayersAmount = 0;
+
+        public int SpawnedPlayersAmount => spanwedPlayersAmount;
+
         public void CreatePlayer(bool isLocal, string vehicleName, Vector3 spawnPosition, Quaternion spawnRotation)
         {
             var playerProperties = GetPlayerInitData(isLocal, vehicleName, spawnPosition, spawnRotation);
@@ -22,6 +26,7 @@ namespace Frontend.Scripts.Components
             var playerEntity = playerSpawner.Spawn(prefabEntity, playerProperties);
 
             connectedPlayers.Add("localPlayer", playerEntity);
+            spanwedPlayersAmount++;
         }
 
         private PlayerProperties GetPlayerInitData(bool isLocal, string vehicleName, Vector3 spawnPosition, Quaternion spawnRotation)

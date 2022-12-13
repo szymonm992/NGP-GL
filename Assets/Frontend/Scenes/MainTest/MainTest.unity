@@ -9588,8 +9588,16 @@ PrefabInstance:
       value: BattleManager
       objectReference: {fileID: 0}
     - target: {fileID: 4898661815359749247, guid: 9e789f1c8f9f9b14699c59f0e8719cb4, type: 3}
+      propertyPath: allPlayersSpawned
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4898661815359749247, guid: 9e789f1c8f9f9b14699c59f0e8719cb4, type: 3}
       propertyPath: allPlayersConnectionsEstablished
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8291823975094156093, guid: 9e789f1c8f9f9b14699c59f0e8719cb4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e789f1c8f9f9b14699c59f0e8719cb4, type: 3}
