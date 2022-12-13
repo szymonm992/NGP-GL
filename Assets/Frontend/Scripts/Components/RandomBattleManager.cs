@@ -31,7 +31,7 @@ namespace Frontend.Scripts.Components
 
             stateMachine.AddTransition(BattleStage.Beginning, BattleStage.Countdown
                 , () => battleParameters.AreAllPlayersSpawned.Invoke(syncManager.SpawnedPlayersAmount)
-                && allPlayersConnectionsEstablished);
+                && allPlayersConnectionsEstablished, 2f);
             stateMachine.AddTransition(BattleStage.Countdown, BattleStage.InProgress, () => countdownState.FinishedCountdown);
 
             signalBus.Subscribe<OnStateEnter<BattleStage>>(OnStateEnter);
