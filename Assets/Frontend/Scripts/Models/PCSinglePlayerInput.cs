@@ -1,16 +1,26 @@
 using UnityEngine;
 using GLShared.General.Interfaces;
+using Zenject;
+using Frontend.Scripts.Components;
+using Automachine.Scripts.Signals;
+using GLShared.General.Enums;
+using GLShared.General.Signals;
+using static GLShared.General.Signals.PlayerSignals;
 
 namespace Frontend.Scripts.Models
 {
-    public class PCSinglePlayerInput : MonoBehaviour, IPlayerInputProvider
+    public class PCSinglePlayerInput : MonoBehaviour, IPlayerInputProvider, IInitializable
     {
+        [Inject] private readonly SignalBus signalBus;
+
+        private bool lockPlayerInput = true;
+
         private float horizontal;
         private float vertical;
 
         private bool brake;
         private bool pressedSnipingKey;
-        private bool pressedTurretLockKey;
+        private bool pressedTurretLockKey = true;
 
         private float combinedInput = 0f;
         private float lastVerticalInput = 0f;
@@ -28,6 +38,10 @@ namespace Frontend.Scripts.Models
         public float SignedVertical => ReturnSignedInput(ref vertical);
         public float SignedHorizontal => ReturnSignedInput(ref horizontal);
 
+        public void Initialize()
+        {
+            signalBus.Subscribe<PlayerSignals.OnAllPlayersInputLockUpdate>(OnAllPlayersInputLockUpdate);
+        }
 
         private float ReturnAbsoluteHorizontal (ref float input)
         {
@@ -46,18 +60,26 @@ namespace Frontend.Scripts.Models
 
         private void Update()
         {
-            brake = Input.GetButton("Brake");
-            horizontal = !Brake ? Input.GetAxis("Horizontal") : 0f;
-            vertical = !Brake ? Input.GetAxis("Vertical") : 0f;
-            pressedSnipingKey = Input.GetKeyDown(KeyCode.LeftShift);
-            pressedTurretLockKey = Input.GetMouseButton(1);
-
-            if (vertical != 0)
+            if(!lockPlayerInput)
             {
-                lastVerticalInput = SignedVertical;
-            }
+                brake = Input.GetButton("Brake");
+                horizontal = !Brake ? Input.GetAxis("Horizontal") : 0f;
+                vertical = !Brake ? Input.GetAxis("Vertical") : 0f;
+                pressedSnipingKey = Input.GetKeyDown(KeyCode.LeftShift);
+                pressedTurretLockKey = Input.GetMouseButton(1);
 
-            combinedInput = Mathf.Abs(horizontal) + Mathf.Abs(vertical);
+                if (vertical != 0)
+                {
+                    lastVerticalInput = SignedVertical;
+                }
+
+                combinedInput = Mathf.Abs(horizontal) + Mathf.Abs(vertical);
+            }
+        }
+
+        private void OnAllPlayersInputLockUpdate(OnAllPlayersInputLockUpdate OnAllPlayersInputLockUpdate)
+        {
+            lockPlayerInput = OnAllPlayersInputLockUpdate.LockPlayersInput;
         }
     }
 }

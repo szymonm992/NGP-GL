@@ -4,6 +4,7 @@ using GLShared.General.Components;
 using GLShared.General.Enums;
 using GLShared.General.Interfaces;
 using GLShared.General.ScriptableObjects;
+using GLShared.General.Signals;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,6 +33,17 @@ namespace Frontend.Scripts.Components
                 , () => battleParameters.AreAllPlayersSpawned.Invoke(syncManager.SpawnedPlayersAmount)
                 && allPlayersConnectionsEstablished);
             stateMachine.AddTransition(BattleStage.Countdown, BattleStage.InProgress, () => countdownState.FinishedCountdown);
+
+            signalBus.Subscribe<OnStateEnter<BattleStage>>(OnStateEnter);
+        }
+
+        public void OnStateEnter(OnStateEnter<BattleStage> OnStateEnter)
+        {
+            bool lockPlayerInput = OnStateEnter.signalStateStarted != BattleStage.InProgress;
+            signalBus.Fire(new PlayerSignals.OnAllPlayersInputLockUpdate()
+            {
+                LockPlayersInput = lockPlayerInput
+            });
         }
     }
 }

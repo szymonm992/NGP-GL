@@ -34,6 +34,7 @@ namespace Frontend.Scripts
             Container.DeclareSignal<BattleSignals.CameraSignals.OnCameraModeChanged>();
             Container.DeclareSignal<PlayerSignals.OnPlayerInitialized>();
             Container.DeclareSignal<PlayerSignals.OnPlayerSpawned>();
+            Container.DeclareSignal<PlayerSignals.OnAllPlayersInputLockUpdate>();
         }
 
         private void InstallMain()
