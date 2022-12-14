@@ -2,7 +2,7 @@
 using Automachine.Scripts.Attributes;
 using Frontend.Scripts.Components.GameState;
 
-namespace GLShared.General.Enums
+namespace Frontend.Scripts.Enums
 {
     [AutomachineStates]
     public enum WelcomeStage
@@ -10,9 +10,10 @@ namespace GLShared.General.Enums
         [DefaultState, StateEntity(typeof(WelcomeNoneStage))]
         None = 0,
 
-        [StateEntity(typeof(WelcomeOnLogin))]
+        [StateEntity(typeof(WelcomeOnLoginAttempt))]
         OnLoginAttempt = 1,
 
+        [StateEntity(typeof(WelcomeOnLobbyJoining))]
         OnLobbyJoining = 2,
     }
 }

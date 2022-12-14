@@ -27,5 +27,37 @@ namespace Frontend.Scripts.Components
             delegateError?.Invoke(error);
             return false;
         }
+
+        public (bool, string) IsPasswordValid(string inputPassword)
+        {
+            int passwordLength = inputPassword.Length;
+
+            if (passwordLength > 16)
+            {
+                return new(false, "Podane has³o jest zbyt d³ugie!");
+            }
+
+            if(passwordLength < 4)
+            {
+                return new(false, "Podane has³o jest zbyt krótkie!");
+            }
+
+            return new(true, string.Empty);
+        }
+
+        public (bool, string) IsLoginValid(string inputLogin)
+        {
+            if(inputLogin.Length > 16)
+            {
+                return new(false, "Podany login jest zbyt d³ugi!");
+            }
+
+            if(inputLogin.Length < 4)
+            {
+                return new(false, "Podany login jest zbyt krótki!");
+            }
+
+            return new(true, string.Empty);
+        }
     }
 }

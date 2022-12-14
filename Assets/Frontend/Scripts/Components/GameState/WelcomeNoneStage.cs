@@ -1,13 +1,18 @@
 using Automachine.Scripts.Components;
 using Frontend.Scripts.Enums;
-using GLShared.General.Enums;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using TMPro;
+using Zenject;
 
 namespace Frontend.Scripts.Components.GameState
 {
     public class WelcomeNoneStage : State<WelcomeStage>
     {
+        [Inject(Id = "errorLabel")] private TextMeshProUGUI errorLabel;
+
+        public override void Initialize()
+        {
+            base.Initialize();
+            errorLabel.text = string.Empty;
+        }
     }
 }
