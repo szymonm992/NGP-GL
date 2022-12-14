@@ -99,6 +99,12 @@
     <Compile Include="Assets\Frontend\Scripts\Components\FormValidator.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTTankSteering.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTWheelFrictionCurve.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Enums\WelcomeStage.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Components\GameState\WelcomeNoneStage.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Components\GameState\WelcomeOnLogin.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Components\GameState\WelcomeManager.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Enums\Testtt.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Installers\WelcomeInstaller.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -2991,17 +2991,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8376437588128204712, guid: 4e499dd84eb72b645b875e47caac99d7, type: 3}
---- !u!114 &698642591 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8548456080947717911, guid: 96f0ecfbec31ac9468102051300b1c99, type: 3}
-  m_PrefabInstance: {fileID: 7583923760219030188}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9eb2e1013d9d0f243b42f0b66e4c33a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &705597588
 GameObject:
   m_ObjectHideFlags: 0
@@ -9450,22 +9439,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1332940878498770616, guid: 96f0ecfbec31ac9468102051300b1c99, type: 3}
-      propertyPath: _monoInstallers.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1332940878498770616, guid: 96f0ecfbec31ac9468102051300b1c99, type: 3}
-      propertyPath: _installerPrefabs.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1332940878498770616, guid: 96f0ecfbec31ac9468102051300b1c99, type: 3}
-      propertyPath: _monoInstallers.Array.data[1]
-      value: 
-      objectReference: {fileID: 698642591}
-    - target: {fileID: 1332940878498770616, guid: 96f0ecfbec31ac9468102051300b1c99, type: 3}
-      propertyPath: _scriptableObjectInstallers.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3164349391087522846, guid: 96f0ecfbec31ac9468102051300b1c99, type: 3}
       propertyPath: m_Name
       value: DDOLObjects
@@ -9514,22 +9487,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8548456080947717911, guid: 96f0ecfbec31ac9468102051300b1c99, type: 3}
-      propertyPath: t55prefab
-      value: 
-      objectReference: {fileID: 8797747351685325955, guid: e99fb3ab543d93f4bbcf6d61c5301bb6, type: 3}
-    - target: {fileID: 8548456080947717911, guid: 96f0ecfbec31ac9468102051300b1c99, type: 3}
-      propertyPath: testGoprefab
-      value: 
-      objectReference: {fileID: 8387249343914527716, guid: 641499902827aac4482d46bc30a7cc3e, type: 3}
-    - target: {fileID: 8548456080947717911, guid: 96f0ecfbec31ac9468102051300b1c99, type: 3}
-      propertyPath: testGoprefab2
-      value: 
-      objectReference: {fileID: 8387249343914527716, guid: 641499902827aac4482d46bc30a7cc3e, type: 3}
-    - target: {fileID: 8548456080947717911, guid: 96f0ecfbec31ac9468102051300b1c99, type: 3}
-      propertyPath: randomBattleParameters
-      value: 
-      objectReference: {fileID: 11400000, guid: 0c8de38b0eebba54e9ad84ceccb4f79a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96f0ecfbec31ac9468102051300b1c99, type: 3}
 --- !u!1001 &8291823975689532270
@@ -9586,18 +9543,6 @@ PrefabInstance:
     - target: {fileID: 1806163464955986606, guid: 9e789f1c8f9f9b14699c59f0e8719cb4, type: 3}
       propertyPath: m_Name
       value: BattleManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 4898661815359749247, guid: 9e789f1c8f9f9b14699c59f0e8719cb4, type: 3}
-      propertyPath: allPlayersSpawned
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4898661815359749247, guid: 9e789f1c8f9f9b14699c59f0e8719cb4, type: 3}
-      propertyPath: allPlayersConnectionsEstablished
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8291823975094156093, guid: 9e789f1c8f9f9b14699c59f0e8719cb4, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e789f1c8f9f9b14699c59f0e8719cb4, type: 3}
