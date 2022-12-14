@@ -9,6 +9,7 @@ using Sfs2X.Entities.Data;
 using Zenject;
 using Sfs2X;
 using GLShared.Networking;
+using GLShared.Networking.Components;
 
 namespace Frontend.Scripts.Components
 {
@@ -16,6 +17,7 @@ namespace Frontend.Scripts.Components
     {
 
         [Inject] private readonly SmartFoxConnection smartFoxConnection;
+
         //public const string HOST = "185.157.80.18";
         public const string HOST = "127.0.0.1";
         public const int PORT = 9933;
