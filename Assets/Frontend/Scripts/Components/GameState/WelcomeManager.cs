@@ -24,6 +24,7 @@ namespace Frontend.Scripts.Components
 
         private WelcomeOnLoginAttempt onLoginState;
         private string disconnectionReason = "";
+
         public override void OnStateMachineInitialized(OnStateMachineInitialized<WelcomeStage> OnStateMachineInitialized)
         {
             base.OnStateMachineInitialized(OnStateMachineInitialized);

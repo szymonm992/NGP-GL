@@ -40,6 +40,7 @@ namespace Frontend.Scripts
             Container.DeclareSignal<ConnectionSignals.OnLoginAttemptResult>();
             Container.DeclareSignal<ConnectionSignals.OnDisconnectedFromServer>();
             Container.DeclareSignal<ConnectionSignals.OnLobbyJoinAttemptResult>();
+            Container.DeclareSignal<ConnectionSignals.OnServerSettingsResponse>();
         }
 
         private void InstallMain()

@@ -99,14 +99,14 @@ namespace Frontend.Scripts.Components.GameState
 
             if(!loginResult)
             {
-                FinishLoginAttempt(false, message);
+                FinishGetInLobbyAttempt(false, message);
                 return;
             }
 
             smartFox.Connection.Send(new LoginRequest(login, password, "GLServerGateway"));
         }
 
-        private void FinishLoginAttempt(bool result, string message = "")
+        private void FinishGetInLobbyAttempt(bool result, string message = "")
         {
             LoginResult = result;
 
@@ -140,6 +140,8 @@ namespace Frontend.Scripts.Components.GameState
             smartFox.Connection.AddEventListener(SFSEvent.LOGIN_ERROR, connectionManager.OnLoginError);
             smartFox.Connection.AddEventListener(SFSEvent.ROOM_JOIN_ERROR, connectionManager.OnRoomJoinError);
             smartFox.Connection.AddEventListener(SFSEvent.ROOM_JOIN, connectionManager.OnRoomJoin);
+            smartFox.Connection.AddEventListener(SFSEvent.EXTENSION_RESPONSE, connectionManager.OnExtensionResponse);
+            smartFox.Connection.AddEventListener(SFSEvent.LOGOUT, connectionManager.OnLogout);
 
             smartFox.Connection.Connect(smartFox.HOST, smartFox.PORT);
         }
@@ -153,7 +155,7 @@ namespace Frontend.Scripts.Components.GameState
             }
             else
             {
-                FinishLoginAttempt(false, "Failed connecting to server!");
+                FinishGetInLobbyAttempt(false, "Failed connecting to server!");
             }
         }
         
@@ -161,7 +163,7 @@ namespace Frontend.Scripts.Components.GameState
         {
             if(!OnLoginAttemptResult.SuccessfullyLogin)
             {
-                FinishLoginAttempt(false, OnLoginAttemptResult.LoginMessage);
+                FinishGetInLobbyAttempt(false, OnLoginAttemptResult.LoginMessage);
             }
             else
             {
@@ -171,7 +173,7 @@ namespace Frontend.Scripts.Components.GameState
 
         public void OnLobbyJoinResult(OnLobbyJoinAttemptResult OnLobbyJoin)
         {
-            FinishLoginAttempt(OnLobbyJoin.SuccessfullyJoinedLobby, OnLobbyJoin.LobbyJoinMessage);
+            FinishGetInLobbyAttempt(OnLobbyJoin.SuccessfullyJoinedLobby, OnLobbyJoin.LobbyJoinMessage);
         }
 
         public void SendLobbyJoinRequest()

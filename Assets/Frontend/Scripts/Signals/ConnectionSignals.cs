@@ -1,3 +1,4 @@
+using Sfs2X.Entities.Data;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,6 +27,11 @@ namespace Frontend.Scripts.Signals
         {
             public bool SuccessfullyJoinedLobby { get; set; }
             public string LobbyJoinMessage { get; set; }
+        }
+
+        public class OnServerSettingsResponse
+        {
+            public ISFSObject ServerSettingsData { get; set; }
         }
     }
 }

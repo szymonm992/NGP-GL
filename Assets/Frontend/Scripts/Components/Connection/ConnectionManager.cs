@@ -15,6 +15,7 @@ using Sfs2X.Core;
 using Frontend.Scripts.Signals;
 using Sfs2X.Util;
 using UnityEngine.SceneManagement;
+using static Frontend.Scripts.Signals.ConnectionSignals;
 
 namespace Frontend.Scripts.Components
 {
@@ -26,12 +27,17 @@ namespace Frontend.Scripts.Components
         public void SendRoomJoinRequest(string cmd, ISFSObject data)
         {
             var room = smartFoxConnection.Connection.LastJoinedRoom;
-            /*if (room == null)
-            {
-                Debug.LogError("Last joined room is null!");
-                return;
-            }*/
             ExtensionRequest request = new ExtensionRequest(cmd, data, room, false);
+            smartFoxConnection.Connection.Send(request);
+        }
+
+        public void SendRequest(string cmd, ISFSObject data = null)
+        {
+            if (data == null)
+            {
+                data = new SFSObject();
+            }
+            ExtensionRequest request = new ExtensionRequest(cmd, data);
             smartFoxConnection.Connection.Send(request);
         }
 
@@ -54,6 +60,11 @@ namespace Frontend.Scripts.Components
             });
         }
 
+        public void OnLogout(BaseEvent evt)
+        {
+            Debug.Log("sadasd");
+        }
+
         public void OnLoginError(BaseEvent evt)
         {
             signalBus.Fire(new ConnectionSignals.OnLoginAttemptResult()
@@ -71,8 +82,16 @@ namespace Frontend.Scripts.Components
             {
                 signalBus.Fire(new ConnectionSignals.OnDisconnectedFromServer()
                 {
-                    Reason = "Connection was lost; reason is: " + reason,
-                }); 
+                    Reason = "Disconnected from server. Server shutdown",
+                });
+            }
+            else
+            {
+                signalBus.Fire(new ConnectionSignals.OnDisconnectedFromServer()
+                {
+                    Reason = "Disconnected from server. "+smartFoxConnection.DisconnectError,
+                });
+                smartFoxConnection.DisconnectError = string.Empty;
             }
         }
 
@@ -97,6 +116,43 @@ namespace Frontend.Scripts.Components
                 SuccessfullyJoinedLobby = false,
                 LobbyJoinMessage = reason,
             });
+        }
+
+        public void OnExtensionResponse(BaseEvent evt)
+        {
+            try
+            {
+                string cmd = (string)evt.Params["cmd"];
+                ISFSObject objIn = (SFSObject)evt.Params["params"];
+                if (cmd == "userInitialVariables")
+                {
+                    //HandleInitialVariables(objIn);
+                }
+                if (cmd == "lobbyJoinResult")
+                {
+                    HandleLobbyJoinResult(objIn);
+                }
+                if(cmd == "getServerSettings")
+                {
+                    signalBus.Fire(new OnServerSettingsResponse() { ServerSettingsData = objIn });
+                }
+
+            }
+            catch (System.Exception e)
+            {
+                Debug.Log("Exception handling response: " + e.Message + " >>> " + e.StackTrace);
+            }
+        }
+
+        private void HandleLobbyJoinResult(ISFSObject objIn)
+        {
+            if (objIn.ContainsKey("result"))
+            {
+                string result = objIn.GetUtfString("result");
+                if (result == "success")
+                {
+                }
+            }
         }
 
         private void Update()
