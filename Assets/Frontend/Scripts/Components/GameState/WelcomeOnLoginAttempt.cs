@@ -14,6 +14,7 @@ using Zenject;
 using Frontend.Scripts.Signals;
 using static Frontend.Scripts.Signals.ConnectionSignals;
 using Sfs2X.Requests;
+using Sfs2X.Entities.Data;
 
 namespace Frontend.Scripts.Components.GameState
 {
@@ -23,11 +24,10 @@ namespace Frontend.Scripts.Components.GameState
         [Inject(Id = "loginText")] private readonly InputField loginField;
         [Inject(Id = "passwordText")] private readonly InputField passwordField;
         [Inject(Id = "errorLabel")] private TextMeshProUGUI errorLabel;
-        [Inject] private readonly FormValidator formValidator;
 
+        [Inject] private readonly FormValidator formValidator;
         [Inject] private readonly SmartFoxConnection smartFox;
         [Inject] private readonly ConnectionManager connectionManager;
-
 
         private string login;
         private string password;
@@ -46,7 +46,9 @@ namespace Frontend.Scripts.Components.GameState
             base.Initialize();
             signalBus.Subscribe<ConnectionSignals.OnConnectionAttemptResult>(OnConnectionAttemptResult);
             signalBus.Subscribe<ConnectionSignals.OnLoginAttemptResult>(OnLoginAttemptResult);
+            signalBus.Subscribe<ConnectionSignals.OnLobbyJoinAttemptResult>(OnLobbyJoinResult);
         }
+
         public override void StartState()
         {
             base.StartState();
@@ -125,20 +127,19 @@ namespace Frontend.Scripts.Components.GameState
             isTryingToLogin = false;
         }
 
-
         public void ConnectToServer()
         {
             smartFox.Connection = new SmartFox()
             {
-                ThreadSafeMode = true,
+                ThreadSafeMode = true,  
             };
 
             smartFox.Connection.AddEventListener(SFSEvent.CONNECTION, connectionManager.OnConnection);
             smartFox.Connection.AddEventListener(SFSEvent.CONNECTION_LOST, connectionManager.OnConnectionLost);
             smartFox.Connection.AddEventListener(SFSEvent.LOGIN, connectionManager.OnLogin);
             smartFox.Connection.AddEventListener(SFSEvent.LOGIN_ERROR, connectionManager.OnLoginError);
-            //smartFox.Connection.AddEventListener(SFSEvent.ROOM_JOIN_ERROR, OnRoomJoinError);
-            //smartFox.Connection.AddEventListener(SFSEvent.ROOM_JOIN, OnRoomJoin);
+            smartFox.Connection.AddEventListener(SFSEvent.ROOM_JOIN_ERROR, connectionManager.OnRoomJoinError);
+            smartFox.Connection.AddEventListener(SFSEvent.ROOM_JOIN, connectionManager.OnRoomJoin);
 
             smartFox.Connection.Connect(smartFox.HOST, smartFox.PORT);
         }
@@ -158,7 +159,26 @@ namespace Frontend.Scripts.Components.GameState
         
         public void OnLoginAttemptResult(OnLoginAttemptResult OnLoginAttemptResult)
         {
-            FinishLoginAttempt(OnLoginAttemptResult.SuccessfullyLogin, OnLoginAttemptResult.LoginMessage);
+            if(!OnLoginAttemptResult.SuccessfullyLogin)
+            {
+                FinishLoginAttempt(false, OnLoginAttemptResult.LoginMessage);
+            }
+            else
+            {
+                SendLobbyJoinRequest();
+            }
+        }
+
+        public void OnLobbyJoinResult(OnLobbyJoinAttemptResult OnLobbyJoin)
+        {
+            FinishLoginAttempt(OnLobbyJoin.SuccessfullyJoinedLobby, OnLobbyJoin.LobbyJoinMessage);
+        }
+
+        public void SendLobbyJoinRequest()
+        {
+            ISFSObject data = new SFSObject();
+            data.PutText("roomName", "Lobby");
+            connectionManager.SendRoomJoinRequest("clientJoinLobby", data);
         }
     }
 }

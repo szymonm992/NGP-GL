@@ -14,6 +14,7 @@ using Frontend.Scripts.Models;
 using Sfs2X.Core;
 using Frontend.Scripts.Signals;
 using Sfs2X.Util;
+using UnityEngine.SceneManagement;
 
 namespace Frontend.Scripts.Components
 {
@@ -25,11 +26,11 @@ namespace Frontend.Scripts.Components
         public void SendRoomJoinRequest(string cmd, ISFSObject data)
         {
             var room = smartFoxConnection.Connection.LastJoinedRoom;
-            if (room == null)
+            /*if (room == null)
             {
                 Debug.LogError("Last joined room is null!");
                 return;
-            }
+            }*/
             ExtensionRequest request = new ExtensionRequest(cmd, data, room, false);
             smartFoxConnection.Connection.Send(request);
         }
@@ -73,6 +74,29 @@ namespace Frontend.Scripts.Components
                     Reason = "Connection was lost; reason is: " + reason,
                 }); 
             }
+        }
+
+        public void OnRoomJoin(BaseEvent evt)
+        {
+            var room = smartFoxConnection.Connection.LastJoinedRoom;
+            if (room.Name == "Lobby")
+            {
+                signalBus.Fire(new ConnectionSignals.OnLobbyJoinAttemptResult()
+                {
+                    SuccessfullyJoinedLobby = true,
+                    LobbyJoinMessage = string.Empty,
+                });
+            }
+        }
+
+        public void OnRoomJoinError(BaseEvent evt)
+        {
+            var reason = "Room join failed: " + (string)evt.Params["errorMessage"];
+            signalBus.Fire(new ConnectionSignals.OnLobbyJoinAttemptResult()
+            {
+                SuccessfullyJoinedLobby = false,
+                LobbyJoinMessage = reason,
+            });
         }
 
         private void Update()

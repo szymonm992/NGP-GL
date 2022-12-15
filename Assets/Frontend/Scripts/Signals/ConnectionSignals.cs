@@ -21,5 +21,11 @@ namespace Frontend.Scripts.Signals
         {
             public string Reason { get; set; }
         }
+
+        public class OnLobbyJoinAttemptResult
+        {
+            public bool SuccessfullyJoinedLobby { get; set; }
+            public string LobbyJoinMessage { get; set; }
+        }
     }
 }
