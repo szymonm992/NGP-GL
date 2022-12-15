@@ -13,7 +13,7 @@ namespace Frontend.Scripts.Enums
         [StateEntity(typeof(WelcomeOnLoginAttempt))]
         OnLoginAttempt = 1,
 
-        [StateEntity(typeof(WelcomeOnLobbyJoined))]
+        [StateEntity(typeof(LobbyJoinedStage))]
         OnLobbyJoining = 2,
     }
 }

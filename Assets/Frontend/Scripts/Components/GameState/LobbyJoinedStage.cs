@@ -16,7 +16,7 @@ using Zenject;
 
 namespace Frontend.Scripts.Components.GameState
 {
-    public class WelcomeOnLobbyJoined : State<WelcomeStage>
+    public class LobbyJoinedStage : State<WelcomeStage>
     {
         [Inject] private readonly SmartFoxConnection smartFox;
         [Inject] private readonly ConnectionManager connectionManager;
@@ -82,7 +82,7 @@ namespace Frontend.Scripts.Components.GameState
             gameVersion.text = "Game version: "+ dataGameVersion;
             connectedUsersAmount.text = dataPlayersConnected.ToString();
 
-            Debug.Log("Updated game settings for '"+ dataGameName + "' -> Game version: " + gameVersion);
+            Debug.Log("Updated game settings for '"+ dataGameName + "' -> Game version: " + dataGameVersion);
         }
     }
 }
