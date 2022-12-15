@@ -3,6 +3,7 @@ using Frontend.Scripts.Enums;
 using Frontend.Scripts.Models;
 using Frontend.Scripts.Signals;
 using GLShared.General.Enums;
+using GLShared.General.ScriptableObjects;
 using GLShared.Networking.Components;
 using Sfs2X;
 using Sfs2X.Core;
@@ -12,21 +13,26 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor.MemoryProfiler;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace Frontend.Scripts.Components.GameState
 {
     public class LobbyJoinedStage : State<WelcomeStage>
     {
+        [Inject] private readonly GameParameters gameParameters;
         [Inject] private readonly SmartFoxConnection smartFox;
         [Inject] private readonly ConnectionManager connectionManager;
+
         [Inject(Id = "welcomeCanvas")] private readonly RectTransform welcomeUi;
         [Inject(Id = "lobbyCanvas")] private readonly RectTransform lobbyCanvas;
         [Inject(Id = "connectedUsersAmount")] private readonly TextMeshProUGUI connectedUsersAmount;
+        [Inject(Id = "joinBattleBtn")] private readonly Button joinBattleBtn;
         [Inject(Id = "gameVersion")] private readonly TextMeshProUGUI gameVersion;
+        [Inject(Id = "canvasSearchingBattle")] private readonly RectTransform joinBattleCanvas;
 
         private float serverSettingsTimer = 0;
-
+        private bool firstRun = true;
         public override void Initialize()
         {
             base.Initialize();
@@ -36,8 +42,7 @@ namespace Frontend.Scripts.Components.GameState
         {
             base.StartState();
 
-            welcomeUi.gameObject.ToggleGameObjectIfActive(false);
-            lobbyCanvas.gameObject.ToggleGameObjectIfActive(true);
+            joinBattleCanvas.gameObject.ToggleGameObjectIfActive(false);
 
             GetServerSettings();
         }
@@ -47,7 +52,7 @@ namespace Frontend.Scripts.Components.GameState
             base.Tick();
             if(isActive)
             {
-                if(serverSettingsTimer < 15f)
+                if(serverSettingsTimer < gameParameters.ServerSettingsUpdateRate)
                 {
                     serverSettingsTimer += Time.deltaTime;
                 }
@@ -78,9 +83,17 @@ namespace Frontend.Scripts.Components.GameState
                 smartFox.Disconnect();
                 return;
             }
-
+           
             gameVersion.text = "Game version: "+ dataGameVersion;
             connectedUsersAmount.text = dataPlayersConnected.ToString();
+
+            if(firstRun)
+            {
+                welcomeUi.gameObject.ToggleGameObjectIfActive(false);
+                lobbyCanvas.gameObject.ToggleGameObjectIfActive(true);
+                firstRun = false;
+            }
+            joinBattleBtn.interactable = true;
 
             Debug.Log("Updated game settings for '"+ dataGameName + "' -> Game version: " + dataGameVersion);
         }

@@ -1,6 +1,7 @@
 
 using Automachine.Scripts.Attributes;
 using Frontend.Scripts.Components.GameState;
+using UnityEngine;
 
 namespace Frontend.Scripts.Enums
 {
@@ -15,5 +16,8 @@ namespace Frontend.Scripts.Enums
 
         [StateEntity(typeof(LobbyJoinedStage))]
         OnLobbyJoining = 2,
+
+        [StateEntity(typeof(BattleJoiningStage))]
+        OnBattleJoining = 3
     }
 }

@@ -16,27 +16,35 @@ using Frontend.Scripts.Signals;
 
 namespace Frontend.Scripts.Components
 {
-    public class WelcomeManager : AutomachineEntity<WelcomeStage>
+    public class LobbyManager : AutomachineEntity<WelcomeStage>
     {
         [Inject] private readonly SmartFoxConnection smartFox;
         [Inject] private readonly ConnectionManager connectionManager;
         [Inject(Id = "welcomeCanvas")] private readonly RectTransform welcomeUi;
 
         private WelcomeOnLoginAttempt onLoginState;
+        private BattleJoiningStage battleJoiningStage;
         private string disconnectionReason = "";
 
         public override void OnStateMachineInitialized(OnStateMachineInitialized<WelcomeStage> OnStateMachineInitialized)
         {
             base.OnStateMachineInitialized(OnStateMachineInitialized);
             onLoginState = (WelcomeOnLoginAttempt)stateMachine.GetState(WelcomeStage.OnLoginAttempt);
+            battleJoiningStage = (BattleJoiningStage)stateMachine.GetState(WelcomeStage.OnBattleJoining);
 
             stateMachine.AddTransition(WelcomeStage.None, WelcomeStage.OnLoginAttempt, () => onLoginState.IsTryingToLogin);
+
+            stateMachine.AddTransition(WelcomeStage.OnLoginAttempt, WelcomeStage.None,
+               () => !onLoginState.IsTryingToLogin && onLoginState.TriedToLogin && !onLoginState.LoginResult);
 
             stateMachine.AddTransition(WelcomeStage.OnLoginAttempt, WelcomeStage.OnLobbyJoining,
                () => !onLoginState.IsTryingToLogin && onLoginState.TriedToLogin && onLoginState.LoginResult);
 
-            stateMachine.AddTransition(WelcomeStage.OnLoginAttempt, WelcomeStage.None, 
-                () => !onLoginState.IsTryingToLogin && onLoginState.TriedToLogin && !onLoginState.LoginResult);
+            stateMachine.AddTransition(WelcomeStage.OnLobbyJoining, WelcomeStage.OnBattleJoining,
+                () => onLoginState.LoginResult && battleJoiningStage.IsTryingToJoinBattle);
+
+            stateMachine.AddTransition(WelcomeStage.OnBattleJoining, WelcomeStage.OnLobbyJoining,
+               () => onLoginState.LoginResult && !battleJoiningStage.IsTryingToJoinBattle);
 
             signalBus.Subscribe<OnStateEnter<WelcomeStage>>(OnStateEnter);
             signalBus.Subscribe<ConnectionSignals.OnDisconnectedFromServer>(OnDisconnected);
@@ -60,6 +68,16 @@ namespace Frontend.Scripts.Components
         public void TryLogin()
         {
             onLoginState.TryLogin();
+        }
+
+        public void TryJoinBattle()
+        {
+            battleJoiningStage.TryJoinBattle();
+        }
+
+        public void TryCancelSearchingForBattle()
+        {
+            battleJoiningStage.FinishJoiningBattle();
         }
 
         public void OnDisconnected(ConnectionSignals.OnDisconnectedFromServer OnDisconnected)
