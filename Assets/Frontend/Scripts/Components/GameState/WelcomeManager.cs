@@ -3,20 +3,27 @@ using Automachine.Scripts.Signals;
 using Frontend.Scripts.Components.GameState;
 using Frontend.Scripts.Enums;
 using GLShared.General.Enums;
+using Sfs2X.Core;
+using Sfs2X;
 using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
+using GLShared.Networking.Components;
+using Frontend.Scripts.Signals;
 
 namespace Frontend.Scripts.Components
 {
     public class WelcomeManager : AutomachineEntity<WelcomeStage>
     {
+        [Inject] private readonly SmartFoxConnection smartFox;
+        [Inject] private readonly ConnectionManager connectionManager;
+        [Inject(Id = "welcomeCanvas")] private readonly RectTransform welcomeUi;
 
         private WelcomeOnLoginAttempt onLoginState;
-
+        private string disconnectionReason = "";
         public override void OnStateMachineInitialized(OnStateMachineInitialized<WelcomeStage> OnStateMachineInitialized)
         {
             base.OnStateMachineInitialized(OnStateMachineInitialized);
@@ -31,6 +38,7 @@ namespace Frontend.Scripts.Components
                 () => !onLoginState.IsTryingToLogin && onLoginState.TriedToLogin && !onLoginState.LoginResult);
 
             signalBus.Subscribe<OnStateEnter<WelcomeStage>>(OnStateEnter);
+            signalBus.Subscribe<ConnectionSignals.OnDisconnectedFromServer>(OnDisconnected);
         }
 
         public void OnStateEnter(OnStateEnter<WelcomeStage> OnStateEnter)
@@ -39,12 +47,24 @@ namespace Frontend.Scripts.Components
             if(state == WelcomeStage.None)
             {
                 onLoginState.TriedToLogin = false;
+
+                if(disconnectionReason != string.Empty)
+                {
+                    onLoginState.DisplayError(disconnectionReason);
+                    disconnectionReason = string.Empty;
+                }
             }
         }
-
+        
         public void TryLogin()
         {
             onLoginState.TryLogin();
+        }
+
+        public void OnDisconnected(ConnectionSignals.OnDisconnectedFromServer OnDisconnected)
+        {
+            disconnectionReason = OnDisconnected.Reason;
+            stateMachine.ChangeState(WelcomeStage.None);
         }
     }
 }

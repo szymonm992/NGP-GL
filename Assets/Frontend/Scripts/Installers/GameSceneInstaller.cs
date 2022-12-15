@@ -35,13 +35,17 @@ namespace Frontend.Scripts
             Container.DeclareSignal<PlayerSignals.OnPlayerInitialized>();
             Container.DeclareSignal<PlayerSignals.OnPlayerSpawned>();
             Container.DeclareSignal<PlayerSignals.OnAllPlayersInputLockUpdate>();
+
+            Container.DeclareSignal<ConnectionSignals.OnConnectionAttemptResult>();
+            Container.DeclareSignal<ConnectionSignals.OnLoginAttemptResult>();
+            Container.DeclareSignal<ConnectionSignals.OnDisconnectedFromServer>();
         }
 
         private void InstallMain()
         {
 
             Container.Bind<SmartFoxConnection>().FromComponentInHierarchy().AsCached();
-            Container.Bind<ConnectionManager>().FromComponentInHierarchy().AsCached();
+            Container.BindInterfacesAndSelfTo<ConnectionManager>().FromComponentInHierarchy().AsCached();
 
             //spawning players==
             Container.BindInterfacesAndSelfTo<PlayerSpawner>().FromNewComponentOnNewGameObject().AsCached().NonLazy();

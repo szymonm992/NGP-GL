@@ -2,6 +2,8 @@ using Automachine.Scripts.Components;
 using Frontend.Scripts.Enums;
 using GLShared.General.Enums;
 using GLShared.Networking.Components;
+using Sfs2X.Core;
+using Sfs2X;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,6 +11,9 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
+using Frontend.Scripts.Signals;
+using static Frontend.Scripts.Signals.ConnectionSignals;
+using Sfs2X.Requests;
 
 namespace Frontend.Scripts.Components.GameState
 {
@@ -19,6 +24,10 @@ namespace Frontend.Scripts.Components.GameState
         [Inject(Id = "passwordText")] private readonly InputField passwordField;
         [Inject(Id = "errorLabel")] private TextMeshProUGUI errorLabel;
         [Inject] private readonly FormValidator formValidator;
+
+        [Inject] private readonly SmartFoxConnection smartFox;
+        [Inject] private readonly ConnectionManager connectionManager;
+
 
         private string login;
         private string password;
@@ -32,10 +41,25 @@ namespace Frontend.Scripts.Components.GameState
         public bool LoginResult { get; set; }
         public bool IsTryingToLogin => isTryingToLogin;
 
+        public override void Initialize()
+        {
+            base.Initialize();
+            signalBus.Subscribe<ConnectionSignals.OnConnectionAttemptResult>(OnConnectionAttemptResult);
+            signalBus.Subscribe<ConnectionSignals.OnLoginAttemptResult>(OnLoginAttemptResult);
+        }
         public override void StartState()
         {
             base.StartState();
-            CheckLogin();
+            ConnectToServer();
+        }
+
+        public void DisplayError(string errorCaption)
+        {
+            if (errorCaption != string.Empty)
+            {
+                LoginResult = false;
+            }
+            errorLabel.text = errorCaption;
         }
 
         public void TryLogin()
@@ -46,14 +70,14 @@ namespace Frontend.Scripts.Components.GameState
             }
 
             isTryingToLogin = true;
+
+            loginBtn.interactable = false;
+            loginField.interactable = false;
+            passwordField.interactable = false;
         }
 
         public void CheckLogin()
         {
-            loginBtn.interactable = false;
-            loginField.interactable = false;
-            passwordField.interactable = false;
-
             login = loginField.text;
             var loginValidation = formValidator.IsLoginValid(login);
             string message = string.Empty;
@@ -64,13 +88,20 @@ namespace Frontend.Scripts.Components.GameState
 
             password = passwordField.text;
             var passwordValidation = formValidator.IsPasswordValid(password);
-            if (!passwordValidation.Item1)
+            if (loginValidation.Item1 && !passwordValidation.Item1)
             {
                 message = passwordValidation.Item2;
             }
 
             bool loginResult = (loginValidation.Item1 && passwordValidation.Item1);
-            FinishLoginAttempt(loginResult, message);
+
+            if(!loginResult)
+            {
+                FinishLoginAttempt(false, message);
+                return;
+            }
+
+            smartFox.Connection.Send(new LoginRequest(login, password, "GLServerGateway"));
         }
 
         private void FinishLoginAttempt(bool result, string message = "")
@@ -94,14 +125,40 @@ namespace Frontend.Scripts.Components.GameState
             isTryingToLogin = false;
         }
 
-        private void DisplayError(string errorCaption)
+
+        public void ConnectToServer()
         {
-            if(errorCaption != string.Empty)
+            smartFox.Connection = new SmartFox()
             {
-                LoginResult = false;
-            }
-            errorLabel.text = errorCaption;
+                ThreadSafeMode = true,
+            };
+
+            smartFox.Connection.AddEventListener(SFSEvent.CONNECTION, connectionManager.OnConnection);
+            smartFox.Connection.AddEventListener(SFSEvent.CONNECTION_LOST, connectionManager.OnConnectionLost);
+            smartFox.Connection.AddEventListener(SFSEvent.LOGIN, connectionManager.OnLogin);
+            smartFox.Connection.AddEventListener(SFSEvent.LOGIN_ERROR, connectionManager.OnLoginError);
+            //smartFox.Connection.AddEventListener(SFSEvent.ROOM_JOIN_ERROR, OnRoomJoinError);
+            //smartFox.Connection.AddEventListener(SFSEvent.ROOM_JOIN, OnRoomJoin);
+
+            smartFox.Connection.Connect(smartFox.HOST, smartFox.PORT);
         }
 
+        private void OnConnectionAttemptResult(OnConnectionAttemptResult OnConnectionAttemptResult)
+        {
+            bool successfulCon = OnConnectionAttemptResult.SuccessfullyConnected;
+            if (successfulCon)
+            {
+                CheckLogin();
+            }
+            else
+            {
+                FinishLoginAttempt(false, "Failed connecting to server!");
+            }
+        }
+        
+        public void OnLoginAttemptResult(OnLoginAttemptResult OnLoginAttemptResult)
+        {
+            FinishLoginAttempt(OnLoginAttemptResult.SuccessfullyLogin, OnLoginAttemptResult.LoginMessage);
+        }
     }
 }

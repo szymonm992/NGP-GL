@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\Frontend\Scripts\Signals\BattleSignals.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTIdlerAxle.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Components\GameState\WelcomeNoneStage.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTTankController.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\DDOL\UIManager.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\PCSinglePlayerInput.cs" />
@@ -71,16 +72,20 @@
     <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\SpringInfo.cs" />
     <Compile Include="Assets\Frontend\Scripts\ScriptableObjects\FrontendVehicleDatabase.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VisualEffects\VehicleModelEffects.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Components\GameState\WelcomeManager.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\AssociatedUI\WelcomeUI.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\WheelsRepositioning\TankWheelsRepositioning.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\WheelsRepositioning\CarWheelsRepositioning.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\DDOL\DDOLManager.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Enums\WelcomeStage.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\RandomBattleManager.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VisualEffects\Outline.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\UTAxleBase.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Components\GameState\WelcomeOnLobbyJoined.cs" />
     <Compile Include="Assets\Frontend\Scripts\Extensions\UTWheelExtensions.cs" />
     <Compile Include="Assets\Frontend\Scripts\Installers\GameSceneInstaller.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\AdditionalObjectsStruct.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Components\GameState\WelcomeOnLoginAttempt.cs" />
     <Compile Include="Assets\Frontend\Scripts\Test\TempGameManager.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\Speedometer.cs" />
     <Compile Include="Assets\Frontend\Scripts\Test\TempResetButton.cs" />
@@ -99,11 +104,7 @@
     <Compile Include="Assets\Frontend\Scripts\Components\FormValidator.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTTankSteering.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTWheelFrictionCurve.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Enums\WelcomeStage.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\GameState\WelcomeNoneStage.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\GameState\WelcomeOnLoginAttempt.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\GameState\WelcomeManager.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\GameState\WelcomeOnLobbyJoining.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Signals\ConnectionSignals.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
