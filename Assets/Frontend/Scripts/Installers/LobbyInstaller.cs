@@ -14,7 +14,7 @@ using UnityEngine.TextCore.Text;
 
 namespace Frontend.Scripts
 {
-    public class GameSceneInstaller : MonoInstaller
+    public class LobbyInstaller : MonoInstaller
     {
         public override void InstallBindings()
         {
@@ -25,9 +25,6 @@ namespace Frontend.Scripts
         {
             
         }
-
-
-       
     }
 
  

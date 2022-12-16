@@ -11,10 +11,10 @@ namespace Frontend.Scripts
 {
     public class SceneHandler : MonoBehaviour, IInitializable
     {
+
         [Inject] private readonly SignalBus signalBus;
         [Inject] private readonly SmartFoxConnection smartFox;
         [Inject] private readonly ConnectionManager connectionManager;
-
 
         public void Initialize()
         {
@@ -23,7 +23,6 @@ namespace Frontend.Scripts
 
         private void OnDisconnect(ConnectionSignals.OnDisconnectedFromServer OnDisconnectedFromServer)
         {
-            Debug.Log("disc");
             var currentScene = SceneManager.GetActiveScene();
             if (currentScene.name != "Welcome")
             {

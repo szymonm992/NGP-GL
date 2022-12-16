@@ -56,6 +56,7 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Frontend\Scripts\Components\SceneHandler.cs" />
     <Compile Include="Assets\Frontend\Scripts\Signals\BattleSignals.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTIdlerAxle.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\WelcomeNoneStage.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\LobbyManager.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\AssociatedUI\WelcomeUI.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\WheelsRepositioning\TankWheelsRepositioning.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Installers\BattleSceneInstaller.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\WheelsRepositioning\CarWheelsRepositioning.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\DDOL\DDOLManager.cs" />
     <Compile Include="Assets\Frontend\Scripts\Enums\WelcomeStage.cs" />
@@ -85,7 +87,7 @@
     <Compile Include="Assets\Frontend\Scripts\Models\UTAxleBase.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\LobbyJoinedStage.cs" />
     <Compile Include="Assets\Frontend\Scripts\Extensions\UTWheelExtensions.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Installers\GameSceneInstaller.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Installers\LobbyInstaller.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\AdditionalObjectsStruct.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\WelcomeOnLoginAttempt.cs" />
     <Compile Include="Assets\Frontend\Scripts\Test\TempGameManager.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="Assets\Frontend\Scripts\Interfaces\IWheelReposition.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\Connection\ConnectionManager.cs" />
     <Compile Include="Assets\Frontend\Scripts\Installers\PlayerInstaller.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Installers\ProjectInstaller.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\UTVehicleController.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\ReticleController.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTAxle.cs" />
@@ -106,9 +109,6 @@
     <Compile Include="Assets\Frontend\Scripts\Components\FormValidator.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTTankSteering.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTWheelFrictionCurve.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\SceneHandler.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Installers\ProjectInstaller.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Installers\BattleSceneInstaller.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
