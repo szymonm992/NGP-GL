@@ -15,7 +15,6 @@ using Sfs2X.Core;
 using Frontend.Scripts.Signals;
 using Sfs2X.Util;
 using UnityEngine.SceneManagement;
-using static Frontend.Scripts.Signals.ConnectionSignals;
 
 namespace Frontend.Scripts.Components
 {
@@ -106,16 +105,36 @@ namespace Frontend.Scripts.Components
                     LobbyJoinMessage = string.Empty,
                 });
             }
+            else
+            {
+                signalBus.Fire(new ConnectionSignals.OnRoomJoinResponse()
+                {
+                    SuccessfullyJoinedRoom = true,
+                    RoomJoinMessage = string.Empty,
+                });
+            }
         }
 
         public void OnRoomJoinError(BaseEvent evt)
         {
+            var room = smartFoxConnection.Connection.LastJoinedRoom;
             var reason = "Room join failed: " + (string)evt.Params["errorMessage"];
-            signalBus.Fire(new ConnectionSignals.OnLobbyJoinAttemptResult()
+            if (room == null)
             {
-                SuccessfullyJoinedLobby = false,
-                LobbyJoinMessage = reason,
-            });
+                signalBus.Fire(new ConnectionSignals.OnLobbyJoinAttemptResult()
+                {
+                    SuccessfullyJoinedLobby = false,
+                    LobbyJoinMessage = reason,
+                });
+            }
+            else
+            {
+                signalBus.Fire(new ConnectionSignals.OnRoomJoinResponse()
+                {
+                    SuccessfullyJoinedRoom = false,
+                    RoomJoinMessage = reason,
+                });
+            }
         }
 
         public void OnExtensionResponse(BaseEvent evt)
@@ -134,7 +153,7 @@ namespace Frontend.Scripts.Components
                 }
                 if(cmd == "getServerSettings")
                 {
-                    signalBus.Fire(new OnServerSettingsResponse() { ServerSettingsData = objIn });
+                    signalBus.Fire(new ConnectionSignals.OnServerSettingsResponse() { ServerSettingsData = objIn });
                 }
 
             }

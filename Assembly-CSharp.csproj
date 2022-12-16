@@ -60,10 +60,12 @@
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTIdlerAxle.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\WelcomeNoneStage.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTTankController.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Components\GameState\BattleJoiningStage.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\DDOL\UIManager.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\PCSinglePlayerInput.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\FpsCounter.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\WheelDummy.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Signals\ConnectionSignals.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTSuspensionController.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\Camera\FrontendCameraController.cs" />
     <Compile Include="Assets\Frontend\Scripts\Installers\PlayerEntityInstaller.cs" />
@@ -104,8 +106,9 @@
     <Compile Include="Assets\Frontend\Scripts\Components\FormValidator.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTTankSteering.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTWheelFrictionCurve.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Signals\ConnectionSignals.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\GameState\BattleJoiningStage.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Components\SceneHandler.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Installers\ProjectInstaller.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Installers\BattleSceneInstaller.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

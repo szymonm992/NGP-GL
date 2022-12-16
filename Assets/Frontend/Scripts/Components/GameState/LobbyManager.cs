@@ -26,6 +26,13 @@ namespace Frontend.Scripts.Components
         private BattleJoiningStage battleJoiningStage;
         private string disconnectionReason = "";
 
+        public override void Initialize()
+        {
+            base.Initialize();
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+
         public override void OnStateMachineInitialized(OnStateMachineInitialized<WelcomeStage> OnStateMachineInitialized)
         {
             base.OnStateMachineInitialized(OnStateMachineInitialized);
