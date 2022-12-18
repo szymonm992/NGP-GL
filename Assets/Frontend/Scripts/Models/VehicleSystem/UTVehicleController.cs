@@ -2,21 +2,15 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Zenject;
-using Frontend.Scripts.Interfaces;
-using Frontend.Scripts.Models;
+
 using GLShared.General.Enums;
 using GLShared.General.ScriptableObjects;
 using GLShared.General.Interfaces;
-using Frontend.Scripts.Components;
-using Frontend.Scripts.Extensions;
 using GLShared.General.Components;
-using System.ComponentModel;
-using Frontend.Scripts.Signals;
 using GLShared.General.Signals;
-using GLShared.Networking.Interfaces;
 using GLShared.General.Models;
 using GLShared.Networking.Components;
-using static GLShared.General.Signals.PlayerSignals;
+using GLShared.General;
 
 namespace Frontend.Scripts.Models
 {
