@@ -1,15 +1,11 @@
 using Frontend.Scripts.Components;
-using GLShared.General.Enums;
 using UnityEngine;
-using Zenject;
-using GLShared.General.Components;
-using GLShared.General.Interfaces;
 using GLShared.General.Models;
 
 namespace Frontend.Scripts.Models
 {
     [System.Serializable]
-    public class UTAxlePair
+    public class UTAxlePair : UTAxlePairBase
     {
         [System.Serializable]
         public struct DummyPair
@@ -17,27 +13,23 @@ namespace Frontend.Scripts.Models
             public WheelDummy trackDummy;
             public float dummyOffsetY;
         }
-
-        [SerializeField] private UTPhysicWheelBase wheel;
-        [SerializeField] private DriveAxisSite axis;
+    
         [SerializeField] private Transform tireModel;
         [SerializeField] private DummyPair dummyPair;
 
         private Transform visualPartOfTire;
         private Transform rotationalPartOfTire;
-        private bool isIdler = false;
-        public DriveAxisSite Axis => axis;
+
         public Transform TireModel => tireModel;
-        public IPhysicsWheel Wheel => wheel;
         public Transform RotationalPartOfTire => rotationalPartOfTire;
         public Transform VisualPartOfTire => visualPartOfTire;
         public DummyPair WheelDummyPair => dummyPair;
-        public bool IsIdler => isIdler;
-        public void Initialize()
+   
+        public override void Initialize()
         {
+            base.Initialize();
             visualPartOfTire = tireModel.GetChild(0);
             rotationalPartOfTire = visualPartOfTire.GetChild(0);
-            isIdler = wheel is UTIdlerWheel;
         }
 
     }

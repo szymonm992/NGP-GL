@@ -10,7 +10,7 @@ using Zenject;
 
 namespace Frontend.Scripts.Components
 {
-    public class UTIdlerAxle : UTAxleBase
+    public class UTIdlerAxle : UTFrontAxleBase
     {
         private void FixedUpdate()
         {
@@ -23,9 +23,10 @@ namespace Frontend.Scripts.Components
             {
                 foreach (var pair in wheelPairs)
                 {
-                    if (pair.TireModel != null)
+                    var newPair = (UTAxlePair)pair;
+                    if (newPair.TireModel != null)
                     {
-                        RepositionTireModel(pair);
+                        RepositionTireModel(newPair);
                     }
                 }
             }

@@ -84,7 +84,6 @@
     <Compile Include="Assets\Frontend\Scripts\Enums\WelcomeStage.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\RandomBattleManager.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VisualEffects\Outline.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Models\UTAxleBase.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\LobbyJoinedStage.cs" />
     <Compile Include="Assets\Frontend\Scripts\Extensions\UTWheelExtensions.cs" />
     <Compile Include="Assets\Frontend\Scripts\Installers\LobbyInstaller.cs" />
@@ -109,6 +108,7 @@
     <Compile Include="Assets\Frontend\Scripts\Components\FormValidator.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTTankSteering.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTWheelFrictionCurve.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Models\UTFrontAxleBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

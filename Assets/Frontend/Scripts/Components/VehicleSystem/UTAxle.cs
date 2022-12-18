@@ -7,7 +7,7 @@ using GLShared.General.Interfaces;
 
 namespace Frontend.Scripts.Components
 {
-    public class UTAxle : UTAxleBase
+    public class UTAxle : UTFrontAxleBase
     {
         [Header("Antiroll")]
         [SerializeField] protected bool applyAntiroll;
@@ -51,9 +51,10 @@ namespace Frontend.Scripts.Components
             {
                 foreach (var pair in wheelPairs)
                 {
-                    if (pair.TireModel != null)
+                    var newPair = pair as UTAxlePair;
+                    if (newPair.TireModel != null)
                     {
-                        RepositionTireModel(pair);
+                        RepositionTireModel(newPair);
                     }
                 }
             }
