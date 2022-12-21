@@ -17,21 +17,24 @@ namespace Frontend.Scripts.Components
         [Inject] private readonly ISyncManager syncManager;
         [Inject] private readonly RandomBattleParameters battleParameters;
 
-        [SerializeField] private bool allPlayersConnectionsEstablished = true;
+        
 
         private BattleCountdownStage countdownState;
         private BattleBeginningStage beginningStage;
 
+        private bool allPlayersInitialized = false;
+        private bool allPlayersConnectionsEstablished = false;
+
         public override void OnStateMachineInitialized(OnStateMachineInitialized<BattleStage> OnStateMachineInitialized)
         {
+            base.OnStateMachineInitialized(OnStateMachineInitialized);
+
             beginningStage = (BattleBeginningStage)stateMachine.GetState(BattleStage.Beginning);
             countdownState = (BattleCountdownStage)stateMachine.GetState(BattleStage.Countdown);
 
-            base.OnStateMachineInitialized(OnStateMachineInitialized);
-
             stateMachine.AddTransition(BattleStage.Beginning, BattleStage.Countdown
                 , () => battleParameters.AreAllPlayersSpawned.Invoke(syncManager.SpawnedPlayersAmount)
-                && allPlayersConnectionsEstablished, 2f);
+                && allPlayersConnectionsEstablished && allPlayersInitialized, 2f);
 
             stateMachine.AddTransition(BattleStage.Countdown, BattleStage.InProgress,
                 () => countdownState.FinishedCountdown);

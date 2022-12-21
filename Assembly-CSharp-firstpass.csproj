@@ -102,6 +102,7 @@
     <Compile Include="Assets\Plugins\GLShared\General\Components\GameState\BattleBeginningStage.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\UTAxlePairBase.cs" />
     <Compile Include="Assets\Plugins\Automachine\Components\State.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Models\PlayerInput.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Enums\UTDebugMode.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Installers\SettingsInstaller.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IVehiclesDatabase.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Assets\Plugins\GLShared\General\Signals\PlayerSignals.cs" />
     <Compile Include="Assets\Plugins\Automachine\Models\AutomachineCore.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Enums\VehicleType.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Extensions\UTWheelExtensions.cs" />
     <Compile Include="Assets\Plugins\GLShared\Networking\Interfaces\INetworkEntity.cs" />
     <Compile Include="Assets\Plugins\Automachine\Attributes\AutomachineSignalAttribute.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Components\UTWheel.cs" />
@@ -119,6 +121,7 @@
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IMouseActionsProvider.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\TankStats.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\ScriptableObjects\VehiclesDatabase.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Extensions\PlayerInputExtensions.cs" />
     <Compile Include="Assets\Plugins\GLShared\Networking\Components\NetworkEntity.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\HitInfo.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\Debug\UTWheelDebug.cs" />
@@ -132,7 +135,7 @@
     <Compile Include="Assets\Plugins\GLShared\General\Models\VehicleEntryInfo.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\VehicleSystem\IVehicleController.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IGameWorld.cs" />
-    <Compile Include="Assets\Plugins\GLShared\General\Extensions\UTWheelExtensions.cs" />
+    <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IBattleManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\SmartFox2X.dll" />

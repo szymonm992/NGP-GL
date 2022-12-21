@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 1048927423268223227}
   - component: {fileID: 5773557732379388258}
   - component: {fileID: 5632466586491668192}
-  - component: {fileID: 4898661815359749247}
+  - component: {fileID: 8850793481532068452}
   - component: {fileID: 5942585420759568500}
   - component: {fileID: 3707982361505581490}
   m_Layer: 0
@@ -297,7 +297,7 @@ MonoBehaviour:
     logLaunchingDefaultState: 0
     logSwitchingState: 1
     logFoundSignals: 0
---- !u!114 &4898661815359749247
+--- !u!114 &8850793481532068452
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -306,10 +306,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1806163464955986606}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 631d002394bdf6440b62ea36ec2ebade, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b5cec6ccf9ca694681df64539eaa8b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allPlayersConnectionsEstablished: 1
 --- !u!114 &5942585420759568500
 MonoBehaviour:
   m_ObjectHideFlags: 0
