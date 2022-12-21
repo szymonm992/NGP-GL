@@ -28,7 +28,7 @@ namespace Frontend.Scripts.Components
         private int pingValueIndex;
 
         private bool isRunning = false;
-        private bool isSynchronized = false;
+
         public double NetworkTime
         {
             get

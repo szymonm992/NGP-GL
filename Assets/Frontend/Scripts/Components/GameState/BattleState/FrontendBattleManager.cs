@@ -1,6 +1,8 @@
 using Automachine.Scripts.Components;
 using Automachine.Scripts.Signals;
+using Frontend.Scripts.Components.GameState;
 using Frontend.Scripts.Enums;
+using Frontend.Scripts.Signals;
 using GLShared.General.Components;
 using GLShared.General.Enums;
 using GLShared.General.Interfaces;
@@ -19,11 +21,24 @@ namespace Frontend.Scripts
         [Inject] private readonly ISyncManager syncManager;
         [Inject] private readonly RandomBattleParameters battleParameters;
 
+        private FrontendBattleCountdown countdownState;
+        private FrontendBattleInProgress battleInProgressState;
+
         private BattleStage currentBattleStage;
 
+        public override void Initialize()
+        {
+            base.Initialize();
+
+            signalBus.Subscribe<BattleSignals.OnGameStageUpdate>(OnGameStageUpdate);
+            signalBus.Subscribe<OnStateEnter<FrontendBattleState>>(OnStateEnter);
+        }
         public override void OnStateMachineInitialized(OnStateMachineInitialized<FrontendBattleState> OnStateMachineInitialized)
         {
             base.OnStateMachineInitialized(OnStateMachineInitialized);
+
+            countdownState = (FrontendBattleCountdown)stateMachine.GetState(FrontendBattleState.Countdown);
+            battleInProgressState = (FrontendBattleInProgress)stateMachine.GetState(FrontendBattleState.InProgress);
 
             stateMachine.AddTransition(FrontendBattleState.OnBeginning, FrontendBattleState.Countdown,
                 () => currentBattleStage == BattleStage.Countdown);
@@ -33,8 +48,6 @@ namespace Frontend.Scripts
 
             stateMachine.AddTransition(FrontendBattleState.InProgress, FrontendBattleState.Ending,
                 () => currentBattleStage == BattleStage.Ending);
-
-            signalBus.Subscribe<OnStateEnter<FrontendBattleState>>(OnStateEnter);
         }
 
         public void OnStateEnter(OnStateEnter<FrontendBattleState> OnStateEnter)
@@ -46,9 +59,10 @@ namespace Frontend.Scripts
             });
         }
 
-        public void ApplyCurrentState(BattleStage battleStage)
+        private void OnGameStageUpdate(BattleSignals.OnGameStageUpdate OnGameStageUpdate)
         {
-            currentBattleStage = battleStage;
+            int currentStageIndex = OnGameStageUpdate.CurrentGameStage;
+            currentBattleStage = (BattleStage)currentStageIndex;
         }
     }
 }

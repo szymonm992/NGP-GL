@@ -1,5 +1,6 @@
 using Automachine.Scripts.Components;
 using Frontend.Scripts.Enums;
+using Frontend.Scripts.Signals;
 using GLShared.General.Interfaces;
 using TMPro;
 using UnityEngine;
@@ -12,23 +13,24 @@ namespace Frontend.Scripts.Components.GameState
         [Inject] private readonly ISyncManager syncManager;
         [Inject(Id = "countdownText")] private readonly TextMeshProUGUI countdownText;
 
-        public override void StartState()
+        public override void Initialize()
         {
-            base.StartState();
-            countdownText.text = "Initializing game...";
+            base.Initialize();
+            signalBus.Subscribe<BattleSignals.OnCounterUpdate>(OnCounterUpdate);
         }
 
-        public void SetCounter(int number)
+        public void OnCounterUpdate(BattleSignals.OnCounterUpdate OnCounterUpdate)
         {
-            if(number < 0)
+            int currentVal = OnCounterUpdate.CurrentValue;
+
+            if (currentVal > 0)
             {
-                countdownText.text = number.ToString();
+                countdownText.text = currentVal.ToString();
             }
             else
             {
                 countdownText.text = "Let's go!";
             }
         }
-
     }
 }

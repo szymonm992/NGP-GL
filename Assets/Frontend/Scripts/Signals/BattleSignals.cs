@@ -10,6 +10,16 @@ namespace Frontend.Scripts.Signals
 {
     public class BattleSignals
     {
+        public class OnGameStageUpdate
+        {
+            public int CurrentGameStage { get; set; }
+        }
+
+        public class OnCounterUpdate
+        {
+            public int CurrentValue { get; set; }
+        }
+
         public class CameraSignals
         {
             public class OnCameraBound

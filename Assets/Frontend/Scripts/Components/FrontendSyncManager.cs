@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using Zenject;
-using static Frontend.Scripts.Signals.ConnectionSignals;
 
 namespace Frontend.Scripts.Components
 {
@@ -85,6 +84,22 @@ namespace Frontend.Scripts.Components
                     signalBus.Fire(new ConnectionSignals.OnPingUpdate()
                     {
                         CurrentAveragePing = ping,
+                    });
+                }
+                if(cmd == "gameStage")
+                {
+                    int currentStage = responseData.GetInt("currentGameStage");
+                    signalBus.Fire(new BattleSignals.OnGameStageUpdate()
+                    {
+                        CurrentGameStage = currentStage,
+                    });
+                }
+                if (cmd == "gameStartCountdown")
+                {
+                    int currentCountdownValue = responseData.GetInt("currentCountdownValue");
+                    signalBus.Fire(new BattleSignals.OnCounterUpdate()
+                    {
+                        CurrentValue = currentCountdownValue,
                     });
                 }
 

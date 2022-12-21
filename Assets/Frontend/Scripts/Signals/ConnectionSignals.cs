@@ -44,5 +44,7 @@ namespace Frontend.Scripts.Signals
         {
             public double CurrentAveragePing { get; set; }
         }
+
+        
     }
 }
