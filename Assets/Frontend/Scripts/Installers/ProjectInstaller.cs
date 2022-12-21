@@ -55,6 +55,7 @@ namespace Frontend.Scripts
             Container.DeclareSignal<ConnectionSignals.OnLobbyJoinAttemptResult>();
             Container.DeclareSignal<ConnectionSignals.OnServerSettingsResponse>();
             Container.DeclareSignal<ConnectionSignals.OnRoomJoinResponse>();
+            Container.DeclareSignal<ConnectionSignals.OnPingUpdate>();
         }
 
         public void OnValidate()

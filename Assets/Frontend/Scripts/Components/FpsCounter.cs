@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Frontend.Scripts.Components
 {
-    public class FpsCounter : MonoBehaviour
+    public class FpsCounter : MonoBehaviour, IInitializable
     {
-        [SerializeField] private Text fpsText;
+        [Inject(Id = "fpsMeter")] private readonly TextMeshProUGUI fpsMeter;
 
         private int lastFrameIndex;
         private float[] frameDeltaTimeArray;
@@ -22,7 +24,7 @@ namespace Frontend.Scripts.Components
             frameDeltaTimeArray[lastFrameIndex] = Time.deltaTime;
             lastFrameIndex = (lastFrameIndex + 1) % frameDeltaTimeArray.Length;
 
-            fpsText.text = "FPS: " + Mathf.RoundToInt(GetFPS()).ToString();
+            fpsMeter.text = "FPS: " + Mathf.RoundToInt(GetFPS()).ToString();
         }
 
         private float GetFPS()
@@ -33,6 +35,10 @@ namespace Frontend.Scripts.Components
                 total += deltaTime;
             }
             return frameDeltaTimeArray.Length / total;
+        }
+
+        public void Initialize()
+        {
         }
     }
 }

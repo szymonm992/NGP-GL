@@ -39,5 +39,10 @@ namespace Frontend.Scripts.Signals
             public bool SuccessfullyJoinedRoom { get; set; }
             public string RoomJoinMessage { get; set; }
         }
+
+        public class OnPingUpdate
+        {
+            public double CurrentAveragePing { get; set; }
+        }
     }
 }

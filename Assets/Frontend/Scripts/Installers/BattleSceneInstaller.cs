@@ -14,6 +14,8 @@ namespace Frontend.Scripts
 
         public override void InstallBindings()
         {
+            Container.BindInterfacesAndSelfTo<TimeManager>().FromComponentInHierarchy().AsSingle();
+
             Container.BindInterfacesAndSelfTo<ReticleController>().FromComponentInHierarchy().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerSpawner>().FromNewComponentOnNewGameObject().AsCached().NonLazy();
             Container.Bind<PlayerProperties>().FromInstance(new PlayerProperties()).AsCached();
