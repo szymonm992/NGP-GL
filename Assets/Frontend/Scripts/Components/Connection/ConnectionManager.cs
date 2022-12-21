@@ -7,14 +7,13 @@ using Sfs2X.Requests;
 using Sfs2X.Entities.Data;
 
 using Zenject;
-using Sfs2X;
 using GLShared.Networking;
 using GLShared.Networking.Components;
 using Frontend.Scripts.Models;
 using Sfs2X.Core;
 using Frontend.Scripts.Signals;
 using Sfs2X.Util;
-using UnityEngine.SceneManagement;
+using System;
 
 namespace Frontend.Scripts.Components
 {
@@ -157,9 +156,10 @@ namespace Frontend.Scripts.Components
                 }
 
             }
-            catch (System.Exception e)
+            catch (System.Exception exception)
             {
-                Debug.Log("Exception handling response: " + e.Message + " >>> " + e.StackTrace);
+                Debug.Log("Exception handling response: " + exception.Message
+                   + " >>>[AND TRACE IS]>>> " + exception.StackTrace);
             }
         }
 
