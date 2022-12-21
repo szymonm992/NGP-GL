@@ -26,6 +26,8 @@ namespace Frontend.Scripts
 
         private BattleStage currentBattleStage;
 
+        public BattleStage CurrentBattleStage => currentBattleStage;
+
         public override void Initialize()
         {
             base.Initialize();
