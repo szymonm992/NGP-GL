@@ -83,6 +83,7 @@
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\WheelsRepositioning\TankWheelsRepositioning.cs" />
     <Compile Include="Assets\Frontend\Scripts\Installers\BattleSceneInstaller.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\WheelsRepositioning\CarWheelsRepositioning.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Components\PingCounter.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\DDOL\DDOLManager.cs" />
     <Compile Include="Assets\Frontend\Scripts\Enums\WelcomeStage.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\BattleState\FrontendBattleCountdown.cs" />
@@ -115,7 +116,8 @@
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\BattleState\FrontendBattleInProgress.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTWheelFrictionCurve.cs" />
     <Compile Include="Assets\Frontend\Scripts\Enums\FrontendBattleState.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\PingCounter.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Models\SpawnData.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Extensions\GeneralExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

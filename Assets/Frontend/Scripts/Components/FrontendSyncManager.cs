@@ -1,14 +1,17 @@
+using Frontend.Scripts.Extensions;
 using Frontend.Scripts.Signals;
 using GLShared.General.Interfaces;
 using GLShared.General.Models;
 using GLShared.Networking.Components;
 using GLShared.Networking.Interfaces;
 using Sfs2X.Core;
+using Sfs2X.Entities;
 using Sfs2X.Entities.Data;
 using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Zenject;
 
 namespace Frontend.Scripts.Components
@@ -38,30 +41,39 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        public void CreatePlayer(bool isLocal, string vehicleName, Vector3 spawnPosition, Quaternion spawnRotation)
+        public void TryCreatePlayer(User user, Vector3 spawnPosition, Quaternion spawnRotation)
         {
-            var playerProperties = GetPlayerInitData(isLocal, vehicleName, spawnPosition, spawnRotation);
+            if (!connectedPlayers.ContainsKey(user.Name))
+            {
+                CreatePlayer(user, spawnPosition, spawnRotation);
+            }
+        }
+
+        public void CreatePlayer(User user, Vector3 spawnPosition, Quaternion spawnRotation)
+        {
+            var vehicleName = user.GetVariable("playerVehicle").Value.ToString();
+            var playerProperties = GetPlayerInitData(user, vehicleName, spawnPosition, spawnRotation);
             var prefabEntity = playerProperties.PlayerContext.gameObject.GetComponent<PlayerEntity>();//this references only to prefab
             var playerEntity = playerSpawner.Spawn(prefabEntity, playerProperties);
 
-            connectedPlayers.Add("localPlayer", playerEntity);
+            connectedPlayers.Add(user.Name, playerEntity);
             spanwedPlayersAmount++;
         }
 
-        private PlayerProperties GetPlayerInitData(bool isLocal, string vehicleName, Vector3 spawnPosition, Quaternion spawnRotation)
+        private PlayerProperties GetPlayerInitData(User user, string vehicleName,
+            Vector3 spawnPosition, Quaternion spawnRotation)
         {
-            //TODO: handling check whether the player is local or not
-
             var vehicleData = vehicleDatabase.GetVehicleInfo(vehicleName);
-            if(vehicleData != null)
+            if (vehicleData != null)
             {
                 return new PlayerProperties()
                 {
                     PlayerContext = vehicleData.VehiclePrefab,
                     PlayerVehicleName = vehicleData.VehicleName,
-                    IsLocal = isLocal,
+                    IsLocal = user.IsItMe,
                     SpawnPosition = spawnPosition,
                     SpawnRotation = spawnRotation,
+                    User = user,
                 };
             }
             return null;
@@ -101,6 +113,20 @@ namespace Frontend.Scripts.Components
                     {
                         CurrentValue = currentCountdownValue,
                     });
+                }
+                if (cmd == "playerSpawned")
+                {
+                   
+                    var spawnData = responseData.ToSpawnData();
+                    var user = smartFox.Connection.UserManager.GetUserByName(spawnData.Username);
+                    if(user != null)
+                    {
+                        TryCreatePlayer(user, spawnData.SpawnPosition, spawnData.SpawnRotation);
+                    }   
+                    else
+                    {
+                        Debug.LogError("Player " + spawnData.Username + " has not been dfound in users manager");
+                    }
                 }
 
             }

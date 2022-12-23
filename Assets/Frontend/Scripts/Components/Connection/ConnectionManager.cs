@@ -60,15 +60,18 @@ namespace Frontend.Scripts.Components
 
         public void OnLogout(BaseEvent evt)
         {
-            Debug.Log("sadasd");
-        }
-
-        public void OnLoginError(BaseEvent evt)
-        {
             signalBus.Fire(new ConnectionSignals.OnLoginAttemptResult()
             {
                 SuccessfullyLogin = false,
-                LoginMessage = "Login failed: " + (string)evt.Params["errorMessage"],
+                LoginMessage = string.Empty,
+            });
+        }
+
+        public void OnLoginError(BaseEvent _)
+        {
+            signalBus.Fire(new ConnectionSignals.OnDisconnectedFromServer()
+            {
+                Reason = string.Empty,
             });
         }
 
@@ -93,7 +96,7 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        public void OnRoomJoin(BaseEvent evt)
+        public void OnRoomJoin(BaseEvent _)
         {
             var room = smartFoxConnection.Connection.LastJoinedRoom;
             if (room.Name == "Lobby")
@@ -141,18 +144,21 @@ namespace Frontend.Scripts.Components
             try
             {
                 string cmd = (string)evt.Params["cmd"];
-                ISFSObject objIn = (SFSObject)evt.Params["params"];
+                ISFSObject data = (SFSObject)evt.Params["params"];
                 if (cmd == "userInitialVariables")
                 {
                     //HandleInitialVariables(objIn);
                 }
                 if (cmd == "lobbyJoinResult")
                 {
-                    HandleLobbyJoinResult(objIn);
+                    HandleLobbyJoinResult(data);
                 }
                 if(cmd == "getServerSettings")
                 {
-                    signalBus.Fire(new ConnectionSignals.OnServerSettingsResponse() { ServerSettingsData = objIn });
+                    signalBus.Fire(new ConnectionSignals.OnServerSettingsResponse()
+                    { 
+                        ServerSettingsData = data,
+                    });
                 }
 
             }

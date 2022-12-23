@@ -94,6 +94,7 @@ namespace Frontend.Scripts.Components.GameState
                 countdownText.text = battleSearchingTimer.ToString("F2");
                 yield return null;
             }
+
             Debug.Log("Successfully joined battle after: " + battleSearchingTimer);
             FinishJoiningBattle(true);
             
@@ -103,7 +104,6 @@ namespace Frontend.Scripts.Components.GameState
             ISFSObject data = new SFSObject();
             data.PutUtfString("playerVehicle", "T-55");
             data.PutUtfString("battleType", "randomBattle");
-
             connectionManager.SendRequest("startBattle", data);
         }
     }
