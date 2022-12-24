@@ -34,6 +34,11 @@ namespace Frontend.Scripts.Components
 
         private void FixedUpdate()
         {
+            if(!suspensionController.RunPhysics)
+            {
+                return;
+            }
+
             currentTurnRadius = turnRadiusCurve.Evaluate(suspensionController.CurrentSpeed);
 
             if (steerInput > 0)

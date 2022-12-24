@@ -121,6 +121,7 @@
     <Compile Include="Assets\Plugins\Automachine\Enums\StateRebindOption.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IMouseActionsProvider.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\TankStats.cs" />
+    <Compile Include="Assets\Plugins\GLShared\Networking\Extensions\NetworkingExtensions.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\ScriptableObjects\VehiclesDatabase.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Extensions\PlayerInputExtensions.cs" />
     <Compile Include="Assets\Plugins\GLShared\Networking\Components\NetworkEntity.cs" />
@@ -136,7 +137,7 @@
     <Compile Include="Assets\Plugins\GLShared\General\Models\VehicleEntryInfo.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\VehicleSystem\IVehicleController.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IGameWorld.cs" />
-    <Compile Include="Assets\Plugins\GLShared\Networking\Extensions\NetworkingExtensions.cs" />
+    <Compile Include="Assets\Plugins\GLShared\Networking\Models\NetworkTransform.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\SmartFox2X.dll" />

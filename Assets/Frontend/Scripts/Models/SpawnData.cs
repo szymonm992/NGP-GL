@@ -13,6 +13,4 @@ namespace Frontend.Scripts.Models
         public Quaternion SpawnRotation { get; set; }
         
     }
-
-    
 }

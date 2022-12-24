@@ -17,6 +17,11 @@ namespace Frontend.Scripts.Components
 
         protected override void FixedUpdate()
         {
+            if (!runPhysics)
+            {
+                return;
+            }
+
             base.FixedUpdate();
 
             CustomGravityLogic();

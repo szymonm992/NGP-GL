@@ -35,7 +35,7 @@ namespace Frontend.Scripts
 
         private void FixedUpdate()
         {
-            if (steerInput == 0 || suspensionController.IsUpsideDown)
+            if (!suspensionController.RunPhysics && (steerInput == 0 || suspensionController.IsUpsideDown))
             {
                 return;
             }

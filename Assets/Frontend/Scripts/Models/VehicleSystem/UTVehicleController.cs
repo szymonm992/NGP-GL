@@ -11,6 +11,7 @@ using GLShared.General.Signals;
 using GLShared.General.Models;
 using GLShared.Networking.Components;
 using GLShared.General;
+using Frontend.Scripts.Components;
 
 namespace Frontend.Scripts.Models
 {
@@ -34,6 +35,7 @@ namespace Frontend.Scripts.Models
         [SerializeField] protected float maxSlopeAngle = 45f;
         [SerializeField] protected AnimationCurve enginePowerCurve;
         [SerializeField] protected bool doesGravityDamping = true;
+        [SerializeField] protected bool runPhysics = true;
         [SerializeField] protected LayerMask wheelsCollisionDetectionMask;
 
         [Header("Force apply points")]
@@ -84,11 +86,14 @@ namespace Frontend.Scripts.Models
         public bool DoesGravityDamping => doesGravityDamping;
         public bool IsUpsideDown => isUpsideDown;
         public bool HasTurret => hasTurret;
+        public virtual bool RunPhysics => runPhysics;
         public LayerMask WheelsCollisionDetectionMask => wheelsCollisionDetectionMask;
         public ForceApplyPoint BrakesForceApplyPoint => brakesForceApplyPoint;
         public ForceApplyPoint AccelerationForceApplyPoint => accelerationForceApplyPoint;
 
         public IEnumerable<IPhysicsWheel> AllWheels => allWheels;
+
+       
         public float GetCurrentMaxSpeed()
         {
             return absoluteInputY == 0 ? 0 : (signedInputY > 0 ? maxForwardSpeed : maxBackwardsSpeed);
@@ -98,8 +103,12 @@ namespace Frontend.Scripts.Models
         {
             SetupRigidbody();
 
-            maxForwardSpeed = enginePowerCurve.keys[enginePowerCurve.keys.Length - 1].time;
-            maxBackwardsSpeed = maxForwardSpeed / 2f;
+            if(runPhysics)
+            {
+                maxForwardSpeed = enginePowerCurve.keys[enginePowerCurve.keys.Length - 1].time;
+                maxBackwardsSpeed = maxForwardSpeed / 2f;
+            }
+            
 
             hasAnyWheels = allAxles.Any() && allAxles.Where(axle => axle.HasAnyWheelPair && axle.HasAnyWheel).Any();
             allWheels = GetAllWheelsInAllAxles().ToArray();
@@ -153,6 +162,11 @@ namespace Frontend.Scripts.Models
 
         protected virtual void FixedUpdate()
         {
+            if (!runPhysics)
+            {
+                return;
+            }
+
             CalculateVehicleAngles();
             SetCenterOfMassToPoint(horizontalAngle >= 50f ? centerOfMassUngrounded : centerOfMass);
 
@@ -162,6 +176,11 @@ namespace Frontend.Scripts.Models
 
         protected virtual void Update()
         {
+            if (!runPhysics)
+            {
+                return;
+            }
+
             if (inputProvider != null)
             {
                 isBrake = inputProvider.Brake;

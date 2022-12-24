@@ -42,7 +42,7 @@ namespace Frontend.Scripts.Components
 
             groundedWheels = GetGroundedWheels();
 
-            if (applyAntiroll)
+            if (controller.RunPhysics && applyAntiroll)
             {
                 CalculateAndApplyAntiroll();
             }
@@ -51,7 +51,7 @@ namespace Frontend.Scripts.Components
             {
                 foreach (var pair in wheelPairs)
                 {
-                    var newPair = pair as UTAxlePair;
+                    var newPair = pair;
                     if (newPair.TireModel != null)
                     {
                         RepositionTireModel(newPair);

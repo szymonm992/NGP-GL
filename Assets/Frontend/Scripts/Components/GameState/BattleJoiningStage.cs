@@ -74,7 +74,7 @@ namespace Frontend.Scripts.Components.GameState
         {
             Debug.Log("Battle join response: "+OnRoomJoinResponse.SuccessfullyJoinedRoom);
 
-            if(OnRoomJoinResponse.SuccessfullyJoinedRoom)
+            if (OnRoomJoinResponse.SuccessfullyJoinedRoom)
             {
                 StartCoroutine(LaunchGameScene());
             }

@@ -4,6 +4,7 @@ using UnityEngine;
 using Zenject;
 using System.Linq;
 using GLShared.General.Components;
+using GLShared.General.Interfaces;
 
 namespace Frontend.Scripts.Components
 {
@@ -15,6 +16,11 @@ namespace Frontend.Scripts.Components
 
         protected override void FixedUpdate()
         {
+            if (!runPhysics)
+            {
+                return;
+            }
+
             base.FixedUpdate();
             CustomGravityLogic();
 

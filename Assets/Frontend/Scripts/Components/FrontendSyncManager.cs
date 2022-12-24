@@ -70,7 +70,7 @@ namespace Frontend.Scripts.Components
                 {
                     PlayerContext = vehicleData.VehiclePrefab,
                     PlayerVehicleName = vehicleData.VehicleName,
-                    IsLocal = user.IsItMe,
+                    IsLocal = true,
                     SpawnPosition = spawnPosition,
                     SpawnRotation = spawnRotation,
                     User = user,
