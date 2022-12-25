@@ -1,5 +1,7 @@
 using GLShared.General.Interfaces;
+using GLShared.General.Signals;
 using GLShared.Networking.Components;
+using GLShared.Networking.Interfaces;
 using GLShared.Networking.Models;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,29 +11,27 @@ using Zenject;
 
 namespace Frontend.Scripts.Components
 {
-    public class SyncInterpolator : MonoBehaviour, IInitializable
+    public class SyncInterpolator : MonoBehaviour, IInitializable, ISyncInterpolator
     {
         private const float MIN_THRESHOLD = 0.0001f;
 
+        [Inject] private readonly SignalBus signalBus;
         [Inject] private readonly TimeManager timeManager;
         [Inject(Optional = true)] private readonly Speedometer speedometer;
+        [Inject(Source = InjectSources.Local)] private readonly PlayerEntity playerEntity;
 
         private double interpolationBackTime = 200;
         private int statesCount = 0;
         NetworkTransform[] bufferedStates = new NetworkTransform[20];
 
-        public bool IsRunning { get; set; } = false;
+        public bool IsRunning { get; private set; } = false;
 
         public void Initialize()
         {
+            signalBus.Subscribe<PlayerSignals.OnPlayerInitialized>(OnPlayerInitialized);
         }
 
-        public void StartReceiving()
-        {
-            IsRunning = true;
-        }
-
-        public void ReceivedTransform(NetworkTransform nTransform)
+        public void ProcessCurrentNetworkTransform(NetworkTransform nTransform)
         {
             if (!IsRunning)
             {
@@ -128,6 +128,12 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        
+        private void OnPlayerInitialized(PlayerSignals.OnPlayerInitialized OnPlayerInitialized)
+        {
+            if(playerEntity.Properties.User.Name == OnPlayerInitialized.PlayerProperties.User.Name)
+            {
+                IsRunning = true;
+            }
+        }
     }
 }

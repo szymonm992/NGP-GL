@@ -17,9 +17,8 @@ namespace Frontend.Scripts.Extensions
                 SpawnPosition = new Vector3(data.GetFloat("spawnPositionX"),data.GetFloat("spawnPositionY"),
                 data.GetFloat("spawnPositionZ")),
 
-                SpawnRotation = Quaternion.Euler(new Vector3(
-                    data.GetFloat("spawnRotationX"), data.GetFloat("spawnRotationY"),
-                    data.GetFloat("spawnRotationZ"))),
+                SpawnEulerAngles = new Vector3(data.GetFloat("spawnRotationX"), data.GetFloat("spawnRotationY"),
+                    data.GetFloat("spawnRotationZ")),
             };
         }
     }

@@ -10,7 +10,7 @@ namespace Frontend.Scripts.Models
     {
         public string Username { get; set; }
         public Vector3 SpawnPosition { get; set; }
-        public Quaternion SpawnRotation { get; set; }
+        public Vector3 SpawnEulerAngles { get; set; }
         
     }
 }

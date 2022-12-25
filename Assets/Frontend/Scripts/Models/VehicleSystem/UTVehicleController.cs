@@ -124,7 +124,7 @@ namespace Frontend.Scripts.Models
         {
             signalBus.Fire(new PlayerSignals.OnPlayerInitialized()
             {
-                PlayerProperties = playerEntity.PlayerProperties,
+                PlayerProperties = playerEntity.Properties,
                 InputProvider = inputProvider,
                 VehicleStats = vehicleStats,
                 TurretRotationSpeed = hasTurret ? vehicleStats.TurretRotationSpeed : 0,

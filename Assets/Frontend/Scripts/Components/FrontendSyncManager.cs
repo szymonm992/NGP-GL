@@ -2,8 +2,11 @@ using Frontend.Scripts.Extensions;
 using Frontend.Scripts.Signals;
 using GLShared.General.Interfaces;
 using GLShared.General.Models;
+using GLShared.General.Signals;
 using GLShared.Networking.Components;
+using GLShared.Networking.Extensions;
 using GLShared.Networking.Interfaces;
+using GLShared.Networking.Models;
 using Sfs2X.Core;
 using Sfs2X.Entities;
 using Sfs2X.Entities.Data;
@@ -12,6 +15,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using Zenject;
+using static GLShared.General.Signals.PlayerSignals;
 
 namespace Frontend.Scripts.Components
 {
@@ -24,7 +28,7 @@ namespace Frontend.Scripts.Components
         [Inject] private readonly SmartFoxConnection smartFox;
         [Inject] private readonly TimeManager timeManager;
 
-        private readonly Dictionary<string, INetworkEntity> connectedPlayers = new Dictionary<string, INetworkEntity>();
+        private readonly Dictionary<string, PlayerEntity> connectedPlayers = new Dictionary<string, PlayerEntity>();
 
         private int spanwedPlayersAmount = 0;
         private double currentServerTime = 0;
@@ -40,23 +44,22 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        public void TryCreatePlayer(User user, Vector3 spawnPosition, Quaternion spawnRotation)
+        public void TryCreatePlayer(User user, Vector3 spawnPosition, Vector3 spawnEulerAngles)
         {
             if (!connectedPlayers.ContainsKey(user.Name))
             {
-                CreatePlayer(user, spawnPosition, spawnRotation);
+                CreatePlayer(user, spawnPosition, spawnEulerAngles);
             }
         }
 
-        public void SyncPosition(INetworkEntity entity)
+        public void SyncPosition(INetworkEntity _)
         {
-            Debug.Log("dfsdf");
         }
 
-        public void CreatePlayer(User user, Vector3 spawnPosition, Quaternion spawnRotation)
+        public void CreatePlayer(User user, Vector3 spawnPosition, Vector3 spawnEulerAngles)
         {
             var vehicleName = user.GetVariable("playerVehicle").Value.ToString();
-            var playerProperties = GetPlayerInitData(user, vehicleName, spawnPosition, spawnRotation);
+            var playerProperties = GetPlayerInitData(user, vehicleName, spawnPosition, spawnEulerAngles);
             var prefabEntity = playerProperties.PlayerContext.gameObject.GetComponent<PlayerEntity>();//this references only to prefab
             var playerEntity = playerSpawner.Spawn(prefabEntity, playerProperties);
 
@@ -65,7 +68,7 @@ namespace Frontend.Scripts.Components
         }
 
         private PlayerProperties GetPlayerInitData(User user, string vehicleName,
-            Vector3 spawnPosition, Quaternion spawnRotation)
+            Vector3 spawnPosition, Vector3 spawnEulerAngles)
         {
             var vehicleData = vehicleDatabase.GetVehicleInfo(vehicleName);
             if (vehicleData != null)
@@ -76,7 +79,7 @@ namespace Frontend.Scripts.Components
                     PlayerVehicleName = vehicleData.VehicleName,
                     IsLocal = user.IsItMe,
                     SpawnPosition = spawnPosition,
-                    SpawnRotation = spawnRotation,
+                    SpawnRotation = Quaternion.Euler(spawnEulerAngles.x, spawnEulerAngles.y, spawnEulerAngles.z),
                     User = user,
                 };
             }
@@ -117,11 +120,10 @@ namespace Frontend.Scripts.Components
                         CurrentValue = currentCountdownValue,
                     });
                 }
-               
-
                 if (cmd == "playerSync")
                 {
-
+                    NetworkTransform newTransform = responseData.ToNetworkTransform();
+                    connectedPlayers[responseData.GetUtfString("username")].ReceiveSyncPosition(newTransform);
                 }
 
             }
@@ -138,7 +140,7 @@ namespace Frontend.Scripts.Components
                 var user = smartFox.Connection.UserManager.GetUserByName(spawnData.Username);
                 if (user != null)
                 {
-                    TryCreatePlayer(user, spawnData.SpawnPosition, spawnData.SpawnRotation);
+                    TryCreatePlayer(user, spawnData.SpawnPosition, spawnData.SpawnEulerAngles);
                 }
                 else
                 {
