@@ -15,28 +15,15 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using Zenject;
-using static GLShared.General.Signals.PlayerSignals;
 
 namespace Frontend.Scripts.Components
 {
-    public class FrontendSyncManager : MonoBehaviour, ISyncManager
+    public class FrontendSyncManager : SyncManagerBase
     {
-        [Inject] private readonly SignalBus signalBus;
-        [Inject] private readonly IVehiclesDatabase vehicleDatabase;
-        [Inject] private readonly PlayerSpawner playerSpawner;
         [Inject] private readonly ConnectionManager connectionManager;
-        [Inject] private readonly SmartFoxConnection smartFox;
         [Inject] private readonly TimeManager timeManager;
 
-        private readonly Dictionary<string, PlayerEntity> connectedPlayers = new Dictionary<string, PlayerEntity>();
-
-        private int spanwedPlayersAmount = 0;
-        private double currentServerTime = 0;
-        public int SpawnedPlayersAmount => spanwedPlayersAmount;
-
-        public double CurrentServerTime => currentServerTime;
-
-        public void Initialize()
+        public override void Initialize()
         {
             if (smartFox.IsInitialized && smartFox.Connection.IsConnected)
             {
@@ -44,30 +31,7 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        public void TryCreatePlayer(User user, Vector3 spawnPosition, Vector3 spawnEulerAngles)
-        {
-            if (!connectedPlayers.ContainsKey(user.Name))
-            {
-                CreatePlayer(user, spawnPosition, spawnEulerAngles);
-            }
-        }
-
-        public void SyncPosition(INetworkEntity _)
-        {
-        }
-
-        public void CreatePlayer(User user, Vector3 spawnPosition, Vector3 spawnEulerAngles)
-        {
-            var vehicleName = user.GetVariable("playerVehicle").Value.ToString();
-            var playerProperties = GetPlayerInitData(user, vehicleName, spawnPosition, spawnEulerAngles);
-            var prefabEntity = playerProperties.PlayerContext.gameObject.GetComponent<PlayerEntity>();//this references only to prefab
-            var playerEntity = playerSpawner.Spawn(prefabEntity, playerProperties);
-
-            connectedPlayers.Add(user.Name, playerEntity);
-            spanwedPlayersAmount++;
-        }
-
-        private PlayerProperties GetPlayerInitData(User user, string vehicleName,
+        protected override PlayerProperties GetPlayerInitData(User user, string vehicleName,
             Vector3 spawnPosition, Vector3 spawnEulerAngles)
         {
             var vehicleData = vehicleDatabase.GetVehicleInfo(vehicleName);
