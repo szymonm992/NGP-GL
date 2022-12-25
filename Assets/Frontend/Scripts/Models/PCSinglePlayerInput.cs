@@ -1,17 +1,16 @@
 using UnityEngine;
 using GLShared.General.Interfaces;
 using Zenject;
-using Frontend.Scripts.Components;
-using Automachine.Scripts.Signals;
-using GLShared.General.Enums;
 using GLShared.General.Signals;
-using static GLShared.General.Signals.PlayerSignals;
+using GLShared.Networking.Components;
+using GLShared.General.Models;
 
 namespace Frontend.Scripts.Models
 {
     public class PCSinglePlayerInput : MonoBehaviour, IPlayerInputProvider, IInitializable
     {
         [Inject] private readonly SignalBus signalBus;
+        [Inject] private PlayerEntity playerEntity;
 
         private bool lockPlayerInput = true;
 
@@ -43,6 +42,11 @@ namespace Frontend.Scripts.Models
             signalBus.Subscribe<PlayerSignals.OnAllPlayersInputLockUpdate>(OnAllPlayersInputLockUpdate);
         }
 
+        public void SetInput(PlayerInput input)
+        {
+
+        }
+
         private float ReturnAbsoluteHorizontal (ref float input)
         {
             return Mathf.Abs(input);
@@ -60,24 +64,30 @@ namespace Frontend.Scripts.Models
 
         private void Update()
         {
-            if(!lockPlayerInput)
+            if(playerEntity.IsLocalPlayer)
             {
-                brake = Input.GetButton("Brake");
-                horizontal = !Brake ? Input.GetAxis("Horizontal") : 0f;
-                vertical = !Brake ? Input.GetAxis("Vertical") : 0f;
-                pressedSnipingKey = Input.GetKeyDown(KeyCode.LeftShift);
-                pressedTurretLockKey = Input.GetMouseButton(1);
-
-                if (vertical != 0)
+                if (!lockPlayerInput)
                 {
-                    lastVerticalInput = SignedVertical;
+                    brake = Input.GetButton("Brake");
+                    horizontal = !Brake ? Input.GetAxis("Horizontal") : 0f;
+                    vertical = !Brake ? Input.GetAxis("Vertical") : 0f;
+                    pressedSnipingKey = Input.GetKeyDown(KeyCode.LeftShift);
+                    pressedTurretLockKey = Input.GetMouseButton(1);
+
+                    if (vertical != 0)
+                    {
+                        lastVerticalInput = SignedVertical;
+                    }
+
+                    combinedInput = Mathf.Abs(horizontal) + Mathf.Abs(vertical);
+                    playerEntity.Input.UpdateControllerInputs(horizontal, vertical, brake, pressedTurretLockKey);
                 }
 
-                combinedInput = Mathf.Abs(horizontal) + Mathf.Abs(vertical);
             }
         }
+      
 
-        private void OnAllPlayersInputLockUpdate(OnAllPlayersInputLockUpdate OnAllPlayersInputLockUpdate)
+        private void OnAllPlayersInputLockUpdate(PlayerSignals.OnAllPlayersInputLockUpdate OnAllPlayersInputLockUpdate)
         {
             lockPlayerInput = OnAllPlayersInputLockUpdate.LockPlayersInput;
         }

@@ -17,6 +17,7 @@ namespace Frontend.Scripts.Components
     {
         [Inject] private readonly Camera controlledCamera;
         [Inject] private readonly SignalBus signalBus;
+        [Inject] private readonly FrontendSyncManager frontendSyncManager;
 
         [Header("General Settings")]
         [SerializeField] private int reticlePixelsOffset = 75;//cursor offset from middle of screen, measured in pixels
@@ -191,6 +192,16 @@ namespace Frontend.Scripts.Components
                 turrentRotationLock = false;
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
+            }
+
+            SendCameraTarget();
+        }
+
+        private void SendCameraTarget()
+        {
+            if (!turrentRotationLock && !blockCtrl)
+            {
+                frontendSyncManager.LocalPlayerEntity.Input.UpdateCameraTarget(targetPosition);
             }
         }
 

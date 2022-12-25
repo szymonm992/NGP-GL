@@ -1,5 +1,6 @@
 using Frontend.Scripts.Interfaces;
 using GLShared.General.Interfaces;
+using GLShared.General.Models;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,5 +34,10 @@ namespace Frontend.Scripts.Components
         public bool SnipingKey => false;
 
         public bool TurretLockKey => false;
+
+        public void SetInput(PlayerInput input)
+        {
+
+        }
     }
 }

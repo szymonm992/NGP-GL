@@ -40,6 +40,17 @@ namespace Frontend.Scripts.Components
             smartFoxConnection.Connection.Send(request);
         }
 
+        public void SendUDPRequest(string cmd, ISFSObject data = null)
+        {
+            if (data == null)
+            {
+                data = new SFSObject();
+            }
+            var room = smartFoxConnection.Connection.LastJoinedRoom;
+            ExtensionRequest request = new ExtensionRequest(cmd, data, null, true);
+            smartFoxConnection.Connection.Send(request);
+        }
+
         public void OnConnection(BaseEvent evt)
         {
             bool successfullyConnected = (bool)evt.Params["success"];
@@ -163,7 +174,7 @@ namespace Frontend.Scripts.Components
                 }
 
             }
-            catch (System.Exception exception)
+            catch (Exception exception)
             {
                 Debug.Log("Exception handling response: " + exception.Message
                    + " >>>[AND TRACE IS]>>> " + exception.StackTrace);

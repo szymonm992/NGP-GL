@@ -22,6 +22,7 @@ namespace Frontend.Scripts
             Container.BindFactory<PlayerEntity, PlayerProperties, PlayerEntity, PlayerSpawner.Factory>().FromSubContainerResolve().ByInstaller<PlayerSpawner.PlayerInstaller>();
 
             Container.BindInterfacesAndSelfTo<RandomBattleParameters>().FromInstance(randomBattleParameters).AsSingle();
+            Container.Bind<FrontendSyncManager>().FromComponentInHierarchy().AsSingle();
         }
     }
 }

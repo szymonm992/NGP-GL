@@ -23,11 +23,26 @@ namespace Frontend.Scripts.Components
         [Inject] private readonly ConnectionManager connectionManager;
         [Inject] private readonly TimeManager timeManager;
 
+        [SerializeField] private float inputSendingPeriod = 0.01f;
+
+        private float timeLastSendingInput = 0;
+        private PlayerEntity localPlayerEntity;
+        public PlayerEntity LocalPlayerEntity => localPlayerEntity;
+
         public override void Initialize()
         {
             if (smartFox.IsInitialized && smartFox.Connection.IsConnected)
             {
                 smartFox.Connection.AddEventListener(SFSEvent.EXTENSION_RESPONSE, OnExtensionResponse);
+            }
+        }
+
+        protected override void CreatePlayer(User user, Vector3 spawnPosition, Vector3 spawnEulerAngles, out PlayerProperties playerProperties)
+        {
+            base.CreatePlayer(user, spawnPosition, spawnEulerAngles, out playerProperties);
+            if(user.IsItMe)
+            {
+                localPlayerEntity = connectedPlayers[user.Name];
             }
         }
 
@@ -84,10 +99,27 @@ namespace Frontend.Scripts.Components
                         CurrentValue = currentCountdownValue,
                     });
                 }
+                if (cmd == "playerSpawned")
+                {
+
+                    var spawnData = responseData.ToSpawnData();
+                    var user = smartFox.Connection.UserManager.GetUserByName(spawnData.Username);
+                    if (user != null)
+                    {
+                        TryCreatePlayer(user, spawnData.SpawnPosition, spawnData.SpawnEulerAngles);
+                    }
+                    else
+                    {
+                        Debug.LogError("Player " + spawnData.Username + " has not been found in users manager");
+                    }
+                }
                 if (cmd == "playerSync")
                 {
                     NetworkTransform newTransform = responseData.ToNetworkTransform();
-                    connectedPlayers[responseData.GetUtfString("username")].ReceiveSyncPosition(newTransform);
+                    if (connectedPlayers.ContainsKey(newTransform.Username))
+                    {
+                        connectedPlayers[newTransform.Username].ReceiveSyncPosition(newTransform);
+                    }
                 }
 
             }
@@ -97,28 +129,36 @@ namespace Frontend.Scripts.Components
                    + " >>>[AND TRACE IS]>>> " + exception.StackTrace);
             }
 
-            if (cmd == "playerSpawned")
-            {
+            
 
-                var spawnData = responseData.ToSpawnData();
-                var user = smartFox.Connection.UserManager.GetUserByName(spawnData.Username);
-                if (user != null)
-                {
-                    TryCreatePlayer(user, spawnData.SpawnPosition, spawnData.SpawnEulerAngles);
-                }
-                else
-                {
-                    Debug.LogError("Player " + spawnData.Username + " has not been dfound in users manager");
-                }
-            }
+           
         }
 
-        private void Update()
+        protected override void Update()
         {
             if(smartFox.IsInitialized)
             {
                 smartFox.Connection.ProcessEvents();
+
+                if(localPlayerEntity != null)
+                {
+                    SyncLocalPlayerInput();
+                }
             }
+        }
+
+        private void SyncLocalPlayerInput()
+        {
+            connectionManager.SendRequest("inbattle.playerInputs", localPlayerEntity.Input.ToISFSOBject());
+            return;
+
+            if (timeLastSendingInput >= inputSendingPeriod)
+            {
+                connectionManager.SendUDPRequest("inbattle.playerInputs", localPlayerEntity.Input.ToISFSOBject());
+                timeLastSendingInput = 0;
+                return;
+            }
+            timeLastSendingInput += Time.deltaTime;
         }
     }
 }
