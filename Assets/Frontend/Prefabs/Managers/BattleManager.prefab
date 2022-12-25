@@ -217,7 +217,6 @@ GameObject:
   - component: {fileID: 5632466586491668192}
   - component: {fileID: 8850793481532068452}
   - component: {fileID: 5942585420759568500}
-  - component: {fileID: 3707982361505581490}
   - component: {fileID: 8491054905541163978}
   m_Layer: 0
   m_Name: BattleManager
@@ -260,7 +259,6 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 5632466586491668192}
-  - {fileID: 3707982361505581490}
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
@@ -309,19 +307,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07975853d5d6dfe4ba6105ac77b9ce06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3707982361505581490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1806163464955986606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e791789666f31bb40b81d3b7506d0a78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  vehiclesDatabase: {fileID: 11400000, guid: 7a48bb02f4524cb4db5772f2e42d30e5, type: 2}
 --- !u!114 &8491054905541163978
 MonoBehaviour:
   m_ObjectHideFlags: 0

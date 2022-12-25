@@ -70,6 +70,7 @@
     <Compile Include="Assets\Plugins\GLShared\General\ScriptableObjects\GameParameters.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Components\GameState\BattleCountdownStage.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Enums\DriveAxisSite.cs" />
+    <Compile Include="Assets\Plugins\GLShared\Networking\Models\NetworkTransform.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\Gravity\CarGravity.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\VehicleStatsBase.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Enums\ForceApplyPoint.cs" />
@@ -137,7 +138,6 @@
     <Compile Include="Assets\Plugins\GLShared\General\Models\VehicleEntryInfo.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\VehicleSystem\IVehicleController.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IGameWorld.cs" />
-    <Compile Include="Assets\Plugins\GLShared\Networking\Models\NetworkTransform.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\SmartFox2X.dll" />

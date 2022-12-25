@@ -14,6 +14,7 @@ using Sfs2X.Core;
 using Frontend.Scripts.Signals;
 using Sfs2X.Util;
 using System;
+using Sfs2X.Entities.Variables;
 
 namespace Frontend.Scripts.Components
 {

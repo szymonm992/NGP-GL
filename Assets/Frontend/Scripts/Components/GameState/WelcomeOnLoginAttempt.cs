@@ -12,9 +12,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 using Frontend.Scripts.Signals;
-using static Frontend.Scripts.Signals.ConnectionSignals;
 using Sfs2X.Requests;
 using Sfs2X.Entities.Data;
+using Sfs2X.Util;
 
 namespace Frontend.Scripts.Components.GameState
 {
@@ -132,6 +132,7 @@ namespace Frontend.Scripts.Components.GameState
             smartFox.Connection = new SmartFox()
             {
                 ThreadSafeMode = true,  
+                
             };
 
             smartFox.Connection.AddEventListener(SFSEvent.CONNECTION, connectionManager.OnConnection);
@@ -146,7 +147,7 @@ namespace Frontend.Scripts.Components.GameState
             smartFox.Connection.Connect(smartFox.HOST, smartFox.PORT);
         }
 
-        private void OnConnectionAttemptResult(OnConnectionAttemptResult OnConnectionAttemptResult)
+        private void OnConnectionAttemptResult(ConnectionSignals.OnConnectionAttemptResult OnConnectionAttemptResult)
         {
             bool successfulCon = OnConnectionAttemptResult.SuccessfullyConnected;
             if (successfulCon)
@@ -159,7 +160,7 @@ namespace Frontend.Scripts.Components.GameState
             }
         }
         
-        public void OnLoginAttemptResult(OnLoginAttemptResult OnLoginAttemptResult)
+        public void OnLoginAttemptResult(ConnectionSignals.OnLoginAttemptResult OnLoginAttemptResult)
         {
             if(!OnLoginAttemptResult.SuccessfullyLogin)
             {
@@ -171,7 +172,7 @@ namespace Frontend.Scripts.Components.GameState
             }
         }
 
-        public void OnLobbyJoinResult(OnLobbyJoinAttemptResult OnLobbyJoin)
+        public void OnLobbyJoinResult(ConnectionSignals.OnLobbyJoinAttemptResult OnLobbyJoin)
         {
             FinishGetInLobbyAttempt(OnLobbyJoin.SuccessfullyJoinedLobby, OnLobbyJoin.LobbyJoinMessage);
         }

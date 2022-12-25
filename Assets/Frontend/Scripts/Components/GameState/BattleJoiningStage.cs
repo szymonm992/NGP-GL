@@ -11,7 +11,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zenject;
-using static Frontend.Scripts.Signals.ConnectionSignals;
 
 namespace Frontend.Scripts.Components.GameState
 {
@@ -70,7 +69,7 @@ namespace Frontend.Scripts.Components.GameState
             IsTryingToJoinBattle = false;
         }
 
-        private void OnRoomJoinResponse(OnRoomJoinResponse OnRoomJoinResponse)
+        private void OnRoomJoinResponse(ConnectionSignals.OnRoomJoinResponse OnRoomJoinResponse)
         {
             Debug.Log("Battle join response: "+OnRoomJoinResponse.SuccessfullyJoinedRoom);
 

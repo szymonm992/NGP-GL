@@ -17,8 +17,8 @@ namespace Frontend.Scripts.Components
         [Inject(Optional = true)] private readonly Speedometer speedometer;
 
         private double interpolationBackTime = 200;
+        private int statesCount = 0;
         NetworkTransform[] bufferedStates = new NetworkTransform[20];
-        int statesCount = 0;
 
         public bool IsRunning { get; set; } = false;
 

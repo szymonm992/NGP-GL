@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8577948492876904307}
   - component: {fileID: 5934746485961644742}
   - component: {fileID: 2261507247223844267}
+  - component: {fileID: 4363763225995789575}
   m_Layer: 0
   m_Name: BattleSceneInstaller
   m_TagString: Untagged
@@ -48,6 +49,7 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 2261507247223844267}
+  - {fileID: 4363763225995789575}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -78,3 +80,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomBattleParameters: {fileID: 11400000, guid: 0c8de38b0eebba54e9ad84ceccb4f79a, type: 2}
+--- !u!114 &4363763225995789575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6055839828904960217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e791789666f31bb40b81d3b7506d0a78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vehiclesDatabase: {fileID: 11400000, guid: 7a48bb02f4524cb4db5772f2e42d30e5, type: 2}

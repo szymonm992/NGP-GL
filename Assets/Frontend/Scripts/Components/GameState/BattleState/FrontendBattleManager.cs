@@ -8,18 +8,21 @@ using GLShared.General.Enums;
 using GLShared.General.Interfaces;
 using GLShared.General.ScriptableObjects;
 using GLShared.General.Signals;
+using GLShared.Networking.Components;
+using Sfs2X;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-namespace Frontend.Scripts
+namespace Frontend.Scripts.Components
 {
     public class FrontendBattleManager : AutomachineEntity<FrontendBattleState>, IBattleManager
     {
         [Inject] private readonly ISyncManager syncManager;
         [Inject] private readonly RandomBattleParameters battleParameters;
+        [Inject] private readonly SmartFoxConnection smartFox;
 
         private FrontendBattleCountdown countdownState;
         private FrontendBattleInProgress battleInProgressState;
@@ -34,6 +37,8 @@ namespace Frontend.Scripts
 
             signalBus.Subscribe<BattleSignals.OnGameStageUpdate>(OnGameStageUpdate);
             signalBus.Subscribe<OnStateEnter<FrontendBattleState>>(OnStateEnter);
+
+            smartFox.Connection.InitUDP(smartFox.HOST, smartFox.PORT);
         }
         public override void OnStateMachineInitialized(OnStateMachineInitialized<FrontendBattleState> OnStateMachineInitialized)
         {
