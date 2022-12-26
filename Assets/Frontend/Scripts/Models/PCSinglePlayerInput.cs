@@ -82,11 +82,9 @@ namespace Frontend.Scripts.Models
                     combinedInput = Mathf.Abs(horizontal) + Mathf.Abs(vertical);
                     playerEntity.Input.UpdateControllerInputs(horizontal, vertical, brake, pressedTurretLockKey);
                 }
-
             }
         }
       
-
         private void OnAllPlayersInputLockUpdate(PlayerSignals.OnAllPlayersInputLockUpdate OnAllPlayersInputLockUpdate)
         {
             lockPlayerInput = OnAllPlayersInputLockUpdate.LockPlayersInput;

@@ -92,6 +92,7 @@
     <Compile Include="Assets\Plugins\Automachine\Interfaces\IAutomachineState.cs" />
     <Compile Include="Assets\Plugins\GLShared\Networking\Enums\NetworkEntityType.cs" />
     <Compile Include="Assets\Plugins\Automachine\Models\StateManager.cs" />
+    <Compile Include="Assets\Plugins\GLShared\Networking\Interfaces\ISyncInterpolator.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\CarStats.cs" />
     <Compile Include="Assets\Plugins\GLShared\Networking\Components\PlayerSpawner.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\ISyncManager.cs" />
@@ -134,12 +135,11 @@
     <Compile Include="Assets\Plugins\Automachine\Components\AutomachineEntity.cs" />
     <Compile Include="Assets\Plugins\GLShared\Utilities\ZenjectExtensions.cs" />
     <Compile Include="Assets\Plugins\Automachine\Signals\StateSignals.cs" />
+    <Compile Include="Assets\Plugins\GLShared\Networking\Models\SyncManagerBase.cs" />
     <Compile Include="Assets\Plugins\Automachine\Installers\StateInstaller.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Models\VehicleEntryInfo.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\VehicleSystem\IVehicleController.cs" />
     <Compile Include="Assets\Plugins\GLShared\General\Interfaces\IGameWorld.cs" />
-    <Compile Include="Assets\Plugins\GLShared\Networking\Interfaces\ISyncInterpolator.cs" />
-    <Compile Include="Assets\Plugins\GLShared\Networking\Models\SyncManagerBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\SmartFox2X.dll" />

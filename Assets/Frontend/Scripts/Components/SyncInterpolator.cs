@@ -17,7 +17,7 @@ namespace Frontend.Scripts.Components
 
         [Inject] private readonly SignalBus signalBus;
         [Inject] private readonly TimeManager timeManager;
-        [Inject(Optional = true)] private readonly Speedometer speedometer;
+        [Inject] private readonly Speedometer speedometer;
         [Inject(Source = InjectSources.Local)] private readonly PlayerEntity playerEntity;
 
         private double interpolationBackTime = 200;
@@ -54,12 +54,13 @@ namespace Frontend.Scripts.Components
                 return;
             }
 
-            UpdateValues();
+            SelectInterpolationTime(timeManager.AveragePing);
 
-            double currentTime = timeManager.NetworkTime;
-            double interpolationTime = currentTime - interpolationBackTime;
+            var currentTime = timeManager.NetworkTime;
+            var interpolationTime = currentTime - interpolationBackTime;
+            var firstBufferedState = bufferedStates[0];
 
-            if (bufferedStates[0].TimeStamp > interpolationTime)
+            if (firstBufferedState.TimeStamp > interpolationTime)
             {
                 for (int i = 0; i < statesCount; i++)
                 {
@@ -78,7 +79,7 @@ namespace Frontend.Scripts.Components
                         transform.position = Vector3.Lerp(lhs.Position, rhs.Position, t);
                         transform.eulerAngles = Vector3.Lerp(lhs.EulerAngles, rhs.EulerAngles, t);
 
-                        if (speedometer != null)
+                        if (playerEntity.IsLocalPlayer)
                         {
                             speedometer.SetSpeedometr(lhs.CurrentSpeed);
                         }
@@ -88,20 +89,18 @@ namespace Frontend.Scripts.Components
             }
             else
             {
-                transform.position = bufferedStates[0].Position;
-                transform.eulerAngles = bufferedStates[0].EulerAngles;
-                if (speedometer != null)
+                transform.position = firstBufferedState.Position;
+                transform.eulerAngles = firstBufferedState.EulerAngles;
+                if (playerEntity.IsLocalPlayer)
                 {
-                    speedometer.SetSpeedometr(bufferedStates[0].CurrentSpeed);
+                    speedometer.SetSpeedometr(firstBufferedState.CurrentSpeed);
                 }
             }
 
         }
 
-        private void UpdateValues()
+        private void SelectInterpolationTime(double ping)
         {
-            double ping = timeManager.AveragePing;
-
             if (ping < 50)
             {
                 interpolationBackTime = 50;

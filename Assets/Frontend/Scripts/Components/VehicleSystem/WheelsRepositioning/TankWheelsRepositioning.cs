@@ -191,13 +191,12 @@ namespace Frontend.Scripts.Components
                     float currentTextureOffset = material.GetTextureOffset("_BaseMap").y;
                     rend.trackObject.materials[0].SetTextureOffset("_BaseMap", new Vector2(0, currentTextureOffset - (currentOffset / 70f) * sideInput));
 
-
                     if (!rend.helperDummies.Any())
                     {
                         return;
                     }
 
-                     foreach(var dummy in rend.helperDummies)
+                    foreach (var dummy in rend.helperDummies)
                      {
                          if (dummy.ForwardDummy != null && dummy.BackwardDummy != null)
                          {

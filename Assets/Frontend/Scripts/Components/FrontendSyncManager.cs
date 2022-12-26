@@ -101,7 +101,6 @@ namespace Frontend.Scripts.Components
                 }
                 if (cmd == "playerSpawned")
                 {
-
                     var spawnData = responseData.ToSpawnData();
                     var user = smartFox.Connection.UserManager.GetUserByName(spawnData.Username);
                     if (user != null)
@@ -128,10 +127,6 @@ namespace Frontend.Scripts.Components
                 Debug.Log(" Frontend Syncmanager exception handling response: " + exception.Message
                    + " >>>[AND TRACE IS]>>> " + exception.StackTrace);
             }
-
-            
-
-           
         }
 
         protected override void Update()
@@ -150,15 +145,14 @@ namespace Frontend.Scripts.Components
         private void SyncLocalPlayerInput()
         {
             connectionManager.SendRequest("inbattle.playerInputs", localPlayerEntity.Input.ToISFSOBject());
-            return;
 
-            if (timeLastSendingInput >= inputSendingPeriod)
+            /*if (timeLastSendingInput >= inputSendingPeriod)
             {
                 connectionManager.SendUDPRequest("inbattle.playerInputs", localPlayerEntity.Input.ToISFSOBject());
                 timeLastSendingInput = 0;
                 return;
             }
-            timeLastSendingInput += Time.deltaTime;
+            timeLastSendingInput += Time.deltaTime;*/
         }
     }
 }

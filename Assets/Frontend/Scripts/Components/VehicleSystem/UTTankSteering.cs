@@ -5,7 +5,7 @@ using UnityEngine;
 using Zenject;
 using GLShared.General.Interfaces;
 
-namespace Frontend.Scripts
+namespace Frontend.Scripts.Components
 {
     public class UTTankSteering : MonoBehaviour, IVehicleSteering
     {
@@ -35,19 +35,23 @@ namespace Frontend.Scripts
 
         private void FixedUpdate()
         {
-            if (!suspensionController.RunPhysics && (steerInput == 0 || suspensionController.IsUpsideDown))
+            if (steerInput == 0 || suspensionController.IsUpsideDown)
             {
                 return;
             }
 
             currentSteerForce = steerForce;
-
             if (inputProvider.CombinedInput > 1)
             {
                 currentSteerForce *= (1.0f / Mathf.Sqrt(2));
             }
 
-            foreach(var axle in suspensionController.AllAxles)
+            if(!suspensionController.RunPhysics)
+            {
+                return;
+            }
+
+            foreach (var axle in suspensionController.AllAxles)
             {
                 if(axle.CanSteer)
                 {
@@ -57,7 +61,8 @@ namespace Frontend.Scripts
                         if(wheel.IsGrounded)
                         {
                             int invertValue = axle.InvertSteer ? -1 : 1;
-                            rig.AddForceAtPosition(invertValue  * currentSteerForce * steerInput * rig.transform.right, wheel.HitInfo.Point, ForceMode.Acceleration);
+                            rig.AddForceAtPosition(invertValue  * currentSteerForce * steerInput * rig.transform.right,
+                                wheel.HitInfo.Point, ForceMode.Acceleration);
                         }
                     }
                 }

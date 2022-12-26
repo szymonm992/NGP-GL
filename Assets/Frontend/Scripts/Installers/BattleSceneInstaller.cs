@@ -23,6 +23,7 @@ namespace Frontend.Scripts
 
             Container.BindInterfacesAndSelfTo<RandomBattleParameters>().FromInstance(randomBattleParameters).AsSingle();
             Container.Bind<FrontendSyncManager>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<Speedometer>().FromComponentInHierarchy().AsSingle();
         }
     }
 }

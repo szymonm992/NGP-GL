@@ -7,6 +7,7 @@ using GLShared.General.Signals;
 using GLShared.Networking.Components;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -18,6 +19,13 @@ namespace Frontend.Scripts.Components
 
         protected override void FixedUpdate()
         {
+            allGroundedWheels = GetGroundedWheelsInAllAxles().ToArray();
+            isUpsideDown = CheckUpsideDown();
+            if (!isUpsideDown)
+            {
+                currentSpeed = playerEntity.EntityVelocity;
+                Debug.Log("speed "+ currentSpeed);
+            }
         }
 
         protected override void Update()
