@@ -76,8 +76,8 @@ namespace Frontend.Scripts.Components
                             t = (float)((interpolationTime - lhs.TimeStamp) / length);
                         }
 
-                        transform.position = Vector3.Lerp(lhs.Position, rhs.Position, t);
-                        transform.eulerAngles = Vector3.Lerp(lhs.EulerAngles, rhs.EulerAngles, t);
+                        transform.position = Vector3.MoveTowards(lhs.Position, rhs.Position, t);
+                        transform.rotation = Quaternion.RotateTowards(lhs.Rotation, rhs.Rotation, t);
 
                         if (playerEntity.IsLocalPlayer)
                         {
@@ -96,7 +96,6 @@ namespace Frontend.Scripts.Components
                     speedometer.SetSpeedometr(firstBufferedState.CurrentSpeed);
                 }
             }
-
         }
 
         private void SelectInterpolationTime(double ping)

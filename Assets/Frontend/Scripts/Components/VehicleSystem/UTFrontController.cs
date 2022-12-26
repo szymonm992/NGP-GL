@@ -24,7 +24,6 @@ namespace Frontend.Scripts.Components
             if (!isUpsideDown)
             {
                 currentSpeed = playerEntity.EntityVelocity;
-                Debug.Log("speed "+ currentSpeed);
             }
         }
 

@@ -13,7 +13,7 @@ namespace Frontend.Scripts.Components
         [Inject] private readonly ISyncManager syncManager;
         [Inject] private readonly SmartFoxConnection smartFox;
 
-        private readonly float period = 0.1f;
+        private readonly float period = 0.01f;
         private readonly int averagePingCount = 10;
         
         private float lastRequestTime = float.MaxValue;
@@ -34,7 +34,7 @@ namespace Frontend.Scripts.Components
             get
             {
                 // Taking server timestamp + time passed locally since the last server time received			
-                return (Time.time - lastLocalTime) * 1000f + lastServerTime;
+                return (Time.time - lastLocalTime) * 1000 + lastServerTime;
             }
         }
         public double AveragePing => averagePing;
@@ -49,7 +49,7 @@ namespace Frontend.Scripts.Components
 
         public double GetAveragePingAndSync(double timeValue)
         {
-            double ping = (Time.time - timeBeforeSync) * 1000f; //miliseconds
+            double ping = (Time.time - timeBeforeSync) * 1000; //miliseconds
             CalculateAveragePing(ping);
 
             // Take the time passed between server sends response and we get it 

@@ -99,19 +99,6 @@ namespace Frontend.Scripts.Components
                         CurrentValue = currentCountdownValue,
                     });
                 }
-                if (cmd == "playerSpawned")
-                {
-                    var spawnData = responseData.ToSpawnData();
-                    var user = smartFox.Connection.UserManager.GetUserByName(spawnData.Username);
-                    if (user != null)
-                    {
-                        TryCreatePlayer(user, spawnData.SpawnPosition, spawnData.SpawnEulerAngles);
-                    }
-                    else
-                    {
-                        Debug.LogError("Player " + spawnData.Username + " has not been found in users manager");
-                    }
-                }
                 if (cmd == "playerSync")
                 {
                     NetworkTransform newTransform = responseData.ToNetworkTransform();
@@ -121,12 +108,28 @@ namespace Frontend.Scripts.Components
                     }
                 }
 
+
             }
             catch (Exception exception)
             {
                 Debug.Log(" Frontend Syncmanager exception handling response: " + exception.Message
                    + " >>>[AND TRACE IS]>>> " + exception.StackTrace);
             }
+
+            if (cmd == "playerSpawned")
+            {
+                var spawnData = responseData.ToSpawnData();
+                var user = smartFox.Connection.UserManager.GetUserByName(spawnData.Username);
+                if (user != null)
+                {
+                    TryCreatePlayer(user, spawnData.SpawnPosition, spawnData.SpawnEulerAngles);
+                }
+                else
+                {
+                    Debug.LogError("Player " + spawnData.Username + " has not been found in users manager");
+                }
+            }
+            
         }
 
         protected override void Update()
