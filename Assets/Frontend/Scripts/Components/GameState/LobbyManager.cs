@@ -92,5 +92,10 @@ namespace Frontend.Scripts.Components
             disconnectionReason = OnDisconnected.Reason;
             stateMachine.ChangeState(WelcomeStage.None);
         }
+
+        public void QuitGame()
+        {
+            Application.Quit();
+        }
     }
 }

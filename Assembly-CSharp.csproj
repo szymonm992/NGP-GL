@@ -114,13 +114,13 @@
     <Compile Include="Assets\Frontend\Scripts\Models\VehicleSystem\WheelRepositionBase.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\SelectableKVP.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\FrontendSyncManager.cs" />
+    <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\FrontTurretController.cs" />
     <Compile Include="Assets\Frontend\Scripts\Models\AssociatedUI\AssociatedUI.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\FormValidator.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTTankSteering.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\GameState\BattleState\FrontendBattleInProgress.cs" />
     <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\UTWheelFrictionCurve.cs" />
     <Compile Include="Assets\Frontend\Scripts\Enums\FrontendBattleState.cs" />
-    <Compile Include="Assets\Frontend\Scripts\Components\VehicleSystem\FrontTurretController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
