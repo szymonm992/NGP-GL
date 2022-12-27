@@ -47,7 +47,7 @@ namespace Frontend.Scripts.Components
                 data = new SFSObject();
             }
             var room = smartFoxConnection.Connection.LastJoinedRoom;
-            ExtensionRequest request = new ExtensionRequest(cmd, data, null, true);
+            ExtensionRequest request = new ExtensionRequest(cmd, data, room, true);
             smartFoxConnection.Connection.Send(request);
         }
 

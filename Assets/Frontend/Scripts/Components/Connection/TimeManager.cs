@@ -52,8 +52,7 @@ namespace Frontend.Scripts.Components
             double ping = (Time.time - timeBeforeSync) * 1000; //miliseconds
             CalculateAveragePing(ping);
 
-            // Take the time passed between server sends response and we get it 
-            // as half of the average ping value
+            // Take the time passed between server sends response and we get it as half of the average ping valu
             double timePassed = averagePing / 2.0f;
             lastServerTime = timeValue + timePassed;
             lastLocalTime = Time.time;

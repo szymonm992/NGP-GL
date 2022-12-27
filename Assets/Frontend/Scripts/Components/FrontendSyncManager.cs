@@ -23,7 +23,7 @@ namespace Frontend.Scripts.Components
         [Inject] private readonly ConnectionManager connectionManager;
         [Inject] private readonly TimeManager timeManager;
 
-        [SerializeField] private float inputSendingPeriod = 0.01f;
+        [SerializeField] private float inputSendingPeriod = 0.03f;
 
         private float timeLastSendingInput = 0;
         private PlayerEntity localPlayerEntity;
@@ -147,15 +147,15 @@ namespace Frontend.Scripts.Components
 
         private void SyncLocalPlayerInput()
         {
-            connectionManager.SendRequest("inbattle.playerInputs", localPlayerEntity.Input.ToISFSOBject(), smartFox.Connection.LastJoinedRoom);
+            //connectionManager.SendRequest("inbattle.playerInputs", localPlayerEntity.Input.ToISFSOBject(), smartFox.Connection.LastJoinedRoom);
 
-            /*if (timeLastSendingInput >= inputSendingPeriod)
+            if (timeLastSendingInput >= inputSendingPeriod)
             {
                 connectionManager.SendUDPRequest("inbattle.playerInputs", localPlayerEntity.Input.ToISFSOBject());
                 timeLastSendingInput = 0;
                 return;
             }
-            timeLastSendingInput += Time.deltaTime;*/
+            timeLastSendingInput += Time.deltaTime;
         }
     }
 }
