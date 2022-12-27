@@ -30,13 +30,13 @@ namespace Frontend.Scripts.Components
             smartFoxConnection.Connection.Send(request);
         }
 
-        public void SendRequest(string cmd, ISFSObject data = null)
+        public void SendRequest(string cmd, ISFSObject data = null, Room room = null)
         {
             if (data == null)
             {
                 data = new SFSObject();
             }
-            ExtensionRequest request = new ExtensionRequest(cmd, data);
+            ExtensionRequest request = new ExtensionRequest(cmd, data, room);
             smartFoxConnection.Connection.Send(request);
         }
 

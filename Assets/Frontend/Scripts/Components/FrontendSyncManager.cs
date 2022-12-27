@@ -83,7 +83,7 @@ namespace Frontend.Scripts.Components
                         CurrentAveragePing = ping,
                     });
                 }
-                if (cmd == "gameStage")
+                if (cmd == "sendGameStage")
                 {
                     int currentStage = responseData.GetInt("currentGameStage");
                     signalBus.Fire(new BattleSignals.OnGameStageUpdate()
@@ -147,7 +147,7 @@ namespace Frontend.Scripts.Components
 
         private void SyncLocalPlayerInput()
         {
-            connectionManager.SendRequest("inbattle.playerInputs", localPlayerEntity.Input.ToISFSOBject());
+            connectionManager.SendRequest("inbattle.playerInputs", localPlayerEntity.Input.ToISFSOBject(), smartFox.Connection.LastJoinedRoom);
 
             /*if (timeLastSendingInput >= inputSendingPeriod)
             {
