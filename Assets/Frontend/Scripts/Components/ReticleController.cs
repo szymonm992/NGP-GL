@@ -7,7 +7,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
-using static GLShared.General.Signals.PlayerSignals;
 
 namespace Frontend.Scripts.Components
 {
@@ -34,7 +33,6 @@ namespace Frontend.Scripts.Components
         {
             var playerContext = OnLocalPlayerInitialized.PlayerProperties.PlayerContext;
             var vehicleController = playerContext.Container.Resolve<IVehicleController>();
-
             if (vehicleController.HasTurret)
             {
                 var gunController = playerContext.Container.Resolve<ITurretController>();
@@ -56,7 +54,6 @@ namespace Frontend.Scripts.Components
                 {
                     gunPosition = hit.point;
                 }
-
                 UpdateGunReticle(gunPosition);
             }
         }

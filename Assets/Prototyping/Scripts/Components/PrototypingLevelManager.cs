@@ -20,11 +20,7 @@ namespace Prototyping.Scripts.Components
 
         public void Initialize()
         {
-            CreatePlayer("T-55", new Vector3(132.35f, 2f, 118.99f), new Vector3(0, 90f, 0));
-            signalBus.Fire(new PlayerSignals.OnAllPlayersInputLockUpdate()
-            {
-                LockPlayersInput = false,
-            });
+            StartCoroutine(CreatePlayerRoutine(0.5f));
         }
 
         private void CreatePlayer(string vehicleName, Vector3 spawnPosition, Vector3 spawnEulerAngles)
@@ -52,6 +48,16 @@ namespace Prototyping.Scripts.Components
                 };
             }
             return null;
+        }
+
+        private IEnumerator CreatePlayerRoutine(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            CreatePlayer("T-55", new Vector3(132.35f, 2f, 118.99f), new Vector3(0, 90f, 0));
+            signalBus.Fire(new PlayerSignals.OnAllPlayersInputLockUpdate()
+            {
+                LockPlayersInput = false,
+            });
         }
 
     }
