@@ -15,7 +15,6 @@ namespace Frontend.Scripts
     {
         [SerializeField] private GameParameters gameParameters;
 
-
         public override void InstallBindings()
         {
             InstallSignals();

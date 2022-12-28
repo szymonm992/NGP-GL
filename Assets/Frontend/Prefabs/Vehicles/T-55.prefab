@@ -11800,7 +11800,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5497972940232234640}
   - component: {fileID: 3538563863834346540}
-  - component: {fileID: 1914052247926745667}
+  - component: {fileID: -7889962559734846982}
   - component: {fileID: 5464753448514719513}
   - component: {fileID: 8461231185396291856}
   - component: {fileID: 3648750447937278445}
@@ -11854,11 +11854,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
-  - {fileID: 1914052247926745667}
+  - {fileID: -7889962559734846982}
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
---- !u!114 &1914052247926745667
+--- !u!114 &-7889962559734846982
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11867,7 +11867,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8797747351685325955}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0caa172a6dd5fb949ac12f971f3300c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 32ebabfbf3b2ab648a80d0435821681c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!54 &5464753448514719513
@@ -11923,6 +11923,7 @@ MonoBehaviour:
   - {fileID: 2618250326273635535}
   - {fileID: 8255813644745574887}
   - {fileID: 4703210311339521858}
+  - {fileID: -7889962559734846982}
   _identifier: 
   _useSceneContext: 0
   _context: {fileID: 0}
@@ -12004,6 +12005,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   doesGravityDamping: 0
+  runPhysics: 1
   wheelsCollisionDetectionMask:
     serializedVersion: 2
     m_Bits: 2147483647
@@ -12071,7 +12073,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c77d24736e86f624991ec566f3f24422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocityText: {fileID: 0}
 --- !u!114 &8255813644745574887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12161,6 +12162,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectType: 0
+  syncRate: 0.2
+  isSender: 0
   isLocalPlayer: 0
 --- !u!1 &8913179709298987667
 GameObject:

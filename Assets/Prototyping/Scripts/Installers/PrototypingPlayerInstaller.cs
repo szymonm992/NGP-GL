@@ -1,3 +1,4 @@
+using Frontend.Scripts.Components;
 using Frontend.Scripts.Interfaces;
 using Frontend.Scripts.Models;
 using GLShared.General.Components;
@@ -9,16 +10,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-namespace Frontend.Scripts.Components
+namespace Frontend.Scripts
 {
-    public class PlayerInstaller : MonoInstaller, IPlayerInstaller
+    public class PrototypingPlayerInstaller : MonoInstaller, IPlayerInstaller
     {
-        public bool IsPrototypeInstaller => false;
+        public bool IsPrototypeInstaller => true;
 
         public override void InstallBindings()
         {
             Container.BindInitializableExecutionOrder<PlayerEntity>(+10);
-            Container.BindInitializableExecutionOrder<UTFrontController>(+20);
+            Container.BindInitializableExecutionOrder<UTVehicleController>(+20);
 
             Container.BindInterfacesAndSelfTo<UTAxleBase>().FromComponentsInHierarchy().AsCached();
             Container.BindInterfacesAndSelfTo<UTPhysicWheelBase>().FromComponentsInHierarchy().AsCached().NonLazy();
