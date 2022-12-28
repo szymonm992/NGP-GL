@@ -161,10 +161,6 @@ namespace Frontend.Scripts.Components
                 {
                     //HandleInitialVariables(objIn);
                 }
-                if (cmd == "lobbyJoinResult")
-                {
-                    HandleLobbyJoinResult(data);
-                }
                 if(cmd == "getServerSettings")
                 {
                     signalBus.Fire(new ConnectionSignals.OnServerSettingsResponse()
@@ -189,17 +185,7 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        private void HandleLobbyJoinResult(ISFSObject objIn)
-        {
-            if (objIn.ContainsKey("result"))
-            {
-                string result = objIn.GetUtfString("result");
-                if (result == "success")
-                {
-                }
-            }
-        }
-
+  
         private void Update()
         {
             if (smartFoxConnection.IsInitialized)
