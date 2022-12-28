@@ -84,7 +84,7 @@ namespace Frontend.Scripts.Components
 
         public void TryCancelSearchingForBattle()
         {
-            battleJoiningStage.FinishJoiningBattle();
+            connectionManager.SendRequest("joiningBattle.cancelJoiningBattle");
         }
 
         public void OnDisconnected(ConnectionSignals.OnDisconnectedFromServer OnDisconnected)

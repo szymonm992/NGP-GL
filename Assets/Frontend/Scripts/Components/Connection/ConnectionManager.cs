@@ -172,6 +172,14 @@ namespace Frontend.Scripts.Components
                         ServerSettingsData = data,
                     });
                 }
+                if(cmd == "cancelJoiningBattle")
+                {
+                    bool result = data.GetBool("result");
+                    signalBus.Fire(new ConnectionSignals.OnCancelEnteringBattle()
+                    {
+                        SuccessfullyCanceled = result,
+                    });
+                }
 
             }
             catch (Exception exception)

@@ -40,6 +40,11 @@ namespace Frontend.Scripts.Signals
             public string RoomJoinMessage { get; set; }
         }
 
+        public class OnCancelEnteringBattle
+        {
+            public bool SuccessfullyCanceled { get; set; }
+        }
+
         public class OnPingUpdate
         {
             public double CurrentAveragePing { get; set; }

@@ -11,6 +11,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zenject;
+using static Frontend.Scripts.Signals.ConnectionSignals;
 
 namespace Frontend.Scripts.Components.GameState
 {
@@ -31,6 +32,7 @@ namespace Frontend.Scripts.Components.GameState
         {
             base.Initialize();
             signalBus.Subscribe<ConnectionSignals.OnRoomJoinResponse>(OnRoomJoinResponse);
+            signalBus.Subscribe<ConnectionSignals.OnCancelEnteringBattle>(OnCancelEnteringBattle);
         }
 
         public override void StartState()
@@ -69,6 +71,14 @@ namespace Frontend.Scripts.Components.GameState
             IsTryingToJoinBattle = false;
         }
 
+        public void OnCancelEnteringBattle(OnCancelEnteringBattle OnCancelEnteringBattle)
+        {
+            if(OnCancelEnteringBattle.SuccessfullyCanceled)
+            {
+                FinishJoiningBattle();
+            }
+        }
+
         private void OnRoomJoinResponse(ConnectionSignals.OnRoomJoinResponse OnRoomJoinResponse)
         {
             Debug.Log("Battle join response: "+OnRoomJoinResponse.SuccessfullyJoinedRoom);
@@ -103,7 +113,7 @@ namespace Frontend.Scripts.Components.GameState
             ISFSObject data = new SFSObject();
             data.PutUtfString("playerVehicle", "T-55");
             data.PutUtfString("battleType", "randomBattle");
-            connectionManager.SendRequest("startBattle", data);
+            connectionManager.SendRequest("joiningBattle.startBattle", data);
         }
     }
 }
