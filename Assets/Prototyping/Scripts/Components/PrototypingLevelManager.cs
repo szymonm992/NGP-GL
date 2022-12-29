@@ -6,7 +6,6 @@ using GLShared.Networking.Components;
 using Sfs2X.Entities;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Networking.PlayerConnection;
 using UnityEngine;
 using Zenject;
 
