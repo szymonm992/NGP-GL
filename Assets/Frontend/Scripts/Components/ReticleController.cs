@@ -20,7 +20,7 @@ namespace Frontend.Scripts.Components
         [SerializeField] private RectTransform gunReticle;
         [SerializeField] private LayerMask gunMask;
 
-        private bool isSniping = false;
+        
         private Transform localPlayerGun;
 
         public void Initialize()
@@ -75,8 +75,7 @@ namespace Frontend.Scripts.Components
 
         private void OnCameraModeChanged(BattleSignals.CameraSignals.OnCameraModeChanged OnCameraModeChanged)
         {
-            isSniping = OnCameraModeChanged.IsSniping;
-
+            var isSniping = OnCameraModeChanged.Mode == Enums.CameraMode.Sniping;
             float crosshairOffsetY = isSniping ? 0 : cameraController.ReticlePixelsOffset;
             middleScreenCrosshair.anchoredPosition = new Vector2(middleScreenCrosshair.anchoredPosition.x, crosshairOffsetY);
         }

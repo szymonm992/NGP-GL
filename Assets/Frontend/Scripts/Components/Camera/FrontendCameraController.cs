@@ -10,6 +10,7 @@ using Frontend.Scripts.Signals;
 using GLShared.General.Interfaces;
 using GLShared.General.Signals;
 using GLShared.General.Models;
+using Frontend.Scripts.Enums;
 
 namespace Frontend.Scripts.Components
 {
@@ -20,7 +21,8 @@ namespace Frontend.Scripts.Components
         [Inject(Optional = true)] private readonly FrontendSyncManager frontendSyncManager;
 
         [Header("General Settings")]
-        [SerializeField] private int reticlePixelsOffset = 75;//cursor offset from middle of screen, measured in pixels
+        //cursor offset from middle of screen, measured in pixels
+        [SerializeField] private int reticlePixelsOffset = 75;
 
         [SerializeField] private float sensitivityX = 1f;
         [SerializeField] private float sensitivityY = 1f;
@@ -42,6 +44,7 @@ namespace Frontend.Scripts.Components
         [SerializeField] private float snipingZoomStep = 0.2f;
         [SerializeField] private float snipingSensScale = 0.2f;
         [SerializeField] private float snipingMaxSensScale = 0.15f;
+        [SerializeField] private float bumpPreventionDelay = 1.5f;
 
         private IPlayerInputProvider inputProvider;
 
@@ -59,7 +62,7 @@ namespace Frontend.Scripts.Components
         private float orbitDist;
         private float snipingZoom;
 
-        private bool isSniping = false;
+        private CameraMode cameraMode = CameraMode.Orbiting;
         
         private Vector3 targetPosition;
         private Vector3 orbitFollowPos;
@@ -123,7 +126,7 @@ namespace Frontend.Scripts.Components
             signalBus.Fire(new BattleSignals.CameraSignals.OnCameraModeChanged()
             {
                 PlayerObject = currentPlayerObject,
-                IsSniping = isSniping
+                Mode = cameraMode
             });
         }
 
@@ -139,34 +142,35 @@ namespace Frontend.Scripts.Components
                 return;
             }
 
-            //handle rotation desired by player first
-            HandleCameraControl();
+            // handle player-desired rotation first
+            HandlePlayerCameraControl();
             UpdatePosition();
 
-            //prefpare for handling target lock
+            // prepare for target lock handling
             PrepareTargetLock();
 
-            //switching camera modes
+            // switching camera modes
             if (isAlive)
             {
                 if (inputProvider.SnipingKey)
                 {
-                    SetSniping(!isSniping);
+                    ToggleSniping();
                 }
             }
 
-            // update depending on camera mode
-            if (isSniping)
-            { 
-                UpdateSnipingCamera();
+            // update depending on current camera mode
+            switch (cameraMode)
+            {
+                case CameraMode.Orbiting:
+                    UpdateOrbitCamera();
+                    break;
+                case CameraMode.Sniping:
+                    UpdateSnipingCamera();
+                    break;
             }
-            else
-            { 
-                UpdateOrbitCamera();
-            }
-
-            //target lock is being executed only if active camera is orbiting camera
-            //or it has begun a transition between camera modes
+            
+            // target lock is being executed only if camera is currently in orbiting mode
+            // or if it has begun a transition between modes
             ApplyTargetLock();
 
         }
@@ -177,7 +181,7 @@ namespace Frontend.Scripts.Components
             {
                 return;
             }
-            //we send camera targeting position on the server
+            // we send camera targeting position on the server
             turrentRotationLock = Input.GetMouseButton(1);
 
 
@@ -205,72 +209,59 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        // rotation, based on player inputs
-        private void HandleCameraControl()
-        {
 
-            float rotY = GetUserInputs().axisX * sensitivityX;
-            float rotX = GetUserInputs().axisY * sensitivityY;
+        private void HandlePlayerCameraControl()
+        {
+            Vector2 rotation = new(
+                GetMouseAxes().y * sensitivityY,
+                GetMouseAxes().x * sensitivityX
+            );
 
             if (Input.GetKey(KeyCode.LeftControl))
             {
-                rotY *= 0;
-                rotX *= 0;
+                rotation = Vector2.zero;
             }
 
-            if (isSniping)
+            if (IsInSnipingMode())
             {
                 float zoomMult = 1 - (1 - snipingMaxSensScale) * ((snipingZoom - snipingMinZoom) / (snipingMaxZoom - snipingMinZoom));
                 float finalSensScale = snipingSensScale * zoomMult;
 
-                rotX *= finalSensScale;
-                rotY *= finalSensScale;
+                rotation *= finalSensScale;
 
-                //cancelling previous rotation relative sniping camera
+                // cancelling previous rotation relative to the sniping camera
+                // this is done to apply the player-defined camera rotation locally.
                 transform.rotation = Quaternion.Inverse(snipingFollowPoint.rotation) * transform.rotation;
             }
 
-            // TODO: rework it to use quaternion instead of filthy, feeble, misrable fucking euler angles btw
-            Vector3 angles = transform.localEulerAngles;
+            transform.rotation *= Quaternion.Euler(rotation);
 
-            angles.x += rotX;
-            angles.y += rotY;
-
-            transform.localEulerAngles = angles;
-
-            if (isSniping)
+            if (IsInSnipingMode())
             {
-                //applying again the rotation of sniping camera
+                // reapplying the sniping camera rotation
                 transform.rotation = snipingFollowPoint.rotation * transform.rotation;
             }
 
 
             // limiting the angle range
-            float yMinRange = orbitVertMinRange;
-            float yMaxRange = orbitVertMaxRange;
+            (float Min, float Max) limits = (orbitVertMinRange, orbitVertMaxRange);
 
-            if (isSniping)
+            if (IsInSnipingMode())
             {
-                yMaxRange = gunDepression;
-                yMinRange = -gunElevation;
+                limits = (gunDepression, -gunElevation);
             }
 
-            transform.rotation = LimitCameraRange(transform.rotation, yMinRange, yMaxRange);
-
+            transform.rotation = LimitCameraRange(transform.rotation, limits.Min, limits.Max);
         }
 
-        //limits rotation of camera into set ranges
+
         private Quaternion LimitCameraRange(Quaternion oldRotation, float yMinRange, float yMaxRange)
         {
             Quaternion newRotation = oldRotation;
 
-            if (isSniping)
+            if (IsInSnipingMode())
             {
-                // TODO - adding a range here
-                yMaxRange = gunDepression;
-                yMinRange = -gunElevation;
-
-                //canceling previous relative rotation of sniping camera
+                // canceling previous relative rotation of sniping camera
                 newRotation = Quaternion.Inverse(snipingFollowPoint.rotation) * newRotation;
             }
 
@@ -281,34 +272,33 @@ namespace Frontend.Scripts.Components
 
             newRotation.eulerAngles = angles;
 
-            if (isSniping)
+            if (IsInSnipingMode())
             {
-                //applying again the relative rotation of sniping camera
+                // applying again the relative rotation of sniping camera
                 newRotation = snipingFollowPoint.rotation * newRotation;
             }
 
             return newRotation;
         }
 
-        // ustawia pozycjê do predenifniowanych punktów
-        // ta operacja musi byæ wykonana przed pobraniem targeta do targetlocka
-        // inaczej gra dzia³a tak jakbyœ mia³ perfidnego auto-aima XD
+        // sets position of predefined follow points and the camera
+        // this has to be executed before fetching target for target-lock
+        // otherwise the game just works like auto-aim
         private void UpdatePosition()
         {
             orbitFollowPos = orbitFollowPoint.position;
             snipingFollowPos = snipingFollowPoint.position;
 
-            if (isSniping)
+            if (IsInSnipingMode())
             {
                 transform.position = snipingFollowPos;
             }
             else
             {
-                //zapobieganie przenikaniu kamery pod ziemiê w przypadku gdyby czog³ siê wyjeba³ hehe
+                // preventing the camera from clipping through the ground
                 var dotDir = Vector3.Dot(Vector3.up, orbitFollowPoint.up);
                 if (dotDir < 0)
                 {
-                    //orbitFollowPos.y -= dotDir * 2.0f * orbitFollowPoint.localPosition.y;
                     orbitFollowPos.y -= dotDir * orbitFollowPoint.localPosition.y;
                 }
                 transform.position = orbitFollowPos;
@@ -317,20 +307,19 @@ namespace Frontend.Scripts.Components
 
         private void UpdateOrbitCamera()
         {
-            if (GetUserInputs().zoomValue != 0)
+            var zoomValue = GetZoomValue();
+            if (zoomValue != 0)
             {
-                var newOrbitDist = desiredOrbitDist - GetUserInputs().zoomValue * 10.0f * orbitZoomStep;
+                var newOrbitDist = desiredOrbitDist - zoomValue * 10.0f * orbitZoomStep;
                 desiredOrbitDist = Mathf.Clamp(newOrbitDist, orbitMinDist, orbitMaxDist);
             }
 
-            //target lock system handles everything so we only need to change this variable
+            // target lock system handles everything so we only need to change this variable
             orbitDist = Mathf.Lerp(orbitDist, desiredOrbitDist, Time.deltaTime * orbitDistInterp * 10.0f);
-            //orbitDist = desiredOrbitDist;
 
             // handling walls collisions
             const float camOffset = 0.25f;
             RaycastHit hit;
-            //Vector3 orbitCamDirVec = controlledCamera.transform.position - transform.position;
             Quaternion orbitCamDirRotation = LimitCameraRange(GetTargetLockOrbitLookVector(true), orbitVertMinRange, orbitVertMaxRange);
 
             Vector3 orbitCamDirVec = (orbitCamDirRotation * Vector3.forward).normalized * desiredOrbitDist * -1f;
@@ -348,9 +337,10 @@ namespace Frontend.Scripts.Components
 
         private void UpdateSnipingCamera()
         {
-            if (GetUserInputs().zoomValue != 0)
+            var zoomValue = GetZoomValue();
+            if (zoomValue != 0)
             {
-                var newSnipingZoom = desiredSnipingZoom + GetUserInputs().zoomValue * 10.0f * snipingZoomStep;
+                var newSnipingZoom = desiredSnipingZoom + zoomValue * 10.0f * snipingZoomStep;
                 desiredSnipingZoom = Mathf.Clamp(newSnipingZoom, snipingMinZoom, snipingMaxZoom);
             }
 
@@ -363,45 +353,49 @@ namespace Frontend.Scripts.Components
             oldSnipingFollowRot = snipingFollowPoint.rotation;
         }
 
-        public void SetSniping(bool snipingValue)
+        public void SetCameraMode(CameraMode newMode)
         {
-            if (isSniping == snipingValue)
+            if (cameraMode == newMode)
             {
                 return;
             }
 
-            isSniping = snipingValue;
+            cameraMode = newMode;
 
             UpdatePosition();
 
-            //fixing variables while change
-            if (!snipingValue)
+            // fixing variables after changing the mode
+            if (newMode == CameraMode.Orbiting)
             {
                 controlledCamera.cullingMask |= 1 << LayerMask.NameToLayer("ExcludedFromSniper");
                 controlledCamera.fieldOfView = orbitFov;
                 orbitDist = desiredOrbitDist;
                 transform.rotation = Quaternion.identity;
             }
-            else
+            else if(newMode == CameraMode.Sniping)
             {
                 controlledCamera.cullingMask &= ~(1 << LayerMask.NameToLayer("ExcludedFromSniper"));
                 snipingZoom = snipingMinZoom;
                 desiredSnipingZoom = snipingZoom;
-
                 oldSnipingFollowRot = Quaternion.identity;
             }
 
             signalBus.Fire(new BattleSignals.CameraSignals.OnCameraModeChanged()
             {
                 PlayerObject = currentPlayerObject,
-                IsSniping = isSniping
+                Mode = cameraMode
             });
         }
 
+        public void ToggleSniping()
+        {
+            SetCameraMode(cameraMode == CameraMode.Sniping ? CameraMode.Orbiting : CameraMode.Sniping);
+        }
 
-        // Przygotowanie do wykonania funkcji ApplyTargetLock na koñcu Update'a.
-        // znalezienie punktu, w który gracz celuje kamer¹. Powinno byæ wykonane 
-        // po kontroli gracza ale przed operacjami, które nieumyuœlnie zmieniaj¹ cel gracza.
+
+        // finding the point player is aiming towards.
+        // should be done after player control but before operations
+        // which can manipulate camera mode or follow point
         private void PrepareTargetLock()
         {
             const int targetDist = 2000;
@@ -409,13 +403,13 @@ namespace Frontend.Scripts.Components
             RaycastHit hit;
             Vector3 camTransform = transform.position;
             Vector3 rayDir = transform.forward;
-            if (!isSniping)
+            if (IsInOrbitingMode())
             {
-                // obliczanie docelowego punktu kamery (zwi¹zany z przesuniêtym celownikiem).
+                // calculate desired camera point (according to moved crosshair).
                 camTransform = transform.position - controlledCamera.transform.rotation * new Vector3(0, 0, orbitDist);
                 rayDir = Quaternion.AngleAxis(-GetCrosshairAngle(), transform.right) * controlledCamera.transform.rotation * Vector3.forward;
 
-                // quick fix: przesuniêcie punktu pocz¹tkowego (ignorowanie elementów za wie¿yczk¹)
+                // quick fix: move starting point (ignore objects behind the turret)
                 camTransform += rayDir * orbitDist;
             }
 
@@ -430,31 +424,30 @@ namespace Frontend.Scripts.Components
             }
 
         }
-
-        // Kamera przy oddalaniu i przybli¿aniu mo¿e odchodziæ od celowanego punktu, poniewa¿
-        // celowany punkt nie jest na œrodku ekranu. Ta funkcja upewnia siê, ¿e dokonane
-        // operacje nie powoduj¹ "odejœcia" celownika od wczeœniej wyznaczonego celu.
-        // Powinna byæ wykonana wy³¹cznie na koñcu Update'a.
+        
+        // the camera can deviate from target point when zooming in and out, becasue
+        // aimed point is not in the middle of the screen. this function makes sure
+        // no operations are causing this deviation from previously chosen target.
+        // it should be executed after all of the camera operations has been done.
         private void ApplyTargetLock()
         {
-
-            Quaternion finalRotation;
-            // obliczanie k¹ta w kamerze snajpeskiej jest dziecinnie proste LOL
-            if (isSniping)
+            Quaternion finalRotation = transform.rotation;
+            
+            if (IsInSnipingMode())
             {
                 Vector3 finalLookVec = (targetPosition - transform.position).normalized;
                 Vector3 upVector = snipingFollowPoint.up;
                 finalRotation = Quaternion.LookRotation(finalLookVec, upVector);
             }
-            else
+            else if(IsInOrbitingMode())
             {
                 finalRotation = GetTargetLockOrbitLookVector(false);
             }
-            // aplikowanie wyliczonego wektora kierunkowego
+            
             transform.rotation = finalRotation;
         }
 
-        // pobranie dodatkowego k¹ta celowania bazuj¹cego na offsecie pionowym kursora
+        // returns aiming angle based of how much crosshair is offset from the middle of the screen
         private float GetCrosshairAngle()
         {
             return Mathf.Atan(reticlePixelsOffset * 2f * Mathf.Tan(controlledCamera.fieldOfView * 0.5f * Mathf.Deg2Rad) / Screen.height) * Mathf.Rad2Deg;
@@ -471,9 +464,9 @@ namespace Frontend.Scripts.Components
 
             float ang = GetCrosshairAngle();
 
-            // matematyczny mocarz - obliczenie k¹tu pomiêdzy celem a œrodkiem systemu kamery (twierdzenie sinusów)
+            // calculating the angle between the target and the middle of camera system (sine theorem)
             float targetAngle = Mathf.Asin(Mathf.Sin(ang * Mathf.Deg2Rad) * usedOrbitDist / targetDist) * Mathf.Rad2Deg;
-            // wyliczenie wektora kierunkowego - targetDir obrócony o sumê wyliczonych k¹tów
+            // calculating direction vector - targetDir obrócony o sumê wyliczonych k¹tów
             Vector3 lookVector = Quaternion.AngleAxis(ang + targetAngle, Vector3.Cross(Vector3.up, targetDir)) * targetDir;
 
             return Quaternion.LookRotation(lookVector, Vector3.up);
@@ -503,22 +496,20 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        private struct Inputs
+        private Vector2 GetMouseAxes()
         {
-            public float axisX;
-            public float axisY;
-            public float zoomValue;
+            return new(
+                Input.GetAxis("Mouse X"),
+                Input.GetAxis("Mouse Y")
+            );
         }
 
-        private Inputs GetUserInputs()
+        private float GetZoomValue()
         {
-            Inputs inputs;
-
-            inputs.axisX = Input.GetAxis("Mouse X");
-            inputs.axisY = Input.GetAxis("Mouse Y");
-            inputs.zoomValue = Input.GetAxis("Zoom");
-            return inputs;
+            return Input.GetAxis("Zoom");
         }
+
+
 
         public void SetBlockCtrl(bool val)
         {
@@ -536,7 +527,12 @@ namespace Frontend.Scripts.Components
 
         public bool IsInSnipingMode()
         {
-            return isSniping;
+            return cameraMode == CameraMode.Sniping;
+        }
+
+        public bool IsInOrbitingMode()
+        {
+            return cameraMode == CameraMode.Orbiting;
         }
 
         #endregion

@@ -32,7 +32,7 @@ namespace Frontend.Scripts.Components
             {
                 foreach(var renderer in allPlayerRenderers)
                 {
-                    renderer.enabled = !OnCameraZoomChanged.IsSniping;
+                    renderer.enabled = OnCameraZoomChanged.Mode == Enums.CameraMode.Orbiting;
                 }
             }
         }

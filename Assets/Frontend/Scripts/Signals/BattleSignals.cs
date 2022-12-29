@@ -1,3 +1,4 @@
+using Frontend.Scripts.Enums;
 using Frontend.Scripts.Interfaces;
 using Frontend.Scripts.Models;
 using GLShared.General.Interfaces;
@@ -34,7 +35,7 @@ namespace Frontend.Scripts.Signals
             public class OnCameraModeChanged
             {
                 public GameObject PlayerObject { get; set; }
-                public bool IsSniping { get; set; }
+                public CameraMode Mode { get; set; }
             }
         }
     }
