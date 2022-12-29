@@ -107,29 +107,25 @@ namespace Frontend.Scripts.Components
                         connectedPlayers[newTransform.Username].ReceiveSyncPosition(newTransform);
                     }
                 }
-
-
+                if (cmd == "playerSpawned")
+                {
+                    var spawnData = responseData.ToSpawnData();
+                    var user = smartFox.Connection.UserManager.GetUserByName(spawnData.Username);
+                    if (user != null)
+                    {
+                        TryCreatePlayer(user, spawnData.SpawnPosition, spawnData.SpawnEulerAngles);
+                    }
+                    else
+                    {
+                        Debug.LogError("Player " + spawnData.Username + " has not been found in users manager");
+                    }
+                }
             }
             catch (Exception exception)
             {
                 Debug.Log(" Frontend Syncmanager exception handling response: " + exception.Message
                    + " >>>[AND TRACE IS]>>> " + exception.StackTrace);
             }
-
-            if (cmd == "playerSpawned")
-            {
-                var spawnData = responseData.ToSpawnData();
-                var user = smartFox.Connection.UserManager.GetUserByName(spawnData.Username);
-                if (user != null)
-                {
-                    TryCreatePlayer(user, spawnData.SpawnPosition, spawnData.SpawnEulerAngles);
-                }
-                else
-                {
-                    Debug.LogError("Player " + spawnData.Username + " has not been found in users manager");
-                }
-            }
-            
         }
 
         protected override void Update()
@@ -147,8 +143,6 @@ namespace Frontend.Scripts.Components
 
         private void SyncLocalPlayerInput()
         {
-            //connectionManager.SendRequest("inbattle.playerInputs", localPlayerEntity.Input.ToISFSOBject(), smartFox.Connection.LastJoinedRoom);
-
             if (timeLastSendingInput >= inputSendingPeriod)
             {
                 connectionManager.SendUDPRequest("inbattle.playerInputs", localPlayerEntity.Input.ToISFSOBject());
