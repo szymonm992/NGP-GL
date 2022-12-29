@@ -16,9 +16,16 @@ namespace Plugins.Editor
         // to be assembled before anything else and fix broken/non-existing symlinks.
         static UT_SymlinkRepair()
         {
-            if (!EditorApplication.isPlayingOrWillChangePlaymode)
+            if (EditorApplication.isPlayingOrWillChangePlaymode)
+            {
+                return;
+            }
+
+            // execute repair tool only once at the beginning of the session.
+            if (!SessionState.GetBool("UTSymlinkRepairToolInitialized", false))
             {
                 FindAndRepairSymlinks();
+                SessionState.SetBool("UTSymlinkRepairToolInitialized", true);
             }
         }
 
@@ -55,14 +62,22 @@ namespace Plugins.Editor
                 return;
             }
 
+            Debug.Log($"Found {symlinks.Count} broken symlinks. Attempting to fix them.");
+#if UNITY_EDITOR_WIN
             RepairSymlinksWindows(symlinks);
+#else
+            Debug.LogWarning("Symlink repair tool has not been implemented for this platform.");
+#endif
         }
 
+#if UNITY_EDITOR_WIN
         // windows-exclusive method of creating symlinks.
         private static void RepairSymlinksWindows(SymlinkList symlinks)
         {
             bool result = AlertQuestion(
-                "Unity - UT Symlink Repair", $"Broken symlinks detected: {symlinks.Count}\nWould you like to repair them?"
+                "Unity - UT Symlink Repair", 
+                $"Broken symlinks detected: {symlinks.Count}\n" +
+                "Would you like to repair them?"
             );
 
             if (!result)
@@ -76,7 +91,7 @@ namespace Plugins.Editor
             {
                 if (cmds.Length > 0) cmds += " & ";
                 // delete file so symlink can be created
-                // (done here to prevent deletion when no permissions for symlink have been given)
+                // (done as a command to prevent deletion when no permissions for symlink have been given)
                 cmds += $"del \"{symlink.path}\" & ";
                 // create symlink
                 cmds += $"mklink /D \"{symlink.path}\" \"{symlink.target}\"";
@@ -98,8 +113,20 @@ namespace Plugins.Editor
             startInfo.UseShellExecute = true;
 
             process.StartInfo = startInfo;
-            process.Start();
-            process.WaitForExit();
+
+            try
+            {
+                process.Start();
+                process.WaitForExit();
+            } 
+            catch (Exception)
+            {
+                AlertInfo(
+                    "Unity - UT Symlink Repair",
+                    "Unable to start command line with admin privileges!\n" + 
+                    "Try again by using \"UT System/Repair Symlinks\""
+                );
+            }
         }
 
         [DllImport("user32.dll")]
@@ -114,10 +141,11 @@ namespace Plugins.Editor
             return result == 6;
         }
 
-        private static bool AlertInfo(string title, string text)
+        private static void AlertInfo(string title, string text)
         {
-            int result = MessageBox(GetActiveWindow(), text, title, (uint)(0x00000000L | 0x00000030L));
-            return result == 6;
+            MessageBox(GetActiveWindow(), text, title, (uint)(0x00000000L | 0x00000030L));
         }
+#endif
+
     }
 }
