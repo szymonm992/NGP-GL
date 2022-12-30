@@ -38,7 +38,7 @@ namespace Frontend.Scripts.Components
         {
             if (gun != null)
             {
-                gun.localRotation = Quaternion.RotateTowards(gun.localRotation,
+                gun.localRotation = Quaternion.Slerp(gun.localRotation,
                Quaternion.Euler(playerEntity.CurrentNetworkTransform.GunAngleX, gun.localEulerAngles.y, gun.localEulerAngles.z),
                Time.deltaTime * vehicleStats.GunRotationSpeed);
                 //  playerEntity.CurrentNetworkTransform.TurretAngleY, turret.localEulerAngles.z), Time.deltaTime * vehicleStats.TurretRotationSpeed);
@@ -49,7 +49,7 @@ namespace Frontend.Scripts.Components
         {
             if (turret != null)
             {
-                turret.localRotation = Quaternion.RotateTowards(turret.localRotation, Quaternion.Euler(turret.localEulerAngles.x,
+                turret.localRotation = Quaternion.Slerp(turret.localRotation, Quaternion.Euler(turret.localEulerAngles.x,
                     playerEntity.CurrentNetworkTransform.TurretAngleY, turret.localEulerAngles.z), 
                     Time.deltaTime * vehicleStats.TurretRotationSpeed);
             }
