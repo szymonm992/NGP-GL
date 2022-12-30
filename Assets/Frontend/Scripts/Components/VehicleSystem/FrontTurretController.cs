@@ -11,9 +11,6 @@ namespace Frontend.Scripts.Components
     public class FrontTurretController : MonoBehaviour, ITurretController
     {
         [Inject] private readonly IPlayerInputProvider inputProvider;
-        [Inject] private readonly PlayerEntity playerEntity;
-        [Inject] private readonly IVehicleController vehicleController;
-        [Inject] private readonly VehicleStatsBase vehicleStats;
 
         [SerializeField] private Transform gun;
         [SerializeField] private Transform turret;
@@ -23,36 +20,18 @@ namespace Frontend.Scripts.Components
 
         public bool TurretLock => inputProvider.TurretLockKey;
 
-        private void LateUpdate()
+        public void SetTurretAndGunRotation(float turretY, float gunX)
         {
-            if (!playerEntity.Properties.IsInitialized || TurretLock || vehicleController.IsUpsideDown)
-            {
-                return;
-            }
-
-            RotateTurret();
-            RotateGun();
+            gun.localEulerAngles = new Vector3(gunX, gun.localEulerAngles.y, gun.localEulerAngles.z);
+            turret.localEulerAngles = new Vector3(turret.localEulerAngles.x, turretY, turret.localEulerAngles.z);
         }
 
         public void RotateGun()
         {
-            if (gun != null)
-            {
-                gun.localRotation = Quaternion.Slerp(gun.localRotation,
-               Quaternion.Euler(playerEntity.CurrentNetworkTransform.GunAngleX, gun.localEulerAngles.y, gun.localEulerAngles.z),
-               Time.deltaTime * vehicleStats.GunRotationSpeed);
-                //  playerEntity.CurrentNetworkTransform.TurretAngleY, turret.localEulerAngles.z), Time.deltaTime * vehicleStats.TurretRotationSpeed);
-            }
         }
 
         public void RotateTurret()
         {
-            if (turret != null)
-            {
-                turret.localRotation = Quaternion.Slerp(turret.localRotation, Quaternion.Euler(turret.localEulerAngles.x,
-                    playerEntity.CurrentNetworkTransform.TurretAngleY, turret.localEulerAngles.z), 
-                    Time.deltaTime * vehicleStats.TurretRotationSpeed);
-            }
         }
     }
 }

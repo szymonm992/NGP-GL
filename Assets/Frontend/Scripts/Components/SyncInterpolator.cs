@@ -15,6 +15,7 @@ namespace Frontend.Scripts.Components
         [Inject] private readonly SignalBus signalBus;
         [Inject] private readonly TimeManager timeManager;
         [Inject] private readonly Speedometer speedometer;
+        [Inject(Optional = true)] private readonly FrontTurretController turretController;
         [Inject(Source = InjectSources.Local)] private readonly PlayerEntity playerEntity;
 
         private double interpolationBackTime = 200;
@@ -96,13 +97,9 @@ namespace Frontend.Scripts.Components
                             p3 = bufferedStates[(index - 2 + bufferedStates.Length) % bufferedStates.Length].Position;
                         }
 
-                        float t2 = t * t;
-                        float t3 = t2 * t;
                         Vector3 pos = InterpolateSpline(p0, p1, p2, p3, t);
-
-                        transform.position = pos;
-                        transform.rotation = Quaternion.Slerp(lhs.Rotation, rhs.Rotation, t);
-
+                        transform.SetPositionAndRotation(pos, Quaternion.Slerp(lhs.Rotation, rhs.Rotation, t));
+                        turretController.SetTurretAndGunRotation(rhs.TurretAngleY, rhs.GunAngleX);
                         if (playerEntity.IsLocalPlayer)
                         {
                             speedometer.SetSpeedometr(lhs.CurrentSpeed);
@@ -115,6 +112,7 @@ namespace Frontend.Scripts.Components
             {
                 transform.position = firstBufferedState.Position;
                 transform.rotation = firstBufferedState.Rotation;
+                turretController.SetTurretAndGunRotation(firstBufferedState.TurretAngleY, firstBufferedState.GunAngleX);
 
                 if (playerEntity.IsLocalPlayer)
                 {
