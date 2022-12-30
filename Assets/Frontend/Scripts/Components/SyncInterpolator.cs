@@ -114,8 +114,8 @@ namespace Frontend.Scripts.Components
                             t = length > MIN_THRESHOLD ? (float)((interpolationTime - lhs.TimeStamp) / length) : 0.0f;
                         }
 
-                        transform.position = Vector3.MoveTowards(lhs.Position, rhs.Position, t);
-                        transform.rotation = Quaternion.RotateTowards(lhs.Rotation, rhs.Rotation, t);
+                        transform.SetPositionAndRotation(Vector3.MoveTowards(lhs.Position, rhs.Position, t),
+                            Quaternion.RotateTowards(lhs.Rotation, rhs.Rotation, t));
 
                         if (playerEntity.IsLocalPlayer)
                         {
