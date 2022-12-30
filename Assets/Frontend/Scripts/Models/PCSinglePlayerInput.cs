@@ -62,9 +62,17 @@ namespace Frontend.Scripts.Models
             return input != 0 ? Mathf.Sign(input) : 0f;
         }
 
+        private bool HasInputChanged(float currentHorizontal, float currentVertical, bool currentBrake, bool currentPressedTurretLockKey)
+        {
+            return currentHorizontal != playerEntity.Input.Horizontal ||
+                   currentVertical != playerEntity.Input.Vertical ||
+                   currentBrake != playerEntity.Input.Brake ||
+                   currentPressedTurretLockKey != playerEntity.Input.TurretLockKey;
+        }
+
         private void Update()
         {
-            if(playerEntity.IsLocalPlayer)
+            if (playerEntity.IsLocalPlayer)
             {
                 if (!lockPlayerInput)
                 {
@@ -80,11 +88,17 @@ namespace Frontend.Scripts.Models
                     }
 
                     combinedInput = Mathf.Abs(horizontal) + Mathf.Abs(vertical);
-                    playerEntity.Input.UpdateControllerInputs(horizontal, vertical, brake, pressedTurretLockKey);
+
+                    // Check if the current input is different from the previous input
+                    if (HasInputChanged(horizontal, vertical, brake, pressedTurretLockKey))
+                    {
+                        // Update the controller inputs and send a packet
+                        playerEntity.Input.UpdateControllerInputs(horizontal, vertical, brake, pressedTurretLockKey);
+                    }
                 }
             }
         }
-      
+
         private void OnAllPlayersInputLockUpdate(PlayerSignals.OnAllPlayersInputLockUpdate OnAllPlayersInputLockUpdate)
         {
             lockPlayerInput = OnAllPlayersInputLockUpdate.LockPlayersInput;
