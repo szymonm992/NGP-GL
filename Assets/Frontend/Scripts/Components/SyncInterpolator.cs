@@ -106,9 +106,9 @@ namespace Frontend.Scripts.Components
                     {
                         var rhs = bufferedStates[(index - 1 + bufferedStates.Length) % bufferedStates.Length];
                         var lhs = bufferedStates[index];
-                        double length = rhs.TimeStamp - lhs.TimeStamp;
+                        var length = rhs.TimeStamp - lhs.TimeStamp;
 
-                        float t = 0.0f;
+                        var t = 0.0f;
                         if (length > MIN_THRESHOLD)
                         {
                             t = length > MIN_THRESHOLD ? (float)((interpolationTime - lhs.TimeStamp) / length) : 0.0f;
