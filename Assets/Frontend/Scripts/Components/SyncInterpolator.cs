@@ -3,10 +3,7 @@ using GLShared.General.Signals;
 using GLShared.Networking.Components;
 using GLShared.Networking.Interfaces;
 using GLShared.Networking.Models;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Zenject;
 
 namespace Frontend.Scripts.Components
@@ -14,8 +11,6 @@ namespace Frontend.Scripts.Components
     public class SyncInterpolator : MonoBehaviour, IInitializable, ISyncInterpolator
     {
         private const float MIN_THRESHOLD = 0.0001f;
-        private const float POSITION_DIFFERENCE_THRESHOLD = 0.1f;
-        private const float ROTATION_DIFFERENCE_THRESHOLD = 5f;
 
         [Inject] private readonly SignalBus signalBus;
         [Inject] private readonly TimeManager timeManager;
@@ -57,16 +52,76 @@ namespace Frontend.Scripts.Components
             SelectInterpolationTime(timeManager.AveragePing);
 
             var currentTime = timeManager.NetworkTime;
-            if (ShouldExtrapolate(currentTime, out targetState))
+            Interpolate(currentTime);
+        }
+
+
+        private void Interpolate(double currentTime)
+        {
+            var interpolationTime = currentTime - interpolationBackTime;
+            var firstBufferedState = bufferedStates[(statesCount - 1) % bufferedStates.Length];
+
+            if (firstBufferedState.TimeStamp > interpolationTime)
             {
-                Extrapolate(currentTime, targetState);
+                for (int i = 0; i < statesCount; i++)
+                {
+                    int index = (statesCount - 1 - i) % bufferedStates.Length;
+                    if (bufferedStates[index].TimeStamp <= interpolationTime || i == statesCount - 1)
+                    {
+                        var rhs = bufferedStates[(index - 1 + bufferedStates.Length) % bufferedStates.Length];
+                        var lhs = bufferedStates[index];
+                        var length = rhs.TimeStamp - lhs.TimeStamp;
+
+                        var t = 0.0f;
+                        if (length > MIN_THRESHOLD)
+                        {
+                            t = (float)((interpolationTime - lhs.TimeStamp) / length);
+                            if (t > 1.0f)
+                            {
+                                t = 1.0f;
+                            }
+                        }
+
+                        // Calculate spline interpolation using the three most recent network transforms
+                        Vector3 p0 = lhs.Position;
+                        Vector3 p1 = rhs.Position;
+                        Vector3 p2 = rhs.Position;
+                        Vector3 p3 = rhs.Position;
+                        if (statesCount > 2)
+                        {
+                            p2 = bufferedStates[(index - 1 + bufferedStates.Length) % bufferedStates.Length].Position;
+                        }
+                        if (statesCount > 3)
+                        {
+                            p3 = bufferedStates[(index - 2 + bufferedStates.Length) % bufferedStates.Length].Position;
+                        }
+
+                        float t2 = t * t;
+                        float t3 = t2 * t;
+                        Vector3 pos = 0.5f * ((2.0f * p1) + (-p0 + p2) * t + (2.0f * p0 - 5.0f * p1 + 4.0f * p2 - p3) * t2 + (-p0 + 3.0f * p1 - 3.0f * p2 + p3) * t3);
+
+                        transform.position = pos;
+                        transform.rotation = Quaternion.Slerp(lhs.Rotation, rhs.Rotation, t);
+
+                        if (playerEntity.IsLocalPlayer)
+                        {
+                            speedometer.SetSpeedometr(lhs.CurrentSpeed);
+                        }
+                        return;
+                    }
+                }
             }
             else
             {
-                Interpolate(currentTime);
+                transform.position = firstBufferedState.Position;
+                transform.rotation = firstBufferedState.Rotation;
+
+                if (playerEntity.IsLocalPlayer)
+                {
+                    speedometer.SetSpeedometr(firstBufferedState.CurrentSpeed);
+                }
             }
         }
-
 
         private void SelectInterpolationTime(double ping)
         {
@@ -92,113 +147,9 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        private void Interpolate(double currentTime)
-        {
-            var interpolationTime = currentTime - interpolationBackTime;
-            var firstBufferedState = bufferedStates[(statesCount - 1) % bufferedStates.Length];
-
-            if (firstBufferedState.TimeStamp > interpolationTime)
-            {
-                for (int i = 0; i < statesCount; i++)
-                {
-                    int index = (statesCount - 1 - i) % bufferedStates.Length;
-                    if (bufferedStates[index].TimeStamp <= interpolationTime || i == statesCount - 1)
-                    {
-                        var rhs = bufferedStates[(index - 1 + bufferedStates.Length) % bufferedStates.Length];
-                        var lhs = bufferedStates[index];
-                        var length = rhs.TimeStamp - lhs.TimeStamp;
-
-                        var t = 0.0f;
-                        if (length > MIN_THRESHOLD)
-                        {
-                            t = length > MIN_THRESHOLD ? (float)((interpolationTime - lhs.TimeStamp) / length) : 0.0f;
-                        }
-
-                        transform.SetPositionAndRotation(Vector3.MoveTowards(lhs.Position, rhs.Position, t),
-                            Quaternion.RotateTowards(lhs.Rotation, rhs.Rotation, t));
-
-                        if (playerEntity.IsLocalPlayer)
-                        {
-                            speedometer.SetSpeedometr(lhs.CurrentSpeed);
-                        }
-                        return;
-                    }
-                }
-            }
-            else
-            {
-                transform.position = firstBufferedState.Position;
-                transform.eulerAngles = firstBufferedState.Rotation.eulerAngles;
-
-                if (playerEntity.IsLocalPlayer)
-                {
-                    speedometer.SetSpeedometr(firstBufferedState.CurrentSpeed);
-                }
-            }
-        }
-
-        private void Extrapolate(double currentTime, NetworkTransform targetState)
-        {
-            double length = targetState.TimeStamp - bufferedStates[0].TimeStamp;
-            float t = 0.0f;
-            if (length > MIN_THRESHOLD)
-            {
-                t = (float)((currentTime - bufferedStates[0].TimeStamp) / length);
-            }
-
-            transform.position = Vector3.MoveTowards(bufferedStates[0].Position, targetState.Position, t);
-            transform.rotation = Quaternion.RotateTowards(bufferedStates[0].Rotation, targetState.Rotation, t);
-            if (playerEntity.IsLocalPlayer)
-            {
-                speedometer.SetSpeedometr(bufferedStates[0].CurrentSpeed);
-            }
-        }
-
         private void OnPlayerInitialized(PlayerSignals.OnPlayerInitialized signal)
         {
             IsRunning = true;
-        }
-
-        const float FORWARD_DIFFERENCE_THRESHOLD = 0.9f;
-        private const float EPSILON = 0.001f;
-
-        private bool ShouldExtrapolate(double currentTime, out NetworkTransform targetState)
-        {
-            targetState = null;
-            var firstBufferedState = bufferedStates[0];
-            if (firstBufferedState.TimeStamp >= currentTime)
-            {
-                return false;
-            }
-
-            for (int i = 0; i < statesCount; i++)
-            {
-                if (bufferedStates[i].TimeStamp <= currentTime || i == statesCount - 1)
-                {
-                    if (i == 0)
-                    {
-                        return false;
-                    }
-
-                    // Calculate the difference between the current forward direction and the previous forward direction
-                    var currentForward = transform.forward;
-                    var previousForward = bufferedStates[i - 1].Rotation * Vector3.forward;
-                    var forwardDifference = Vector3.Angle(currentForward, previousForward);
-
-                    // Check if the difference is greater than the threshold and if the position or rotation has changed significantly
-                    if (forwardDifference > FORWARD_DIFFERENCE_THRESHOLD + EPSILON && bufferedStates[i - 1].HasChanged(bufferedStates[i], POSITION_DIFFERENCE_THRESHOLD, ROTATION_DIFFERENCE_THRESHOLD))
-                    {
-                        targetState = bufferedStates[i];
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return false;
         }
     }
 }
