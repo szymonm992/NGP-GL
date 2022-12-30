@@ -41,13 +41,10 @@ namespace Frontend.Scripts.Components
                 return;
             }
 
-            for (int i = bufferedStates.Length - 1; i >= 1; i--)
-            {
-                bufferedStates[i] = bufferedStates[i - 1];
-            }
-
-            bufferedStates[0] = nTransform;
-            statesCount = Mathf.Min(statesCount + 1, bufferedStates.Length);
+            // Store the incoming NetworkTransform in a circular fashion
+            int index = (statesCount % bufferedStates.Length);
+            bufferedStates[index] = nTransform;
+            statesCount++;
         }
 
         private void Update()
@@ -98,22 +95,23 @@ namespace Frontend.Scripts.Components
         private void Interpolate(double currentTime)
         {
             var interpolationTime = currentTime - interpolationBackTime;
-            var firstBufferedState = bufferedStates[0];
+            var firstBufferedState = bufferedStates[(statesCount - 1) % bufferedStates.Length];
 
             if (firstBufferedState.TimeStamp > interpolationTime)
             {
                 for (int i = 0; i < statesCount; i++)
                 {
-                    if (bufferedStates[i].TimeStamp <= interpolationTime || i == statesCount - 1)
+                    int index = (statesCount - 1 - i) % bufferedStates.Length;
+                    if (bufferedStates[index].TimeStamp <= interpolationTime || i == statesCount - 1)
                     {
-                        var rhs = bufferedStates[Mathf.Max(i - 1, 0)];
-                        var lhs = bufferedStates[i];
+                        var rhs = bufferedStates[(index - 1 + bufferedStates.Length) % bufferedStates.Length];
+                        var lhs = bufferedStates[index];
                         double length = rhs.TimeStamp - lhs.TimeStamp;
 
                         float t = 0.0f;
                         if (length > MIN_THRESHOLD)
                         {
-                            t = (float)((interpolationTime - lhs.TimeStamp) / length);
+                            t = length > MIN_THRESHOLD ? (float)((interpolationTime - lhs.TimeStamp) / length) : 0.0f;
                         }
 
                         transform.position = Vector3.MoveTowards(lhs.Position, rhs.Position, t);
@@ -130,7 +128,8 @@ namespace Frontend.Scripts.Components
             else
             {
                 transform.position = firstBufferedState.Position;
-                transform.eulerAngles = firstBufferedState.EulerAngles;
+                transform.eulerAngles = firstBufferedState.Rotation.eulerAngles;
+
                 if (playerEntity.IsLocalPlayer)
                 {
                     speedometer.SetSpeedometr(firstBufferedState.CurrentSpeed);
