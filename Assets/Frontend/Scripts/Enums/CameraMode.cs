@@ -5,6 +5,7 @@ namespace Frontend.Scripts.Enums
 {
     public enum CameraMode
     {
+        None,
         Orbiting,
         Sniping
     }

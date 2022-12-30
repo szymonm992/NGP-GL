@@ -45,6 +45,9 @@ namespace Frontend.Scripts.Components
         [SerializeField] private float snipingSensScale = 0.2f;
         [SerializeField] private float snipingMaxSensScale = 0.15f;
         [SerializeField] private float bumpPreventionDelay = 1.5f;
+        [SerializeField] private float bumpPreventionIncrease = 1.0f;
+        [SerializeField] private float bumpPreventionExponent = 1.0f;
+        [SerializeField] private float bumpPreventionRecoverFactor = 0.1f;
 
         private IPlayerInputProvider inputProvider;
 
@@ -61,6 +64,11 @@ namespace Frontend.Scripts.Components
         private float desiredSnipingZoom;
         private float orbitDist;
         private float snipingZoom;
+
+        private bool preventingBump;
+        private float lastBumpTime;
+        private RangedFloat bumpPreventionRange = new();
+        private Quaternion previousBumpedRotation = Quaternion.identity;
 
         private CameraMode cameraMode = CameraMode.Orbiting;
         
@@ -143,7 +151,10 @@ namespace Frontend.Scripts.Components
             }
 
             // handle player-desired rotation first
+            PreUpdateBumpPrevention();
             HandlePlayerCameraControl();
+            PostUpdateBumpPrevention();
+
             UpdatePosition();
 
             // prepare for target lock handling
@@ -242,40 +253,39 @@ namespace Frontend.Scripts.Components
                 transform.rotation = snipingFollowPoint.rotation * transform.rotation;
             }
 
-
-            // limiting the angle range
-            (float Min, float Max) limits = (orbitVertMinRange, orbitVertMaxRange);
-
-            if (IsInSnipingMode())
-            {
-                limits = (gunDepression, -gunElevation);
-            }
-
-            transform.rotation = LimitCameraRange(transform.rotation, limits.Min, limits.Max);
+            transform.rotation = LimitCameraRange(transform.rotation);
         }
 
 
-        private Quaternion LimitCameraRange(Quaternion oldRotation, float yMinRange, float yMaxRange)
+        private Quaternion LimitCameraRange(Quaternion rotation, CameraMode mode = CameraMode.None)
         {
-            Quaternion newRotation = oldRotation;
+            Quaternion newRotation = rotation;
+            if (mode == CameraMode.None) mode = cameraMode;
 
-            if (IsInSnipingMode())
+            if (mode == CameraMode.Sniping)
             {
+                RangedFloat limits = bumpPreventionRange;
                 // canceling previous relative rotation of sniping camera
                 newRotation = Quaternion.Inverse(snipingFollowPoint.rotation) * newRotation;
+
+                newRotation = Quaternion.Euler(
+                    Mathf.Clamp(Mathf.DeltaAngle(0, newRotation.eulerAngles.x), limits.Min, limits.Max),
+                    newRotation.eulerAngles.y,
+                    newRotation.eulerAngles.z
+                );
+
+                // applying the relative rotation back
+                newRotation = snipingFollowPoint.rotation * newRotation;
             }
 
-            Vector3 angles = newRotation.eulerAngles;
-
-            if (angles.x > 180) angles.x -= 360;
-            angles.x = Mathf.Clamp(angles.x, yMinRange, yMaxRange);
-
-            newRotation.eulerAngles = angles;
-
-            if (IsInSnipingMode())
+            else if (mode == CameraMode.Orbiting)
             {
-                // applying again the relative rotation of sniping camera
-                newRotation = snipingFollowPoint.rotation * newRotation;
+                RangedFloat limits = new(orbitVertMinRange, orbitVertMaxRange);
+                newRotation = Quaternion.Euler(
+                    Mathf.Clamp(Mathf.DeltaAngle(0, newRotation.eulerAngles.x), limits.Min, limits.Max),
+                    newRotation.eulerAngles.y,
+                    newRotation.eulerAngles.z
+                );
             }
 
             return newRotation;
@@ -320,7 +330,7 @@ namespace Frontend.Scripts.Components
             // handling walls collisions
             const float camOffset = 0.25f;
             RaycastHit hit;
-            Quaternion orbitCamDirRotation = LimitCameraRange(GetTargetLockOrbitLookVector(true), orbitVertMinRange, orbitVertMaxRange);
+            Quaternion orbitCamDirRotation = LimitCameraRange(GetTargetLockOrbitLookVector(true));
 
             Vector3 orbitCamDirVec = (orbitCamDirRotation * Vector3.forward).normalized * desiredOrbitDist * -1f;
 
@@ -392,6 +402,82 @@ namespace Frontend.Scripts.Components
             SetCameraMode(cameraMode == CameraMode.Sniping ? CameraMode.Orbiting : CameraMode.Sniping);
         }
 
+        private void PreUpdateBumpPrevention()
+        {
+            RangedFloat baseLimits = GetSnipingModeLimits();
+
+            float currentAngle = (Quaternion.Inverse(snipingFollowPoint.rotation) * previousBumpedRotation).eulerAngles.x;
+
+            if (!preventingBump)
+            {
+                bumpPreventionRange.Min = baseLimits.Min;
+                bumpPreventionRange.Max = baseLimits.Max;
+                if (!baseLimits.InRange(currentAngle))
+                {
+                    preventingBump = true;
+                    lastBumpTime = Time.time;
+                }
+            }
+            
+            if(preventingBump)
+            {
+                var factor = 0.0f;
+                if (currentAngle > bumpPreventionRange.Max)
+                {
+                    factor = (currentAngle - bumpPreventionRange.Max)  * bumpPreventionRecoverFactor;
+                    bumpPreventionRange.Max = currentAngle;
+                }
+                if(currentAngle < bumpPreventionRange.Min)
+                {
+                    factor = (bumpPreventionRange.Min - currentAngle) * bumpPreventionRecoverFactor;
+                    bumpPreventionRange.Min = currentAngle;
+                }
+
+                if(factor != 0.0f)
+                {
+                    lastBumpTime = Mathf.Min(lastBumpTime + factor, Time.time);
+                    Debug.Log(lastBumpTime - Time.time);
+                }
+
+                var returnScale = Mathf.Pow(
+                    Mathf.Max(0, Time.time - lastBumpTime - bumpPreventionDelay) * bumpPreventionIncrease,
+                    bumpPreventionExponent
+                ) * Time.deltaTime;
+
+                bumpPreventionRange.Min = Mathf.Lerp(bumpPreventionRange.Min, baseLimits.Min, returnScale);
+                bumpPreventionRange.Max = Mathf.Lerp(bumpPreventionRange.Max, baseLimits.Max, returnScale);
+
+                if (baseLimits.InRange(currentAngle))
+                {
+                    preventingBump = false;
+                    bumpPreventionRange.Min = baseLimits.Min;
+                    bumpPreventionRange.Max = baseLimits.Max;
+                }
+            }
+        }
+
+        // executed after player control has been processed,
+        // so it can be used for bump prevention blockage
+        private void PostUpdateBumpPrevention()
+        {
+            RangedFloat baseLimits = GetSnipingModeLimits();
+            
+            float currentAngle = (Quaternion.Inverse(snipingFollowPoint.rotation) * transform.rotation).eulerAngles.x;
+
+            if (bumpPreventionRange.InRange(currentAngle))
+            {
+                bumpPreventionRange.Min = Mathf.Max(Mathf.Min(currentAngle, baseLimits.Min), bumpPreventionRange.Min);
+                bumpPreventionRange.Max = Mathf.Min(Mathf.Max(currentAngle, baseLimits.Max), bumpPreventionRange.Max);
+            }
+            if (baseLimits.InRange(currentAngle))
+            {
+                preventingBump = false;
+                bumpPreventionRange.Min = baseLimits.Min;
+                bumpPreventionRange.Max = baseLimits.Max;
+            }
+
+            previousBumpedRotation = transform.rotation;
+        }
 
         // finding the point player is aiming towards.
         // should be done after player control but before operations
@@ -509,6 +595,10 @@ namespace Frontend.Scripts.Components
             return Input.GetAxis("Zoom");
         }
 
+        private RangedFloat GetSnipingModeLimits()
+        {
+            return new(-gunElevation, gunDepression);
+        }
 
 
         public void SetBlockCtrl(bool val)
