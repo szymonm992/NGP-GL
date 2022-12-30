@@ -8934,6 +8934,12 @@ MonoBehaviour:
   snipingZoomStep: 0.2
   snipingSensScale: 0.2
   snipingMaxSensScale: 0.15
+  bumpPreventionDelay: 1.5
+  bumpPreventionIncrease: 4
+  bumpPreventionExponent: 1
+  bumpPreventionRecoverFactor: 0.04
+  bumpPreventionMinRange: -45
+  bumpPreventionMaxRange: 45
   targetMask:
     serializedVersion: 2
     m_Bits: 64

@@ -48,6 +48,8 @@ namespace Frontend.Scripts.Components
         [SerializeField] private float bumpPreventionIncrease = 1.0f;
         [SerializeField] private float bumpPreventionExponent = 1.0f;
         [SerializeField] private float bumpPreventionRecoverFactor = 0.1f;
+        [SerializeField] private float bumpPreventionMinRange = -45f;
+        [SerializeField] private float bumpPreventionMaxRange = 45f;
 
         private IPlayerInputProvider inputProvider;
 
@@ -68,9 +70,9 @@ namespace Frontend.Scripts.Components
         private bool preventingBump;
         private float lastBumpTime;
         private RangedFloat bumpPreventionRange = new();
-        private Quaternion previousBumpedRotation = Quaternion.identity;
 
         private CameraMode cameraMode = CameraMode.Orbiting;
+        private CameraMode lastCameraMode = CameraMode.Orbiting;
         
         private Vector3 targetPosition;
         private Vector3 orbitFollowPos;
@@ -145,6 +147,8 @@ namespace Frontend.Scripts.Components
 
         private void LateUpdate()
         {
+            var currentCameraMode = cameraMode;
+
             if (!currentPlayerObject || blockCtrl)
             {
                 return;
@@ -184,6 +188,7 @@ namespace Frontend.Scripts.Components
             // or if it has begun a transition between modes
             ApplyTargetLock();
 
+            lastCameraMode = currentCameraMode;
         }
 
         private void FixedUpdate()
@@ -388,7 +393,11 @@ namespace Frontend.Scripts.Components
                 snipingZoom = snipingMinZoom;
                 desiredSnipingZoom = snipingZoom;
                 oldSnipingFollowRot = Quaternion.identity;
+                bumpPreventionRange = GetSnipingModeLimits();
+                preventingBump = false;
             }
+
+            transform.rotation = LimitCameraRange(transform.rotation, newMode);
 
             signalBus.Fire(new BattleSignals.CameraSignals.OnCameraModeChanged()
             {
@@ -400,13 +409,20 @@ namespace Frontend.Scripts.Components
         public void ToggleSniping()
         {
             SetCameraMode(cameraMode == CameraMode.Sniping ? CameraMode.Orbiting : CameraMode.Sniping);
+            
         }
 
         private void PreUpdateBumpPrevention()
         {
+            if (!IsInSnipingMode() || lastCameraMode != CameraMode.Sniping)
+            {
+                return;
+            }
+
             RangedFloat baseLimits = GetSnipingModeLimits();
 
-            float currentAngle = (Quaternion.Inverse(snipingFollowPoint.rotation) * previousBumpedRotation).eulerAngles.x;
+            float currentAngle = (Quaternion.Inverse(snipingFollowPoint.rotation) * transform.rotation).eulerAngles.x;
+            currentAngle = Mathf.DeltaAngle(0, currentAngle);
 
             if (!preventingBump)
             {
@@ -436,7 +452,6 @@ namespace Frontend.Scripts.Components
                 if(factor != 0.0f)
                 {
                     lastBumpTime = Mathf.Min(lastBumpTime + factor, Time.time);
-                    Debug.Log(lastBumpTime - Time.time);
                 }
 
                 var returnScale = Mathf.Pow(
@@ -446,6 +461,10 @@ namespace Frontend.Scripts.Components
 
                 bumpPreventionRange.Min = Mathf.Lerp(bumpPreventionRange.Min, baseLimits.Min, returnScale);
                 bumpPreventionRange.Max = Mathf.Lerp(bumpPreventionRange.Max, baseLimits.Max, returnScale);
+
+                // clamp range to minimum and maximum
+                bumpPreventionRange.Min = Mathf.Max(bumpPreventionRange.Min, bumpPreventionMinRange);
+                bumpPreventionRange.Max = Mathf.Min(bumpPreventionRange.Max, bumpPreventionMaxRange);
 
                 if (baseLimits.InRange(currentAngle))
                 {
@@ -460,9 +479,15 @@ namespace Frontend.Scripts.Components
         // so it can be used for bump prevention blockage
         private void PostUpdateBumpPrevention()
         {
+            if (!IsInSnipingMode())
+            {
+                return;
+            }
+
             RangedFloat baseLimits = GetSnipingModeLimits();
             
             float currentAngle = (Quaternion.Inverse(snipingFollowPoint.rotation) * transform.rotation).eulerAngles.x;
+            currentAngle = Mathf.DeltaAngle(0, currentAngle);
 
             if (bumpPreventionRange.InRange(currentAngle))
             {
@@ -475,8 +500,6 @@ namespace Frontend.Scripts.Components
                 bumpPreventionRange.Min = baseLimits.Min;
                 bumpPreventionRange.Max = baseLimits.Max;
             }
-
-            previousBumpedRotation = transform.rotation;
         }
 
         // finding the point player is aiming towards.
