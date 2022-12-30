@@ -20,7 +20,7 @@ namespace Frontend.Scripts.Components
         private double interpolationBackTime = 200;
         private int statesCount = 0;
         private NetworkTransform[] bufferedStates = new NetworkTransform[20];
-        private NetworkTransform targetState = new NetworkTransform();
+
         public bool IsRunning { get; private set; } = false;
 
         public void Initialize()
@@ -98,7 +98,7 @@ namespace Frontend.Scripts.Components
 
                         float t2 = t * t;
                         float t3 = t2 * t;
-                        Vector3 pos = 0.5f * ((2.0f * p1) + (-p0 + p2) * t + (2.0f * p0 - 5.0f * p1 + 4.0f * p2 - p3) * t2 + (-p0 + 3.0f * p1 - 3.0f * p2 + p3) * t3);
+                        Vector3 pos = InterpolateSpline(p0, p1, p2, p3, t);
 
                         transform.position = pos;
                         transform.rotation = Quaternion.Slerp(lhs.Rotation, rhs.Rotation, t);
@@ -123,28 +123,17 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        private void SelectInterpolationTime(double ping)
+        private Vector3 InterpolateSpline(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, float t)
         {
-            if (ping < 50)
-            {
-                interpolationBackTime = 50;
-            }
-            else if (ping < 100)
-            {
-                interpolationBackTime = 100;
-            }
-            else if (ping < 200)
-            {
-                interpolationBackTime = 200;
-            }
-            else if (ping < 400)
-            {
-                interpolationBackTime = 400;
-            }
-            else
-            {
-                interpolationBackTime = 800;
-            }
+            float t2 = t * t;
+            float t3 = t2 * t;
+            return 0.5f * ((2.0f * p1) + (-p0 + p2) * t + (2.0f * p0 - 5.0f * p1 + 4.0f * p2 - p3) * t2 + (-p0 + 3.0f * p1 - 3.0f * p2 + p3) * t3);
+        }
+
+
+        private void SelectInterpolationTime(double averagePing)
+        {
+            interpolationBackTime = averagePing / 2;
         }
 
         private void OnPlayerInitialized(PlayerSignals.OnPlayerInitialized signal)
