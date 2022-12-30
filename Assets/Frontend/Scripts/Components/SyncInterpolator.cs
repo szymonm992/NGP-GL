@@ -14,6 +14,8 @@ namespace Frontend.Scripts.Components
     public class SyncInterpolator : MonoBehaviour, IInitializable, ISyncInterpolator
     {
         private const float MIN_THRESHOLD = 0.0001f;
+        private const float POSITION_DIFFERENCE_THRESHOLD = 0.1f;
+        private const float ROTATION_DIFFERENCE_THRESHOLD = 5f;
 
         [Inject] private readonly SignalBus signalBus;
         [Inject] private readonly TimeManager timeManager;
@@ -22,13 +24,14 @@ namespace Frontend.Scripts.Components
 
         private double interpolationBackTime = 200;
         private int statesCount = 0;
-        NetworkTransform[] bufferedStates = new NetworkTransform[20];
-
+        private NetworkTransform[] bufferedStates = new NetworkTransform[20];
+        private NetworkTransform targetState = new NetworkTransform();
         public bool IsRunning { get; private set; } = false;
 
         public void Initialize()
         {
             signalBus.Subscribe<PlayerSignals.OnPlayerInitialized>(OnPlayerInitialized);
+            statesCount = 0;
         }
 
         public void ProcessCurrentNetworkTransform(NetworkTransform nTransform)
@@ -57,6 +60,43 @@ namespace Frontend.Scripts.Components
             SelectInterpolationTime(timeManager.AveragePing);
 
             var currentTime = timeManager.NetworkTime;
+            if (ShouldExtrapolate(currentTime, out targetState))
+            {
+                Extrapolate(currentTime, targetState);
+            }
+            else
+            {
+                Interpolate(currentTime);
+            }
+        }
+
+
+        private void SelectInterpolationTime(double ping)
+        {
+            if (ping < 50)
+            {
+                interpolationBackTime = 50;
+            }
+            else if (ping < 100)
+            {
+                interpolationBackTime = 100;
+            }
+            else if (ping < 200)
+            {
+                interpolationBackTime = 200;
+            }
+            else if (ping < 400)
+            {
+                interpolationBackTime = 400;
+            }
+            else
+            {
+                interpolationBackTime = 800;
+            }
+        }
+
+        private void Interpolate(double currentTime)
+        {
             var interpolationTime = currentTime - interpolationBackTime;
             var firstBufferedState = bufferedStates[0];
 
@@ -98,40 +138,68 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        private void SelectInterpolationTime(double ping)
+        private void Extrapolate(double currentTime, NetworkTransform targetState)
         {
-            if (ping < 50)
+            double length = targetState.TimeStamp - bufferedStates[0].TimeStamp;
+            float t = 0.0f;
+            if (length > MIN_THRESHOLD)
             {
-                interpolationBackTime = 50;
+                t = (float)((currentTime - bufferedStates[0].TimeStamp) / length);
             }
-            else if (ping < 100)
+
+            transform.position = Vector3.MoveTowards(bufferedStates[0].Position, targetState.Position, t);
+            transform.rotation = Quaternion.RotateTowards(bufferedStates[0].Rotation, targetState.Rotation, t);
+            if (playerEntity.IsLocalPlayer)
             {
-                interpolationBackTime = 100;
-            }
-            else if (ping < 200)
-            {
-                interpolationBackTime = 200;
-            }
-            else if (ping < 400)
-            {
-                interpolationBackTime = 400;
-            }
-            else if (ping < 600)
-            {
-                interpolationBackTime = 600;
-            }
-            else
-            {
-                interpolationBackTime = 1000;
+                speedometer.SetSpeedometr(bufferedStates[0].CurrentSpeed);
             }
         }
 
-        private void OnPlayerInitialized(PlayerSignals.OnPlayerInitialized OnPlayerInitialized)
+        private void OnPlayerInitialized(PlayerSignals.OnPlayerInitialized signal)
         {
-            if(playerEntity.Properties.User.Name == OnPlayerInitialized.PlayerProperties.User.Name)
+            IsRunning = true;
+        }
+
+        const float FORWARD_DIFFERENCE_THRESHOLD = 0.9f;
+        private const float EPSILON = 0.001f;
+
+        private bool ShouldExtrapolate(double currentTime, out NetworkTransform targetState)
+        {
+            targetState = null;
+            var firstBufferedState = bufferedStates[0];
+            if (firstBufferedState.TimeStamp >= currentTime)
             {
-                IsRunning = true;
+                return false;
             }
+
+            for (int i = 0; i < statesCount; i++)
+            {
+                if (bufferedStates[i].TimeStamp <= currentTime || i == statesCount - 1)
+                {
+                    if (i == 0)
+                    {
+                        return false;
+                    }
+
+                    // Calculate the difference between the current forward direction and the previous forward direction
+                    var currentForward = transform.forward;
+                    var previousForward = bufferedStates[i - 1].Rotation * Vector3.forward;
+                    var forwardDifference = Vector3.Angle(currentForward, previousForward);
+
+                    // Check if the difference is greater than the threshold and if the position or rotation has changed significantly
+                    if (forwardDifference > FORWARD_DIFFERENCE_THRESHOLD + EPSILON && bufferedStates[i - 1].HasChanged(bufferedStates[i], POSITION_DIFFERENCE_THRESHOLD, ROTATION_DIFFERENCE_THRESHOLD))
+                    {
+                        targetState = bufferedStates[i];
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return false;
         }
     }
 }
