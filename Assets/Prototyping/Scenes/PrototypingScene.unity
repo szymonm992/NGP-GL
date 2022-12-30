@@ -8927,6 +8927,7 @@ MonoBehaviour:
   orbitFov: 60
   orbitDistInterp: 1
   orbitZoomStep: 3
+  orbitCameraColliderSize: 0.5
   snipingFov: 60
   snipingMaxZoom: 1.7
   snipingMinZoom: 1.1
@@ -8937,7 +8938,7 @@ MonoBehaviour:
   bumpPreventionDelay: 1.5
   bumpPreventionIncrease: 4
   bumpPreventionExponent: 1
-  bumpPreventionRecoverFactor: 0.04
+  bumpPreventionRecoverFactor: 0.1
   bumpPreventionMinRange: -45
   bumpPreventionMaxRange: 45
   targetMask:

@@ -35,6 +35,7 @@ namespace Frontend.Scripts.Components
         [SerializeField] private float orbitFov = 60f;
         [SerializeField] private float orbitDistInterp = 1f;
         [SerializeField] private float orbitZoomStep = 3f;
+        [SerializeField] private float orbitCameraColliderSize = 0.5f;
 
         [Header("Sniping Camera")]
         [SerializeField] private float snipingFov = 60f;
@@ -340,7 +341,7 @@ namespace Frontend.Scripts.Components
             Vector3 orbitCamDirVec = (orbitCamDirRotation * Vector3.forward).normalized * desiredOrbitDist * -1f;
 
             Ray r = new Ray(transform.position, orbitCamDirVec);
-            if (Physics.Raycast(r, out hit, orbitCamDirVec.magnitude + 0.1f, targetMask))
+            if (Physics.SphereCast(r, orbitCameraColliderSize * 0.5f, out hit, orbitCamDirVec.magnitude, targetMask))
             {
                 orbitDist = Mathf.Min(hit.distance - camOffset, orbitDist);
                 Debug.DrawRay(transform.position, orbitCamDirVec.normalized * hit.distance, Color.blue);
@@ -573,12 +574,23 @@ namespace Frontend.Scripts.Components
 
             float ang = GetCrosshairAngle();
 
-            // calculating the angle between the target and the middle of camera system (sine theorem)
+            // calculating the angle between the target and the middle of camera system (law of sines)
             float targetAngle = Mathf.Asin(Mathf.Sin(ang * Mathf.Deg2Rad) * usedOrbitDist / targetDist) * Mathf.Rad2Deg;
-            // calculating direction vector - targetDir obrócony o sumê wyliczonych k¹tów
+
+            // TODO: somehow the triangle that I'm imagining doesn't exist in the realm of this game,
+            // creating an angle that is not (asin with param bigger than 1). At this point I'm not 
+            // even trying to figure out what's wrong with it and I'm just abandoning the ship.
+            // Fix properly in the future if needed.
+            if (float.IsNaN(targetAngle))
+            {
+                return transform.rotation;
+            }
+
+            // calculating direction vector - targetDir rotated by the sum of calculated angles.
             Vector3 lookVector = Quaternion.AngleAxis(ang + targetAngle, Vector3.Cross(Vector3.up, targetDir)) * targetDir;
 
             return Quaternion.LookRotation(lookVector, Vector3.up);
+
         }
 
 
