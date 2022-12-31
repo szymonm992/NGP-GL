@@ -57,7 +57,11 @@ namespace Prototyping.Scripts.Components
         private IEnumerator CreatePlayerRoutine(float delay)
         {
             yield return new WaitForSeconds(delay);
-            CreatePlayer("T-55", new Vector3(132.35f, 2f, 118.99f), new Vector3(0, 90f, 0));
+            for(int i=0; i< 20; i++)
+            {
+                CreatePlayer("T-55", new Vector3(132.35f, 2f, 118.99f + (4 * i)), new Vector3(0, 90f, 0));
+            }
+           
             signalBus.Fire(new PlayerSignals.OnAllPlayersInputLockUpdate()
             {
                 LockPlayersInput = false,
