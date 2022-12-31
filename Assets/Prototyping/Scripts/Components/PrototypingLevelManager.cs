@@ -1,3 +1,4 @@
+using Frontend.Scripts.Components;
 using GLShared.General.Interfaces;
 using GLShared.General.Models;
 using GLShared.General.ScriptableObjects;
@@ -16,6 +17,9 @@ namespace Prototyping.Scripts.Components
         [Inject] private readonly SignalBus signalBus;
         [Inject] protected readonly IVehiclesDatabase vehicleDatabase;
         [Inject] protected readonly PlayerSpawner playerSpawner;
+        [Inject(Optional = true)] protected readonly Speedometer speedometer;
+
+        private PlayerEntity mockCurrentPlayer = null;
 
         public void Initialize()
         {
@@ -28,6 +32,7 @@ namespace Prototyping.Scripts.Components
 
             var prefabEntity = playerProperties.PlayerContext.gameObject.GetComponent<PlayerEntity>();//this references only to prefab
             var playerEntity = playerSpawner.Spawn(prefabEntity, playerProperties);
+            mockCurrentPlayer = playerEntity;
         }
 
 
@@ -59,5 +64,12 @@ namespace Prototyping.Scripts.Components
             });
         }
 
+        private void Update()
+        {
+            if (mockCurrentPlayer != null && speedometer != null)
+            {
+                speedometer.SetSpeedometr(mockCurrentPlayer.EntityVelocity);
+            }
+        }
     }
 }
