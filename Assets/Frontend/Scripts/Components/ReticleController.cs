@@ -45,7 +45,7 @@ namespace Frontend.Scripts.Components
             gunReticle.gameObject.ToggleGameObjectIfActive(false);
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             if (localPlayerGun != null)
             {
