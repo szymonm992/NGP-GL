@@ -31,7 +31,6 @@ namespace Frontend.Scripts.Components
                 Brakes();
 
                 SetCurrentSpeed();
-                speedometer?.SetSpeedometr(currentSpeed);
             }
         }
 

@@ -14,6 +14,7 @@ namespace Frontend.Scripts
     public class ProjectInstaller : MonoInstaller
     {
         [SerializeField] private GameParameters gameParameters;
+        [SerializeField] private FrontVisualSettings visualSettings;
 
         public override void InstallBindings()
         {
@@ -35,6 +36,7 @@ namespace Frontend.Scripts
 
             Container.Bind<FormValidator>().AsSingle();
             Container.Bind<GameParameters>().FromInstance(gameParameters).AsSingle();
+            Container.Bind<FrontVisualSettings>().FromInstance(visualSettings).AsSingle();
 
         }
 

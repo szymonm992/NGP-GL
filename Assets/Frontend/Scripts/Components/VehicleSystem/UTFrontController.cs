@@ -15,7 +15,21 @@ namespace Frontend.Scripts.Components
 {
     public class UTFrontController : UTVehicleController
     {
+        [Inject] private readonly FrontVisualSettings visualSettings;
+        [Inject(Optional = true)] private readonly Outline outline;
+
         public override bool RunPhysics => false;
+
+        public override void Initialize()
+        {
+            base.Initialize();
+            if(outline != null)
+            {
+                outline.OutlineWidth = visualSettings.OutlineWidth;
+                outline.OutlineColor = visualSettings.OutlineColor;
+                outline.OutlineMode = Outline.Mode.OutlineHidden; 
+            }
+        }
 
         protected override void FixedUpdate()
         {

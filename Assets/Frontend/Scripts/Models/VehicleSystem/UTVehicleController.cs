@@ -25,9 +25,6 @@ namespace Frontend.Scripts.Models
         [Inject] protected readonly VehicleStatsBase vehicleStats;
         [Inject] protected readonly DiContainer container;
         [Inject] protected readonly PlayerEntity playerEntity;
- 
-        [Inject(Optional = true)] protected readonly Speedometer speedometer;
-
 
         [SerializeField] protected Transform centerOfMass;
         [SerializeField] protected Transform centerOfMassUngrounded;

@@ -11811,7 +11811,6 @@ GameObject:
   - component: {fileID: 8992989569556248829}
   - component: {fileID: 7057069551729104832}
   - component: {fileID: 4703210311339521858}
-  - component: {fileID: 8908291513616745327}
   - component: {fileID: 5277340808731574008}
   m_Layer: 0
   m_Name: T-55_network
@@ -12037,6 +12036,8 @@ MonoBehaviour:
   gunRotationSpeed: 33
   gunDepression: 5
   gunElevation: 15
+  stabilizeGun: 1
+  stabilizeTurret: 1
 --- !u!114 &7057069551729104832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12094,24 +12095,6 @@ MonoBehaviour:
     - helperDummy: {fileID: 2659955771532922077}
       forwardDummy: {fileID: 3673657846686429875}
       backwardDummy: {fileID: 2010080455494019903}
---- !u!114 &8908291513616745327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8797747351685325955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0849996fc0a7e8408896993ed6e1706, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 2
-  outlineColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-  outlineWidth: 3
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!114 &5277340808731574008
 MonoBehaviour:
   m_ObjectHideFlags: 0

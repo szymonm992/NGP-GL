@@ -26,6 +26,7 @@ namespace Frontend.Scripts.Components
             Container.Bind<Renderer>().FromComponentsInChildren().AsCached();
             Container.BindInterfacesAndSelfTo<WheelDummy>().FromComponentsInHierarchy().AsCached();
             Container.BindInterfacesAndSelfTo<VehicleModelEffects>().FromNewComponentOnRoot().AsCached();
+            Container.BindInterfacesAndSelfTo<Outline>().FromNewComponentOnRoot().AsCached();
         }
     }
 }

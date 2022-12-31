@@ -34,7 +34,6 @@ namespace Frontend.Scripts.Components
                 AirControl();
 
                 SetCurrentSpeed();
-                speedometer?.SetSpeedometr(currentSpeed);
             }
         }
 
