@@ -11,7 +11,6 @@ using GLShared.General.Signals;
 using GLShared.General.Models;
 using GLShared.Networking.Components;
 using GLShared.General;
-using Frontend.Scripts.Components;
 
 namespace Frontend.Scripts.Models
 {
@@ -212,7 +211,7 @@ namespace Frontend.Scripts.Models
 
         protected void Accelerate()
         {
-            if (absoluteInputY == 0 || isBrake)
+            if (inputProvider.RawVertical == 0 || isBrake)
             {
                 return;
             }
@@ -271,7 +270,7 @@ namespace Frontend.Scripts.Models
 
             if (inputProvider.RawVertical == 0 || isBrake)
             {
-                float multiplier = isBrake ? 0.2f : 0.5f;
+                float multiplier = isBrake ? 0.2f : 0.7f;
 
                 foreach (var wheel in allGroundedWheels)
                 {
