@@ -32,16 +32,17 @@ namespace Frontend.Scripts.Components
         private void OnPlayerInitialized(PlayerSignals.OnPlayerInitialized OnLocalPlayerInitialized)
         {
             var playerContext = OnLocalPlayerInitialized.PlayerProperties.PlayerContext;
-            var vehicleController = playerContext.Container.Resolve<IVehicleController>();
-            if (vehicleController.HasTurret)
+            if(OnLocalPlayerInitialized.PlayerProperties.IsLocal)
             {
-                var gunController = playerContext.Container.Resolve<ITurretController>();
-                localPlayerGun = gunController.Gun;
+                var vehicleController = playerContext.Container.Resolve<IVehicleController>();
+                if (vehicleController.HasTurret)
+                {
+                    var gunController = playerContext.Container.Resolve<ITurretController>();
+                    localPlayerGun = gunController.Gun;
+                    return;
+                }
             }
-            else
-            {
-                gunReticle.gameObject.ToggleGameObjectIfActive(false);
-            }
+            gunReticle.gameObject.ToggleGameObjectIfActive(false);
         }
 
         private void Update()
