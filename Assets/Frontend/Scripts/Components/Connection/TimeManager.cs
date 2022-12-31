@@ -1,5 +1,3 @@
-using Frontend.Scripts.Signals;
-using GLShared.General.Interfaces;
 using GLShared.Networking.Components;
 using UnityEngine;
 using Zenject;
@@ -8,9 +6,7 @@ namespace Frontend.Scripts.Components
 {
     public class TimeManager : MonoBehaviour, IInitializable
     {
-        [Inject] private readonly SignalBus signalBus;
         [Inject] private readonly ConnectionManager connectionManager;
-        [Inject] private readonly ISyncManager syncManager;
         [Inject] private readonly SmartFoxConnection smartFox;
 
         private readonly float period = 0.08f;

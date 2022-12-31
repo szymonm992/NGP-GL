@@ -1,18 +1,13 @@
 using Frontend.Scripts.Extensions;
 using Frontend.Scripts.Signals;
-using GLShared.General.Interfaces;
 using GLShared.General.Models;
-using GLShared.General.Signals;
 using GLShared.Networking.Components;
 using GLShared.Networking.Extensions;
-using GLShared.Networking.Interfaces;
 using GLShared.Networking.Models;
 using Sfs2X.Core;
 using Sfs2X.Entities;
 using Sfs2X.Entities.Data;
 using System;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -25,7 +20,7 @@ namespace Frontend.Scripts.Components
 
         [SerializeField] private float inputSendingPeriod = 0.03f;
 
-        private float timeLastSendingInput = 0;
+        private float timeLastSendingInput;
         private PlayerEntity localPlayerEntity;
         public PlayerEntity LocalPlayerEntity => localPlayerEntity;
 
