@@ -131,6 +131,8 @@ namespace Frontend.Scripts.Models
                 GunRotationSpeed = hasTurret ? vehicleStats.GunRotationSpeed : 0,
                 GunDepression = vehicleStats.GunDepression,
                 GunElevation = vehicleStats.GunElevation,
+                StabilizeGun = vehicleStats.StabilizeGun,
+                StabilizeTurret = vehicleStats.StabilizeTurret,
             });
         }
         public virtual void SetupRigidbody()
