@@ -83,7 +83,7 @@ namespace Frontend.Scripts.Models
                     }
 
                     combinedInput = Mathf.Abs(horizontal) + Mathf.Abs(vertical);
-                    playerEntity.Input.UpdateControllerInputs(horizontal, vertical, brake, pressedTurretLockKey);
+                    playerEntity.Input.UpdateControllerInputs(horizontal, vertical, rawVertical, brake, pressedTurretLockKey);
                 }
             }
         }
