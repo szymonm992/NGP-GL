@@ -54,7 +54,7 @@ namespace Frontend.Scripts.Models
    
         #region Computed variables
         protected bool isBrake;
-        protected float inputY;
+        public float inputY;
         protected float currentDriveForce = 0;
         protected float currentLongitudalGrip;
         protected float forwardForce;
@@ -85,12 +85,13 @@ namespace Frontend.Scripts.Models
         public bool HasTurret => hasTurret;
         public virtual bool RunPhysics => runPhysics;
         public LayerMask WheelsCollisionDetectionMask => wheelsCollisionDetectionMask;
+
         public ForceApplyPoint BrakesForceApplyPoint => brakesForceApplyPoint;
         public ForceApplyPoint AccelerationForceApplyPoint => accelerationForceApplyPoint;
 
         public IEnumerable<IPhysicsWheel> AllWheels => allWheels;
 
-       
+
         public float GetCurrentMaxSpeed()
         {
             return absoluteInputY == 0 ? 0 : (signedInputY > 0 ? maxForwardSpeed : maxBackwardsSpeed);
@@ -183,7 +184,7 @@ namespace Frontend.Scripts.Models
             if (inputProvider != null)
             {
                 isBrake = inputProvider.Brake;
-                inputY = inputProvider.Vertical;
+                inputY = inputProvider.RawVertical == 0 ? 0 : inputProvider.Vertical;
 
                 absoluteInputY = inputProvider.AbsoluteVertical;
                 absoluteInputX = inputProvider.AbsoluteHorizontal;
@@ -266,9 +267,9 @@ namespace Frontend.Scripts.Models
                 return;
             }
 
-            currentLongitudalGrip = isBrake ? 1f : (absoluteInputY > 0 ? 0 : 0.5f);
+            currentLongitudalGrip = isBrake ? 1f : (inputProvider.RawVertical != 0 ? 0 : 0.2f);
 
-            if (absoluteInputY == 0 || isBrake)
+            if (inputProvider.RawVertical == 0 || isBrake)
             {
                 float multiplier = isBrake ? 0.2f : 0.5f;
 

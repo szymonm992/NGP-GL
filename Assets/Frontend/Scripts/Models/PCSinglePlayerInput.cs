@@ -16,6 +16,7 @@ namespace Frontend.Scripts.Models
 
         private float horizontal;
         private float vertical;
+        private float rawVertical;
 
         private bool brake;
         private bool pressedSnipingKey;
@@ -34,6 +35,7 @@ namespace Frontend.Scripts.Models
         public float LastVerticalInput => lastVerticalInput;
         public float AbsoluteVertical => ReturnAbsoluteVertical(ref vertical);
         public float AbsoluteHorizontal => ReturnAbsoluteHorizontal(ref horizontal);
+        public float RawVertical => rawVertical;
         public float SignedVertical => ReturnSignedInput(ref vertical);
         public float SignedHorizontal => ReturnSignedInput(ref horizontal);
 
@@ -73,6 +75,7 @@ namespace Frontend.Scripts.Models
                     vertical = !Brake ? Input.GetAxis("Vertical") : 0f;
                     pressedSnipingKey = Input.GetKeyDown(KeyCode.LeftShift);
                     pressedTurretLockKey = Input.GetMouseButton(1);
+                    rawVertical = !Brake ? Input.GetAxisRaw("Vertical") : 0f;
 
                     if (vertical != 0)
                     {
