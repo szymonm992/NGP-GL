@@ -51,9 +51,7 @@ namespace Frontend.Scripts.Components
             }
 
             SelectInterpolationTime(timeManager.AveragePing);
-
-            var currentTime = timeManager.NetworkTime;
-            Interpolate(currentTime);
+            Interpolate(timeManager.NetworkTime);
         }
 
 

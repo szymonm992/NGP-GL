@@ -57,7 +57,7 @@ namespace Prototyping.Scripts.Components
         private IEnumerator CreatePlayerRoutine(float delay)
         {
             yield return new WaitForSeconds(delay);
-            for(int i=0; i< 20; i++)
+            for (int i = 0; i < 20; i++)
             {
                 CreatePlayer("T-55", new Vector3(160f, 30.5f, 320f + (8 * i)), new Vector3(0, 90f, 0));
             }
