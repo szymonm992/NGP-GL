@@ -20,6 +20,7 @@ namespace Frontend.Scripts.Models
 
         private bool brake;
         private bool pressedSnipingKey;
+        private bool pressedShootingKey;
         private bool pressedTurretLockKey = true;
 
         private float combinedInput = 0f;
@@ -30,6 +31,7 @@ namespace Frontend.Scripts.Models
 
         public bool Brake => brake;
         public bool SnipingKey => pressedSnipingKey;
+        public bool ShootingKey => pressedShootingKey;
         public bool TurretLockKey => pressedTurretLockKey;
         public float CombinedInput => combinedInput;
         public float LastVerticalInput => lastVerticalInput;
@@ -71,11 +73,15 @@ namespace Frontend.Scripts.Models
                 if (!lockPlayerInput)
                 {
                     brake = Input.GetButton("Brake");
+
                     horizontal = !Brake ? Input.GetAxis("Horizontal") : 0f;
                     vertical = !Brake ? Input.GetAxis("Vertical") : 0f;
-                    pressedSnipingKey = Input.GetKeyDown(KeyCode.LeftShift);
-                    pressedTurretLockKey = Input.GetMouseButton(1);
+
+                    pressedSnipingKey = Input.GetKeyDown(KeyCode.LeftShift);  
                     rawVertical = !Brake ? Input.GetAxisRaw("Vertical") : 0f;
+
+                    pressedShootingKey = Input.GetMouseButton(0);
+                    pressedTurretLockKey = Input.GetMouseButton(1);
 
                     if (vertical != 0)
                     {
@@ -83,7 +89,7 @@ namespace Frontend.Scripts.Models
                     }
 
                     combinedInput = Mathf.Abs(horizontal) + Mathf.Abs(vertical);
-                    playerEntity.Input.UpdateControllerInputs(horizontal, vertical, rawVertical, brake, pressedTurretLockKey);
+                    playerEntity.Input.UpdateControllerInputs(horizontal, vertical, rawVertical, brake, pressedTurretLockKey, pressedShootingKey);
                 }
             }
         }
