@@ -1,4 +1,5 @@
 using Frontend.Scripts.Components;
+using Frontend.Scripts.ScriptableObjects;
 using Frontend.Scripts.Signals;
 using GLShared.General.Models;
 using GLShared.General.ScriptableObjects;
@@ -15,6 +16,7 @@ namespace Frontend.Scripts
     {
         [SerializeField] private GameParameters gameParameters;
         [SerializeField] private FrontVisualSettings visualSettings;
+        [SerializeField] private FrontSettings frontSettings;
 
         public override void InstallBindings()
         {
@@ -37,6 +39,7 @@ namespace Frontend.Scripts
             Container.Bind<FormValidator>().AsSingle();
             Container.Bind<GameParameters>().FromInstance(gameParameters).AsSingle();
             Container.Bind<FrontVisualSettings>().FromInstance(visualSettings).AsSingle();
+            Container.Bind<FrontSettings>().FromInstance(frontSettings).AsSingle();
 
         }
 
@@ -51,6 +54,7 @@ namespace Frontend.Scripts
 
             Container.DeclareSignal<PlayerSignals.OnPlayerInitialized>();
             Container.DeclareSignal<PlayerSignals.OnPlayerSpawned>();
+            Container.DeclareSignal<PlayerSignals.OnAllPlayersInputLockUpdate>();
             Container.DeclareSignal<PlayerSignals.OnAllPlayersInputLockUpdate>();
 
             Container.DeclareSignal<ConnectionSignals.OnConnectionAttemptResult>();

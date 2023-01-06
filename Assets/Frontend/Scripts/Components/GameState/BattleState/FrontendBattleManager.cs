@@ -2,6 +2,7 @@ using Automachine.Scripts.Components;
 using Automachine.Scripts.Signals;
 using Frontend.Scripts.Components.GameState;
 using Frontend.Scripts.Enums;
+using Frontend.Scripts.ScriptableObjects;
 using Frontend.Scripts.Signals;
 using GLShared.General.Components;
 using GLShared.General.Enums;
@@ -23,6 +24,7 @@ namespace Frontend.Scripts.Components
         [Inject] private readonly ISyncManager syncManager;
         [Inject] private readonly RandomBattleParameters battleParameters;
         [Inject] private readonly SmartFoxConnection smartFox;
+        [Inject] private readonly FrontSettings frontSettings;
 
         private FrontendBattleCountdown countdownState;
         private FrontendBattleInProgress battleInProgressState;
@@ -38,7 +40,7 @@ namespace Frontend.Scripts.Components
             signalBus.Subscribe<BattleSignals.OnGameStageUpdate>(OnGameStageUpdate);
             signalBus.Subscribe<OnStateEnter<FrontendBattleState>>(OnStateEnter);
 
-            smartFox.Connection.InitUDP(smartFox.HOST, smartFox.PORT);
+            smartFox.Connection.InitUDP(frontSettings.ConnectLocalhost ? frontSettings.LocalhostAddress : frontSettings.WanAddress, smartFox.PORT);
         }
         public override void OnStateMachineInitialized(OnStateMachineInitialized<FrontendBattleState> OnStateMachineInitialized)
         {

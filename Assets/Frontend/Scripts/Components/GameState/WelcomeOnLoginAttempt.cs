@@ -14,6 +14,7 @@ using Frontend.Scripts.Signals;
 using Sfs2X.Requests;
 using Sfs2X.Entities.Data;
 using Sfs2X.Util;
+using Frontend.Scripts.ScriptableObjects;
 
 namespace Frontend.Scripts.Components.GameState
 {
@@ -27,6 +28,7 @@ namespace Frontend.Scripts.Components.GameState
         [Inject] private readonly FormValidator formValidator;
         [Inject] private readonly SmartFoxConnection smartFox;
         [Inject] private readonly ConnectionManager connectionManager;
+        [Inject] private readonly FrontSettings frontSettings;
 
         private string login;
         private string password;
@@ -142,8 +144,7 @@ namespace Frontend.Scripts.Components.GameState
             smartFox.Connection.AddEventListener(SFSEvent.ROOM_JOIN, connectionManager.OnRoomJoin);
             smartFox.Connection.AddEventListener(SFSEvent.EXTENSION_RESPONSE, connectionManager.OnExtensionResponse);
             smartFox.Connection.AddEventListener(SFSEvent.LOGOUT, connectionManager.OnLogout);
-
-            smartFox.Connection.Connect(smartFox.HOST, smartFox.PORT);
+            smartFox.Connection.Connect(frontSettings.ConnectLocalhost ? frontSettings.LocalhostAddress : frontSettings.WanAddress, smartFox.PORT);
         }
 
         private void OnConnectionAttemptResult(ConnectionSignals.OnConnectionAttemptResult OnConnectionAttemptResult)
