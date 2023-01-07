@@ -33,6 +33,8 @@ namespace Frontend.Scripts.Models
         public bool SnipingKey => pressedSnipingKey;
         public bool ShootingKey => pressedShootingKey;
         public bool TurretLockKey => pressedTurretLockKey;
+        public bool LockPlayerInput => lockPlayerInput;
+
         public float CombinedInput => combinedInput;
         public float LastVerticalInput => lastVerticalInput;
         public float AbsoluteVertical => ReturnAbsoluteVertical(ref vertical);

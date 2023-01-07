@@ -37,6 +37,8 @@ namespace Frontend.Scripts.Components
 
         public bool ShootingKey => false;
 
+        public bool LockPlayerInput => true;
+
         public void SetInput(PlayerInput input)
         {
 
