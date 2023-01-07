@@ -26,6 +26,11 @@ namespace Prototyping.Scripts.Components
         {
         }
 
+        public void SyncShell(IShellController _)
+        {
+            
+        }
+
         public void SyncTurretTransform(ITurretController _)
         {
         }
