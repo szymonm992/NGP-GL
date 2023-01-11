@@ -11942,7 +11942,7 @@ MonoBehaviour:
   centerOfMass: {fileID: 2970605867215432948}
   centerOfMassUngrounded: {fileID: 2014853979454423880}
   vehicleType: 2
-  maxSlopeAngle: 45
+  maxSlopeAngle: 35
   enginePowerCurve:
     serializedVersion: 2
     m_Curve:
@@ -12010,7 +12010,9 @@ MonoBehaviour:
     m_Bits: 2147483647
   brakesForceApplyPoint: 1
   accelerationForceApplyPoint: 1
+  currentMaxForwardSpeed: 0
   inputY: 0
+  verticalAngle: 0
 --- !u!114 &2404649941768873089
 MonoBehaviour:
   m_ObjectHideFlags: 0

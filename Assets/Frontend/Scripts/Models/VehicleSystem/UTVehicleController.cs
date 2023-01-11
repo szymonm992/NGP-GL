@@ -45,6 +45,8 @@ namespace Frontend.Scripts.Models
         protected float absoluteInputY;
         protected float absoluteInputX;
         protected float maxForwardSpeed;
+        protected float currentMaxForwardSpeed;
+        protected float currentMaxBackwardSpeed;
         protected float maxBackwardsSpeed;
         protected float currentSpeedRatio;
         protected float signedInputY;
@@ -53,7 +55,8 @@ namespace Frontend.Scripts.Models
    
         #region Computed variables
         protected bool isBrake;
-        public float inputY;
+        protected float inputY;
+        protected float currentMaxSpeedRatio = 0;
         protected float currentDriveForce = 0;
         protected float currentLongitudalGrip;
         protected float forwardForce;
@@ -93,7 +96,7 @@ namespace Frontend.Scripts.Models
 
         public float GetCurrentMaxSpeed()
         {
-            return absoluteInputY == 0 ? 0 : (signedInputY > 0 ? maxForwardSpeed : maxBackwardsSpeed);
+            return absoluteInputY == 0 ? 0 : (signedInputY > 0 ? currentMaxForwardSpeed : currentMaxBackwardSpeed);
         }
 
         public virtual void Initialize()
@@ -167,6 +170,7 @@ namespace Frontend.Scripts.Models
             }
 
             CalculateVehicleAngles();
+            CalculateVehicleMaxVelocity();
             SetCenterOfMassToPoint(horizontalAngle >= 50f ? centerOfMassUngrounded : centerOfMass);
 
             allGroundedWheels = GetGroundedWheelsInAllAxles().ToArray();
@@ -192,6 +196,13 @@ namespace Frontend.Scripts.Models
             }
         }
         
+        protected void CalculateVehicleMaxVelocity()
+        {
+            currentMaxSpeedRatio = 1f - Mathf.Max(Mathf.Min((verticalAngle / maxSlopeAngle), 1f), 0f);
+            currentMaxForwardSpeed = currentMaxSpeedRatio * maxForwardSpeed;
+            currentMaxBackwardSpeed = currentMaxSpeedRatio * maxBackwardsSpeed;
+        }
+
         protected void SetCurrentSpeed()
         {
             currentSpeed = rig.velocity.magnitude * gameParameters.SpeedMultiplier;
@@ -218,7 +229,7 @@ namespace Frontend.Scripts.Models
 
             foreach (var axle in allAxles)
             {
-                if (axle.CanDrive && !isBrake)
+                if (axle.CanDrive && !isBrake && currentSpeed < GetCurrentMaxSpeed())
                 {
                     var groundedWheels = axle.GroundedWheels;
 
@@ -235,7 +246,7 @@ namespace Frontend.Scripts.Models
                             {
                                 wheelVelocityLocal = wheel.Transform.InverseTransformDirection(rig.GetPointVelocity(wheel.UpperConstraintPoint));
 
-                                forwardForce = inputY * currentDriveForce;
+                                forwardForce = inputY * currentDriveForce * Mathf.Max(currentMaxSpeedRatio, 0.6f);
                                 turnForce = wheelVelocityLocal.x * currentDriveForce;
 
                                 Vector3 acceleratePoint = wheel.ReturnWheelPoint(accelerationForceApplyPoint);

@@ -1,12 +1,9 @@
 using Frontend.Scripts.Components;
 using GLShared.General.Interfaces;
 using GLShared.General.Models;
-using GLShared.General.ScriptableObjects;
 using GLShared.General.Signals;
 using GLShared.Networking.Components;
-using Sfs2X.Entities;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -59,7 +56,7 @@ namespace Prototyping.Scripts.Components
             yield return new WaitForSeconds(delay);
             for (int i = 0; i < 1; i++)
             {
-                CreatePlayer("T-55", new Vector3(160f, 30.5f, 320f + (8 * i)), new Vector3(0, 90f, 0));
+                CreatePlayer("T-55", new Vector3(160f, 30.5f, 420f + (8 * i)), new Vector3(0, 90f, 0));
             }
            
             signalBus.Fire(new PlayerSignals.OnAllPlayersInputLockUpdate()
