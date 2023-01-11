@@ -108,8 +108,7 @@ namespace Frontend.Scripts.Components
             }
             else
             {
-                transform.position = firstBufferedState.Position;
-                transform.rotation = firstBufferedState.Rotation;
+                transform.SetPositionAndRotation(firstBufferedState.Position, firstBufferedState.Rotation);
                 turretController.SetTurretAndGunRotation(firstBufferedState.TurretAngleY, firstBufferedState.GunAngleX);
 
                 if (playerEntity.IsLocalPlayer)
@@ -129,7 +128,30 @@ namespace Frontend.Scripts.Components
 
         private void SelectInterpolationTime(double averagePing)
         {
-            interpolationBackTime = averagePing / 2;
+            if (averagePing < 50)
+            {
+                interpolationBackTime = 50;
+            }
+            else if (averagePing < 100)
+            {
+                interpolationBackTime = 100;
+            }
+            else if (averagePing < 200)
+            {
+                interpolationBackTime = 200;
+            }
+            else if (averagePing < 400)
+            {
+                interpolationBackTime = 400;
+            }
+            else if (averagePing < 600)
+            {
+                interpolationBackTime = 600;
+            }
+            else
+            {
+                interpolationBackTime = 1000;
+            }
         }
 
         private void OnPlayerInitialized(PlayerSignals.OnPlayerInitialized signal)
