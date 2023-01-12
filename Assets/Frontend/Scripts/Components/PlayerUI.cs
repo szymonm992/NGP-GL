@@ -16,9 +16,7 @@ namespace Frontend.Scripts.Components
         [Inject] private readonly IPlayerInstaller playerInstaller;
         [Inject] private readonly RectTransform rectTransform;
         [Inject(Id = "usernameLabel")] private readonly TextMeshProUGUI usernameLabel;
-        [Inject(Id = "playerUIHolder")] private readonly Transform uiHolder;
-      
-        private Vector2 currentDesiredPosition;
+        [Inject(Id = "playerUIHolder")] public Transform uiHolder;
 
         public void Initialize()
         {
@@ -48,13 +46,12 @@ namespace Frontend.Scripts.Components
             {
                 if (Vector3.Dot(Camera.main.transform.forward, uiHolder.position - Camera.main.transform.position) >= 0)
                 {
-                    currentDesiredPosition = Camera.main.WorldToScreenPoint(uiHolder.position);
-                    rectTransform.position = currentDesiredPosition;
-                    //gameObject.ToggleGameObjectIfActive(true);
+                    rectTransform.gameObject.ToggleGameObjectIfActive(true);
+                    rectTransform.position = Camera.main.WorldToScreenPoint(uiHolder.position);
                 }
                 else
                 {
-                    //gameObject.ToggleGameObjectIfActive(false);
+                    rectTransform.gameObject.ToggleGameObjectIfActive(false);
                 }
             }
         }
