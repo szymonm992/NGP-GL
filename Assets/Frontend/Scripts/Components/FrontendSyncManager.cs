@@ -35,7 +35,7 @@ namespace Frontend.Scripts.Components
         protected override void CreatePlayer(User user, Vector3 spawnPosition, Vector3 spawnEulerAngles, out PlayerProperties playerProperties)
         {
             base.CreatePlayer(user, spawnPosition, spawnEulerAngles, out playerProperties);
-            if(user.IsItMe)
+            if (user.IsItMe)
             {
                 localPlayerEntity = connectedPlayers[user.Name];
             }

@@ -4,6 +4,7 @@ using GLShared.Networking.Components;
 using GLShared.Networking.Interfaces;
 using GLShared.Networking.Models;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Zenject;
 
 namespace Frontend.Scripts.Components
@@ -37,10 +38,13 @@ namespace Frontend.Scripts.Components
                 return;
             }
 
-            // Store the incoming NetworkTransform in a circular fashion
-            int index = (statesCount % bufferedStates.Length);
-            bufferedStates[index] = nTransform;
-            statesCount++;
+            for (int i = bufferedStates.Length - 1; i >= 1; i--)
+            {
+                bufferedStates[i] = bufferedStates[i - 1];
+            }
+
+            bufferedStates[0] = nTransform;
+            statesCount = Mathf.Min(statesCount + 1, bufferedStates.Length);
         }
 
         private void Update()
@@ -57,72 +61,48 @@ namespace Frontend.Scripts.Components
 
         private void Interpolate(double currentTime)
         {
-            var interpolationTime = currentTime - interpolationBackTime;
-            var firstBufferedState = bufferedStates[(statesCount - 1) % bufferedStates.Length];
+            if (!IsRunning)
+            {
+                return;
+            }
 
-            if (firstBufferedState.TimeStamp > interpolationTime)
+            if (statesCount == 0)
+            {
+                return;
+            }
+
+            double interpolationTime = currentTime - interpolationBackTime;
+
+            if (bufferedStates[0].TimeStamp > interpolationTime)
             {
                 for (int i = 0; i < statesCount; i++)
                 {
-                    int index = (statesCount - 1 - i) % bufferedStates.Length;
-                    if (bufferedStates[index].TimeStamp <= interpolationTime || i == statesCount - 1)
+                    if (bufferedStates[i].TimeStamp <= interpolationTime || i == statesCount - 1)
                     {
-                        var rhs = bufferedStates[(index - 1 + bufferedStates.Length) % bufferedStates.Length];
-                        var lhs = bufferedStates[index];
-                        var length = rhs.TimeStamp - lhs.TimeStamp;
-
-                        var t = 0.0f;
+                        var rhs = bufferedStates[Mathf.Max(i - 1, 0)];
+                        var lhs = bufferedStates[i];
+                        double length = rhs.TimeStamp - lhs.TimeStamp;
+                        float t = 0.0f;
                         if (length > MIN_THRESHOLD)
                         {
                             t = (float)((interpolationTime - lhs.TimeStamp) / length);
-                            if (t > 1.0f)
-                            {
-                                t = 1.0f;
-                            }
                         }
-
-                        // Calculate spline interpolation using the three most recent network transforms
-                        Vector3 p0 = lhs.Position;
-                        Vector3 p1 = rhs.Position;
-                        Vector3 p2 = rhs.Position;
-                        Vector3 p3 = rhs.Position;
-                        if (statesCount > 2)
-                        {
-                            p2 = bufferedStates[(index - 1 + bufferedStates.Length) % bufferedStates.Length].Position;
-                        }
-                        if (statesCount > 3)
-                        {
-                            p3 = bufferedStates[(index - 2 + bufferedStates.Length) % bufferedStates.Length].Position;
-                        }
-
-                        Vector3 pos = InterpolateSpline(p0, p1, p2, p3, t);
-                        transform.SetPositionAndRotation(pos, Quaternion.Slerp(lhs.Rotation, rhs.Rotation, t));
+                        speedometer.SetSpeedometr(lhs.CurrentSpeed);
+                        transform.position = Vector3.Lerp(lhs.Position, rhs.Position, t);
+                        transform.rotation = Quaternion.Slerp(lhs.Rotation, rhs.Rotation, t);
                         turretController.SetTurretAndGunRotation(rhs.TurretAngleY, rhs.GunAngleX);
-                        if (playerEntity.IsLocalPlayer)
-                        {
-                            speedometer.SetSpeedometr(lhs.CurrentSpeed);
-                        }
                         return;
                     }
                 }
             }
             else
             {
-                transform.SetPositionAndRotation(firstBufferedState.Position, firstBufferedState.Rotation);
-                turretController.SetTurretAndGunRotation(firstBufferedState.TurretAngleY, firstBufferedState.GunAngleX);
-
-                if (playerEntity.IsLocalPlayer)
-                {
-                    speedometer.SetSpeedometr(firstBufferedState.CurrentSpeed);
-                }
+                transform.position = bufferedStates[0].Position;
+                transform.rotation = bufferedStates[0].Rotation;
+                turretController.SetTurretAndGunRotation(bufferedStates[0].TurretAngleY, bufferedStates[0].GunAngleX);
+                speedometer.SetSpeedometr(bufferedStates[0].CurrentSpeed);
+                
             }
-        }
-
-        private Vector3 InterpolateSpline(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, float t)
-        {
-            float t2 = t * t;
-            float t3 = t2 * t;
-            return 0.5f * ((2.0f * p1) + (-p0 + p2) * t + (2.0f * p0 - 5.0f * p1 + 4.0f * p2 - p3) * t2 + (-p0 + 3.0f * p1 - 3.0f * p2 + p3) * t3);
         }
 
 

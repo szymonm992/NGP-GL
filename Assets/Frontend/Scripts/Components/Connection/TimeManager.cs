@@ -9,7 +9,7 @@ namespace Frontend.Scripts.Components
         [Inject] private readonly ConnectionManager connectionManager;
         [Inject] private readonly SmartFoxConnection smartFox;
 
-        private readonly float period = 0.08f;
+        private readonly float period = 0.2f;
         private readonly int averagePingCount = 10;
         
         private float lastRequestTime = float.MaxValue;
