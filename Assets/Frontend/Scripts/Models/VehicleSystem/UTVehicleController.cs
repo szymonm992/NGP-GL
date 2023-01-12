@@ -24,9 +24,9 @@ namespace Frontend.Scripts.Models
         [Inject] protected readonly VehicleStatsBase vehicleStats;
         [Inject] protected readonly DiContainer container;
         [Inject] protected readonly PlayerEntity playerEntity;
+        [Inject] protected readonly IPlayerInstaller playerInstaller;
 
         [SerializeField] protected Transform centerOfMass;
-        [SerializeField] protected Transform centerOfMassUngrounded;
         [SerializeField] protected VehicleType vehicleType = VehicleType.Car;
         [SerializeField] protected float maxSlopeAngle = 45f;
         [SerializeField] protected AnimationCurve enginePowerCurve;
@@ -65,8 +65,6 @@ namespace Frontend.Scripts.Models
         protected float horizontalAngle;
         protected bool isUpsideDown = false;
         protected Vector3 wheelVelocityLocal;
-
-        private GameObject currentComTrans;
         #endregion 
 
         protected IEnumerable<IPhysicsWheel> allGroundedWheels;
@@ -82,6 +80,7 @@ namespace Frontend.Scripts.Models
         public float SignedInputY => signedInputY;
         public float MaxForwardSpeed => maxForwardSpeed;
         public float MaxBackwardsSpeed => maxBackwardsSpeed;
+        public float HorizontalAngle => horizontalAngle;
         public bool DoesGravityDamping => doesGravityDamping;
         public bool IsUpsideDown => isUpsideDown;
         public bool HasTurret => hasTurret;
@@ -121,20 +120,27 @@ namespace Frontend.Scripts.Models
 
         private void OnPlayerSpawned(PlayerSignals.OnPlayerSpawned OnPlayerSpawned)
         {
-            if (OnPlayerSpawned.PlayerProperties.User.Name == playerEntity.Username)
+            if (!playerInstaller.IsPrototypeInstaller)
             {
-                gameObject.name = "Player '"+playerEntity.Username+"'";
+                if (OnPlayerSpawned.PlayerProperties.User.Name == playerEntity.Username)
+                {
+                    gameObject.name = "(" + OnPlayerSpawned.PlayerProperties.PlayerVehicleName + ")Player '" + playerEntity.Username + "'";
+                    signalBus.Fire(new PlayerSignals.OnPlayerInitialized()
+                    {
+                        PlayerProperties = playerEntity.Properties,
+                        InputProvider = inputProvider,
+                        VehicleStats = vehicleStats,
+                    });
+                }
+            }
+            else
+            {
+                gameObject.name = "(" + OnPlayerSpawned.PlayerProperties.PlayerVehicleName + ")Player '" + playerEntity.Username + "'";
                 signalBus.Fire(new PlayerSignals.OnPlayerInitialized()
                 {
                     PlayerProperties = playerEntity.Properties,
                     InputProvider = inputProvider,
                     VehicleStats = vehicleStats,
-                    TurretRotationSpeed = hasTurret ? vehicleStats.TurretRotationSpeed : 0,
-                    GunRotationSpeed = hasTurret ? vehicleStats.GunRotationSpeed : 0,
-                    GunDepression = vehicleStats.GunDepression,
-                    GunElevation = vehicleStats.GunElevation,
-                    StabilizeGun = vehicleStats.StabilizeGun,
-                    StabilizeTurret = vehicleStats.StabilizeTurret,
                 });
             }
         }
@@ -147,7 +153,7 @@ namespace Frontend.Scripts.Models
 
             if (centerOfMass != null)
             {
-                SetCenterOfMassToPoint(centerOfMass);
+                rig.centerOfMass = centerOfMass.localPosition;
             }
         }
 
@@ -155,15 +161,6 @@ namespace Frontend.Scripts.Models
         {
             verticalAngle = 90f - Vector3.Angle(Vector3.up, transform.forward);
             horizontalAngle = 90f - Vector3.Angle(Vector3.up, transform.right);
-        }
-        
-        protected void SetCenterOfMassToPoint(Transform comPoint)
-        {
-            if(!currentComTrans || currentComTrans.gameObject != comPoint.gameObject)
-            {
-                currentComTrans = comPoint.gameObject;
-                rig.centerOfMass = comPoint.localPosition;
-            }
         }
 
         protected virtual void FixedUpdate()
@@ -175,7 +172,6 @@ namespace Frontend.Scripts.Models
 
             CalculateVehicleAngles();
             CalculateVehicleMaxVelocity();
-            SetCenterOfMassToPoint(horizontalAngle >= 50f ? centerOfMassUngrounded : centerOfMass);
 
             allGroundedWheels = GetGroundedWheelsInAllAxles().ToArray();
             isUpsideDown = CheckUpsideDown();

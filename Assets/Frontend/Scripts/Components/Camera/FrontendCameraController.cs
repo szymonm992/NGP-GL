@@ -104,8 +104,8 @@ namespace Frontend.Scripts.Components
                     PlayerContext = playerProperties.PlayerContext,
                     StartingEulerAngles = playerProperties.PlayerContext.transform.eulerAngles,
                     InputProvider = OnPlayerInitialized.InputProvider,
-                    GunDepression = OnPlayerInitialized.GunDepression,
-                    GunElevation = OnPlayerInitialized.GunElevation,
+                    GunDepression = OnPlayerInitialized.VehicleStats.GunDepression,
+                    GunElevation = OnPlayerInitialized.VehicleStats.GunElevation,
                 });
             }
         }
