@@ -17,6 +17,7 @@ namespace Prototyping.Scripts.Components
         [Inject] protected readonly PlayerSpawner playerSpawner;
         [Inject(Optional = true)] protected readonly Speedometer speedometer;
         [Inject(Id = "countdownText")] private readonly TextMeshProUGUI countdownText;
+        [Inject(Id = "pingMeter")] private readonly TextMeshProUGUI pingText;
 
         private PlayerEntity mockCurrentPlayer = null;
 
@@ -24,6 +25,7 @@ namespace Prototyping.Scripts.Components
         {
             StartCoroutine(CreatePlayerRoutine(0.5f));
             countdownText.text = string.Empty;
+            pingText.text = string.Empty;
         }
 
         private void CreatePlayer(string vehicleName, Vector3 spawnPosition, Vector3 spawnEulerAngles)
