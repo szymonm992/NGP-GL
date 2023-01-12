@@ -4,6 +4,7 @@ using GLShared.General.Models;
 using GLShared.General.Signals;
 using GLShared.Networking.Components;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -15,12 +16,14 @@ namespace Prototyping.Scripts.Components
         [Inject] protected readonly IVehiclesDatabase vehicleDatabase;
         [Inject] protected readonly PlayerSpawner playerSpawner;
         [Inject(Optional = true)] protected readonly Speedometer speedometer;
+        [Inject(Id = "countdownText")] private readonly TextMeshProUGUI countdownText;
 
         private PlayerEntity mockCurrentPlayer = null;
 
         public void Initialize()
         {
             StartCoroutine(CreatePlayerRoutine(0.5f));
+            countdownText.text = string.Empty;
         }
 
         private void CreatePlayer(string vehicleName, Vector3 spawnPosition, Vector3 spawnEulerAngles)

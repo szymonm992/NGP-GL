@@ -1,8 +1,6 @@
 using GLShared.General.Interfaces;
 using GLShared.General.Signals;
 using GLShared.Networking.Components;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -18,6 +16,8 @@ namespace Frontend.Scripts.Components
         [Inject(Id = "usernameLabel")] private readonly TextMeshProUGUI usernameLabel;
         [Inject(Id = "playerUIHolder")] public Transform uiHolder;
 
+        private bool isLocalPlayer = false;
+
         public void Initialize()
         {
             signalBus.Subscribe<PlayerSignals.OnPlayerInitialized>(OnPlayerInitialized);
@@ -26,6 +26,7 @@ namespace Frontend.Scripts.Components
         private void OnPlayerInitialized(PlayerSignals.OnPlayerInitialized OnPlayerInitialized)
         {
             bool isPrototyping = playerInstaller.IsPrototypeInstaller;
+            isLocalPlayer = isPrototyping || playerEntity.IsLocalPlayer;
 
             if (!isPrototyping)
             {
@@ -44,7 +45,7 @@ namespace Frontend.Scripts.Components
         {
             if (uiHolder != null)
             {
-                if (Vector3.Dot(Camera.main.transform.forward, uiHolder.position - Camera.main.transform.position) >= 0)
+                if (!isLocalPlayer && Vector3.Dot(Camera.main.transform.forward, uiHolder.position - Camera.main.transform.position) >= 0)
                 {
                     rectTransform.gameObject.ToggleGameObjectIfActive(true);
                     rectTransform.position = Camera.main.WorldToScreenPoint(uiHolder.position);
