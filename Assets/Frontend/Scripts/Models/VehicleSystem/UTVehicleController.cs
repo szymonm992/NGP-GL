@@ -16,7 +16,7 @@ namespace Frontend.Scripts.Models
 {
     public abstract class UTVehicleController : MonoBehaviour, IVehicleController
     {
-        private const float IDLER_WHEEL_BUMP_MULTIPLIER = 2.0f;
+        private const float IDLER_WHEEL_BUMP_MULTIPLIER = 1.5f;
         private const float BRAKE_FORCE_OPPOSITE_INPUT_AND_FORCE_MULTIPLIER = 0.1f;
         private const float BRAKE_FORCE_NO_INPUTS_MULTIPLIER = 0.25f;
 
@@ -32,7 +32,7 @@ namespace Frontend.Scripts.Models
 
         [SerializeField] protected Transform centerOfMass;
         [SerializeField] protected VehicleType vehicleType = VehicleType.Car;
-        [SerializeField] protected float maxSlopeAngle = 45f;
+        [SerializeField] protected float maxSlopeAngle = 35f;
         [SerializeField] protected AnimationCurve forwardPowerCurve;
         [SerializeField] protected AnimationCurve backwardPowerCurve;
         [SerializeField] protected bool doesGravityDamping = true;
@@ -61,8 +61,8 @@ namespace Frontend.Scripts.Models
         #region Computed variables
         protected bool isBrake;
         protected float inputY;
-        protected float currentMaxSpeedRatio = 0;
-        protected float currentDriveForce = 0;
+        protected float currentMaxSpeedRatio = 0f;
+        protected float currentDriveForce = 0f;
         protected float currentLongitudalGrip;
         protected float forwardForce;
         protected float turnForce;
@@ -71,6 +71,8 @@ namespace Frontend.Scripts.Models
         protected bool isUpsideDown = false;
         protected Vector3 wheelVelocityLocal;
         protected bool isMovingInDirectionOfInput = true;
+
+        private float maxEngineForwardPower = 0f;
         #endregion
 
         protected IEnumerable<IPhysicsWheel> allGroundedWheels;
@@ -113,15 +115,16 @@ namespace Frontend.Scripts.Models
                 maxForwardSpeed = forwardPowerCurve.keys[^1].time;
                 maxBackwardsSpeed = backwardPowerCurve.keys[^1].time;
             }
-            
 
             hasAnyWheels = allAxles.Any() && allAxles.Where(axle => axle.HasAnyWheelPair && axle.HasAnyWheel).Any();
             allWheels = GetAllWheelsInAllAxles().ToArray();
             allWheelsAmount = allWheels.Count();
-
+          
             hasTurret = container.TryResolve<ITurretController>() != null;
 
             signalBus.Subscribe<PlayerSignals.OnPlayerSpawned>(OnPlayerSpawned);
+
+            maxEngineForwardPower = forwardPowerCurve.keys[0].value;
         }
 
         private void OnPlayerSpawned(PlayerSignals.OnPlayerSpawned OnPlayerSpawned)
@@ -273,7 +276,7 @@ namespace Frontend.Scripts.Models
                         {
                             wheelVelocityLocal = wheel.Transform.InverseTransformDirection(rig.GetPointVelocity(wheel.UpperConstraintPoint));
 
-                            forwardForce = inputY * currentDriveForce * IDLER_WHEEL_BUMP_MULTIPLIER;
+                            forwardForce = inputY * maxEngineForwardPower * IDLER_WHEEL_BUMP_MULTIPLIER;
                             turnForce = wheelVelocityLocal.x * currentDriveForce;
 
                             rig.AddForceAtPosition((forwardForce * (wheel.Transform.up  - wheel.Transform.forward)),wheel.Transform.position);
