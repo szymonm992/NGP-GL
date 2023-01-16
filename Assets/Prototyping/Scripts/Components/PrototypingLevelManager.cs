@@ -1,4 +1,5 @@
 using Frontend.Scripts.Components;
+using Frontend.Scripts.ScriptableObjects;
 using GLShared.General.Interfaces;
 using GLShared.General.Models;
 using GLShared.General.Signals;
@@ -15,6 +16,7 @@ namespace Prototyping.Scripts.Components
         [Inject] private readonly SignalBus signalBus;
         [Inject] protected readonly IVehiclesDatabase vehicleDatabase;
         [Inject] protected readonly PlayerSpawner playerSpawner;
+        [Inject] protected readonly FrontSettings frontSettings;
         [Inject(Optional = true)] protected readonly Speedometer speedometer;
         [Inject(Id = "countdownText")] private readonly TextMeshProUGUI countdownText;
         [Inject(Id = "pingMeter")] private readonly TextMeshProUGUI pingText;
@@ -59,7 +61,7 @@ namespace Prototyping.Scripts.Components
         private IEnumerator CreatePlayerRoutine(float delay)
         {
             yield return new WaitForSeconds(delay);
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < frontSettings.PrototypePlayersAmount; i++)
             {
                 CreatePlayer("T-55", new Vector3(160f, 30.5f, 420f + (8 * i)), new Vector3(0, 90f, 0));
             }

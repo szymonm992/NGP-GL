@@ -970,6 +970,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   idlerWheelOffset: {x: 0, y: 0.1, z: 0.2}
+  idlerSite: 0
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -1026,6 +1027,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   idlerWheelOffset: {x: 0, y: 0.1, z: 0.2}
+  idlerSite: 0
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -6345,6 +6347,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   idlerWheelOffset: {x: 0, y: 0, z: -0.2}
+  idlerSite: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -6432,6 +6435,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   idlerWheelOffset: {x: 0, y: 0, z: -0.2}
+  idlerSite: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -11940,29 +11944,115 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerOfMass: {fileID: 2970605867215432948}
-  centerOfMassUngrounded: {fileID: 2014853979454423880}
   vehicleType: 1
   maxSlopeAngle: 45
-  enginePowerCurve:
+  forwardPowerCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
+      value: 80000
+      inSlope: -985.7143
+      outSlope: -2000
+      tangentMode: 65
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
+      time: 10
+      value: 60000
+      inSlope: -2000
+      outSlope: -6800
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 15
+      value: 26000
+      inSlope: -6800
+      outSlope: -1100
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 25
+      value: 15000
+      inSlope: -1100
+      outSlope: -166.66667
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 55
+      value: 10000
+      inSlope: -166.66667
+      outSlope: -320
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 80
+      value: 2000
+      inSlope: -320
+      outSlope: -985.7143
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  backwardPowerCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 80000
+      inSlope: -985.7143
+      outSlope: -3200
+      tangentMode: 65
       weightedMode: 0
       inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 10
+      value: 48000
+      inSlope: -3200
+      outSlope: -4800
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 15
+      value: 24000
+      inSlope: -4800
+      outSlope: -900
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 25
+      value: 15000
+      inSlope: -900
+      outSlope: -2600
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 30
+      value: 2000
+      inSlope: -2600
+      outSlope: -985.7143
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

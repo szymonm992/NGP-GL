@@ -16,6 +16,7 @@ namespace Frontend.Scripts.Models
 {
     public abstract class UTVehicleController : MonoBehaviour, IVehicleController
     {
+        private const float IDLER_WHEEL_BUMP_MULTIPLIER = 2.0f;
         private const float BRAKE_FORCE_OPPOSITE_INPUT_AND_FORCE_MULTIPLIER = 0.1f;
         private const float BRAKE_FORCE_NO_INPUTS_MULTIPLIER = 0.25f;
 
@@ -253,7 +254,7 @@ namespace Frontend.Scripts.Models
 
                     foreach (var wheel in groundedWheels)
                     {
-                        if(wheel is UTWheel)
+                        if(!wheel.IsIdler)
                         {
                             if (wheel.HitInfo.NormalAndUpAngle <= gameParameters.MaxWheelDetectionAngle)
                             {
@@ -272,10 +273,10 @@ namespace Frontend.Scripts.Models
                         {
                             wheelVelocityLocal = wheel.Transform.InverseTransformDirection(rig.GetPointVelocity(wheel.UpperConstraintPoint));
 
-                            forwardForce = inputY * currentDriveForce * 3f;
+                            forwardForce = inputY * currentDriveForce * IDLER_WHEEL_BUMP_MULTIPLIER;
                             turnForce = wheelVelocityLocal.x * currentDriveForce;
 
-                            rig.AddForceAtPosition((forwardForce * wheel.Transform.up),wheel.Transform.position);
+                            rig.AddForceAtPosition((forwardForce * (wheel.Transform.up  - wheel.Transform.forward)),wheel.Transform.position);
                             rig.AddForceAtPosition((turnForce * -wheel.Transform.right), wheel.UpperConstraintPoint);
                         }
                     }
@@ -300,7 +301,7 @@ namespace Frontend.Scripts.Models
 
                 foreach (var wheel in allGroundedWheels)
                 {
-                    if (wheel is UTWheel)
+                    if (!wheel.IsIdler)
                     {
                         Vector3 brakesPoint = wheel.ReturnWheelPoint(brakesForceApplyPoint);
 
