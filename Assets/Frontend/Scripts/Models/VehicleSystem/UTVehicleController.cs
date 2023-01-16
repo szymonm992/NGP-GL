@@ -16,7 +16,7 @@ namespace Frontend.Scripts.Models
 {
     public abstract class UTVehicleController : MonoBehaviour, IVehicleController
     {
-        private const float IDLER_WHEEL_BUMP_MULTIPLIER = 1.5f;
+        private const float IDLER_WHEEL_BUMP_MULTIPLIER = 1.25f;
         private const float BRAKE_FORCE_OPPOSITE_INPUT_AND_FORCE_MULTIPLIER = 0.1f;
         private const float BRAKE_FORCE_NO_INPUTS_MULTIPLIER = 0.25f;
 
@@ -274,13 +274,21 @@ namespace Frontend.Scripts.Models
                         }
                         else
                         {
+                            var idler = wheel as UTIdlerWheel;
+
                             wheelVelocityLocal = wheel.Transform.InverseTransformDirection(rig.GetPointVelocity(wheel.UpperConstraintPoint));
-
                             forwardForce = inputY * maxEngineForwardPower * IDLER_WHEEL_BUMP_MULTIPLIER;
-                            turnForce = wheelVelocityLocal.x * currentDriveForce;
 
-                            rig.AddForceAtPosition((forwardForce * (wheel.Transform.up  - wheel.Transform.forward)),wheel.Transform.position);
-                            rig.AddForceAtPosition((turnForce * -wheel.Transform.right), wheel.UpperConstraintPoint);
+                            turnForce = wheelVelocityLocal.x * currentDriveForce;
+                            rig.AddForceAtPosition((turnForce * -wheel.Transform.right), wheel.Transform.position);
+
+                            if ((float)idler.IdlerSite == inputProvider.RawVertical)
+                            {
+                                var dir = idler.IdlerSite == IdlerWheelSite.Forward ? (wheel.Transform.up + wheel.Transform.forward) : -wheel.Transform.up;
+                                rig.AddForceAtPosition((forwardForce * dir), wheel.Transform.position);
+                                Debug.DrawRay(wheel.Transform.position, wheel.Transform.up, Color.yellow);
+                            }
+                       
                         }
                     }
                 }
