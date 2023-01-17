@@ -286,9 +286,7 @@ namespace Frontend.Scripts.Models
                             {
                                 var dir = idler.IdlerSite == IdlerWheelSite.Forward ? (wheel.Transform.up + wheel.Transform.forward) : -wheel.Transform.up;
                                 rig.AddForceAtPosition((forwardForce * dir), wheel.Transform.position);
-                                Debug.DrawRay(wheel.Transform.position, wheel.Transform.up, Color.yellow);
                             }
-                       
                         }
                     }
                 }

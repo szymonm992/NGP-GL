@@ -38,5 +38,9 @@ namespace Prototyping.Scripts.Components
         public void TryCreatePlayer(User _, Vector3 spawnPosition, Vector3 spawnEulerAngles)
         {
         }
+
+        public void TryCreateShell(User _, int shellId)
+        {
+        }
     }
 }
