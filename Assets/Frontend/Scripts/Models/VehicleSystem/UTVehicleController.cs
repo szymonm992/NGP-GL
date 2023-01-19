@@ -61,18 +61,19 @@ namespace Frontend.Scripts.Models
         #region Computed variables
         protected bool isBrake;
         protected float inputY;
-        protected float currentMaxSpeedRatio = 0f;
-        protected float currentDriveForce = 0f;
+        protected float currentMaxSpeedRatio;
+        protected float currentDriveForce;
         protected float currentLongitudalGrip;
         protected float forwardForce;
         protected float turnForce;
         protected float verticalAngle;
         protected float horizontalAngle;
-        protected bool isUpsideDown = false;
-        protected Vector3 wheelVelocityLocal;
-        protected bool isMovingInDirectionOfInput = true;
+        protected float maxEngineForwardPower;
 
-        private float maxEngineForwardPower = 0f;
+        protected Vector3 wheelVelocityLocal;
+
+        protected bool isUpsideDown = false;
+        protected bool isMovingInDirectionOfInput = true;
         #endregion
 
         protected IEnumerable<IPhysicsWheel> allGroundedWheels;
@@ -103,7 +104,7 @@ namespace Frontend.Scripts.Models
 
         public float GetCurrentMaxSpeed()
         {
-            return absoluteInputY == 0 ? 0 : (signedInputY > 0 ? currentMaxForwardSpeed : currentMaxBackwardSpeed);
+            return absoluteInputY == 0f ? 0f : (signedInputY > 0f ? currentMaxForwardSpeed : currentMaxBackwardSpeed);
         }
 
         public virtual void Initialize()
@@ -197,7 +198,7 @@ namespace Frontend.Scripts.Models
             if (inputProvider != null)
             {
                 isBrake = inputProvider.Brake;
-                inputY = inputProvider.RawVertical == 0 ? 0 : inputProvider.Vertical;
+                inputY = inputProvider.RawVertical == 0f ? 0f : inputProvider.Vertical;
 
                 absoluteInputY = inputProvider.AbsoluteVertical;
                 absoluteInputX = inputProvider.AbsoluteHorizontal;
@@ -239,7 +240,7 @@ namespace Frontend.Scripts.Models
 
         protected void Accelerate()
         {
-            if (inputProvider.RawVertical == 0 || isBrake)
+            if (inputProvider.RawVertical == 0f || isBrake)
             {
                 return;
             }
@@ -257,7 +258,7 @@ namespace Frontend.Scripts.Models
 
                     foreach (var wheel in groundedWheels)
                     {
-                        if(!wheel.IsIdler)
+                        if (!wheel.IsIdler)
                         {
                             if (wheel.HitInfo.NormalAndUpAngle <= gameParameters.MaxWheelDetectionAngle)
                             {
@@ -304,7 +305,7 @@ namespace Frontend.Scripts.Models
                 (isMovingInDirectionOfInput ? 0f : BRAKE_FORCE_OPPOSITE_INPUT_AND_FORCE_MULTIPLIER)
                 : BRAKE_FORCE_NO_INPUTS_MULTIPLIER);
 
-            if (inputProvider.RawVertical == 0 || isBrake || !isMovingInDirectionOfInput)
+            if (inputProvider.RawVertical == 0f || isBrake || !isMovingInDirectionOfInput)
             {
                 float forceMultiplier = isBrake ? 0.2f : 0.7f;
 
