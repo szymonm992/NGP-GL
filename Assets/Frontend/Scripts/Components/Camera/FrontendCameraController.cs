@@ -241,7 +241,7 @@ namespace Frontend.Scripts.Components
 
             if (IsInSnipingMode())
             {
-                float zoomMult = 1 - (1 - snipingMaxSensScale) * ((snipingZoom - snipingMinZoom) / (snipingMaxZoom - snipingMinZoom));
+                float zoomMult = 1f - (1f - snipingMaxSensScale) * ((snipingZoom - snipingMinZoom) / (snipingMaxZoom - snipingMinZoom));
                 float finalSensScale = snipingSensScale * zoomMult;
 
                 rotation *= finalSensScale;
@@ -275,7 +275,7 @@ namespace Frontend.Scripts.Components
                 newRotation = Quaternion.Inverse(snipingFollowPoint.rotation) * newRotation;
 
                 newRotation = Quaternion.Euler(
-                    Mathf.Clamp(Mathf.DeltaAngle(0, newRotation.eulerAngles.x), limits.Min, limits.Max),
+                    Mathf.Clamp(Mathf.DeltaAngle(0f, newRotation.eulerAngles.x), limits.Min, limits.Max),
                     newRotation.eulerAngles.y,
                     newRotation.eulerAngles.z
                 );
@@ -288,7 +288,7 @@ namespace Frontend.Scripts.Components
             {
                 RangedFloat limits = new(orbitVertMinRange, orbitVertMaxRange);
                 newRotation = Quaternion.Euler(
-                    Mathf.Clamp(Mathf.DeltaAngle(0, newRotation.eulerAngles.x), limits.Min, limits.Max),
+                    Mathf.Clamp(Mathf.DeltaAngle(0f, newRotation.eulerAngles.x), limits.Min, limits.Max),
                     newRotation.eulerAngles.y,
                     newRotation.eulerAngles.z
                 );
@@ -313,7 +313,7 @@ namespace Frontend.Scripts.Components
             {
                 // preventing the camera from clipping through the ground
                 var dotDir = Vector3.Dot(Vector3.up, orbitFollowPoint.up);
-                if (dotDir < 0)
+                if (dotDir < 0f)
                 {
                     orbitFollowPos.y -= dotDir * orbitFollowPoint.localPosition.y;
                 }
@@ -324,7 +324,7 @@ namespace Frontend.Scripts.Components
         private void UpdateOrbitCamera()
         {
             var zoomValue = GetZoomValue();
-            if (zoomValue != 0)
+            if (zoomValue != 0f)
             {
                 var newOrbitDist = desiredOrbitDist - zoomValue * 10.0f * orbitZoomStep;
                 desiredOrbitDist = Mathf.Clamp(newOrbitDist, orbitMinDist, orbitMaxDist);
@@ -340,7 +340,7 @@ namespace Frontend.Scripts.Components
 
             Vector3 orbitCamDirVec = (orbitCamDirRotation * Vector3.forward).normalized * desiredOrbitDist * -1f;
 
-            Ray r = new Ray(transform.position, orbitCamDirVec);
+            Ray r = new(transform.position, orbitCamDirVec);
             if (Physics.SphereCast(r, orbitCameraColliderSize * 0.5f, out hit, orbitCamDirVec.magnitude, targetMask))
             {
                 orbitDist = Mathf.Min(hit.distance - camOffset, orbitDist);
@@ -348,16 +348,20 @@ namespace Frontend.Scripts.Components
             }
 
             // setting the local position of camera
-            controlledCamera.transform.localPosition = new Vector3(0, 0, -orbitDist);
+            controlledCamera.transform.localPosition = new(0f, 0f, -orbitDist);
         }
 
         private void UpdateSnipingCamera()
         {
             var zoomValue = GetZoomValue();
-            if (zoomValue != 0)
+            if (zoomValue != 0f)
             {
                 var newSnipingZoom = desiredSnipingZoom + zoomValue * 10.0f * snipingZoomStep;
                 desiredSnipingZoom = Mathf.Clamp(newSnipingZoom, snipingMinZoom, snipingMaxZoom);
+                signalBus.Fire(new BattleSignals.CameraSignals.OnZoomChanged()
+                {
+                    CurrentZoom = desiredSnipingZoom,
+                });
             }
 
             snipingZoom = Mathf.Lerp(snipingZoom, desiredSnipingZoom, Time.deltaTime * snipingZoomInterp * 10.0f);
@@ -423,7 +427,7 @@ namespace Frontend.Scripts.Components
             RangedFloat baseLimits = GetSnipingModeLimits();
 
             float currentAngle = (Quaternion.Inverse(snipingFollowPoint.rotation) * transform.rotation).eulerAngles.x;
-            currentAngle = Mathf.DeltaAngle(0, currentAngle);
+            currentAngle = Mathf.DeltaAngle(0f, currentAngle);
 
             if (!preventingBump)
             {
@@ -456,7 +460,7 @@ namespace Frontend.Scripts.Components
                 }
 
                 var returnScale = Mathf.Pow(
-                    Mathf.Max(0, Time.time - lastBumpTime - bumpPreventionDelay) * bumpPreventionIncrease,
+                    Mathf.Max(0f, Time.time - lastBumpTime - bumpPreventionDelay) * bumpPreventionIncrease,
                     bumpPreventionExponent
                 ) * Time.deltaTime;
 
@@ -488,7 +492,7 @@ namespace Frontend.Scripts.Components
             RangedFloat baseLimits = GetSnipingModeLimits();
             
             float currentAngle = (Quaternion.Inverse(snipingFollowPoint.rotation) * transform.rotation).eulerAngles.x;
-            currentAngle = Mathf.DeltaAngle(0, currentAngle);
+            currentAngle = Mathf.DeltaAngle(0f, currentAngle);
 
             if (bumpPreventionRange.InRange(currentAngle))
             {
@@ -523,7 +527,7 @@ namespace Frontend.Scripts.Components
                 camTransform += rayDir * orbitDist;
             }
 
-            Ray r = new Ray(camTransform, rayDir * targetDist);
+            Ray r = new(camTransform, rayDir * targetDist);
             if (!Physics.Raycast(r, out hit, targetDist, targetMask))
             {
                 targetPosition = r.origin + r.direction * targetDist;
@@ -599,8 +603,8 @@ namespace Frontend.Scripts.Components
         #region HELPERS&STRUCTS
         private void FindCameraTargetObjects()
         {
-            var all_objects_inside = currentPlayerObject.GetComponentsInChildren<Transform>();
-            foreach (var child in all_objects_inside)
+            var objectsInParent = currentPlayerObject.GetComponentsInChildren<Transform>();
+            foreach (var child in objectsInParent)
             {
                 if (child.name == "CAMERA_CENTER")
                 {

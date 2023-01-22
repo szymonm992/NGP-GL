@@ -324,10 +324,10 @@ namespace Frontend.Scripts.Models
                         
                         rig.AddForceAtPosition(desiredAccel * (wheel.TireMass * forceMultiplier) * forwardDir, brakesPoint);
                     }
-                   
                 }
             }
         }
+
         protected virtual void CustomGravityLogic()
         {
         }

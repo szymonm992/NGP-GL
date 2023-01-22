@@ -1,3 +1,4 @@
+using Frontend.Scripts.Signals;
 using GLShared.General.Interfaces;
 using GLShared.General.Signals;
 using GLShared.Networking.Components;
@@ -21,6 +22,7 @@ namespace Frontend.Scripts.Components
         public void Initialize()
         {
             signalBus.Subscribe<PlayerSignals.OnPlayerInitialized>(OnPlayerInitialized);
+            signalBus.Subscribe<BattleSignals.CameraSignals.OnZoomChanged>(OnZoomChanged);
         }
 
         private void OnPlayerInitialized(PlayerSignals.OnPlayerInitialized OnPlayerInitialized)
@@ -39,6 +41,11 @@ namespace Frontend.Scripts.Components
             {
                 usernameLabel.text = "localHost";
             }
+        }
+
+        private void OnZoomChanged(BattleSignals.CameraSignals.OnZoomChanged OnZoomChanged)
+        {
+            float zoomValue = OnZoomChanged.CurrentZoom;
         }
 
         private void LateUpdate()

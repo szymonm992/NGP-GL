@@ -37,6 +37,11 @@ namespace Frontend.Scripts.Signals
                 public GameObject PlayerObject { get; set; }
                 public CameraMode Mode { get; set; }
             }
+
+            public class OnZoomChanged
+            {
+                public float CurrentZoom { get; set; }
+            }
         }
     }
 }

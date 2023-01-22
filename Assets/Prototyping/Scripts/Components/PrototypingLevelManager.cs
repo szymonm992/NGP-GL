@@ -45,7 +45,7 @@ namespace Prototyping.Scripts.Components
             var vehicleData = vehicleDatabase.GetVehicleInfo(vehicleName);
             if (vehicleData != null)
             {
-                return new PlayerProperties()
+                return new()
                 {
                     PlayerContext = vehicleData.VehiclePrefab,
                     PlayerVehicleName = vehicleData.VehicleName,
@@ -63,7 +63,7 @@ namespace Prototyping.Scripts.Components
             yield return new WaitForSeconds(delay);
             for (int i = 0; i < frontSettings.PrototypePlayersAmount; i++)
             {
-                CreatePlayer("T-55", new Vector3(677, 24, 620f + (8 * i)), new Vector3(0, 90f, 0));
+                CreatePlayer("T-55", new(677, 24, 620f + (8 * i)), new(0, 90f, 0));
             }
            
             signalBus.Fire(new PlayerSignals.OnAllPlayersInputLockUpdate()

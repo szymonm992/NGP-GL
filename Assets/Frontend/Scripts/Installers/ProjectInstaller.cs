@@ -49,6 +49,8 @@ namespace Frontend.Scripts
 
             Container.DeclareSignal<BattleSignals.CameraSignals.OnCameraBound>();
             Container.DeclareSignal<BattleSignals.CameraSignals.OnCameraModeChanged>();
+            Container.DeclareSignal<BattleSignals.CameraSignals.OnZoomChanged>();
+
             Container.DeclareSignal<BattleSignals.OnGameStageUpdate>();
             Container.DeclareSignal<BattleSignals.OnCounterUpdate>().OptionalSubscriber();
 
