@@ -32,6 +32,7 @@ namespace Frontend.Scripts.Components.GameState
 
         private float serverSettingsTimer = 0;
         private bool firstRun = true;
+
         public override void Initialize()
         {
             base.Initialize();
@@ -41,15 +42,23 @@ namespace Frontend.Scripts.Components.GameState
         {
             base.StartState();
 
-            joinBattleCanvas.gameObject.ToggleGameObjectIfActive(false);
+            firstRun = true;
 
             GetServerSettings();
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+
+            joinBattleCanvas.gameObject.ToggleGameObjectIfActive(false);
+            lobbyCanvas.gameObject.ToggleGameObjectIfActive(false);
         }
 
         public override void Tick()
         {
             base.Tick();
-            if(isActive)
+            if (isActive)
             {
                 if(serverSettingsTimer < gameParameters.ServerSettingsUpdateRate)
                 {
@@ -86,10 +95,11 @@ namespace Frontend.Scripts.Components.GameState
             gameVersion.text = "Game version: "+ dataGameVersion;
             connectedUsersAmount.text = dataPlayersConnected.ToString();
 
-            if(firstRun)
+            if (firstRun)
             {
                 welcomeUi.gameObject.ToggleGameObjectIfActive(false);
                 lobbyCanvas.gameObject.ToggleGameObjectIfActive(true);
+                joinBattleCanvas.gameObject.ToggleGameObjectIfActive(false);
                 firstRun = false;
             }
             joinBattleBtn.interactable = true;

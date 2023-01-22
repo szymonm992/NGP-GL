@@ -133,7 +133,6 @@ namespace Frontend.Scripts.Components.GameState
             smartFox.Connection = new SmartFox()
             {
                 ThreadSafeMode = true,  
-                
             };
 
             smartFox.Connection.AddEventListener(SFSEvent.CONNECTION, connectionManager.OnConnection);
@@ -162,7 +161,7 @@ namespace Frontend.Scripts.Components.GameState
         
         public void OnLoginAttemptResult(ConnectionSignals.OnLoginAttemptResult OnLoginAttemptResult)
         {
-            if(!OnLoginAttemptResult.SuccessfullyLogin)
+            if (!OnLoginAttemptResult.SuccessfullyLogin)
             {
                 FinishGetInLobbyAttempt(false, OnLoginAttemptResult.LoginMessage);
             }

@@ -93,6 +93,11 @@ namespace Frontend.Scripts.Components
             stateMachine.ChangeState(WelcomeStage.None);
         }
 
+        private void OnApplicationQuit()
+        {
+            TryCancelSearchingForBattle();
+        }
+
         public void QuitGame()
         {
             Application.Quit();

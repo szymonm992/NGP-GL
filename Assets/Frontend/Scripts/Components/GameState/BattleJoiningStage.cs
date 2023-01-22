@@ -33,6 +33,7 @@ namespace Frontend.Scripts.Components.GameState
             base.Initialize();
             signalBus.Subscribe<ConnectionSignals.OnRoomJoinResponse>(OnRoomJoinResponse);
             signalBus.Subscribe<ConnectionSignals.OnCancelEnteringBattle>(OnCancelEnteringBattle);
+            signalBus.Subscribe<ConnectionSignals.OnDisconnectedFromServer>(OnDisconnectedFromServer);
         }
 
         public override void StartState()
@@ -77,6 +78,11 @@ namespace Frontend.Scripts.Components.GameState
             {
                 FinishJoiningBattle();
             }
+        }
+
+        public void OnDisconnectedFromServer(OnDisconnectedFromServer OnDisconnectedFromServer)
+        {
+            FinishJoiningBattle();
         }
 
         private void OnRoomJoinResponse(ConnectionSignals.OnRoomJoinResponse OnRoomJoinResponse)
