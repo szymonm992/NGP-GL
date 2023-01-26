@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 using Sfs2X.Entities;
@@ -7,14 +5,11 @@ using Sfs2X.Requests;
 using Sfs2X.Entities.Data;
 
 using Zenject;
-using GLShared.Networking;
 using GLShared.Networking.Components;
-using Frontend.Scripts.Models;
 using Sfs2X.Core;
 using Frontend.Scripts.Signals;
 using Sfs2X.Util;
 using System;
-using Sfs2X.Entities.Variables;
 
 namespace Frontend.Scripts.Components
 {
@@ -36,6 +31,7 @@ namespace Frontend.Scripts.Components
             {
                 data = new SFSObject();
             }
+
             ExtensionRequest request = new ExtensionRequest(cmd, data, room);
             smartFoxConnection.Connection.Send(request);
         }
@@ -46,6 +42,7 @@ namespace Frontend.Scripts.Components
             {
                 data = new SFSObject();
             }
+
             var room = smartFoxConnection.Connection.LastJoinedRoom;
             ExtensionRequest request = new ExtensionRequest(cmd, data, room, true);
             smartFoxConnection.Connection.Send(request);
@@ -111,6 +108,7 @@ namespace Frontend.Scripts.Components
         public void OnRoomJoin(BaseEvent _)
         {
             var room = smartFoxConnection.Connection.LastJoinedRoom;
+
             if (room.Name == "Lobby")
             {
                 signalBus.Fire(new ConnectionSignals.OnLobbyJoinAttemptResult()
@@ -133,6 +131,7 @@ namespace Frontend.Scripts.Components
         {
             var room = smartFoxConnection.Connection.LastJoinedRoom;
             var reason = "Room join failed: " + (string)evt.Params["errorMessage"];
+
             if (room == null)
             {
                 signalBus.Fire(new ConnectionSignals.OnLobbyJoinAttemptResult()
@@ -191,7 +190,6 @@ namespace Frontend.Scripts.Components
                    + " >>>[AND TRACE IS]>>> " + exception.StackTrace);
             }
         }
-
   
         private void Update()
         {

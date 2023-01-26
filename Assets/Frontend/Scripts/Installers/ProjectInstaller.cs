@@ -1,12 +1,9 @@
 using Frontend.Scripts.Components;
 using Frontend.Scripts.ScriptableObjects;
 using Frontend.Scripts.Signals;
-using GLShared.General.Models;
 using GLShared.General.ScriptableObjects;
 using GLShared.General.Signals;
 using GLShared.Networking.Components;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -24,13 +21,8 @@ namespace Frontend.Scripts
             InstallMain(); 
         }
 
-
-
         private void InstallMain()
         {
-            //
-            //==================
-
             Container.Bind<SmartFoxConnection>().FromComponentInHierarchy().AsCached().NonLazy();
             Container.BindInterfacesAndSelfTo<SceneHandler>().FromComponentInHierarchy().AsSingle();
 
@@ -40,7 +32,6 @@ namespace Frontend.Scripts
             Container.Bind<GameParameters>().FromInstance(gameParameters).AsSingle();
             Container.Bind<FrontVisualSettings>().FromInstance(visualSettings).AsSingle();
             Container.Bind<FrontSettings>().FromInstance(frontSettings).AsSingle();
-
         }
 
         private void InstallSignals()

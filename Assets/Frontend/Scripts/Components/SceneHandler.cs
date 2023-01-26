@@ -1,33 +1,37 @@
-using Frontend.Scripts.Components;
 using Frontend.Scripts.Signals;
 using GLShared.Networking.Components;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-namespace Frontend.Scripts
+namespace Frontend.Scripts.Components
 {
     public class SceneHandler : MonoBehaviour, IInitializable
     {
+        public const string WELCOME_SCENE_NAME = "Welcome";
+        public const string MAIN_GAMEPLAY_SCENE_NAME = "MainTest";
 
         [Inject] private readonly SignalBus signalBus;
         [Inject] private readonly SmartFoxConnection smartFox;
-        [Inject] private readonly ConnectionManager connectionManager;
 
         public void Initialize()
         {
-            signalBus.Subscribe<ConnectionSignals.OnDisconnectedFromServer>(OnDisconnect);
+            signalBus.Subscribe<ConnectionSignals.OnDisconnectedFromServer>(OnDisconnectedFromServer);
         }
 
-        private void OnDisconnect(ConnectionSignals.OnDisconnectedFromServer OnDisconnectedFromServer)
+        public AsyncOperation GetLoadSceneOperation(string name)
+        {
+            return SceneManager.LoadSceneAsync(name);
+        }
+
+        private void OnDisconnectedFromServer(ConnectionSignals.OnDisconnectedFromServer OnDisconnectedFromServer)
         {
             var currentScene = SceneManager.GetActiveScene();
-            if (currentScene.name != "Welcome")
+
+            if (currentScene.name != WELCOME_SCENE_NAME)
             {
-                smartFox.DisconnectError = "Connection lost with server!";
-                SceneManager.LoadScene("Welcome");
+                smartFox.DisconnectError = OnDisconnectedFromServer.Reason;
+                SceneManager.LoadScene(WELCOME_SCENE_NAME);
             }
         }
     }

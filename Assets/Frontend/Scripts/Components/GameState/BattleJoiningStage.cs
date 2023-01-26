@@ -2,6 +2,7 @@ using Automachine.Scripts.Components;
 using Frontend.Scripts.Enums;
 using Frontend.Scripts.Signals;
 using GLShared.General.ScriptableObjects;
+using GLShared.Networking.Models;
 using Sfs2X.Entities.Data;
 using System.Collections;
 using TMPro;
@@ -14,11 +15,9 @@ namespace Frontend.Scripts.Components.GameState
 {
     public class BattleJoiningStage : State<WelcomeStage>
     {
-        private const string VAR_BATTLE_TYPE = "battleType";
-        private const string VAR_PLAYER_VEHICLE = "playerVehicle";
-
         [Inject] private readonly GameParameters gameParameters;
         [Inject] private readonly ConnectionManager connectionManager;
+        [Inject] private readonly SceneHandler sceneHandler;
 
         [Inject(Id = "joinBattleBtn")] private readonly Button joinBattleBtn;
         [Inject(Id = "countdownWaitingForBattle")] private readonly TextMeshProUGUI countdownText;
@@ -115,7 +114,7 @@ namespace Frontend.Scripts.Components.GameState
         {
             if (battleJoiningInfo == null)
             {
-                playersInQueueAmount.text = $"Loading players in queue...";
+                playersInQueueAmount.text = "Loading players queue...";
             }
             else
             {
@@ -126,7 +125,7 @@ namespace Frontend.Scripts.Components.GameState
 
         private IEnumerator LaunchGameScene()
         {
-            var asyncOperation = SceneManager.LoadSceneAsync("MainTest");
+            var asyncOperation = sceneHandler.GetLoadSceneOperation(SceneHandler.MAIN_GAMEPLAY_SCENE_NAME);
 
             while (!asyncOperation.isDone)
             {
@@ -143,8 +142,8 @@ namespace Frontend.Scripts.Components.GameState
         {
             ISFSObject data = new SFSObject();
 
-            data.PutUtfString(VAR_PLAYER_VEHICLE, "T-55");
-            data.PutUtfString(VAR_BATTLE_TYPE, "randomBattle");
+            data.PutUtfString(NetworkConsts.VAR_PLAYER_VEHICLE, "T-55");
+            data.PutUtfString(NetworkConsts.VAR_BATTLE_TYPE, "randomBattle");
 
             connectionManager.SendRequest("joiningBattle.startBattle", data);
         }

@@ -20,11 +20,10 @@ namespace Frontend.Scripts.Components
     {
         [Inject] private readonly SmartFoxConnection smartFox;
         [Inject] private readonly ConnectionManager connectionManager;
-        [Inject(Id = "welcomeCanvas")] private readonly RectTransform welcomeUi;
 
         private WelcomeOnLoginAttempt onLoginState;
         private BattleJoiningStage battleJoiningStage;
-        private string disconnectionReason = "";
+        private string disconnectionReason;
 
         public override void Initialize()
         {
@@ -60,11 +59,12 @@ namespace Frontend.Scripts.Components
         public void OnStateEnter(OnStateEnter<WelcomeStage> OnStateEnter)
         {
             var state = OnStateEnter.signalStateStarted;
-            if(state == WelcomeStage.None)
+
+            if (state == WelcomeStage.None)
             {
                 onLoginState.TriedToLogin = false;
 
-                if(disconnectionReason != string.Empty)
+                if (disconnectionReason != string.Empty)
                 {
                     onLoginState.DisplayError(disconnectionReason);
                     disconnectionReason = string.Empty;

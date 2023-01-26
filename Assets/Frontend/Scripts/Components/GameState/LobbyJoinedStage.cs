@@ -38,6 +38,7 @@ namespace Frontend.Scripts.Components.GameState
             base.Initialize();
             signalBus.Subscribe<ConnectionSignals.OnServerSettingsResponse>(HandleServerSettings);
         }
+
         public override void StartState()
         {
             base.StartState();
@@ -58,6 +59,7 @@ namespace Frontend.Scripts.Components.GameState
         public override void Tick()
         {
             base.Tick();
+
             if (isActive)
             {
                 if(serverSettingsTimer < gameParameters.ServerSettingsUpdateRate)
@@ -92,7 +94,7 @@ namespace Frontend.Scripts.Components.GameState
                 return;
             }
            
-            gameVersion.text = "Game version: "+ dataGameVersion;
+            gameVersion.text = $"Game version: {dataGameVersion}";
             connectedUsersAmount.text = dataPlayersConnected.ToString();
 
             if (firstRun)
@@ -102,9 +104,9 @@ namespace Frontend.Scripts.Components.GameState
                 joinBattleCanvas.gameObject.ToggleGameObjectIfActive(false);
                 firstRun = false;
             }
-            joinBattleBtn.interactable = true;
 
-            Debug.Log("Updated game settings for '"+ dataGameName + "' -> Game version: " + dataGameVersion);
+            joinBattleBtn.interactable = true;
+            Debug.Log($"Updated game settings for '{dataGameName}' -> Game version: {dataGameVersion}");
         }
     }
 }

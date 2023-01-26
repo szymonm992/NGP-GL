@@ -1,10 +1,8 @@
-using GLShared.General.Interfaces;
 using GLShared.General.Signals;
 using GLShared.Networking.Components;
 using GLShared.Networking.Interfaces;
 using GLShared.Networking.Models;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Zenject;
 
 namespace Frontend.Scripts.Components
@@ -58,7 +56,6 @@ namespace Frontend.Scripts.Components
             Interpolate(timeManager.NetworkTime);
         }
 
-
         private void Interpolate(double currentTime)
         {
             if (!IsRunning)
@@ -83,13 +80,14 @@ namespace Frontend.Scripts.Components
                         var lhs = bufferedStates[i];
                         double length = rhs.TimeStamp - lhs.TimeStamp;
                         float t = 0.0f;
+
                         if (length > MIN_THRESHOLD)
                         {
                             t = (float)((interpolationTime - lhs.TimeStamp) / length);
                         }
+
                         speedometer.SetSpeedometr(lhs.CurrentSpeed);
-                        transform.position = Vector3.Lerp(lhs.Position, rhs.Position, t);
-                        transform.rotation = Quaternion.Slerp(lhs.Rotation, rhs.Rotation, t);
+                        transform.SetPositionAndRotation(Vector3.Lerp(lhs.Position, rhs.Position, t), Quaternion.Slerp(lhs.Rotation, rhs.Rotation, t));
                         turretController.SetTurretAndGunRotation(rhs.TurretAngleY, rhs.GunAngleX);
                         return;
                     }
@@ -97,8 +95,7 @@ namespace Frontend.Scripts.Components
             }
             else
             {
-                transform.position = bufferedStates[0].Position;
-                transform.rotation = bufferedStates[0].Rotation;
+                transform.SetPositionAndRotation(bufferedStates[0].Position, bufferedStates[0].Rotation);
                 turretController.SetTurretAndGunRotation(bufferedStates[0].TurretAngleY, bufferedStates[0].GunAngleX);
                 speedometer.SetSpeedometr(bufferedStates[0].CurrentSpeed);
                 
