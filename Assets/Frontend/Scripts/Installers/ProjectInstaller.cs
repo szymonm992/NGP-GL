@@ -67,6 +67,7 @@ namespace Frontend.Scripts
             Container.DeclareSignal<ConnectionSignals.OnRoomJoinResponse>();
             Container.DeclareSignal<ConnectionSignals.OnPingUpdate>();
             Container.DeclareSignal<ConnectionSignals.OnCancelEnteringBattle>();
+            Container.DeclareSignal<ConnectionSignals.OnBattleJoiningInfoReceived>();
         }
 
         public void OnValidate()

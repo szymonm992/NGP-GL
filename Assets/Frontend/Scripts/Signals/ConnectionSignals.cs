@@ -34,6 +34,11 @@ namespace Frontend.Scripts.Signals
             public ISFSObject ServerSettingsData { get; set; }
         }
 
+        public class OnBattleJoiningInfoReceived
+        {
+            public ISFSObject BattleJoiningInfoData { get; set; }
+        }
+
         public class OnRoomJoinResponse
         {
             public bool SuccessfullyJoinedRoom { get; set; }

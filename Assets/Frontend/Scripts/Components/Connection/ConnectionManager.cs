@@ -157,6 +157,7 @@ namespace Frontend.Scripts.Components
             {
                 string cmd = (string)evt.Params["cmd"];
                 ISFSObject data = (SFSObject)evt.Params["params"];
+
                 if (cmd == "userInitialVariables")
                 {
                     //HandleInitialVariables(objIn);
@@ -168,7 +169,14 @@ namespace Frontend.Scripts.Components
                         ServerSettingsData = data,
                     });
                 }
-                if(cmd == "cancelJoiningBattle")
+                if (cmd == "battleJoiningInfo")
+                {
+                    signalBus.Fire(new ConnectionSignals.OnBattleJoiningInfoReceived()
+                    {
+                        BattleJoiningInfoData = data,
+                    });
+                }
+                if (cmd == "cancelJoiningBattle")
                 {
                     bool result = data.GetBool("result");
                     signalBus.Fire(new ConnectionSignals.OnCancelEnteringBattle()
@@ -176,7 +184,6 @@ namespace Frontend.Scripts.Components
                         SuccessfullyCanceled = result,
                     });
                 }
-
             }
             catch (Exception exception)
             {
