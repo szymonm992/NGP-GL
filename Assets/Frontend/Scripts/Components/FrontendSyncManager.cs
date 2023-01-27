@@ -1,6 +1,7 @@
 using Frontend.Scripts.Extensions;
 using Frontend.Scripts.Signals;
 using GLShared.General.Models;
+using GLShared.General.Signals;
 using GLShared.Networking.Components;
 using GLShared.Networking.Extensions;
 using GLShared.Networking.Models;
@@ -22,6 +23,7 @@ namespace Frontend.Scripts.Components
 
         private float timeLastSendingInput;
         private PlayerEntity localPlayerEntity;
+
         public PlayerEntity LocalPlayerEntity => localPlayerEntity;
 
         public override void Initialize()
@@ -35,6 +37,7 @@ namespace Frontend.Scripts.Components
         protected override void CreatePlayer(User user, Vector3 spawnPosition, Vector3 spawnEulerAngles, out PlayerProperties playerProperties)
         {
             base.CreatePlayer(user, spawnPosition, spawnEulerAngles, out playerProperties);
+
             if (user.IsItMe)
             {
                 localPlayerEntity = connectedPlayers[user.Name];
@@ -45,6 +48,7 @@ namespace Frontend.Scripts.Components
             Vector3 spawnPosition, Vector3 spawnEulerAngles)
         {
             var vehicleData = vehicleDatabase.GetVehicleInfo(vehicleName);
+
             if (vehicleData != null)
             {
                 return new PlayerProperties()
@@ -64,14 +68,14 @@ namespace Frontend.Scripts.Components
         {
             string cmd = (string)evt.Params["cmd"];
             ISFSObject responseData = (SFSObject)evt.Params["params"];
+
             try
             {
                 if (cmd == "serverTime")
                 {
                     long time = responseData.GetLong("t");
                     currentServerTime = Convert.ToDouble(time);
-
-                    var ping = timeManager.GetAveragePingAndSync(currentServerTime);
+                    double ping = timeManager.GetAveragePingAndSync(currentServerTime);
 
                     signalBus.Fire(new ConnectionSignals.OnPingUpdate()
                     {
@@ -81,6 +85,7 @@ namespace Frontend.Scripts.Components
                 if (cmd == "sendGameStage")
                 {
                     int currentStage = responseData.GetInt("currentGameStage");
+
                     signalBus.Fire(new BattleSignals.OnGameStageUpdate()
                     {
                         CurrentGameStage = currentStage,
@@ -89,6 +94,7 @@ namespace Frontend.Scripts.Components
                 if (cmd == "gameStartCountdown")
                 {
                     int currentCountdownValue = responseData.GetInt("currentCountdownValue");
+
                     signalBus.Fire(new BattleSignals.OnCounterUpdate()
                     {
                         CurrentValue = currentCountdownValue,
@@ -97,6 +103,7 @@ namespace Frontend.Scripts.Components
                 if (cmd == "playerSync")
                 {
                     NetworkTransform newTransform = responseData.ToNetworkTransform();
+
                     if (connectedPlayers.ContainsKey(newTransform.Username))
                     {
                         connectedPlayers[newTransform.Username].ReceiveSyncPosition(newTransform);
@@ -106,6 +113,7 @@ namespace Frontend.Scripts.Components
                 {
                     var spawnData = responseData.ToSpawnData();
                     var user = smartFox.Connection.UserManager.GetUserByName(spawnData.Username);
+
                     if (user != null)
                     {
                         TryCreatePlayer(user, spawnData.SpawnPosition, spawnData.SpawnEulerAngles);
@@ -114,6 +122,17 @@ namespace Frontend.Scripts.Components
                     {
                         Debug.LogError("Player " + spawnData.Username + " has not been found in users manager");
                     }
+                }
+                if (cmd == "battleTimer")
+                {
+                    int minutesLeft = responseData.GetInt("minutesLeft");
+                    int secondsLeft = responseData.GetInt("secondsLeft");
+
+                    signalBus.Fire(new PlayerSignals.OnBattleTimeChanged()
+                    {
+                        CurrentMinutesLeft = minutesLeft,
+                        CurrentSecondsLeft = secondsLeft,
+                    });
                 }
             }
             catch (Exception exception)
@@ -144,6 +163,7 @@ namespace Frontend.Scripts.Components
                 timeLastSendingInput = 0;
                 return;
             }
+
             timeLastSendingInput += Time.deltaTime;
         }
     }

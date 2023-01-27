@@ -40,8 +40,8 @@ namespace Frontend.Scripts.Components.GameState
         public override void StartState()
         {
             base.StartState();
-
             FillInWaitingForm(null);
+
             battleSearchingTimer = 0;
             joinBattleBtn.interactable = false;
             joinBattleCanvas.gameObject.ToggleGameObjectIfActive(true);

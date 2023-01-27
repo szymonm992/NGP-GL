@@ -49,6 +49,7 @@ namespace Frontend.Scripts
             Container.DeclareSignal<PlayerSignals.OnPlayerSpawned>();
             Container.DeclareSignal<PlayerSignals.OnAllPlayersInputLockUpdate>();
             Container.DeclareSignal<PlayerSignals.OnAllPlayersInputLockUpdate>();
+            Container.DeclareSignal<PlayerSignals.OnBattleTimeChanged>();
 
             Container.DeclareSignal<ConnectionSignals.OnConnectionAttemptResult>();
             Container.DeclareSignal<ConnectionSignals.OnLoginAttemptResult>();
