@@ -4,17 +4,11 @@ using Frontend.Scripts.Components.GameState;
 using Frontend.Scripts.Enums;
 using Frontend.Scripts.ScriptableObjects;
 using Frontend.Scripts.Signals;
-using GLShared.General.Components;
 using GLShared.General.Enums;
 using GLShared.General.Interfaces;
 using GLShared.General.ScriptableObjects;
 using GLShared.General.Signals;
 using GLShared.Networking.Components;
-using Sfs2X;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Zenject;
 
 namespace Frontend.Scripts.Components
@@ -42,6 +36,7 @@ namespace Frontend.Scripts.Components
 
             smartFox.Connection.InitUDP(frontSettings.ConnectLocalhost ? frontSettings.LocalhostAddress : frontSettings.WanAddress, smartFox.PORT);
         }
+
         public override void OnStateMachineInitialized(OnStateMachineInitialized<FrontendBattleState> OnStateMachineInitialized)
         {
             base.OnStateMachineInitialized(OnStateMachineInitialized);

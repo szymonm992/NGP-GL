@@ -1,15 +1,9 @@
 using Automachine.Scripts.Components;
 using Frontend.Scripts.Enums;
-using Frontend.Scripts.Models;
 using Frontend.Scripts.Signals;
-using GLShared.General.Enums;
 using GLShared.General.ScriptableObjects;
 using GLShared.Networking.Components;
-using Sfs2X;
-using Sfs2X.Core;
 using Sfs2X.Entities.Data;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -62,7 +56,7 @@ namespace Frontend.Scripts.Components.GameState
 
             if (isActive)
             {
-                if(serverSettingsTimer < gameParameters.ServerSettingsUpdateRate)
+                if (serverSettingsTimer < gameParameters.ServerSettingsUpdateRate)
                 {
                     serverSettingsTimer += Time.deltaTime;
                 }
