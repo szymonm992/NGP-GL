@@ -101,6 +101,7 @@ namespace Frontend.Scripts.Components
                 {
                     Reason = "Disconnected from server. "+smartFoxConnection.DisconnectError,
                 });
+
                 smartFoxConnection.DisconnectError = string.Empty;
             }
         }
@@ -130,7 +131,7 @@ namespace Frontend.Scripts.Components
         public void OnRoomJoinError(BaseEvent evt)
         {
             var room = smartFoxConnection.Connection.LastJoinedRoom;
-            var reason = "Room join failed: " + (string)evt.Params["errorMessage"];
+            var reason = $"Room join failed: {(string)evt.Params["errorMessage"]}";
 
             if (room == null)
             {
@@ -178,6 +179,7 @@ namespace Frontend.Scripts.Components
                 if (cmd == "cancelJoiningBattle")
                 {
                     bool result = data.GetBool("result");
+
                     signalBus.Fire(new ConnectionSignals.OnCancelEnteringBattle()
                     {
                         SuccessfullyCanceled = result,

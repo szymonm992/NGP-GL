@@ -19,37 +19,40 @@ namespace Frontend.Scripts.Components.GameState
 
         public override void Initialize()
         {
-            string seconds = GetSecondsString((int)battleParameters.BattleDurationTime % 60);
-            timerText.text = $"{battleParameters.BattleDurationTime / 60}:{seconds}";
+            string minutes = GetTimeString((int)battleParameters.BattleDurationTime / 60);
+            string seconds = GetTimeString((int)battleParameters.BattleDurationTime % 60);
+            timerText.text = $"{minutes}:{seconds}";
+
             signalBus.Subscribe<PlayerSignals.OnBattleTimeChanged>(OnBattleTimeChanged);
         }
 
         public override void StartState()
         {
             base.StartState();
-            Debug.Log("The battle just started!");
-            StartCoroutine(HideBeginningText(3f));
+
+            StartCoroutine(HideBeginningText(3.0f));
         }
 
         private IEnumerator HideBeginningText(float delay)
         {
             yield return new WaitForSeconds(delay);
-            countdownText.text = "";
+            countdownText.text = string.Empty;
         }
 
         private void OnBattleTimeChanged(PlayerSignals.OnBattleTimeChanged OnBattleTimeChanged)
         {
-            string seconds = GetSecondsString(OnBattleTimeChanged.CurrentSecondsLeft);
-            timerText.text = $"{OnBattleTimeChanged.CurrentMinutesLeft}:{seconds}";
+            string minutes = GetTimeString(OnBattleTimeChanged.CurrentMinutesLeft);
+            string seconds = GetTimeString(OnBattleTimeChanged.CurrentSecondsLeft);
+            timerText.text = $"{minutes}:{seconds}";
         }
 
-        private string GetSecondsString(int seconds)
+        private string GetTimeString(int time)
         {
-            if (seconds < 10)
+            if (time < 10)
             {
-                return "0" + seconds;
+                return $"0{time}";
             }
-            return seconds.ToString();
+            return time.ToString();
         }
     }
 }

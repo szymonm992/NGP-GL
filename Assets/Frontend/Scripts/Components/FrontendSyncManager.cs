@@ -19,7 +19,7 @@ namespace Frontend.Scripts.Components
         [Inject] private readonly ConnectionManager connectionManager;
         [Inject] private readonly TimeManager timeManager;
 
-        [SerializeField] private float inputSendingPeriod = 0.03f;
+        [SerializeField] private float inputSendingPeriod = 0.01f;
 
         private float timeLastSendingInput;
         private PlayerEntity localPlayerEntity;
