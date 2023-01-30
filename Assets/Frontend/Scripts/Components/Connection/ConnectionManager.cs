@@ -1,9 +1,7 @@
 using UnityEngine;
-
 using Sfs2X.Entities;
 using Sfs2X.Requests;
 using Sfs2X.Entities.Data;
-
 using Zenject;
 using GLShared.Networking.Components;
 using Sfs2X.Core;
@@ -21,7 +19,7 @@ namespace Frontend.Scripts.Components
         public void SendRoomJoinRequest(string cmd, ISFSObject data)
         {
             var room = smartFoxConnection.Connection.LastJoinedRoom;
-            ExtensionRequest request = new ExtensionRequest(cmd, data, room, false);
+            var request = new ExtensionRequest(cmd, data, room, false);
             smartFoxConnection.Connection.Send(request);
         }
 
@@ -32,7 +30,7 @@ namespace Frontend.Scripts.Components
                 data = new SFSObject();
             }
 
-            ExtensionRequest request = new ExtensionRequest(cmd, data, room);
+            var request = new ExtensionRequest(cmd, data, room);
             smartFoxConnection.Connection.Send(request);
         }
 
@@ -44,7 +42,7 @@ namespace Frontend.Scripts.Components
             }
 
             var room = smartFoxConnection.Connection.LastJoinedRoom;
-            ExtensionRequest request = new ExtensionRequest(cmd, data, room, true);
+            var request = new ExtensionRequest(cmd, data, room, true);
             smartFoxConnection.Connection.Send(request);
         }
 

@@ -134,7 +134,7 @@ namespace Frontend.Scripts.Models
             {
                 if (OnPlayerSpawned.PlayerProperties.User.Name == playerEntity.Username)
                 {
-                    gameObject.name = "(" + OnPlayerSpawned.PlayerProperties.PlayerVehicleName + ")Player '" + playerEntity.Username + "'";
+                    gameObject.name = $"({OnPlayerSpawned.PlayerProperties.PlayerVehicleName}) Player '{playerEntity.Username}'";
                     signalBus.Fire(new PlayerSignals.OnPlayerInitialized()
                     {
                         PlayerProperties = playerEntity.Properties,
@@ -145,7 +145,7 @@ namespace Frontend.Scripts.Models
             }
             else
             {
-                gameObject.name = "(" + OnPlayerSpawned.PlayerProperties.PlayerVehicleName + ")Player '" + playerEntity.Username + "'";
+                gameObject.name = $"({OnPlayerSpawned.PlayerProperties.PlayerVehicleName}) Player '{playerEntity.Username}'";
                 signalBus.Fire(new PlayerSignals.OnPlayerInitialized()
                 {
                     PlayerProperties = playerEntity.Properties,
@@ -285,7 +285,7 @@ namespace Frontend.Scripts.Models
 
                             if ((float)idler.IdlerSite == inputProvider.RawVertical)
                             {
-                                var dir = idler.IdlerSite == IdlerWheelSite.Forward ? (wheel.Transform.up + wheel.Transform.forward) : -wheel.Transform.up;
+                                Vector3 dir = idler.IdlerSite == IdlerWheelSite.Forward ? (wheel.Transform.up + wheel.Transform.forward) : -wheel.Transform.up;
                                 rig.AddForceAtPosition((forwardForce * dir), wheel.Transform.position);
                             }
                         }
@@ -335,6 +335,7 @@ namespace Frontend.Scripts.Models
         protected IEnumerable<IPhysicsWheel> GetGroundedWheelsInAllAxles()
         {
             var result = new List<IPhysicsWheel>();
+
             if (allAxles.Any())
             {
                 foreach (var axle in allAxles)
@@ -345,12 +346,14 @@ namespace Frontend.Scripts.Models
                     }
                 }
             }
+
             return result;
         }
 
         protected IEnumerable<IPhysicsWheel> GetAllWheelsInAllAxles()
         {
             var result = new List<IPhysicsWheel>();
+
             if (allAxles.Any())
             {
                 foreach (var axle in allAxles)
@@ -361,6 +364,7 @@ namespace Frontend.Scripts.Models
                     }
                 }
             }
+
             return result;
         }
 

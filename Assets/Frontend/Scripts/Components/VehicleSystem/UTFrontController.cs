@@ -8,7 +8,6 @@ using GLShared.Networking.Components;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using Zenject;
 
 namespace Frontend.Scripts.Components
@@ -23,11 +22,12 @@ namespace Frontend.Scripts.Components
         public override void Initialize()
         {
             base.Initialize();
-            if(outline != null)
+
+            if (outline != null)
             {
                 outline.OutlineWidth = visualSettings.OutlineWidth;
                 outline.OutlineColor = visualSettings.OutlineColor;
-                outline.OutlineMode = Outline.Mode.OutlineHidden; 
+                outline.OutlineMode = Outline.Mode.OutlineHidden;
             }
         }
 
@@ -35,6 +35,7 @@ namespace Frontend.Scripts.Components
         {
             allGroundedWheels = GetGroundedWheelsInAllAxles().ToArray();
             isUpsideDown = CheckUpsideDown();
+
             if (!isUpsideDown)
             {
                 currentSpeed = playerEntity.EntityVelocity;
@@ -43,7 +44,6 @@ namespace Frontend.Scripts.Components
 
         protected override void Update()
         {
-
         }
     }
 }

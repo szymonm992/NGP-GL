@@ -61,6 +61,7 @@ namespace Frontend.Scripts.Components
                     User = user,
                 };
             }
+
             return null;
         }
 
@@ -120,7 +121,7 @@ namespace Frontend.Scripts.Components
                     }
                     else
                     {
-                        Debug.LogError("Player " + spawnData.Username + " has not been found in users manager");
+                        Debug.LogError($"Player {spawnData.Username} has not been found in users manager");
                     }
                 }
                 if (cmd == "battleTimer")
@@ -159,7 +160,7 @@ namespace Frontend.Scripts.Components
         {
             if (timeLastSendingInput >= inputSendingPeriod)
             {
-                connectionManager.SendUDPRequest("inbattle.playerInputs", localPlayerEntity.Input.ToISFSOBject());
+                connectionManager.SendUDPRequest(NetworkConsts.RPC_PLAYER_INPUTS, localPlayerEntity.Input.ToISFSOBject());
                 timeLastSendingInput = 0;
                 return;
             }

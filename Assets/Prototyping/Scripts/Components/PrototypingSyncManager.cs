@@ -39,7 +39,7 @@ namespace Prototyping.Scripts.Components
         {
         }
 
-        public void TryCreateShell(User _, int shellId, Vector3 spawnPosition, Vector3 spawnEulerAngles)
+        public void TryCreateShell(string _, string __)
         {
         }
     }

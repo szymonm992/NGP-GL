@@ -861,6 +861,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cda6dbb011644a4faafb849d3eb9ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canDrive: 1
+  canSteer: 0
+  invertSteer: 0
+  debugSettings:
+    drawGizmos: 1
+    drawAxleCenter: 1
+    drawAxlePipes: 1
+    drawMode: 0
+  repositionVisuals: 1
   wheelPairs:
   - wheel: {fileID: 433572286269243354}
     axis: -1
@@ -874,15 +883,6 @@ MonoBehaviour:
     dummyPair:
       trackDummy: {fileID: 0}
       dummyOffsetY: 0
-  canDrive: 1
-  canSteer: 0
-  invertSteer: 0
-  repositionVisuals: 1
-  debugSettings:
-    drawGizmos: 1
-    drawAxleCenter: 1
-    drawAxlePipes: 1
-    drawMode: 0
   applyAntiroll: 1
   antiRollForce: 15000
   tiresContactOffset: 0
@@ -963,6 +963,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cda6dbb011644a4faafb849d3eb9ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canDrive: 1
+  canSteer: 1
+  invertSteer: 0
+  debugSettings:
+    drawGizmos: 1
+    drawAxleCenter: 1
+    drawAxlePipes: 1
+    drawMode: 0
+  repositionVisuals: 1
   wheelPairs:
   - wheel: {fileID: 433572285976881019}
     axis: -1
@@ -976,15 +985,6 @@ MonoBehaviour:
     dummyPair:
       trackDummy: {fileID: 0}
       dummyOffsetY: 0
-  canDrive: 1
-  canSteer: 1
-  invertSteer: 0
-  repositionVisuals: 1
-  debugSettings:
-    drawGizmos: 1
-    drawAxleCenter: 1
-    drawAxlePipes: 1
-    drawMode: 0
   applyAntiroll: 1
   antiRollForce: 15000
   tiresContactOffset: 0
@@ -1358,61 +1358,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerOfMass: {fileID: 7623138868924921916}
-  centerOfMassUngrounded: {fileID: 7623138868924921916}
   vehicleType: 1
   maxSlopeAngle: 45
-  enginePowerCurve:
+  forwardPowerCurve:
     serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 4500
-      inSlope: -138.88889
-      outSlope: -138.88889
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 18
-      value: 2000
-      inSlope: -138.88889
-      outSlope: -45.833332
-      tangentMode: 69
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.26563126
-    - serializedVersion: 3
-      time: 30
-      value: 1450
-      inSlope: -45.833332
-      outSlope: 0
-      tangentMode: 69
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 65
-      value: 1450
-      inSlope: -0
-      outSlope: -41.42857
-      tangentMode: 69
-      weightedMode: 0
-      inWeight: 0.19046135
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 100
-      value: 0
-      inSlope: -41.42857
-      outSlope: -41.42857
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  backwardPowerCurve:
+    serializedVersion: 2
+    m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   doesGravityDamping: 1
+  runPhysics: 1
   wheelsCollisionDetectionMask:
     serializedVersion: 2
     m_Bits: 67109111
@@ -1439,6 +1400,8 @@ MonoBehaviour:
   gunRotationSpeed: 0
   gunDepression: -5
   gunElevation: 15
+  stabilizeGun: 1
+  stabilizeTurret: 1
 --- !u!114 &7623138870644961510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1576,7 +1539,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c77d24736e86f624991ec566f3f24422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocityText: {fileID: 0}
 --- !u!114 &3183221227695854892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1615,7 +1577,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectType: 0
-  isLocalPlayer: 0
+  isSender: 0
+  syncRate: 0.015
 --- !u!1 &7623138870716910070
 GameObject:
   m_ObjectHideFlags: 0
