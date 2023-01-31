@@ -1,5 +1,6 @@
 using Frontend.Scripts.Components;
 using Frontend.Scripts.ScriptableObjects;
+using GLShared.General.Components;
 using GLShared.General.Interfaces;
 using GLShared.General.Models;
 using GLShared.General.Signals;
@@ -52,7 +53,7 @@ namespace Prototyping.Scripts.Components
                     IsLocal = true,
                     SpawnPosition = spawnPosition,
                     SpawnRotation = Quaternion.Euler(spawnEulerAngles.x, spawnEulerAngles.y, spawnEulerAngles.z),
-                    User = null,
+                    Username = null,
                 };
             }
             return null;

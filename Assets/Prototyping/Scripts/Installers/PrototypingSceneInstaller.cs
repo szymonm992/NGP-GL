@@ -1,11 +1,10 @@
 using Frontend.Scripts.Components;
+using GLShared.General.Components;
 using GLShared.General.Interfaces;
 using GLShared.General.Models;
 using GLShared.General.ScriptableObjects;
 using GLShared.Networking.Components;
 using Prototyping.Scripts.Components;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 

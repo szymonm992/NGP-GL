@@ -132,7 +132,7 @@ namespace Frontend.Scripts.Models
         {
             if (!playerInstaller.IsPrototypeInstaller)
             {
-                if (OnPlayerSpawned.PlayerProperties.User.Name == playerEntity.Username)
+                if (OnPlayerSpawned.PlayerProperties.Username == playerEntity.Username)
                 {
                     gameObject.name = $"({OnPlayerSpawned.PlayerProperties.PlayerVehicleName}) Player '{playerEntity.Username}'";
                     signalBus.Fire(new PlayerSignals.OnPlayerInitialized()

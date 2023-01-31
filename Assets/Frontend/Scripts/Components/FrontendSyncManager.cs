@@ -34,9 +34,18 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        protected override void CreatePlayer(User user, Vector3 spawnPosition, Vector3 spawnEulerAngles, out PlayerProperties playerProperties)
+        protected override void CreatePlayer(string username, Vector3 spawnPosition, Vector3 spawnEulerAngles, out PlayerProperties playerProperties)
         {
-            base.CreatePlayer(user, spawnPosition, spawnEulerAngles, out playerProperties);
+            var user = smartFox.Connection.UserManager.GetUserByName(username);
+
+            if (user == null)
+            {
+                playerProperties = null;
+                Debug.LogError($"User '{username}' has not been found in User Manager");
+                return;
+            }
+
+            base.CreatePlayer(username, spawnPosition, spawnEulerAngles, out playerProperties);
 
             if (user.IsItMe)
             {
@@ -44,10 +53,11 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        protected override PlayerProperties GetPlayerInitData(User user, string vehicleName,
+        protected override PlayerProperties GetPlayerInitData(string username, string vehicleName,
             Vector3 spawnPosition, Vector3 spawnEulerAngles)
         {
             var vehicleData = vehicleDatabase.GetVehicleInfo(vehicleName);
+            var user = smartFox.Connection.UserManager.GetUserByName(username);
 
             if (vehicleData != null)
             {
@@ -58,7 +68,7 @@ namespace Frontend.Scripts.Components
                     IsLocal = user.IsItMe,
                     SpawnPosition = spawnPosition,
                     SpawnRotation = Quaternion.Euler(spawnEulerAngles.x, spawnEulerAngles.y, spawnEulerAngles.z),
-                    User = user,
+                    Username = username,
                 };
             }
 
@@ -113,16 +123,8 @@ namespace Frontend.Scripts.Components
                 if (cmd == "playerSpawned")
                 {
                     var spawnData = responseData.ToSpawnData();
-                    var user = smartFox.Connection.UserManager.GetUserByName(spawnData.Username);
+                    TryCreatePlayer(spawnData.Username, spawnData.SpawnPosition, spawnData.SpawnEulerAngles);
 
-                    if (user != null)
-                    {
-                        TryCreatePlayer(user, spawnData.SpawnPosition, spawnData.SpawnEulerAngles);
-                    }
-                    else
-                    {
-                        Debug.LogError($"Player {spawnData.Username} has not been found in users manager");
-                    }
                 }
                 if (cmd == "battleTimer")
                 {

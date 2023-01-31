@@ -32,7 +32,7 @@ namespace Frontend.Scripts.Components
 
             if (!isPrototyping)
             {
-                if (OnPlayerInitialized.PlayerProperties.User.Name == playerEntity.Username)
+                if (OnPlayerInitialized.PlayerProperties.Username == playerEntity.Username)
                 {
                     usernameLabel.text = playerEntity.Username;
                 }
