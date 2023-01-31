@@ -11816,6 +11816,7 @@ GameObject:
   - component: {fileID: 7057069551729104832}
   - component: {fileID: 4703210311339521858}
   - component: {fileID: 5277340808731574008}
+  - component: {fileID: 3854515483920494927}
   m_Layer: 0
   m_Name: T-55_network
   m_TagString: Untagged
@@ -11927,6 +11928,7 @@ MonoBehaviour:
   - {fileID: 3912363895737480973}
   - {fileID: 4703210311339521858}
   - {fileID: 1914052247926745667}
+  - {fileID: 3854515483920494927}
   _identifier: 
   _useSceneContext: 0
   _context: {fileID: 0}
@@ -12201,6 +12203,19 @@ MonoBehaviour:
   objectType: 0
   isSender: 0
   syncRate: 0.2
+--- !u!114 &3854515483920494927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8797747351685325955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98d71edf38ac36448aacb9ed1ce84903, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reloadTime: 5
 --- !u!1 &8913179709298987667
 GameObject:
   m_ObjectHideFlags: 0

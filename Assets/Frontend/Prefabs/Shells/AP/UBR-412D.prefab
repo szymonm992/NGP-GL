@@ -146,6 +146,7 @@ GameObject:
   - component: {fileID: 7204138427038862802}
   - component: {fileID: 1470498810370511830}
   - component: {fileID: 5968682252372673031}
+  - component: {fileID: 2076483132361524472}
   m_Layer: 0
   m_Name: UBR-412D
   m_TagString: Untagged
@@ -232,6 +233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _components:
   - {fileID: 1470498810370511830}
+  - {fileID: 2076483132361524472}
   _identifier: 
   _useSceneContext: 0
   _context: {fileID: 0}
@@ -249,8 +251,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectType: 1
-  syncRate: 0.2
   isSender: 0
+  syncRate: 0.2
 --- !u!114 &5968682252372673031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,6 +263,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6c598ef08f75b0418734a6667c88be0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2076483132361524472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5944154951747876938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3af4965c0c1f594eabd6e9e52172d63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6838342752041869183

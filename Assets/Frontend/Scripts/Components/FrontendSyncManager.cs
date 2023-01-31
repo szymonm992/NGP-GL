@@ -126,6 +126,14 @@ namespace Frontend.Scripts.Components
                     TryCreatePlayer(spawnData.Username, spawnData.SpawnPosition, spawnData.SpawnEulerAngles);
 
                 }
+                if (cmd == "shellSpawned")
+                {
+                    Debug.Log("asdf");
+
+                    var spawnData = responseData.ToSpawnData();
+                    TryCreateShell(spawnData.Username, spawnData.Identifier, spawnData.SpawnPosition, spawnData.SpawnEulerAngles);
+
+                }
                 if (cmd == "battleTimer")
                 {
                     int minutesLeft = responseData.GetInt("minutesLeft");

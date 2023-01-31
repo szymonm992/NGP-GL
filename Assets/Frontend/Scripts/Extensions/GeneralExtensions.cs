@@ -14,6 +14,8 @@ namespace Frontend.Scripts.Extensions
             {
                 Username = data.GetUtfString("username"),
 
+                Identifier = data.GetUtfString("id"),
+
                 SpawnPosition = new Vector3(data.GetFloat("spawnPositionX"),data.GetFloat("spawnPositionY"),
                 data.GetFloat("spawnPositionZ")),
 

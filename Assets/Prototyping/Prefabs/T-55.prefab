@@ -11877,6 +11877,7 @@ GameObject:
   - component: {fileID: 4703210311339521858}
   - component: {fileID: 5277340808731574008}
   - component: {fileID: 50603922032447631}
+  - component: {fileID: 1717850385828099546}
   m_Layer: 0
   m_Name: T-55
   m_TagString: Untagged
@@ -11988,6 +11989,7 @@ MonoBehaviour:
   - {fileID: 8255813644745574887}
   - {fileID: 4703210311339521858}
   - {fileID: -7889962559734846982}
+  - {fileID: 1717850385828099546}
   _identifier: 
   _useSceneContext: 0
   _context: {fileID: 0}
@@ -12280,6 +12282,19 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &1717850385828099546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8797747351685325955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98d71edf38ac36448aacb9ed1ce84903, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reloadTime: 5
 --- !u!1 &8913179709298987667
 GameObject:
   m_ObjectHideFlags: 0
