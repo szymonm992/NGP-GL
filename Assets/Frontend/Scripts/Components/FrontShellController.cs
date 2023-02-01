@@ -14,13 +14,14 @@ namespace Frontend.Scripts
         [Inject] private readonly ShellEntity shellEntity;
 
         public string OwnerUsername => shellEntity.Properties.Username;
+        public float Velocity => shellEntity.CurrentNetworkTransform.CurrentSpeed;
 
         public void Initialize()
         {
             Debug.Log("shell initialized");
         }
 
-        public void ProcessCurrentNetworkTransform(NetworkTransform nTransform)
+        public void ProcessCurrentNetworkTransform(INetworkTransform nTransform)
         {
             Debug.Log("processing shell transform");
         }

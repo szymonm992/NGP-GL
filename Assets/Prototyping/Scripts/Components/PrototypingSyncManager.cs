@@ -1,5 +1,6 @@
 using GLShared.General.Interfaces;
 using GLShared.General.Models;
+using GLShared.Networking.Components;
 using GLShared.Networking.Interfaces;
 using Sfs2X.Entities;
 using System.Collections;
@@ -22,11 +23,11 @@ namespace Prototyping.Scripts.Components
         {
         }
 
-        public void SyncPosition(INetworkEntity _)
+        public void SyncPosition(PlayerEntity _)
         {
         }
 
-        public void SyncShell(IShellController _)
+        public void SyncShell(ShellEntity _)
         {
             
         }

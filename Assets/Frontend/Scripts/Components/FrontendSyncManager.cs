@@ -115,9 +115,9 @@ namespace Frontend.Scripts.Components
                 {
                     NetworkTransform newTransform = responseData.ToNetworkTransform();
 
-                    if (connectedPlayers.ContainsKey(newTransform.Username))
+                    if (connectedPlayers.ContainsKey(newTransform.Identifier))
                     {
-                        connectedPlayers[newTransform.Username].ReceiveSyncPosition(newTransform);
+                        connectedPlayers[newTransform.Identifier].ReceiveSyncPosition(newTransform);
                     }
                 }
                 if (cmd == "playerSpawned")
@@ -128,11 +128,19 @@ namespace Frontend.Scripts.Components
                 }
                 if (cmd == "shellSpawned")
                 {
-                    Debug.Log("asdf");
-
                     var spawnData = responseData.ToSpawnData();
                     TryCreateShell(spawnData.Username, spawnData.Identifier, spawnData.SpawnPosition, spawnData.SpawnEulerAngles);
 
+                }
+                if (cmd == "shellSync")
+                {
+                    NetworkTransform newTransform = responseData.ToNetworkTransform();
+                    var shellId = responseData.GetUtfString("id");
+
+                    if (connectedPlayers.ContainsKey(shellId))
+                    {
+                        shells[shellId].ReceiveSyncPosition(newTransform);
+                    }
                 }
                 if (cmd == "battleTimer")
                 {

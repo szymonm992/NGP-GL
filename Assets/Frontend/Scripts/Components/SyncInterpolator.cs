@@ -29,19 +29,21 @@ namespace Frontend.Scripts.Components
             statesCount = 0;
         }
 
-        public void ProcessCurrentNetworkTransform(NetworkTransform nTransform)
+        public void ProcessCurrentNetworkTransform(INetworkTransform nTransform)
         {
             if (!IsRunning)
             {
                 return;
             }
 
+            var transf = nTransform as NetworkTransform;
+
             for (int i = bufferedStates.Length - 1; i >= 1; i--)
             {
                 bufferedStates[i] = bufferedStates[i - 1];
             }
 
-            bufferedStates[0] = nTransform;
+            bufferedStates[0] = transf;
             statesCount = Mathf.Min(statesCount + 1, bufferedStates.Length);
         }
 
