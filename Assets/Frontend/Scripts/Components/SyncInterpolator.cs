@@ -15,7 +15,6 @@ namespace Frontend.Scripts.Components
         [Inject] private readonly TimeManager timeManager;
         [Inject] private readonly Speedometer speedometer;
         [Inject(Optional = true)] private readonly FrontTurretController turretController;
-        [Inject(Source = InjectSources.Local)] private readonly PlayerEntity playerEntity;
 
         private double interpolationBackTime = 200;
         private int statesCount = 0;
@@ -36,14 +35,14 @@ namespace Frontend.Scripts.Components
                 return;
             }
 
-            var transf = nTransform as NetworkTransform;
+            var networkTransform = (NetworkTransform)nTransform;
 
             for (int i = bufferedStates.Length - 1; i >= 1; i--)
             {
                 bufferedStates[i] = bufferedStates[i - 1];
             }
 
-            bufferedStates[0] = transf;
+            bufferedStates[0] = networkTransform;
             statesCount = Mathf.Min(statesCount + 1, bufferedStates.Length);
         }
 

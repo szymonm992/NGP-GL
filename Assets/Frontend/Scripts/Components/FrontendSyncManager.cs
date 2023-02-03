@@ -113,7 +113,7 @@ namespace Frontend.Scripts.Components
                 }
                 if (cmd == "playerSync")
                 {
-                    NetworkTransform newTransform = responseData.ToNetworkTransform();
+                    var newTransform = responseData.ToNetworkTransform();
 
                     if (connectedPlayers.ContainsKey(newTransform.Identifier))
                     {
@@ -122,26 +122,11 @@ namespace Frontend.Scripts.Components
                 }
                 if (cmd == "playerSpawned")
                 {
-                    var spawnData = responseData.ToSpawnData();
+                    var spawnData = responseData.ToPlayerSpawnData();
                     TryCreatePlayer(spawnData.Username, spawnData.SpawnPosition, spawnData.SpawnEulerAngles);
 
                 }
-                if (cmd == "shellSpawned")
-                {
-                    var spawnData = responseData.ToSpawnData();
-                    TryCreateShell(spawnData.Username, spawnData.Identifier, spawnData.SpawnPosition, spawnData.SpawnEulerAngles);
-
-                }
-                if (cmd == "shellSync")
-                {
-                    NetworkTransform newTransform = responseData.ToNetworkTransform();
-                    var shellId = responseData.GetUtfString("id");
-
-                    if (connectedPlayers.ContainsKey(shellId))
-                    {
-                        shells[shellId].ReceiveSyncPosition(newTransform);
-                    }
-                }
+                
                 if (cmd == "battleTimer")
                 {
                     int minutesLeft = responseData.GetInt("minutesLeft");
@@ -158,6 +143,22 @@ namespace Frontend.Scripts.Components
             {
                 Debug.Log(" Frontend Syncmanager exception handling response: " + exception.Message
                    + " >>>[AND TRACE IS]>>> " + exception.StackTrace);
+            }
+
+            if (cmd == "shellSpawned")
+            {
+                var spawnData = responseData.ToShellSpawnData();
+                TryCreateShell(spawnData.OwnerUsername, spawnData.DatabaseIdentifier, spawnData.SceneId, spawnData.SpawnPosition, spawnData.SpawnEulerAngles);
+            }
+            if (cmd == "shellSync")
+            {
+                var newShellTransform = responseData.ToNetworkShellTransform();
+                int sceneId = int.Parse(newShellTransform.Identifier);
+
+                if (shells.ContainsKey(sceneId))
+                {
+                    shells[sceneId].ReceiveSyncPosition(newShellTransform);
+                }
             }
         }
 

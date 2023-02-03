@@ -2,10 +2,18 @@ using UnityEngine;
 
 namespace Frontend.Scripts.Models
 {
-    public class SpawnData
+    public class PlayerSpawnData
     {
         public string Username { get; set; }
-        public string Identifier { get; set; }
+        public Vector3 SpawnPosition { get; set; }
+        public Vector3 SpawnEulerAngles { get; set; }
+    }
+
+    public class ShellSpawnData
+    { 
+        public string OwnerUsername { get; set; }
+        public string DatabaseIdentifier { get; set; }
+        public int SceneId { get; set; }
         public Vector3 SpawnPosition { get; set; }
         public Vector3 SpawnEulerAngles { get; set; }
     }
