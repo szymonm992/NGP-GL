@@ -14,7 +14,6 @@ namespace Frontend.Scripts.Components
 
         [Inject] private readonly SignalBus signalBus;
         [Inject] private readonly TimeManager timeManager;
-        [Inject] private readonly Speedometer speedometer;
         [Inject] private readonly ShellEntity shellEntity;
 
         private double interpolationBackTime = 200;
@@ -28,8 +27,13 @@ namespace Frontend.Scripts.Components
 
         public void Initialize()
         {
+            signalBus.Subscribe<ShellSignals.OnShellDestroyed>(OnShellDestroyed);
             IsRunning = true;
             statesCount = 0;
+        }
+
+        public void Dispose()
+        {
         }
 
         public void ProcessCurrentNetworkTransform(INetworkTransform nTransform)
@@ -91,7 +95,6 @@ namespace Frontend.Scripts.Components
                             t = (float)((interpolationTime - lhs.TimeStamp) / length);
                         }
 
-                        speedometer.SetSpeedometr(lhs.CurrentSpeed);
                         transform.SetPositionAndRotation(Vector3.Lerp(lhs.Position, rhs.Position, t), Quaternion.Slerp(lhs.Rotation, rhs.Rotation, t));
                         return;
                     }
@@ -100,7 +103,6 @@ namespace Frontend.Scripts.Components
             else
             {
                 transform.SetPositionAndRotation(bufferedStates[0].Position, bufferedStates[0].Rotation);
-                speedometer.SetSpeedometr(bufferedStates[0].CurrentSpeed);
             }
         }
 
@@ -130,6 +132,14 @@ namespace Frontend.Scripts.Components
             else
             {
                 interpolationBackTime = 1000;
+            }
+        }
+
+        private void OnShellDestroyed(ShellSignals.OnShellDestroyed OnShellDestroyed)
+        {
+            if (OnShellDestroyed.ShellSceneId == shellEntity.Properties.ShellSceneIdentifier)
+            {
+                Destroy(gameObject);
             }
         }
     }

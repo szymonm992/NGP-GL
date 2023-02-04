@@ -43,5 +43,10 @@ namespace Prototyping.Scripts.Components
         public void TryCreateShell(string _, string databaseId, int sceneId, Vector3 spawnPosition, Vector3 spawnEulerAngles)
         {
         }
+
+        public virtual void TryDestroyingShell(int sceneIdentifier)
+        {
+
+        }
     }
 }

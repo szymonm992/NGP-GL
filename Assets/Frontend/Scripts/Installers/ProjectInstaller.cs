@@ -52,6 +52,7 @@ namespace Frontend.Scripts
             Container.DeclareSignal<PlayerSignals.OnBattleTimeChanged>();
 
             Container.DeclareSignal<ShellSignals.OnShellSpawned>();
+            Container.DeclareSignal<ShellSignals.OnShellDestroyed>();
 
             Container.DeclareSignal<ConnectionSignals.OnConnectionAttemptResult>();
             Container.DeclareSignal<ConnectionSignals.OnLoginAttemptResult>();
