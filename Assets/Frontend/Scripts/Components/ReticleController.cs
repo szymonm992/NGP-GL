@@ -20,7 +20,6 @@ namespace Frontend.Scripts.Components
         [SerializeField] private RectTransform gunReticle;
         [SerializeField] private LayerMask gunMask;
 
-        
         private Transform localPlayerGun;
 
         public void Initialize()
@@ -32,9 +31,11 @@ namespace Frontend.Scripts.Components
         private void OnPlayerInitialized(PlayerSignals.OnPlayerInitialized OnLocalPlayerInitialized)
         {
             var playerContext = OnLocalPlayerInitialized.PlayerProperties.PlayerContext;
-            if(OnLocalPlayerInitialized.PlayerProperties.IsLocal)
+
+            if (OnLocalPlayerInitialized.PlayerProperties.IsLocal)
             {
                 var vehicleController = playerContext.Container.Resolve<IVehicleController>();
+
                 if (vehicleController.HasTurret)
                 {
                     var gunController = playerContext.Container.Resolve<ITurretController>();
@@ -42,6 +43,7 @@ namespace Frontend.Scripts.Components
                     return;
                 }
             }
+
             gunReticle.gameObject.ToggleGameObjectIfActive(false);
         }
 
@@ -55,6 +57,7 @@ namespace Frontend.Scripts.Components
                 {
                     gunPosition = hit.point;
                 }
+
                 UpdateGunReticle(gunPosition);
             }
         }

@@ -3,6 +3,7 @@ using GLShared.General.Components;
 using GLShared.General.Models;
 using GLShared.General.ScriptableObjects;
 using GLShared.Networking.Components;
+using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -32,6 +33,7 @@ namespace Frontend.Scripts
             Container.Bind<FrontendSyncManager>().FromComponentInHierarchy().AsSingle();
 
             Container.Bind<Speedometer>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<ReloadMeter>().FromComponentInHierarchy().AsSingle();
         }
     }
 }

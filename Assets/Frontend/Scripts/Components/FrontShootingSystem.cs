@@ -1,20 +1,22 @@
 using GLShared.General.Components;
 using GLShared.General.Signals;
-using GLShared.Networking.Components;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-namespace Frontend.Scripts
+namespace Frontend.Scripts.Components
 {
     public class FrontShootingSystem : ShootingSystemBase
     {
+        [Inject] private readonly SignalBus signalBus;
+        [Inject] private readonly ReloadMeter reloadMeter;
+        
         [SerializeField] private float reloadTime = 5f;
 
         public override void Initialize()
         {
             base.Initialize();
+
+            signalBus.Subscribe<ShellSignals.OnShellSpawned>(OnShellSpawned);
         }
 
         protected override void Update()
@@ -25,13 +27,12 @@ namespace Frontend.Scripts
             }
 
             base.Update();
-            if (ShootkingKeyPressed && !isReloading)
-            {
-                SingleShotLogic();
-            }
+
+            reloadMeter.DisplayCurrentReload(currentReloadTimer);
         }
 
-        protected void SingleShotLogic()
+
+        private void OnShellSpawned(ShellSignals.OnShellSpawned OnShellSpawned)
         {
             isReloading = true;
 

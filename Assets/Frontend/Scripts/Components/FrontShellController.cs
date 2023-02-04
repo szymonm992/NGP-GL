@@ -11,7 +11,7 @@ namespace Frontend.Scripts.Components
     public class FrontShellController : MonoBehaviour, IShellController, ISyncInterpolator
     {
         private const float MIN_THRESHOLD = 0.0001f;
-        private const float SHELL_VISUALS_TOGGLE_DISTANCE = 10f;
+        private const float SHELL_VISUALS_TOGGLE_DISTANCE = 5f;
 
         [Inject] private readonly SignalBus signalBus;
         [Inject] private readonly TimeManager timeManager;
@@ -27,7 +27,6 @@ namespace Frontend.Scripts.Components
         public bool IsRunning { get; private set; } = false;
         public string OwnerUsername => shellEntity.Properties.Username;
         public float Velocity => shellEntity.CurrentNetworkTransform.CurrentSpeed;
-
 
         public void Initialize()
         {
@@ -72,45 +71,40 @@ namespace Frontend.Scripts.Components
 
         private void Interpolate(double currentTime)
         {
-            if (!IsRunning)
-            {
-                return;
-            }
-
-            if (statesCount == 0)
+            if (!IsRunning || statesCount == 0)
             {
                 return;
             }
 
             double interpolationTime = currentTime - interpolationBackTime;
-            int rightIndex = 0;
 
-            // find the right index of the buffer
-            for (int i = 0; i < statesCount; i++)
+            if (bufferedStates[0].TimeStamp > interpolationTime)
             {
-                if (bufferedStates[i].TimeStamp <= interpolationTime || i == statesCount - 1)
+                for (int i = 0; i < statesCount; i++)
                 {
-                    rightIndex = i;
-                    break;
+                    if (bufferedStates[i].TimeStamp <= interpolationTime || i == statesCount - 1)
+                    {
+                        var rhs = bufferedStates[Mathf.Max(i - 1, 0)];
+                        var lhs = bufferedStates[i];
+
+                        double length = rhs.TimeStamp - lhs.TimeStamp;
+                        float t = 0.0f;
+
+                        if (length > MIN_THRESHOLD)
+                        {
+                            t = (float)((interpolationTime - lhs.TimeStamp) / length);
+                        }
+
+                        transform.SetPositionAndRotation(Vector3.Lerp(lhs.Position, rhs.Position, t), Quaternion.Slerp(lhs.Rotation, rhs.Rotation, t));
+                        return;
+                    }
                 }
             }
-
-            int leftIndex = Mathf.Max(rightIndex - 1, 0);
-            var rightState = bufferedStates[rightIndex];
-            var leftState = bufferedStates[leftIndex];
-
-            double length = rightState.TimeStamp - leftState.TimeStamp;
-            float t = 0.0f;
-
-            // perform interpolation only if length is greater than the minimum threshold
-            if (length > MIN_THRESHOLD)
+            else
             {
-                t = (float)((interpolationTime - leftState.TimeStamp) / length);
+                transform.SetPositionAndRotation(bufferedStates[0].Position, bufferedStates[0].Rotation);
             }
-
-            transform.SetPositionAndRotation(Vector3.Lerp(leftState.Position, rightState.Position, t), Quaternion.Slerp(leftState.Rotation, rightState.Rotation, t));
         }
-
 
         private void SelectInterpolationTime(double averagePing)
         {

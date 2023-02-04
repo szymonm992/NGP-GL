@@ -6,7 +6,6 @@ using GLShared.Networking.Components;
 using GLShared.Networking.Extensions;
 using GLShared.Networking.Models;
 using Sfs2X.Core;
-using Sfs2X.Entities;
 using Sfs2X.Entities.Data;
 using System;
 using UnityEngine;
@@ -51,6 +50,16 @@ namespace Frontend.Scripts.Components
             {
                 localPlayerEntity = connectedPlayers[user.Name];
             }
+        }
+
+        protected override void CreateShell(string username, string databaseId, int sceneId, Vector3 spawnPosition, Vector3 spawnEulerAngles, Vector3 targetingPosition, out ShellProperties shellProperties)
+        {
+            base.CreateShell(username, databaseId, sceneId, spawnPosition, spawnEulerAngles, targetingPosition, out shellProperties);
+
+            signalBus.Fire(new ShellSignals.OnShellSpawned()
+            {
+                ShellProperties = shellProperties,
+            });
         }
 
         protected override PlayerProperties GetPlayerInitData(string username, string vehicleName,

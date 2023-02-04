@@ -82,10 +82,9 @@ namespace Frontend.Scripts.Components
         private Quaternion oldSnipingFollowRot;
 
         private bool turrentRotationLock = false, isAlive = true, blockCtrl = false;
-
         public float ReticlePixelsOffset => reticlePixelsOffset;
         public Vector3 CameraTargetingPosition => targetPosition;
-        public GameObjectContext context;
+
         public void Initialize()
         {
             signalBus.Subscribe<BattleSignals.CameraSignals.OnCameraBound>(OnCameraBoundToPlayer);
@@ -95,7 +94,6 @@ namespace Frontend.Scripts.Components
         private void OnPlayerInitialized(PlayerSignals.OnPlayerInitialized OnPlayerInitialized)
         {
             var playerProperties = OnPlayerInitialized.PlayerProperties;
-            context = playerProperties.PlayerContext;
 
             if (playerProperties.IsLocal)
             {
