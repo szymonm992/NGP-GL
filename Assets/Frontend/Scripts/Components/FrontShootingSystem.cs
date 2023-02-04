@@ -18,7 +18,11 @@ namespace Frontend.Scripts.Components
             signalBus.Subscribe<ShellSignals.OnShellSpawned>(OnShellSpawned);
 
             AfterShotCallback(reloadTime);
-            reloadMeter.DisplayCurrentReload(currentReloadTimer);
+
+            if (playerEntity.IsLocalPlayer)
+            {
+                reloadMeter.DisplayCurrentReload(currentReloadTimer);
+            }
         }
 
         protected override void Update()
@@ -30,9 +34,11 @@ namespace Frontend.Scripts.Components
 
             base.Update();
 
-            reloadMeter.DisplayCurrentReload(currentReloadTimer);
+            if (playerEntity.IsLocalPlayer)
+            {
+                reloadMeter.DisplayCurrentReload(currentReloadTimer);
+            }
         }
-
 
         private void OnShellSpawned(ShellSignals.OnShellSpawned OnShellSpawned)
         {
