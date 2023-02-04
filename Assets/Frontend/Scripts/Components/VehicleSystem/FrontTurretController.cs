@@ -22,8 +22,8 @@ namespace Frontend.Scripts.Components
 
         public void SetTurretAndGunRotation(float turretY, float gunX)
         {
-            gun.localEulerAngles = new Vector3(gunX, gun.localEulerAngles.y, gun.localEulerAngles.z);
-            turret.localEulerAngles = new Vector3(turret.localEulerAngles.x, turretY, turret.localEulerAngles.z);
+            gun.localEulerAngles = new Vector3(gunX, 0f, 0f);
+            turret.localEulerAngles = new Vector3(0f, turretY, 0f);
         }
 
         public void RotateGun()

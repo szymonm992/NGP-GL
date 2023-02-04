@@ -33,6 +33,7 @@ namespace Frontend.Scripts.Components
                 return (Time.time - lastLocalTime) * 1000 + lastServerTime;
             }
         }
+
         public double AveragePing => averagePing;
 
         public void Initialize()
@@ -49,7 +50,7 @@ namespace Frontend.Scripts.Components
             CalculateAveragePing(ping);
 
             // Take the time passed between server sends response and we get it as half of the average ping valu
-            double timePassed = averagePing / 2.0f;
+            double timePassed = averagePing * 0.5f;
             lastServerTime = timeValue + timePassed;
             lastLocalTime = Time.time;
 

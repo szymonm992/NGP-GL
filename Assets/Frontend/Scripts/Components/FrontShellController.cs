@@ -18,7 +18,7 @@ namespace Frontend.Scripts.Components
 
         private double interpolationBackTime = 200;
         private int statesCount = 0;
-        private NetworkShellTransform[] bufferedStates = new NetworkShellTransform[20];
+        private NetworkShellTransform[] bufferedStates = new NetworkShellTransform[40];
 
         public bool IsRunning { get; private set; } = false;
         public string OwnerUsername => shellEntity.Properties.Username;
@@ -78,32 +78,32 @@ namespace Frontend.Scripts.Components
             }
 
             double interpolationTime = currentTime - interpolationBackTime;
+            int rightIndex = 0;
 
-            if (bufferedStates[0].TimeStamp > interpolationTime)
+            // find the right index of the buffer
+            for (int i = 0; i < statesCount; i++)
             {
-                for (int i = 0; i < statesCount; i++)
+                if (bufferedStates[i].TimeStamp <= interpolationTime || i == statesCount - 1)
                 {
-                    if (bufferedStates[i].TimeStamp <= interpolationTime || i == statesCount - 1)
-                    {
-                        var rhs = bufferedStates[Mathf.Max(i - 1, 0)];
-                        var lhs = bufferedStates[i];
-                        double length = rhs.TimeStamp - lhs.TimeStamp;
-                        float t = 0.0f;
-
-                        if (length > MIN_THRESHOLD)
-                        {
-                            t = (float)((interpolationTime - lhs.TimeStamp) / length);
-                        }
-
-                        transform.SetPositionAndRotation(Vector3.Lerp(lhs.Position, rhs.Position, t), Quaternion.Slerp(lhs.Rotation, rhs.Rotation, t));
-                        return;
-                    }
+                    rightIndex = i;
+                    break;
                 }
             }
-            else
+
+            int leftIndex = Mathf.Max(rightIndex - 1, 0);
+            var rightState = bufferedStates[rightIndex];
+            var leftState = bufferedStates[leftIndex];
+
+            double length = rightState.TimeStamp - leftState.TimeStamp;
+            float t = 0.0f;
+
+            // perform interpolation only if length is greater than the minimum threshold
+            if (length > MIN_THRESHOLD)
             {
-                transform.SetPositionAndRotation(bufferedStates[0].Position, bufferedStates[0].Rotation);
+                t = (float)((interpolationTime - leftState.TimeStamp) / length);
             }
+
+            transform.SetPositionAndRotation(Vector3.Lerp(leftState.Position, rightState.Position, t), Quaternion.Slerp(leftState.Rotation, rightState.Rotation, t));
         }
 
 

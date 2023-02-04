@@ -1,9 +1,11 @@
+using Frontend.Scripts.Extensions;
 using GLShared.General.Signals;
 using GLShared.Networking.Components;
 using GLShared.Networking.Interfaces;
 using GLShared.Networking.Models;
 using UnityEngine;
 using Zenject;
+using GLShared.General.Utilities;
 
 namespace Frontend.Scripts.Components
 {
@@ -18,7 +20,7 @@ namespace Frontend.Scripts.Components
 
         private double interpolationBackTime = 200;
         private int statesCount = 0;
-        private NetworkTransform[] bufferedStates = new NetworkTransform[20];
+        private NetworkTransform[] bufferedStates = new NetworkTransform[40];
 
         public bool IsRunning { get; private set; } = false;
 
@@ -87,9 +89,14 @@ namespace Frontend.Scripts.Components
                             t = (float)((interpolationTime - lhs.TimeStamp) / length);
                         }
 
-                        speedometer.SetSpeedometr(lhs.CurrentSpeed);
+                        speedometer.SetSpeedometr(rhs.CurrentSpeed);
                         transform.SetPositionAndRotation(Vector3.Lerp(lhs.Position, rhs.Position, t), Quaternion.Slerp(lhs.Rotation, rhs.Rotation, t));
-                        turretController.SetTurretAndGunRotation(rhs.TurretAngleY, rhs.GunAngleX);
+
+
+                       // var turretDesired = Quaternion.Slerp(Quaternion.AngleAxis(lhs.TurretAngleY, Vector3.up), Quaternion.AngleAxis(rhs.TurretAngleY, Vector3.up), t);
+                       // var gunDesired = Quaternion.Slerp(Quaternion.AngleAxis(lhs.GunAngleX, Vector3.right), Quaternion.AngleAxis(rhs.GunAngleX, Vector3.right), t);
+
+                        turretController.SetTurretAndGunRotation(Mathf.LerpAngle(lhs.TurretAngleY, rhs.TurretAngleY, t), Mathf.LerpAngle(lhs.GunAngleX, rhs.GunAngleX, t));
                         return;
                     }
                 }
@@ -99,10 +106,8 @@ namespace Frontend.Scripts.Components
                 transform.SetPositionAndRotation(bufferedStates[0].Position, bufferedStates[0].Rotation);
                 turretController.SetTurretAndGunRotation(bufferedStates[0].TurretAngleY, bufferedStates[0].GunAngleX);
                 speedometer.SetSpeedometr(bufferedStates[0].CurrentSpeed);
-                
             }
         }
-
 
         private void SelectInterpolationTime(double averagePing)
         {
