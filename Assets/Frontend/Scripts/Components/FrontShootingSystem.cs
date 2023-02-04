@@ -17,6 +17,9 @@ namespace Frontend.Scripts.Components
             base.Initialize();
 
             signalBus.Subscribe<ShellSignals.OnShellSpawned>(OnShellSpawned);
+
+            AfterShotCallback(reloadTime);
+            reloadMeter.DisplayCurrentReload(currentReloadTimer);
         }
 
         protected override void Update()
@@ -35,7 +38,6 @@ namespace Frontend.Scripts.Components
         private void OnShellSpawned(ShellSignals.OnShellSpawned OnShellSpawned)
         {
             isReloading = true;
-
             AfterShotCallback(reloadTime);
         }
     }
