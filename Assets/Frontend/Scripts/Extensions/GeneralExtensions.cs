@@ -36,6 +36,9 @@ namespace Frontend.Scripts.Extensions
 
                 SpawnEulerAngles = new Vector3(data.GetFloat("spawnRotationX"), data.GetFloat("spawnRotationY"),
                     data.GetFloat("spawnRotationZ")),
+
+                TargetingPosition = new Vector3(data.GetFloat("targetPosX"), data.GetFloat("targetPosY"),
+                    data.GetFloat("targetPosZ")),
             };
         }
     }

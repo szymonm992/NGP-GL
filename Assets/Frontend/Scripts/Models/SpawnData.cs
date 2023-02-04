@@ -16,5 +16,6 @@ namespace Frontend.Scripts.Models
         public int SceneId { get; set; }
         public Vector3 SpawnPosition { get; set; }
         public Vector3 SpawnEulerAngles { get; set; }
+        public Vector3 TargetingPosition { get; set; }
     }
 }

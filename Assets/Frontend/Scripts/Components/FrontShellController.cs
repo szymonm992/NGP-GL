@@ -11,14 +11,18 @@ namespace Frontend.Scripts.Components
     public class FrontShellController : MonoBehaviour, IShellController, ISyncInterpolator
     {
         private const float MIN_THRESHOLD = 0.0001f;
+        private const float SHELL_VISUALS_TOGGLE_DISTANCE = 10f;
 
         [Inject] private readonly SignalBus signalBus;
         [Inject] private readonly TimeManager timeManager;
         [Inject] private readonly ShellEntity shellEntity;
 
+        [SerializeField] private GameObject visualsParent;
+
+        private bool enabledVisuals = false;
         private double interpolationBackTime = 200;
         private int statesCount = 0;
-        private NetworkShellTransform[] bufferedStates = new NetworkShellTransform[40];
+        private NetworkShellTransform[] bufferedStates = new NetworkShellTransform[20];
 
         public bool IsRunning { get; private set; } = false;
         public string OwnerUsername => shellEntity.Properties.Username;
@@ -54,7 +58,7 @@ namespace Frontend.Scripts.Components
             statesCount = Mathf.Min(statesCount + 1, bufferedStates.Length);
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (!IsRunning || statesCount == 0)
             {
@@ -63,6 +67,7 @@ namespace Frontend.Scripts.Components
 
             SelectInterpolationTime(timeManager.AveragePing);
             Interpolate(timeManager.NetworkTime);
+            CheckVisuals();
         }
 
         private void Interpolate(double currentTime)
@@ -132,6 +137,18 @@ namespace Frontend.Scripts.Components
             else
             {
                 interpolationBackTime = 1000;
+            }
+        }
+
+        private void CheckVisuals()
+        {
+            if (!enabledVisuals)
+            {
+                if (Vector3.Distance(shellEntity.Properties.SpawnPosition, transform.position) >= SHELL_VISUALS_TOGGLE_DISTANCE)
+                {
+                    visualsParent.ToggleGameObjectIfActive(true);
+                    enabledVisuals = true;
+                }
             }
         }
 

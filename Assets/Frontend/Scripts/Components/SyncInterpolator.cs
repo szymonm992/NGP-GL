@@ -61,12 +61,7 @@ namespace Frontend.Scripts.Components
 
         private void Interpolate(double currentTime)
         {
-            if (!IsRunning)
-            {
-                return;
-            }
-
-            if (statesCount == 0)
+            if (!IsRunning || statesCount == 0)
             {
                 return;
             }
@@ -81,6 +76,7 @@ namespace Frontend.Scripts.Components
                     {
                         var rhs = bufferedStates[Mathf.Max(i - 1, 0)];
                         var lhs = bufferedStates[i];
+
                         double length = rhs.TimeStamp - lhs.TimeStamp;
                         float t = 0.0f;
 
@@ -91,11 +87,6 @@ namespace Frontend.Scripts.Components
 
                         speedometer.SetSpeedometr(rhs.CurrentSpeed);
                         transform.SetPositionAndRotation(Vector3.Lerp(lhs.Position, rhs.Position, t), Quaternion.Slerp(lhs.Rotation, rhs.Rotation, t));
-
-
-                       // var turretDesired = Quaternion.Slerp(Quaternion.AngleAxis(lhs.TurretAngleY, Vector3.up), Quaternion.AngleAxis(rhs.TurretAngleY, Vector3.up), t);
-                       // var gunDesired = Quaternion.Slerp(Quaternion.AngleAxis(lhs.GunAngleX, Vector3.right), Quaternion.AngleAxis(rhs.GunAngleX, Vector3.right), t);
-
                         turretController.SetTurretAndGunRotation(Mathf.LerpAngle(lhs.TurretAngleY, rhs.TurretAngleY, t), Mathf.LerpAngle(lhs.GunAngleX, rhs.GunAngleX, t));
                         return;
                     }

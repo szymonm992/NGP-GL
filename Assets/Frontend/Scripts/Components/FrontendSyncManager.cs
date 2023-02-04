@@ -11,7 +11,6 @@ using Sfs2X.Entities.Data;
 using System;
 using UnityEngine;
 using Zenject;
-using static GLShared.General.Signals.ShellSignals;
 
 namespace Frontend.Scripts.Components
 {
@@ -129,7 +128,7 @@ namespace Frontend.Scripts.Components
                 if (cmd == "shellSpawned")
                 {
                     var spawnData = responseData.ToShellSpawnData();
-                    TryCreateShell(spawnData.OwnerUsername, spawnData.DatabaseIdentifier, spawnData.SceneId, spawnData.SpawnPosition, spawnData.SpawnEulerAngles);
+                    TryCreateShell(spawnData.OwnerUsername, spawnData.DatabaseIdentifier, spawnData.SceneId, spawnData.SpawnPosition, spawnData.SpawnEulerAngles, spawnData.TargetingPosition);
                 }
                 if (cmd == "shellDestroyed")
                 {
