@@ -10,32 +10,32 @@ namespace Frontend.Scripts.Components
         {
             int passwordLength = inputPassword.Length;
 
-            if (passwordLength > 16)
+            if (passwordLength > 24)
             {
-                return new(false, "Given passsword is too long!");
+                return new (false, "Given passsword is too long!");
             }
 
             if (passwordLength < 4)
             {
-                return new(false, "Given password is too short!");
+                return new (false, "Given password is too short!");
             }
 
-            return new(true, string.Empty);
+            return new (true, string.Empty);
         }
 
         public (bool, string) IsLoginValid(string inputLogin)
         {
-            if (inputLogin.Length > 16)
+            if (inputLogin.Length > 24)
             {
-                return new(false, "Given login is too long!");
+                return new (false, "Given login is too long!");
             }
 
             if (inputLogin.Length < 4)
             {
-                return new(false, "Given login is too short!");
+                return new (false, "Given login is too short!");
             }
 
-            return new(true, string.Empty);
+            return new (true, string.Empty);
         }
     }
 }

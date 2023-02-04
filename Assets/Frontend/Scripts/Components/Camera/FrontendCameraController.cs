@@ -61,7 +61,7 @@ namespace Frontend.Scripts.Components
         public LayerMask targetMask;
         private Transform orbitFollowPoint;
         private Transform snipingFollowPoint;
-        public GameObject currentPlayerObject;
+        private GameObject currentPlayerObject;
 
         private float desiredOrbitDist;
         private float desiredSnipingZoom;
@@ -332,14 +332,14 @@ namespace Frontend.Scripts.Components
             orbitDist = Mathf.Lerp(orbitDist, desiredOrbitDist, Time.deltaTime * orbitDistInterp * 10.0f);
 
             // handling walls collisions
-            const float camOffset = 0.25f;
+            const float camOffset = 0.6f;
             RaycastHit hit;
             Quaternion orbitCamDirRotation = LimitCameraRange(GetTargetLockOrbitLookVector(true));
 
             Vector3 orbitCamDirVec = (orbitCamDirRotation * Vector3.forward).normalized * desiredOrbitDist * -1f;
 
             Ray r = new(transform.position, orbitCamDirVec);
-            if (Physics.SphereCast(r, orbitCameraColliderSize * 0.5f, out hit, orbitCamDirVec.magnitude, targetMask))
+            if (Physics.SphereCast(r, orbitCameraColliderSize * 0.5f, out hit, orbitCamDirVec.magnitude + (orbitCameraColliderSize * 0.5f), targetMask))
             {
                 orbitDist = Mathf.Min(hit.distance - camOffset, orbitDist);
                 Debug.DrawRay(transform.position, orbitCamDirVec.normalized * hit.distance, Color.blue);

@@ -7,7 +7,6 @@ namespace Frontend.Scripts.Components
 {
     public class FrontShootingSystem : ShootingSystemBase
     {
-        [Inject] private readonly SignalBus signalBus;
         [Inject] private readonly ReloadMeter reloadMeter;
         
         [SerializeField] private float reloadTime = 5f;
@@ -37,8 +36,11 @@ namespace Frontend.Scripts.Components
 
         private void OnShellSpawned(ShellSignals.OnShellSpawned OnShellSpawned)
         {
-            isReloading = true;
-            AfterShotCallback(reloadTime);
+            if (OnShellSpawned.ShellProperties.Username == playerEntity.Username)
+            {
+                isReloading = true;
+                AfterShotCallback(reloadTime);
+            }
         }
     }
 }
