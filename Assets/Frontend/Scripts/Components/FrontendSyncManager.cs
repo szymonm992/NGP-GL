@@ -52,9 +52,10 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        protected override void CreateShell(string username, string databaseId, int sceneId, Vector3 spawnPosition, Vector3 spawnEulerAngles, Vector3 targetingPosition, out ShellProperties shellProperties)
+        protected override void CreateShell(string username, string databaseId, int sceneId, Vector3 spawnPosition, Vector3 spawnEulerAngles,
+            (Vector3, float) targetingProperties, out ShellProperties shellProperties)
         {
-            base.CreateShell(username, databaseId, sceneId, spawnPosition, spawnEulerAngles, targetingPosition, out shellProperties);
+            base.CreateShell(username, databaseId, sceneId, spawnPosition, spawnEulerAngles, targetingProperties, out shellProperties);
 
             signalBus.Fire(new ShellSignals.OnShellSpawned()
             {
@@ -137,7 +138,7 @@ namespace Frontend.Scripts.Components
                 if (cmd == "shellSpawned")
                 {
                     var spawnData = responseData.ToShellSpawnData();
-                    TryCreateShell(spawnData.OwnerUsername, spawnData.DatabaseIdentifier, spawnData.SceneId, spawnData.SpawnPosition, spawnData.SpawnEulerAngles, spawnData.TargetingPosition);
+                    TryCreateShell(spawnData.OwnerUsername, spawnData.DatabaseIdentifier, spawnData.SceneId, spawnData.SpawnPosition, spawnData.SpawnEulerAngles, new(spawnData.TargetingPosition, 0f));
                 }
                 if (cmd == "shellDestroyed")
                 {
