@@ -12060,10 +12060,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   doesGravityDamping: 0
-  runPhysics: 0
   wheelsCollisionDetectionMask:
     serializedVersion: 2
     m_Bits: 2147483647
+  runPhysics: 0
   brakesForceApplyPoint: 1
   accelerationForceApplyPoint: 1
 --- !u!114 &8915373948591640343
@@ -12108,7 +12108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 475396d133208334a93ba515d03ff3d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  steerForce: 5
+  steerForce: 150000
 --- !u!114 &8992989569556248829
 MonoBehaviour:
   m_ObjectHideFlags: 0

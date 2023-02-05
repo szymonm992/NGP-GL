@@ -1,13 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Zenject;
 using UnityEngine;
+using GLShared.Networking.Components;
 
 namespace Frontend.Scripts.Components
 {
-    public class Outline : MonoBehaviour
+    public class Outline : MonoBehaviour, IInitializable
     {
         private static HashSet<Mesh> registeredMeshes = new HashSet<Mesh>();
+
+        [Inject] private PlayerEntity playerEntity;
 
         public enum Mode
         {
@@ -80,6 +84,14 @@ namespace Frontend.Scripts.Components
         private Material outlineFillMaterial;
 
         private bool needsUpdate;
+
+        public void Initialize()
+        {
+            if (!playerEntity.IsLocalPlayer)
+            {
+                this.enabled = false;
+            }
+        }
 
         void Awake()
         {
@@ -301,5 +313,7 @@ namespace Frontend.Scripts.Components
                     break;
             }
         }
+
+        
     }
 }
