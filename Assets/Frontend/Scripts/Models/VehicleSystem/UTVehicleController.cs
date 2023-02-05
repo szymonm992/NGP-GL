@@ -98,9 +98,7 @@ namespace Frontend.Scripts.Models
 
         public ForceApplyPoint BrakesForceApplyPoint => brakesForceApplyPoint;
         public ForceApplyPoint AccelerationForceApplyPoint => accelerationForceApplyPoint;
-
         public IEnumerable<IPhysicsWheel> AllWheels => allWheels;
-
 
         public float GetCurrentMaxSpeed()
         {
@@ -255,7 +253,7 @@ namespace Frontend.Scripts.Models
                     {
                         continue;
                     }
-
+                    
                     foreach (var wheel in groundedWheels)
                     {
                         if (!wheel.IsIdler)
@@ -275,7 +273,7 @@ namespace Frontend.Scripts.Models
                         }
                         else
                         {
-                            var idler = wheel as UTIdlerWheel;
+                            var idler = (UTIdlerWheel)wheel;
 
                             wheelVelocityLocal = wheel.Transform.InverseTransformDirection(rig.GetPointVelocity(wheel.UpperConstraintPoint));
                             forwardForce = inputY * maxEngineForwardPower * IDLER_WHEEL_BUMP_MULTIPLIER;

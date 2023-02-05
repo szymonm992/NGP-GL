@@ -11947,7 +11947,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   centerOfMass: {fileID: 2970605867215432948}
   vehicleType: 1
-  maxSlopeAngle: 45
+  maxSlopeAngle: 40
   forwardPowerCurve:
     serializedVersion: 2
     m_Curve:
@@ -12202,7 +12202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 0
   isSender: 0
-  syncRate: 0.2
+  tickRate: 66
 --- !u!114 &3854515483920494927
 MonoBehaviour:
   m_ObjectHideFlags: 0

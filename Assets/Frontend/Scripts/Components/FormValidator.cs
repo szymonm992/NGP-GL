@@ -1,9 +1,11 @@
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace Frontend.Scripts.Components
 {
     public class FormValidator
     {
+        private const string LOGIN_REGEX_PATTERN = @"^[a-zA-Z0-9]+$";
         public delegate void DisplayErrorDelegate(string content);
 
         public (bool, string) IsPasswordValid(string inputPassword)
@@ -25,6 +27,13 @@ namespace Frontend.Scripts.Components
 
         public (bool, string) IsLoginValid(string inputLogin)
         {
+            var regex = new Regex(LOGIN_REGEX_PATTERN);
+
+            if (!regex.IsMatch(inputLogin))
+            {
+                return new(false, "Username contains invalid characters!");
+            }
+
             if (inputLogin.Length > 24)
             {
                 return new (false, "Given login is too long!");
