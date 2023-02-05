@@ -1,11 +1,5 @@
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Zenject;
-using Frontend.Scripts.Interfaces;
-using Frontend.Scripts.Models;
-using GLShared.General.Enums;
-using GLShared.General.ScriptableObjects;
 using GLShared.General.Components;
 
 namespace Frontend.Scripts.Components

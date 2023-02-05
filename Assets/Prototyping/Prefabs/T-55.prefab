@@ -11872,7 +11872,6 @@ GameObject:
   - component: {fileID: 2404649941768873089}
   - component: {fileID: 8992989569556248829}
   - component: {fileID: 7057069551729104832}
-  - component: {fileID: 2618250326273635535}
   - component: {fileID: 8255813644745574887}
   - component: {fileID: 4703210311339521858}
   - component: {fileID: 5277340808731574008}
@@ -11985,12 +11984,10 @@ MonoBehaviour:
   - {fileID: 5277340808731574008}
   - {fileID: 1381698131419342062}
   - {fileID: 7057069551729104832}
-  - {fileID: 2618250326273635535}
   - {fileID: 8255813644745574887}
   - {fileID: 4703210311339521858}
   - {fileID: -7889962559734846982}
   - {fileID: 1717850385828099546}
-  - {fileID: 62972126505817233}
   _identifier: 
   _useSceneContext: 0
   _context: {fileID: 0}
@@ -12180,18 +12177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dad29858644a8f84da3c42faadfa5c79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2618250326273635535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8797747351685325955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c77d24736e86f624991ec566f3f24422, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8255813644745574887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12217,7 +12202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 530f8640ef9cb8f4280474951890e7d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualElementsMovementSpeed: 50
+  visualElementsMovementSpeed: 40
   idlersRotatingSpeedMultiplier: 3
   tracksList:
   - trackObject: {fileID: 1150707309679822718}

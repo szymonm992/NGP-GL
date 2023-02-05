@@ -6,6 +6,8 @@ using GLShared.General.Enums;
 using System.Linq;
 using Zenject;
 using Sfs2X.Bitswarm;
+using GLShared.General.Models;
+using GLShared.General.ScriptableObjects;
 
 namespace Frontend.Scripts.Components
 {
@@ -49,7 +51,11 @@ namespace Frontend.Scripts.Components
             }
         }
 
+        private const float SIDEWAYS_ROTATION_MULTIPLIER = 7f;
+
         [Inject] private readonly UTTankSteering tankSteering;
+        [Inject] private readonly VehicleStatsBase vehicleStats;
+        [Inject] private readonly GameParameters gameParameters;
 
         [SerializeField] private float idlersRotatingSpeedMultiplier = 3f;
         [SerializeField] private TrackProperties[] tracksList;
@@ -65,7 +71,7 @@ namespace Frontend.Scripts.Components
             {
                 leftTracks = tracksList.Where(track => track.trackAxis == DriveAxisSite.Left);
                 rightTracks = tracksList.Where(track => track.trackAxis == DriveAxisSite.Right);
-                trackTurningRotationSpeed = tankSteering.SteerForce * 5f;
+                trackTurningRotationSpeed = (tankSteering.SteerForce / vehicleStats.Mass) * SIDEWAYS_ROTATION_MULTIPLIER;
 
                 foreach(var track in tracksList)//additional dummies initialization (inbewtween bones)
                 {
@@ -107,7 +113,7 @@ namespace Frontend.Scripts.Components
 
                 if (rawHorizontal != 0 && (int)pair.Axis == rawHorizontal)//moving fwd/bwd and turning in the same time
                 {
-                    speed /= 2f; //whenever we go forward we want one side of wheels to move slower
+                    speed *= 0.6f; //whenever we go forward we want one side of wheels to move slower
                 }
                 
                 pair.RotationalPartOfTire.RotateAround(tireTransform.position, rotateAroundAxis, verticalDir  * (speed * idlerMultiplier * 25f) * Time.deltaTime);
@@ -169,8 +175,8 @@ namespace Frontend.Scripts.Components
             {
                 if (inputProvider.AbsoluteVertical > 0)
                 {
-                    float leftSigned = inputProvider.SignedHorizontal > 0 ? inputProvider.AbsoluteHorizontal : inputProvider.AbsoluteHorizontal / 2f;
-                    float rightSigned = inputProvider.SignedHorizontal > 0 ? inputProvider.AbsoluteHorizontal / 2f : inputProvider.AbsoluteHorizontal;
+                    float leftSigned = inputProvider.SignedHorizontal > 0 ? inputProvider.AbsoluteHorizontal : inputProvider.AbsoluteHorizontal * 0.5f;
+                    float rightSigned = inputProvider.SignedHorizontal > 0 ? inputProvider.AbsoluteHorizontal * 0.5f : inputProvider.AbsoluteHorizontal;
                     return (leftSigned, rightSigned);
                 }
                 return (inputProvider.SignedHorizontal, -inputProvider.SignedHorizontal);
@@ -200,7 +206,7 @@ namespace Frontend.Scripts.Components
                      {
                          if (dummy.ForwardDummy != null && dummy.BackwardDummy != null)
                          {
-                             float middleY = dummy.HelperDummy.InverseTransformPoint((dummy.ForwardDummyHolder.position + dummy.BackwardDummyHolder.position) / 2f).y;
+                             float middleY = dummy.HelperDummy.InverseTransformPoint((dummy.ForwardDummyHolder.position + dummy.BackwardDummyHolder.position) * 0.5f).y;
 
                              Vector3 desiredDummyHolderPos = new Vector3(0, middleY, 0);
                              dummy.Holder.localPosition = desiredDummyHolderPos;
