@@ -6,6 +6,7 @@ using Frontend.Scripts.Interfaces;
 using Frontend.Scripts.Models;
 using GLShared.General.Enums;
 using GLShared.General.ScriptableObjects;
+using GLShared.General.Components;
 
 namespace Frontend.Scripts.Components
 {
@@ -13,7 +14,6 @@ namespace Frontend.Scripts.Components
     {
         [Header("Additional")]
         [SerializeField] private bool airControl = true;
-
 
         protected override void FixedUpdate()
         {
