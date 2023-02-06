@@ -1,11 +1,8 @@
-using Frontend.Scripts.Extensions;
 using GLShared.General.Signals;
-using GLShared.Networking.Components;
 using GLShared.Networking.Interfaces;
 using GLShared.Networking.Models;
 using UnityEngine;
 using Zenject;
-using GLShared.General.Utilities;
 
 namespace Frontend.Scripts.Components
 {
@@ -24,7 +21,7 @@ namespace Frontend.Scripts.Components
 
         public bool IsRunning { get; private set; } = false;
 
-        public void Initialize()
+        public void Initialize() 
         {
             signalBus.Subscribe<PlayerSignals.OnPlayerInitialized>(OnPlayerInitialized);
             statesCount = 0;

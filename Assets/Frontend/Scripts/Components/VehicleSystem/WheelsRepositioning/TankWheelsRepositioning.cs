@@ -52,10 +52,10 @@ namespace Frontend.Scripts.Components
         }
 
         private const float SIDEWAYS_ROTATION_MULTIPLIER = 7f;
+        private const string TEXTURE_ALBEDO_MAP = "_BaseMap";
 
         [Inject] private readonly UTTankSteering tankSteering;
         [Inject] private readonly VehicleStatsBase vehicleStats;
-        [Inject] private readonly GameParameters gameParameters;
 
         [SerializeField] private float idlersRotatingSpeedMultiplier = 3f;
         [SerializeField] private TrackProperties[] tracksList;
@@ -67,6 +67,7 @@ namespace Frontend.Scripts.Components
         public override void Initialize()
         {
             base.Initialize();
+
             if (tracksList != null && tracksList.Any())
             {
                 leftTracks = tracksList.Where(track => track.trackAxis == DriveAxisSite.Left);
@@ -85,7 +86,6 @@ namespace Frontend.Scripts.Components
                 }
             }
         }
-
 
         protected override void FixedUpdate()
         {
@@ -128,7 +128,7 @@ namespace Frontend.Scripts.Components
             if (dummyPair.trackDummy != null)
             {
                 var mainDummy = dummyPair.trackDummy;
-                Vector3 desiredPos = finalWheelPosition + (pair.Wheel.Transform.up * dummyPair.dummyOffsetY);
+                var desiredPos = finalWheelPosition + (pair.Wheel.Transform.up * dummyPair.dummyOffsetY);
                 float localDesiredOffsetY = mainDummy.transform.InverseTransformPoint(desiredPos).y;
                 mainDummy.Holder.localPosition = Vector3.Lerp(mainDummy.Holder.localPosition, new Vector3(0, localDesiredOffsetY, 0), trackMovementSpeed);
             
@@ -150,9 +150,8 @@ namespace Frontend.Scripts.Components
             {
                 var leftAndRight = GetTrackSideMultipliers(inputProvider.LastVerticalInput);
 
-                float l = leftAndRight.Item1;
-                float r = leftAndRight.Item2;
-
+                float l = leftAndRight.left;
+                float r = leftAndRight.right;
                 float offset;
 
                 if (l == r)
@@ -169,16 +168,18 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        private (float, float) GetTrackSideMultipliers(float lastSignedVertical)
+        private (float left, float right) GetTrackSideMultipliers(float lastSignedVertical)
         {
             if (inputProvider.AbsoluteHorizontal > 0)
             {
                 if (inputProvider.AbsoluteVertical > 0)
                 {
-                    float leftSigned = inputProvider.SignedHorizontal > 0 ? inputProvider.AbsoluteHorizontal : inputProvider.AbsoluteHorizontal * 0.5f;
-                    float rightSigned = inputProvider.SignedHorizontal > 0 ? inputProvider.AbsoluteHorizontal * 0.5f : inputProvider.AbsoluteHorizontal;
+                    float leftSigned = inputProvider.SignedHorizontal > 0f ? inputProvider.AbsoluteHorizontal : inputProvider.AbsoluteHorizontal * 0.5f;
+                    float rightSigned = inputProvider.SignedHorizontal > 0f ? inputProvider.AbsoluteHorizontal * 0.5f : inputProvider.AbsoluteHorizontal;
+
                     return (leftSigned, rightSigned);
                 }
+
                 return (inputProvider.SignedHorizontal, -inputProvider.SignedHorizontal);
             }
             else
@@ -194,8 +195,8 @@ namespace Frontend.Scripts.Components
                 foreach (var rend in trackList)
                 {
                     var material = rend.trackObject.materials[0];
-                    float currentTextureOffset = material.GetTextureOffset("_BaseMap").y;
-                    rend.trackObject.materials[0].SetTextureOffset("_BaseMap", new Vector2(0, currentTextureOffset - (currentOffset / 70f) * sideInput));
+                    float currentTextureOffset = material.GetTextureOffset(TEXTURE_ALBEDO_MAP).y;
+                    rend.trackObject.materials[0].SetTextureOffset(TEXTURE_ALBEDO_MAP, new Vector2(0f, currentTextureOffset - (currentOffset / 70f) * sideInput));
 
                     if (!rend.helperDummies.Any())
                     {
@@ -207,9 +208,7 @@ namespace Frontend.Scripts.Components
                          if (dummy.ForwardDummy != null && dummy.BackwardDummy != null)
                          {
                              float middleY = dummy.HelperDummy.InverseTransformPoint((dummy.ForwardDummyHolder.position + dummy.BackwardDummyHolder.position) * 0.5f).y;
-
-                             Vector3 desiredDummyHolderPos = new Vector3(0, middleY, 0);
-                             dummy.Holder.localPosition = desiredDummyHolderPos;
+                             dummy.Holder.localPosition = new Vector3(0f, middleY, 0f);
                          }
                      }
                 }

@@ -6,7 +6,6 @@ namespace Frontend.Scripts.Components
     public class FormValidator
     {
         private const string LOGIN_REGEX_PATTERN = @"^[a-zA-Z0-9]+$";
-        public delegate void DisplayErrorDelegate(string content);
 
         public (bool, string) IsPasswordValid(string inputPassword)
         {
