@@ -14,7 +14,7 @@ namespace Frontend.Scripts.Components
         
         public void DisplayCurrentReload(float currentReload)
         {
-            reloadTimerText.text = $"{currentReload:F2}";
+            reloadTimerText.text = $"{currentReload:F1}";
         }
 
         public void Initialize()

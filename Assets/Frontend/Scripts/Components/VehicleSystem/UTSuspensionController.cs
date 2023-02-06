@@ -46,9 +46,9 @@ namespace Frontend.Scripts.Components
                 }
                 else
                 {
-                    (float angle, float maxAngle) anglesPair = horizontalAngle > verticalAngle ?
+                    (float angle, float maxAngle) = horizontalAngle > verticalAngle ?
                         (horizontalAngle, CUSTOM_GRAVITY_MAX_HORIZONTAL_ANGLE) : (verticalAngle, CUSTOM_GRAVITY_MAX_HORIZONTAL_ANGLE);
-                    float ratio = (anglesPair.angle / anglesPair.maxAngle);
+                    float ratio = (angle / maxAngle);
 
                     rig.AddForce(Physics.gravity * ratio, ForceMode.Acceleration);
                 }
