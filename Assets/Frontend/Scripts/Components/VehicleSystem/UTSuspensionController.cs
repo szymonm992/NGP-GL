@@ -40,14 +40,14 @@ namespace Frontend.Scripts.Components
             }
             else
             {
-                if (CUSTOM_GRAVITY_MAX_HORIZONTAL_ANGLE >= horizontalAngle && CUSTOM_GRAVITY_MAX_VERTICAL_ANGLE >= verticalAngle)
+                if (CUSTOM_GRAVITY_MAX_HORIZONTAL_ANGLE >= absHorizontalAngle && CUSTOM_GRAVITY_MAX_VERTICAL_ANGLE >= absVerticalAngle)
                 {
                     rig.AddForce(-transform.up * Physics.gravity.magnitude, ForceMode.Acceleration);
                 }
                 else
                 {
-                    (float angle, float maxAngle) = horizontalAngle > verticalAngle ?
-                        (horizontalAngle, CUSTOM_GRAVITY_MAX_HORIZONTAL_ANGLE) : (verticalAngle, CUSTOM_GRAVITY_MAX_HORIZONTAL_ANGLE);
+                    (float angle, float maxAngle) = absHorizontalAngle > absVerticalAngle ?
+                        (absHorizontalAngle, CUSTOM_GRAVITY_MAX_HORIZONTAL_ANGLE) : (absVerticalAngle, CUSTOM_GRAVITY_MAX_VERTICAL_ANGLE);
                     float ratio = (angle / maxAngle);
 
                     rig.AddForce(Physics.gravity * ratio, ForceMode.Acceleration);
