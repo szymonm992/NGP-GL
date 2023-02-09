@@ -28,7 +28,7 @@ namespace Frontend.Scripts.Components
                 return;
             }
 
-            if(allPlayerRenderers.Any())
+            if (allPlayerRenderers.Any())
             {
                 foreach(var renderer in allPlayerRenderers)
                 {
@@ -37,7 +37,7 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             isInsideCameraView = (Vector3.Dot(Camera.main.transform.forward, transform.position - Camera.main.transform.position) >= 0);
         }

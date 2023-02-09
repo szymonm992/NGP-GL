@@ -148,13 +148,11 @@ namespace Frontend.Scripts.Components
         {
             if (tracksList != null && tracksList.Any() && !controller.IsUpsideDown && controller.CurrentSpeed != 0)
             {
-                var leftAndRight = GetTrackSideMultipliers(inputProvider.LastVerticalInput);
+                var (left, right) = GetTrackSideMultipliers(inputProvider.LastVerticalInput);
 
-                float l = leftAndRight.left;
-                float r = leftAndRight.right;
                 float offset;
 
-                if (l == r)
+                if (left == right)
                 {
                    offset = controller.CurrentSpeed * Time.deltaTime;
                 }
@@ -163,8 +161,8 @@ namespace Frontend.Scripts.Components
                     offset = trackTurningRotationSpeed * Time.deltaTime; 
                 }
 
-                RotateTrackTexture(leftTracks, offset, l);
-                RotateTrackTexture(rightTracks, offset, r);
+                RotateTrackTexture(leftTracks, offset, left);
+                RotateTrackTexture(rightTracks, offset, right);
             }
         }
 

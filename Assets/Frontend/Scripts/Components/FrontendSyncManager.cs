@@ -9,6 +9,7 @@ using Sfs2X.Core;
 using Sfs2X.Entities.Data;
 using System;
 using UnityEngine;
+using UnityEngine.Windows;
 using Zenject;
 
 namespace Frontend.Scripts.Components
@@ -30,6 +31,19 @@ namespace Frontend.Scripts.Components
             if (smartFox.IsInitialized && smartFox.Connection.IsConnected)
             {
                 smartFox.Connection.AddEventListener(SFSEvent.EXTENSION_RESPONSE, OnExtensionResponse);
+            }
+        }
+
+        public override void SyncInputs(PlayerInput remotePlayerInputs)//this is responsible for sync of inputs of remote clients (other players in room)
+        {
+            if (connectedPlayers.ContainsKey(remotePlayerInputs.Username))
+            {
+                var player = connectedPlayers[remotePlayerInputs.Username];
+                if (!player.IsLocalPlayer)
+                {
+                    base.SyncInputs(remotePlayerInputs);
+                    connectedPlayers[remotePlayerInputs.Username].InputProvider.SetInput(remotePlayerInputs);
+                }
             }
         }
 
@@ -171,6 +185,22 @@ namespace Frontend.Scripts.Components
             {
                 Debug.Log(" Frontend Syncmanager exception handling response: " + exception.Message
                    + " >>>[AND TRACE IS]>>> " + exception.StackTrace);
+            }
+
+            if (cmd == "userVars")
+            {
+                var remotePlayerInputs = responseData.ToRemotePlayerInput();
+
+                if (remotePlayerInputs.Username != string.Empty)
+                {
+                    Debug.Log("not empty username for: " + responseData.GetUtfString("u")+ "|"+remotePlayerInputs.Username);
+                    SyncInputs(remotePlayerInputs);
+                }
+                else
+                {
+                    Debug.Log("empty username for input like: "+responseData.GetUtfString("rVer"));
+                }
+                
             }
         }
 

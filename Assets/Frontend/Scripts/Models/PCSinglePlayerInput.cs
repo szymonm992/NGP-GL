@@ -4,6 +4,7 @@ using Zenject;
 using GLShared.General.Signals;
 using GLShared.Networking.Components;
 using GLShared.General.Models;
+using GLShared.General.Utilities;
 
 namespace Frontend.Scripts.Models
 {
@@ -12,11 +13,13 @@ namespace Frontend.Scripts.Models
         [Inject] private readonly SignalBus signalBus;
         [Inject] private readonly PlayerEntity playerEntity;
 
+        private PlayerInput currentRemoteInput = null;
+
         private bool lockPlayerInput = true;
 
-        private float horizontal;
-        private float vertical;
-        private float rawVertical;
+        public float horizontal;
+        public float vertical;
+        public float rawVertical;
 
         private bool brake;
         private bool pressedSnipingKey;
@@ -50,7 +53,15 @@ namespace Frontend.Scripts.Models
 
         public void SetInput(PlayerInput input)
         {
+            if (!playerEntity.IsLocalPlayer)
+            {
+                if (currentRemoteInput != null)
+                {
+                    lastVerticalInput = currentRemoteInput.Vertical;
+                }
 
+                currentRemoteInput = lockPlayerInput ? currentRemoteInput.EmptyPlayerInput() : input;
+            }
         }
 
         private float ReturnAbsoluteHorizontal (ref float input)
@@ -85,7 +96,7 @@ namespace Frontend.Scripts.Models
                     pressedShootingKey = Input.GetMouseButton(0);
                     pressedTurretLockKey = Input.GetMouseButton(1);
 
-                    if (vertical != 0)
+                    if (vertical != 0f)
                     {
                         lastVerticalInput = SignedVertical;
                     }
@@ -93,6 +104,19 @@ namespace Frontend.Scripts.Models
                     combinedInput = Mathf.Abs(horizontal) + Mathf.Abs(vertical);
                     playerEntity.Input.UpdateControllerInputs(horizontal, vertical, rawVertical, brake, pressedTurretLockKey, pressedShootingKey);
                 }
+            }
+            else
+            {
+                if (currentRemoteInput == null)
+                {
+                    return;
+                }
+
+                horizontal = currentRemoteInput.Horizontal;
+                vertical = currentRemoteInput.Vertical;
+                rawVertical = currentRemoteInput.RawVertical;
+
+                combinedInput = Mathf.Abs(horizontal) + Mathf.Abs(vertical);
             }
         }
 
