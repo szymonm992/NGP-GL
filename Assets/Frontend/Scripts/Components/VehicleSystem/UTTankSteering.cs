@@ -42,7 +42,7 @@ namespace Frontend.Scripts.Components
 
             currentSteerForce = steerForce;
 
-            if (inputProvider.CombinedInput > 1)
+            if (inputProvider.CombinedInput > 1f)
             {
                 currentSteerForce *= (1.0f / Mathf.Sqrt(2));
             }
@@ -66,26 +66,6 @@ namespace Frontend.Scripts.Components
                             float idlerMultiplier = wheel.IsIdler ? 0.3f : 1f;
                             rig.AddForceAtPosition(invertValue  * currentSteerForce * idlerMultiplier * steerInput * rig.transform.right,
                                 wheel.HitInfo.Point, ForceMode.Force);
-
-                            /*
-                            var slopeFactor = Vector3.Dot(rig.velocity, Physics.gravity.normalized);
-                            Vector3 turnTorque = transform.up * (invertValue * steerInput) * currentSteerForce *  (1f - 0.5f * Mathf.Abs(slopeFactor));
-                            rig.AddTorque(turnTorque, ForceMode.VelocityChange);*/
-
-
-                            /*
-                            float angleFactor = suspensionController.HorizontalAngle > 15f ? (0.8f * suspensionController.HorizontalAngle / 15f) : 0f;
-                            var slopeFactor = Vector3.Dot(transform.up, Physics.gravity.normalized);
-                            float turnSpeedModified = currentSteerForce * (1f - Mathf.Abs(slopeFactor * angleFactor));
-                            Vector3 turnTorque = transform.up * (invertValue * steerInput) * turnSpeedModified;
-                            rig.AddTorque(turnTorque, ForceMode.VelocityChange);
-                            return;*/
-
-                            /*
-                            float slopeFactor = Vector3.Dot(transform.up, Physics.gravity.normalized);
-                            float torque = ( steerInput) * currentSteerForce * slopeFactor * Time.fixedDeltaTime;
-                            rig.AddTorque(transform.up * torque, ForceMode.VelocityChange);
-                            return;*/
                         }
                     }
                 }
