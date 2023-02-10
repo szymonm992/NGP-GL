@@ -190,17 +190,7 @@ namespace Frontend.Scripts.Components
             if (cmd == "userVars")
             {
                 var remotePlayerInputs = responseData.ToRemotePlayerInput();
-
-                if (remotePlayerInputs.Username != string.Empty)
-                {
-                    Debug.Log("not empty username for: " + responseData.GetUtfString("u")+ "|"+remotePlayerInputs.Username);
-                    SyncInputs(remotePlayerInputs);
-                }
-                else
-                {
-                    Debug.Log("empty username for input like: "+responseData.GetUtfString("rVer"));
-                }
-                
+                SyncInputs(remotePlayerInputs);
             }
         }
 
