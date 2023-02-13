@@ -307,6 +307,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31962fa81fabe514c825d8d1edf8b018, type: 3}
+--- !u!218 &1500130418 stripped
+Terrain:
+  m_CorrespondingSourceObject: {fileID: 7457661331533933799, guid: 31962fa81fabe514c825d8d1edf8b018, type: 3}
+  m_PrefabInstance: {fileID: 1500130417}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1989105842
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,6 +444,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2261507247223844267, guid: baf6eab55abbc714b99dd4622334d711, type: 3}
+      propertyPath: mainTerrain
+      value: 
+      objectReference: {fileID: 1500130418}
     - target: {fileID: 6055839828904960217, guid: baf6eab55abbc714b99dd4622334d711, type: 3}
       propertyPath: m_Name
       value: BattleSceneInstaller

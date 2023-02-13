@@ -12,6 +12,7 @@ namespace Frontend.Scripts
     public class BattleSceneInstaller : MonoInstaller
     {
         [SerializeField] private RandomBattleParameters randomBattleParameters;
+        [SerializeField] private Terrain mainTerrain;
 
         public override void InstallBindings()
         {
@@ -36,6 +37,7 @@ namespace Frontend.Scripts
             Container.Bind<ReloadMeter>().FromComponentInHierarchy().AsSingle();
 
             Container.BindInterfacesAndSelfTo<GroundManager>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<Terrain>().WithId("mainTerrain").FromInstance(mainTerrain).AsSingle();
         }
     }
 }

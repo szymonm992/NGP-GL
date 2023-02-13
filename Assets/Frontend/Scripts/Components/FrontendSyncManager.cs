@@ -39,6 +39,7 @@ namespace Frontend.Scripts.Components
             if (connectedPlayers.ContainsKey(remotePlayerInputs.Username))
             {
                 var player = connectedPlayers[remotePlayerInputs.Username];
+
                 if (!player.IsLocalPlayer)
                 {
                     base.SyncInputs(remotePlayerInputs);
@@ -180,17 +181,16 @@ namespace Frontend.Scripts.Components
                         CurrentSecondsLeft = secondsLeft,
                     });
                 }
+                if (cmd == "userVars")
+                {
+                    var remotePlayerInputs = responseData.ToRemotePlayerInput();
+                    SyncInputs(remotePlayerInputs);
+                }
             }
             catch (Exception exception)
             {
                 Debug.Log(" Frontend Syncmanager exception handling response: " + exception.Message
                    + " >>>[AND TRACE IS]>>> " + exception.StackTrace);
-            }
-
-            if (cmd == "userVars")
-            {
-                var remotePlayerInputs = responseData.ToRemotePlayerInput();
-                SyncInputs(remotePlayerInputs);
             }
         }
 

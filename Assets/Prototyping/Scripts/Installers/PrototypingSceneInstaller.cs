@@ -14,12 +14,12 @@ namespace Prototyping.Scripts.Installers
     {
         [SerializeField] private RandomBattleParameters randomBattleParameters;
         [SerializeField] private VehiclesDatabase vehiclesDatabase;
-        [SerializeField] private Terrain terrain;
+        [SerializeField] private Terrain mainTerrain;
 
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<TerrainChecker>().FromNew().AsSingle();
-            Container.Bind<Terrain>().WithId("mainTerrain").FromInstance(terrain).AsSingle();
+            Container.Bind<Terrain>().WithId("mainTerrain").FromInstance(mainTerrain).AsSingle();
 
             Container.BindInterfacesAndSelfTo<PrototypingLevelManager>().FromComponentInHierarchy().AsSingle();
             Container.BindInterfacesAndSelfTo<ReticleController>().FromComponentInHierarchy().AsSingle();

@@ -1,10 +1,8 @@
-using Frontend.Scripts.Components.Temporary;
+using Frontend.Scripts.Enums;
 using Frontend.Scripts.Signals;
 using GLShared.General.Interfaces;
 using GLShared.General.ScriptableObjects;
 using GLShared.General.Signals;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -12,6 +10,8 @@ namespace Frontend.Scripts.Components
 {
     public class ReticleController : MonoBehaviour, IInitializable
     {
+        private const float RETICLE_LERP_SPEED = 20f;
+
         [Inject] private readonly SignalBus signalBus;
         [Inject] private readonly FrontendCameraController cameraController;
         [Inject] private readonly GameParameters gameParameters;
@@ -68,8 +68,8 @@ namespace Frontend.Scripts.Components
             {
                 gunReticle.gameObject.ToggleGameObjectIfActive(true);
 
-                Vector2 screenPosition = Camera.main.WorldToScreenPoint(gunPosition);
-                gunReticle.position = Vector2.Lerp(gunReticle.position, screenPosition, Time.deltaTime * 20f);
+                var screenPosition = Camera.main.WorldToScreenPoint(gunPosition);
+                gunReticle.position = Vector2.Lerp(gunReticle.position, screenPosition, Time.deltaTime * RETICLE_LERP_SPEED);
             }
             else
             {
@@ -79,7 +79,7 @@ namespace Frontend.Scripts.Components
 
         private void OnCameraModeChanged(BattleSignals.CameraSignals.OnCameraModeChanged OnCameraModeChanged)
         {
-            var isSniping = OnCameraModeChanged.Mode == Enums.CameraMode.Sniping;
+            var isSniping = OnCameraModeChanged.Mode == CameraMode.Sniping;
             float crosshairOffsetY = isSniping ? 0 : cameraController.ReticlePixelsOffset;
             middleScreenCrosshair.anchoredPosition = new Vector2(middleScreenCrosshair.anchoredPosition.x, crosshairOffsetY);
         }
