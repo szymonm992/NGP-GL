@@ -1,13 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Frontend.Scripts.Models;
 using GLShared.General.Enums;
 using System.Linq;
 using Zenject;
-using Sfs2X.Bitswarm;
 using GLShared.General.Models;
-using GLShared.General.ScriptableObjects;
+using GLShared.General.Components;
 
 namespace Frontend.Scripts.Components
 {
@@ -54,7 +52,6 @@ namespace Frontend.Scripts.Components
         private const float SIDEWAYS_ROTATION_MULTIPLIER = 7f;
         private const string TEXTURE_ALBEDO_MAP = "_BaseMap";
 
-        [Inject] private readonly UTTankSteering tankSteering;
         [Inject] private readonly VehicleStatsBase vehicleStats;
 
         [SerializeField] private float idlersRotatingSpeedMultiplier = 3f;
@@ -72,7 +69,7 @@ namespace Frontend.Scripts.Components
             {
                 leftTracks = tracksList.Where(track => track.trackAxis == DriveAxisSite.Left);
                 rightTracks = tracksList.Where(track => track.trackAxis == DriveAxisSite.Right);
-                trackTurningRotationSpeed = (tankSteering.SteerForce / vehicleStats.Mass) * SIDEWAYS_ROTATION_MULTIPLIER;
+                trackTurningRotationSpeed = (vehicleStats.SteerForce / vehicleStats.Mass) * SIDEWAYS_ROTATION_MULTIPLIER;
 
                 foreach(var track in tracksList)//additional dummies initialization (inbewtween bones)
                 {
