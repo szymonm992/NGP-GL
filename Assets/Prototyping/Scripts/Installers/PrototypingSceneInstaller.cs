@@ -14,9 +14,13 @@ namespace Prototyping.Scripts.Installers
     {
         [SerializeField] private RandomBattleParameters randomBattleParameters;
         [SerializeField] private VehiclesDatabase vehiclesDatabase;
+        [SerializeField] private Terrain terrain;
 
         public override void InstallBindings()
         {
+            Container.BindInterfacesAndSelfTo<TerrainChecker>().FromNew().AsSingle();
+            Container.Bind<Terrain>().WithId("mainTerrain").FromInstance(terrain).AsSingle();
+
             Container.BindInterfacesAndSelfTo<PrototypingLevelManager>().FromComponentInHierarchy().AsSingle();
             Container.BindInterfacesAndSelfTo<ReticleController>().FromComponentInHierarchy().AsSingle();
 
@@ -30,6 +34,7 @@ namespace Prototyping.Scripts.Installers
             Container.BindInterfacesAndSelfTo<IVehiclesDatabase>().FromInstance(vehiclesDatabase).AsCached();
             Container.BindInterfacesAndSelfTo<ISyncManager>().FromComponentInHierarchy().AsSingle();
 
+            Container.BindInterfacesAndSelfTo<GroundManager>().FromComponentInHierarchy().AsSingle();
         }
     }
 }

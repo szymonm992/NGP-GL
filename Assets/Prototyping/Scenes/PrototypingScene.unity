@@ -617,6 +617,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7457661331533933796, guid: 31962fa81fabe514c825d8d1edf8b018, type: 3}
+      propertyPath: m_TerrainData
+      value: 
+      objectReference: {fileID: 15600000, guid: 68bd574d72bc2bd48838441fc60d707e, type: 2}
     - target: {fileID: 7457661331533933797, guid: 31962fa81fabe514c825d8d1edf8b018, type: 3}
       propertyPath: m_Name
       value: Terrain
@@ -675,6 +679,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31962fa81fabe514c825d8d1edf8b018, type: 3}
+--- !u!218 &1161619495 stripped
+Terrain:
+  m_CorrespondingSourceObject: {fileID: 7457661331533933799, guid: 31962fa81fabe514c825d8d1edf8b018, type: 3}
+  m_PrefabInstance: {fileID: 1161619494}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1426948723
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -854,6 +863,7 @@ GameObject:
   - component: {fileID: 1907037368}
   - component: {fileID: 1907037367}
   - component: {fileID: 1907037366}
+  - component: {fileID: 1907037369}
   m_Layer: 0
   m_Name: PrototypingSceneInstaller
   m_TagString: Untagged
@@ -875,6 +885,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomBattleParameters: {fileID: 11400000, guid: 0c8de38b0eebba54e9ad84ceccb4f79a, type: 2}
   vehiclesDatabase: {fileID: 11400000, guid: 2ddb148654856834fac6fe24c2327d18, type: 2}
+  terrain: {fileID: 1161619495}
 --- !u!114 &1907037367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -926,6 +937,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1907037369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907037365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4592adb1d4cb2124dbc5935ccb924c3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundFrictionList:
+  - layers:
+    - {fileID: 8574412962073106934, guid: bfbe32720942a11459a617413b839477, type: 2}
+    angleFrictionThresholds:
+    - friction: 1
+      minimumAngle: 0
+    - friction: 0
+      minimumAngle: 45
+  - layers:
+    - {fileID: 8574412962073106934, guid: 11ba2941d61acf3479e7c6bd5151e144, type: 2}
+    angleFrictionThresholds:
+    - friction: 0.3
+      minimumAngle: 0
+    - friction: 0
+      minimumAngle: 45
+  - layers:
+    - {fileID: 8574412962073106934, guid: 6dd62c7d4a8208c4585997cccabaff77, type: 2}
+    angleFrictionThresholds:
+    - friction: 0
+      minimumAngle: 0
 --- !u!1 &1989105842
 GameObject:
   m_ObjectHideFlags: 0

@@ -34,6 +34,8 @@ namespace Frontend.Scripts
 
             Container.Bind<Speedometer>().FromComponentInHierarchy().AsSingle();
             Container.Bind<ReloadMeter>().FromComponentInHierarchy().AsSingle();
+
+            Container.BindInterfacesAndSelfTo<GroundManager>().FromComponentInHierarchy().AsSingle();
         }
     }
 }
