@@ -43,7 +43,7 @@ namespace Frontend.Scripts.Components
                 return;
             }
              
-            currentSteerForce = suspensionController.HorizontalAngle < UTVehicleController.CUSTOM_GRAVITY_MAX_HORIZONTAL_ANGLE ? steerForce : steerForce * OVERREACHED_MAX_ANGLE_TURNING_MULTIPLIER;
+            currentSteerForce = GetSteerForceMultiplier();
 
             if (inputProvider.CombinedInput > 1f)
             {
@@ -74,6 +74,18 @@ namespace Frontend.Scripts.Components
                     }
                 }
             }
+        }
+
+        private float GetSteerForceMultiplier()
+        {
+            var currentPair = suspensionController.CurrentFrictionPair;
+
+            if (suspensionController.HorizontalAngle >= currentPair.HorizontalAnglesRange.Max)
+            {
+                return 0.1f;
+            }
+
+            return currentPair.IsDefaultLayer ? steerForce : steerForce * currentPair.SteeringMultiplier;
         }
     }
 }

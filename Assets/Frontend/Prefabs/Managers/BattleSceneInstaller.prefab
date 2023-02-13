@@ -107,3 +107,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4592adb1d4cb2124dbc5935ccb924c3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundFrictionList:
+  - layers:
+    - {fileID: 8574412962073106934, guid: bfbe32720942a11459a617413b839477, type: 2}
+    isDefaultLayer: 1
+    friction: 1
+    steeringMultiplier: 1
+    anglesRange:
+      min: 0
+      max: 50
+  - layers:
+    - {fileID: 8574412962073106934, guid: 11ba2941d61acf3479e7c6bd5151e144, type: 2}
+    isDefaultLayer: 0
+    friction: 0.25
+    steeringMultiplier: 0.35
+    anglesRange:
+      min: 0
+      max: 40
+  - layers:
+    - {fileID: 8574412962073106934, guid: 6dd62c7d4a8208c4585997cccabaff77, type: 2}
+    isDefaultLayer: 0
+    friction: 0
+    steeringMultiplier: 0.25
+    anglesRange:
+      min: 0
+      max: 40

@@ -952,23 +952,28 @@ MonoBehaviour:
   groundFrictionList:
   - layers:
     - {fileID: 8574412962073106934, guid: bfbe32720942a11459a617413b839477, type: 2}
-    angleFrictionThresholds:
-    - friction: 1
-      minimumAngle: 0
-    - friction: 0
-      minimumAngle: 45
+    isDefaultLayer: 1
+    friction: 1
+    steeringMultiplier: 1
+    anglesRange:
+      min: 0
+      max: 50
   - layers:
     - {fileID: 8574412962073106934, guid: 11ba2941d61acf3479e7c6bd5151e144, type: 2}
-    angleFrictionThresholds:
-    - friction: 0.3
-      minimumAngle: 0
-    - friction: 0
-      minimumAngle: 45
+    isDefaultLayer: 0
+    friction: 0.25
+    steeringMultiplier: 0.35
+    anglesRange:
+      min: 0
+      max: 50
   - layers:
     - {fileID: 8574412962073106934, guid: 6dd62c7d4a8208c4585997cccabaff77, type: 2}
-    angleFrictionThresholds:
-    - friction: 0
-      minimumAngle: 0
+    isDefaultLayer: 0
+    friction: 0
+    steeringMultiplier: 0.25
+    anglesRange:
+      min: 0
+      max: 40
 --- !u!1 &1989105842
 GameObject:
   m_ObjectHideFlags: 0
