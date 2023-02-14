@@ -49,7 +49,6 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        private const float SIDEWAYS_ROTATION_MULTIPLIER = 7f;
         private const string TEXTURE_ALBEDO_MAP = "_BaseMap";
 
         [Inject] private readonly VehicleStatsBase vehicleStats;
@@ -59,7 +58,6 @@ namespace Frontend.Scripts.Components
 
         private IEnumerable<TrackProperties> leftTracks;
         private IEnumerable<TrackProperties> rightTracks;
-        private float trackTurningRotationSpeed;
 
         public override void Initialize()
         {
@@ -69,7 +67,6 @@ namespace Frontend.Scripts.Components
             {
                 leftTracks = tracksList.Where(track => track.trackAxis == DriveAxisSite.Left);
                 rightTracks = tracksList.Where(track => track.trackAxis == DriveAxisSite.Right);
-                trackTurningRotationSpeed = (vehicleStats.SteerForce / vehicleStats.Mass) * SIDEWAYS_ROTATION_MULTIPLIER;
 
                 foreach(var track in tracksList)//additional dummies initialization (inbewtween bones)
                 {
@@ -89,6 +86,7 @@ namespace Frontend.Scripts.Components
             if (vehicleModelEffects != null && vehicleModelEffects.IsInsideCameraView)
             {
                 base.FixedUpdate();
+
                 TrackMovement();
             }
         }
@@ -108,7 +106,7 @@ namespace Frontend.Scripts.Components
             {
                 float speed = controller.CurrentSpeed;
 
-                if (rawHorizontal != 0 && (int)pair.Axis == rawHorizontal)//moving fwd/bwd and turning in the same time
+                if (rawHorizontal != 0f && (int)pair.Axis == rawHorizontal)//moving fwd/bwd and turning in the same time
                 {
                     speed *= 0.6f; //whenever we go forward we want one side of wheels to move slower
                 }
@@ -155,14 +153,14 @@ namespace Frontend.Scripts.Components
                 }
                 else
                 { 
-                    offset = trackTurningRotationSpeed * Time.deltaTime; 
+                    offset = controller.CurrentTurningSpeed * Time.deltaTime; 
                 }
 
                 RotateTrackTexture(leftTracks, offset, left);
                 RotateTrackTexture(rightTracks, offset, right);
             }
         }
-
+       
         private (float left, float right) GetTrackSideMultipliers(float lastSignedVertical)
         {
             if (inputProvider.AbsoluteHorizontal > 0)

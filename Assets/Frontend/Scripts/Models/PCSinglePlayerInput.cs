@@ -76,7 +76,7 @@ namespace Frontend.Scripts.Models
 
         private float ReturnSignedInput(ref float input)
         {
-            return input != 0 ? Mathf.Sign(input) : 0f;
+            return input != 0f ? Mathf.Sign(input) : 0f;
         }
 
         private void Update()
