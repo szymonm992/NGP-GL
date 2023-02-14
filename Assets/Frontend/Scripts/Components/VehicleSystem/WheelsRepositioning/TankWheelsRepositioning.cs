@@ -58,6 +58,7 @@ namespace Frontend.Scripts.Components
 
         private IEnumerable<TrackProperties> leftTracks;
         private IEnumerable<TrackProperties> rightTracks;
+        private float lastTimeRotating = 0f;
 
         public override void Initialize()
         {
@@ -104,11 +105,12 @@ namespace Frontend.Scripts.Components
             }
             else
             {
-                float speed = controller.CurrentSpeed;
+                //float speed = inputProvider.CombinedInput > 0f ? controller.CurrentSpeed : lastTimeRotating > 0f ? (Time.time - lastTimeRotating) >= 1f ? 0f : controller.CurrentSpeed : controller.CurrentSpeed;
+                float speed = GetWheelRotationMultiplier();
 
                 if (rawHorizontal != 0f && (int)pair.Axis == rawHorizontal)//moving fwd/bwd and turning in the same time
                 {
-                    speed *= 0.6f; //whenever we go forward we want one side of wheels to move slower
+                    speed *= 0.5f; //whenever we go forward we want one side of wheels to move slower
                 }
                 
                 pair.RotationalPartOfTire.RotateAround(tireTransform.position, rotateAroundAxis, verticalDir  * (speed * idlerMultiplier * 25f) * Time.deltaTime);
@@ -161,10 +163,24 @@ namespace Frontend.Scripts.Components
             }
         }
        
+        private float GetWheelRotationMultiplier()
+        {
+            if (inputProvider.CombinedInput == 0f)
+            {
+                if (lastTimeRotating > 0f)
+                {
+                    return (Time.time - lastTimeRotating >= 1f ? 0f : controller.CurrentSpeed);
+                }
+
+            }
+            return controller.CurrentSpeed;
+        }
         private (float left, float right) GetTrackSideMultipliers(float lastSignedVertical)
         {
             if (inputProvider.AbsoluteHorizontal > 0)
             {
+                lastTimeRotating = 0f;
+
                 if (inputProvider.AbsoluteVertical > 0)
                 {
                     float leftSigned = inputProvider.SignedHorizontal > 0f ? inputProvider.AbsoluteHorizontal : inputProvider.AbsoluteHorizontal * 0.5f;
@@ -177,6 +193,26 @@ namespace Frontend.Scripts.Components
             }
             else
             {
+                if (inputProvider.AbsoluteVertical > 0)
+                {
+                    lastTimeRotating = 0f;
+                }
+                else
+                {
+                    if (lastTimeRotating == 0f)
+                    {
+                        lastTimeRotating = Time.time;
+
+                        return (lastSignedVertical, lastSignedVertical);
+                    }
+                    else
+                    {
+                        if (Time.time - lastTimeRotating >= 1f)
+                        {
+                            return (0f, 0f);
+                        }
+                    }
+                }
                 return (lastSignedVertical, lastSignedVertical);
             }
         }
