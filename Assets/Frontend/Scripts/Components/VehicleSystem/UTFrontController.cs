@@ -40,6 +40,7 @@ namespace Frontend.Scripts.Components
             if (!isUpsideDown)
             {
                 currentSpeed = playerEntity.EntityVelocity;
+                currentTurningSpeed = playerEntity.TurnSpeed;
             }
         }
 
