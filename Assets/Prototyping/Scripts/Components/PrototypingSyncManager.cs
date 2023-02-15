@@ -1,3 +1,4 @@
+using GLShared.General.Enums;
 using GLShared.General.Interfaces;
 using GLShared.General.Models;
 using GLShared.Networking.Components;
@@ -36,7 +37,7 @@ namespace Prototyping.Scripts.Components
         {
         }
 
-        public void TryCreatePlayer(string _, Vector3 spawnPosition, Vector3 spawnEulerAngles)
+        public void TryCreatePlayer(string _, Team team, Vector3 spawnPosition, Vector3 spawnEulerAngles)
         {
         }
 

@@ -15,6 +15,9 @@ namespace Frontend.Scripts.Extensions
             return new PlayerSpawnData()
             {
                 Username = data.GetUtfString("username"),
+
+                Team = data.GetUtfString("team"),
+
                 SpawnPosition = new Vector3(data.GetFloat("spawnPositionX"),data.GetFloat("spawnPositionY"),
                 data.GetFloat("spawnPositionZ")),
 

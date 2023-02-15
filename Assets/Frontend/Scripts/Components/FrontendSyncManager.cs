@@ -1,5 +1,6 @@
 using Frontend.Scripts.Extensions;
 using Frontend.Scripts.Signals;
+using GLShared.General.Enums;
 using GLShared.General.Models;
 using GLShared.General.Signals;
 using GLShared.Networking.Components;
@@ -48,7 +49,7 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        protected override void CreatePlayer(string username, Vector3 spawnPosition, Vector3 spawnEulerAngles, out PlayerProperties playerProperties)
+        protected override void CreatePlayer(string username, Team team, Vector3 spawnPosition, Vector3 spawnEulerAngles, out PlayerProperties playerProperties)
         {
             var user = smartFox.Connection.UserManager.GetUserByName(username);
 
@@ -59,7 +60,7 @@ namespace Frontend.Scripts.Components
                 return;
             }
 
-            base.CreatePlayer(username, spawnPosition, spawnEulerAngles, out playerProperties);
+            base.CreatePlayer(username, team, spawnPosition, spawnEulerAngles, out playerProperties);
 
             if (user.IsItMe)
             {
@@ -78,7 +79,7 @@ namespace Frontend.Scripts.Components
             });
         }
 
-        protected override PlayerProperties GetPlayerInitData(string username, string vehicleName,
+        protected override PlayerProperties GetPlayerInitData(string username, Team team, string vehicleName,
             Vector3 spawnPosition, Vector3 spawnEulerAngles)
         {
             var vehicleData = vehicleDatabase.GetVehicleInfo(vehicleName);
@@ -94,6 +95,7 @@ namespace Frontend.Scripts.Components
                     SpawnPosition = spawnPosition,
                     SpawnRotation = Quaternion.Euler(spawnEulerAngles.x, spawnEulerAngles.y, spawnEulerAngles.z),
                     Username = username,
+                    Team = team.ToString(),
                 };
             }
 
@@ -148,7 +150,7 @@ namespace Frontend.Scripts.Components
                 if (cmd == "playerSpawned")
                 {
                     var spawnData = responseData.ToPlayerSpawnData();
-                    TryCreatePlayer(spawnData.Username, spawnData.SpawnPosition, spawnData.SpawnEulerAngles);
+                    TryCreatePlayer(spawnData.Username, Enum.Parse<Team>(spawnData.Team), spawnData.SpawnPosition, spawnData.SpawnEulerAngles);
                 }
                 if (cmd == "shellSpawned")
                 {
