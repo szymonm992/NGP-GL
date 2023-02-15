@@ -19,6 +19,11 @@ namespace Frontend.Scripts.Components
         private float steerInput;
         private float currentTurnRadius;
 
+        public void Initialize()
+        {
+
+        }
+
         public void SetSteeringInput(float input)
         {
             steerInput = input;
