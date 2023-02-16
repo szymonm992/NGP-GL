@@ -10,7 +10,6 @@ using Sfs2X.Core;
 using Sfs2X.Entities.Data;
 using System;
 using UnityEngine;
-using UnityEngine.Windows;
 using Zenject;
 
 namespace Frontend.Scripts.Components
@@ -44,6 +43,7 @@ namespace Frontend.Scripts.Components
                 if (!player.IsLocalPlayer)
                 {
                     base.SyncInputs(remotePlayerInputs);
+
                     connectedPlayers[remotePlayerInputs.Username].InputProvider.SetInput(remotePlayerInputs);
                 }
             }
