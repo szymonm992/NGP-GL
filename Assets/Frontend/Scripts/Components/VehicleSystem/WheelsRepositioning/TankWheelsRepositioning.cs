@@ -143,7 +143,7 @@ namespace Frontend.Scripts.Components
 
         private void TrackMovement()
         {
-            if (tracksList != null && tracksList.Any() && !controller.IsUpsideDown && controller.CurrentSpeed != 0)
+            if (tracksList != null && tracksList.Any() && !controller.IsUpsideDown && (controller.CurrentSpeed != 0 || controller.CurrentTurningSpeed != 0))
             {
                 var (left, right) = GetTrackSideMultipliers(inputProvider.LastVerticalInput);
 
@@ -151,7 +151,7 @@ namespace Frontend.Scripts.Components
 
                 if (left == right)
                 {
-                   offset = controller.CurrentSpeed * Time.deltaTime;
+                    offset = controller.CurrentSpeed * Time.deltaTime;
                 }
                 else
                 { 
