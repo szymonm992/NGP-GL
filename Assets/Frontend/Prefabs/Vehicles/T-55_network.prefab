@@ -11952,45 +11952,45 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 80000
+      value: 85000
       inSlope: -985.7143
-      outSlope: -2000
+      outSlope: -3933.3333
       tangentMode: 65
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 10
-      value: 60000
-      inSlope: -2000
-      outSlope: -6800
-      tangentMode: 69
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
       time: 15
       value: 26000
-      inSlope: -6800
-      outSlope: -1100
+      inSlope: -3933.3333
+      outSlope: -1000
       tangentMode: 69
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 25
-      value: 15000
-      inSlope: -1100
-      outSlope: -166.66667
+      value: 16000
+      inSlope: -1000
+      outSlope: 0
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 40
+      value: 16000
+      inSlope: 0
+      outSlope: -200
       tangentMode: 69
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 55
-      value: 10000
-      inSlope: -166.66667
-      outSlope: -320
+      value: 13000
+      inSlope: -200
+      outSlope: -440
       tangentMode: 69
       weightedMode: 0
       inWeight: 0.33333334
@@ -11998,7 +11998,7 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 80
       value: 2000
-      inSlope: -320
+      inSlope: -440
       outSlope: -985.7143
       tangentMode: 5
       weightedMode: 0
@@ -12014,16 +12014,16 @@ MonoBehaviour:
       time: 0
       value: 80000
       inSlope: -985.7143
-      outSlope: -3200
+      outSlope: -3500
       tangentMode: 65
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 10
-      value: 48000
-      inSlope: -3200
-      outSlope: -4800
+      value: 45000
+      inSlope: -3500
+      outSlope: -4200
       tangentMode: 69
       weightedMode: 0
       inWeight: 0.33333334
@@ -12031,7 +12031,7 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 15
       value: 24000
-      inSlope: -4800
+      inSlope: -4200
       outSlope: -900
       tangentMode: 69
       weightedMode: 0
@@ -12107,7 +12107,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48f3bcd600911d345b35cfce92f1cb4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  steerForce: 180000
 --- !u!114 &8992989569556248829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12124,6 +12123,7 @@ MonoBehaviour:
   mass: 36500
   drag: 0.2
   angularDrag: 0.5
+  steerForce: 185000
   turretRotationSpeed: 48
   gunRotationSpeed: 33
   gunDepression: 5
