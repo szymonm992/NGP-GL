@@ -63,6 +63,7 @@ namespace Frontend.Scripts.Components
         private void CalculateAndApplyAntiroll()
         {
             float antiRollFinalForce = (leftAntirolled.CompressionRate - rightAntirolled.CompressionRate) * antiRollForce;
+
             if (leftAntirolled.IsGrounded)
             {
                 rig.AddForceAtPosition(leftAntirolled.Transform.up * antiRollFinalForce,
@@ -84,13 +85,13 @@ namespace Frontend.Scripts.Components
             if (controller.CurrentSpeed != 0)
             {
                 float dir = -inputProvider.LastVerticalInput;
-                Vector3 rotateAroundAxis = -tireTransform.right;
+                var rotateAroundAxis = -tireTransform.right;
                 wheelReposition.RotateWheel(dir, rotateAroundAxis, tireTransform, pair);
             }
             
             bool isNotfullyCompressed = pair.Wheel.CompressionRate < 1f;
-            Vector3 tireWorldPos = isNotfullyCompressed ? pair.Wheel.TireWorldPosition : pair.Wheel.UpperConstraintPoint;
-            Vector3 tireDesiredPosition = tireWorldPos + (pair.Wheel.Transform.up * tiresContactOffset);
+            var tireWorldPos = isNotfullyCompressed ? pair.Wheel.TireWorldPosition : pair.Wheel.UpperConstraintPoint;
+            var tireDesiredPosition = tireWorldPos + (pair.Wheel.Transform.up * tiresContactOffset);
 
             float wheelRepositionSpeedMultiplier = isNotfullyCompressed ? wheelReposition.RepositionSpeed : 0.1f;
             float movementSpeed = (pair.Wheel.IsGrounded ? wheelRepositionSpeedMultiplier : 5f) * Time.deltaTime;
@@ -106,9 +107,5 @@ namespace Frontend.Scripts.Components
 
             wheelReposition.DummiesMovement(tireTransform, pair, tireDesiredPosition, movementSpeed);
         }
-
-
-
-
     }
 }

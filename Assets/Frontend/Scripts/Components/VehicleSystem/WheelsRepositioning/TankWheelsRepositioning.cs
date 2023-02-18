@@ -3,9 +3,6 @@ using UnityEngine;
 using Frontend.Scripts.Models;
 using GLShared.General.Enums;
 using System.Linq;
-using Zenject;
-using GLShared.General.Models;
-using GLShared.General.Components;
 
 namespace Frontend.Scripts.Components
 {
@@ -50,8 +47,7 @@ namespace Frontend.Scripts.Components
         }
 
         private const string TEXTURE_ALBEDO_MAP = "_BaseMap";
-
-        [Inject] private readonly VehicleStatsBase vehicleStats;
+        private const float STATIONARY_TRACKS_LOCK_TIME = 1f;
 
         [SerializeField] private float idlersRotatingSpeedMultiplier = 3f;
         [SerializeField] private TrackProperties[] tracksList;
@@ -169,19 +165,20 @@ namespace Frontend.Scripts.Components
             {
                 if (lastTimeRotating > 0f)
                 {
-                    return (Time.time - lastTimeRotating >= 1f ? 0f : controller.CurrentSpeed);
+                    return (Time.time - lastTimeRotating >= STATIONARY_TRACKS_LOCK_TIME ? 0f : controller.CurrentSpeed);
                 }
-
             }
+
             return controller.CurrentSpeed;
         }
+
         private (float left, float right) GetTrackSideMultipliers(float lastSignedVertical)
         {
-            if (inputProvider.AbsoluteHorizontal > 0)
+            if (inputProvider.AbsoluteHorizontal > 0f)
             {
                 lastTimeRotating = 0f;
 
-                if (inputProvider.AbsoluteVertical > 0)
+                if (inputProvider.AbsoluteVertical > 0f)
                 {
                     float leftSigned = inputProvider.SignedHorizontal > 0f ? inputProvider.AbsoluteHorizontal : inputProvider.AbsoluteHorizontal * 0.5f;
                     float rightSigned = inputProvider.SignedHorizontal > 0f ? inputProvider.AbsoluteHorizontal * 0.5f : inputProvider.AbsoluteHorizontal;
@@ -213,6 +210,7 @@ namespace Frontend.Scripts.Components
                         }
                     }
                 }
+
                 return (lastSignedVertical, lastSignedVertical);
             }
         }
@@ -233,13 +231,13 @@ namespace Frontend.Scripts.Components
                     }
 
                     foreach (var dummy in rend.helperDummies)
-                     {
+                    {
                          if (dummy.ForwardDummy != null && dummy.BackwardDummy != null)
                          {
                              float middleY = dummy.HelperDummy.InverseTransformPoint((dummy.ForwardDummyHolder.position + dummy.BackwardDummyHolder.position) * 0.5f).y;
                              dummy.Holder.localPosition = new Vector3(0f, middleY, 0f);
                          }
-                     }
+                    }
                 }
             }
         }
