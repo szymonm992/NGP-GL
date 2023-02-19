@@ -1,4 +1,5 @@
 using GLShared.General.Signals;
+using GLShared.Networking.Components;
 using GLShared.Networking.Interfaces;
 using GLShared.Networking.Models;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace Frontend.Scripts.Components
         [Inject] private readonly SignalBus signalBus;
         [Inject] private readonly TimeManager timeManager;
         [Inject] private readonly Speedometer speedometer;
+        [Inject] private readonly PlayerEntity playerEntity;
         [Inject(Optional = true)] private readonly FrontTurretController turretController;
 
         private double interpolationBackTime = 200;
@@ -82,9 +84,14 @@ namespace Frontend.Scripts.Components
                             t = (float)((interpolationTime - lhs.TimeStamp) / length);
                         }
 
-                        speedometer.SetSpeedometr(rhs.CurrentSpeed);
                         transform.SetPositionAndRotation(Vector3.Lerp(lhs.Position, rhs.Position, t), Quaternion.Slerp(lhs.Rotation, rhs.Rotation, t));
                         turretController.SetTurretAndGunRotation(Mathf.LerpAngle(lhs.TurretAngleY, rhs.TurretAngleY, t), Mathf.LerpAngle(lhs.GunAngleX, rhs.GunAngleX, t));
+
+                        if (playerEntity.IsLocalPlayer)
+                        {
+                            speedometer.SetSpeedometr(rhs.CurrentSpeed);
+                        }
+
                         return;
                     }
                 }
@@ -93,7 +100,11 @@ namespace Frontend.Scripts.Components
             {
                 transform.SetPositionAndRotation(bufferedStates[0].Position, bufferedStates[0].Rotation);
                 turretController.SetTurretAndGunRotation(bufferedStates[0].TurretAngleY, bufferedStates[0].GunAngleX);
-                speedometer.SetSpeedometr(bufferedStates[0].CurrentSpeed);
+
+                if (playerEntity.IsLocalPlayer)
+                {
+                    speedometer.SetSpeedometr(bufferedStates[0].CurrentSpeed);
+                }
             }
         }
 
