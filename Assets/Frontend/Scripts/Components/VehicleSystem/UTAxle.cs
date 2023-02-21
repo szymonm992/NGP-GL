@@ -80,6 +80,7 @@ namespace Frontend.Scripts.Components
         protected override void RepositionTireModel(UTAxlePair pair)
         {
             base.RepositionTireModel(pair);
+
             var tireTransform = pair.VisualPartOfTire;
 
             if (controller.CurrentSpeed != 0)

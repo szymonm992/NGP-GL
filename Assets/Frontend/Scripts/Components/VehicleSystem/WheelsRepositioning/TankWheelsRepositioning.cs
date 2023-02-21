@@ -48,6 +48,7 @@ namespace Frontend.Scripts.Components
 
         private const string TEXTURE_ALBEDO_MAP = "_BaseMap";
         private const float STATIONARY_TRACKS_LOCK_TIME = 1f;
+        private const float TRACKS_ROTATION_MULTIPLIER = 3000f;
 
         [SerializeField] private float idlersRotatingSpeedMultiplier = 3f;
         [SerializeField] private TrackProperties[] tracksList;
@@ -91,17 +92,18 @@ namespace Frontend.Scripts.Components
         public override void RotateWheel(float verticalDir, Vector3 rotateAroundAxis, Transform tireTransform, UTAxlePair pair)
         {
             base.RotateWheel(verticalDir, rotateAroundAxis, tireTransform, pair);
+
             float rawHorizontal = inputProvider.SignedHorizontal;
             float idlerMultiplier = pair.IsIdler ? idlersRotatingSpeedMultiplier : 1f; //we want idler wheels to rotate faster than normal wheels if they are smaller
 
             if (inputProvider.SignedVertical == 0 && rawHorizontal != 0)//stationary tank rotating
             {
                 var multiplier = 0.3f;
-                pair.RotationalPartOfTire.RotateAround(tireTransform.position, rotateAroundAxis, GetTankWheelRotationInputDir(rawHorizontal, pair.Axis) * (multiplier * idlerMultiplier * 1300f) * Time.deltaTime);
+                pair.RotationalPartOfTire.RotateAround(tireTransform.position, rotateAroundAxis, GetTankWheelRotationInputDir(rawHorizontal, pair.Axis) *
+                    (multiplier * idlerMultiplier * TRACKS_ROTATION_MULTIPLIER) * Time.deltaTime);
             }
             else
             {
-                //float speed = inputProvider.CombinedInput > 0f ? controller.CurrentSpeed : lastTimeRotating > 0f ? (Time.time - lastTimeRotating) >= 1f ? 0f : controller.CurrentSpeed : controller.CurrentSpeed;
                 float speed = GetWheelRotationMultiplier();
 
                 if (rawHorizontal != 0f && (int)pair.Axis == rawHorizontal)//moving fwd/bwd and turning in the same time
@@ -109,13 +111,14 @@ namespace Frontend.Scripts.Components
                     speed *= 0.5f; //whenever we go forward we want one side of wheels to move slower
                 }
                 
-                pair.RotationalPartOfTire.RotateAround(tireTransform.position, rotateAroundAxis, verticalDir  * (speed * idlerMultiplier * 25f) * Time.deltaTime);
+                pair.RotationalPartOfTire.RotateAround(tireTransform.position, rotateAroundAxis, verticalDir  * (speed * idlerMultiplier * 60f) * Time.deltaTime);
             }
         }
 
         public override void DummiesMovement(Transform tireTransform, UTAxlePair pair, Vector3 finalWheelPosition, float trackMovementSpeed)
         {
             base.DummiesMovement(tireTransform, pair, finalWheelPosition, trackMovementSpeed);
+
             var dummyPair = pair.WheelDummyPair;
 
             if (dummyPair.trackDummy != null)
@@ -223,7 +226,7 @@ namespace Frontend.Scripts.Components
                 {
                     var material = rend.trackObject.materials[0];
                     float currentTextureOffset = material.GetTextureOffset(TEXTURE_ALBEDO_MAP).y;
-                    rend.trackObject.materials[0].SetTextureOffset(TEXTURE_ALBEDO_MAP, new Vector2(0f, currentTextureOffset - (currentOffset / 70f) * sideInput));
+                    rend.trackObject.materials[0].SetTextureOffset(TEXTURE_ALBEDO_MAP, new Vector2(0f, currentTextureOffset - (currentOffset / 36f) * sideInput));
 
                     if (!rend.helperDummies.Any())
                     {
