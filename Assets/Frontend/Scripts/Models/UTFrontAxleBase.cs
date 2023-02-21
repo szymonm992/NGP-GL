@@ -21,7 +21,6 @@ namespace Frontend.Scripts.Models
         [SerializeField] protected bool repositionVisuals = true;
         [SerializeField] protected UTAxlePair[] wheelPairs;
  
-
         public override IEnumerable<UTAxlePairBase> WheelPairs => wheelPairs;
 
         protected virtual void RepositionTireModel(UTAxlePair pair)

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Frontend.Scripts.Models;
@@ -21,6 +20,7 @@ namespace Frontend.Scripts.Components
         public override void Initialize()
         {
             base.Initialize();
+
             leftAntirolled = GetAllWheelsOfAxis(DriveAxisSite.Left).First();
             rightAntirolled = GetAllWheelsOfAxis(DriveAxisSite.Right).First();
         }
@@ -41,6 +41,7 @@ namespace Frontend.Scripts.Components
             }
 
             groundedWheels = GetGroundedWheels();
+            isAxleGrounded = CheckAxleGrounded();
 
             if (controller.RunPhysics && applyAntiroll)
             {
@@ -52,6 +53,7 @@ namespace Frontend.Scripts.Components
                 foreach (var pair in wheelPairs)
                 {
                     var newPair = pair;
+
                     if (newPair.TireModel != null)
                     {
                         RepositionTireModel(newPair);

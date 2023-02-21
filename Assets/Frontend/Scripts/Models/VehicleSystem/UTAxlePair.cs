@@ -1,6 +1,7 @@
 using Frontend.Scripts.Components;
 using UnityEngine;
 using GLShared.General.Models;
+using GLShared.General.Interfaces;
 
 namespace Frontend.Scripts.Models
 {
@@ -25,9 +26,10 @@ namespace Frontend.Scripts.Models
         public Transform VisualPartOfTire => visualPartOfTire;
         public DummyPair WheelDummyPair => dummyPair;
    
-        public override void Initialize()
+        public override void Initialize(IVehicleAxle axle)
         {
-            base.Initialize();
+            base.Initialize(axle);
+
             visualPartOfTire = tireModel.GetChild(0);
             rotationalPartOfTire = visualPartOfTire.GetChild(0);
         }

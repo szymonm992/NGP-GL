@@ -1343,6 +1343,7 @@ MonoBehaviour:
   notGroundedTransform: {fileID: 5292749869180160558}
   hardPointOfTire: -1.1
   suspensionTravel: 0.4
+  enableFallJump: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -3318,6 +3319,7 @@ MonoBehaviour:
   notGroundedTransform: {fileID: 5292749870038717924}
   hardPointOfTire: -1
   suspensionTravel: 0.6
+  enableFallJump: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -5263,6 +5265,7 @@ MonoBehaviour:
   notGroundedTransform: {fileID: 5292749868827787550}
   hardPointOfTire: -1
   suspensionTravel: 0.6
+  enableFallJump: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -5516,6 +5519,7 @@ MonoBehaviour:
   notGroundedTransform: {fileID: 5292749869569159230}
   hardPointOfTire: -1.1
   suspensionTravel: 0.4
+  enableFallJump: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -5613,6 +5617,7 @@ MonoBehaviour:
   notGroundedTransform: {fileID: 5292749868484170278}
   hardPointOfTire: -1.1
   suspensionTravel: 0.4
+  enableFallJump: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -7890,6 +7895,7 @@ MonoBehaviour:
   notGroundedTransform: {fileID: 5292749870040996105}
   hardPointOfTire: -1
   suspensionTravel: 0.6
+  enableFallJump: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -8694,6 +8700,7 @@ MonoBehaviour:
   notGroundedTransform: {fileID: 5292749868256330280}
   hardPointOfTire: -1.1
   suspensionTravel: 0.4
+  enableFallJump: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -8885,6 +8892,7 @@ MonoBehaviour:
   notGroundedTransform: {fileID: 5292749869774720562}
   hardPointOfTire: -1.1
   suspensionTravel: 0.4
+  enableFallJump: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -8982,6 +8990,7 @@ MonoBehaviour:
   notGroundedTransform: {fileID: 980613771219439348}
   hardPointOfTire: -1
   suspensionTravel: 0.6
+  enableFallJump: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -10932,6 +10941,7 @@ MonoBehaviour:
   notGroundedTransform: {fileID: 5292749869421017252}
   hardPointOfTire: -1.1
   suspensionTravel: 0.4
+  enableFallJump: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -12164,7 +12174,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   idlerBumpingMultiplier: 0.7
-  doesGravityDamping: 0
   wheelsCollisionDetectionMask:
     serializedVersion: 2
     m_Bits: 2147483647
