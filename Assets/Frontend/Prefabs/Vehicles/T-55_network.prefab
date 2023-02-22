@@ -970,7 +970,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   idlerWheelOffset: {x: 0, y: 0.1, z: 0.2}
-  idlerSite: 0
+  idlerSite: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -1027,7 +1027,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   idlerWheelOffset: {x: 0, y: 0.1, z: 0.2}
-  idlerSite: 0
+  idlerSite: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -1311,8 +1311,13 @@ MonoBehaviour:
   upperConstraintTransform: {fileID: 2887912049958548202}
   lowerConstraintTransform: {fileID: 6818126257912289604}
   notGroundedTransform: {fileID: 5292749869180160558}
+  jumpMinimalSpeed: 15
+  damperOnJumpMultiplier: 0.25
   hardPointOfTire: -1.1
   suspensionTravel: 0.4
+  enableFallJump: 1
+  ungroundTimeMinThreshold: 0.1
+  ungroundTimeMaxThreshold: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -3286,8 +3291,13 @@ MonoBehaviour:
   upperConstraintTransform: {fileID: 292149157408292234}
   lowerConstraintTransform: {fileID: 1509728881559291345}
   notGroundedTransform: {fileID: 5292749870038717924}
+  jumpMinimalSpeed: 15
+  damperOnJumpMultiplier: 0.25
   hardPointOfTire: -1
   suspensionTravel: 0.6
+  enableFallJump: 1
+  ungroundTimeMinThreshold: 0.1
+  ungroundTimeMaxThreshold: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -5231,8 +5241,13 @@ MonoBehaviour:
   upperConstraintTransform: {fileID: 4542079463821157346}
   lowerConstraintTransform: {fileID: 118021425253014524}
   notGroundedTransform: {fileID: 5292749868827787550}
+  jumpMinimalSpeed: 15
+  damperOnJumpMultiplier: 0.25
   hardPointOfTire: -1
   suspensionTravel: 0.6
+  enableFallJump: 1
+  ungroundTimeMinThreshold: 0.1
+  ungroundTimeMaxThreshold: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -5484,8 +5499,13 @@ MonoBehaviour:
   upperConstraintTransform: {fileID: 1631083609091142681}
   lowerConstraintTransform: {fileID: 7649779645101018157}
   notGroundedTransform: {fileID: 5292749869569159230}
+  jumpMinimalSpeed: 15
+  damperOnJumpMultiplier: 0.25
   hardPointOfTire: -1.1
   suspensionTravel: 0.4
+  enableFallJump: 1
+  ungroundTimeMinThreshold: 0.1
+  ungroundTimeMaxThreshold: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -5581,8 +5601,13 @@ MonoBehaviour:
   upperConstraintTransform: {fileID: 6606193676076002147}
   lowerConstraintTransform: {fileID: 6750925839658188665}
   notGroundedTransform: {fileID: 5292749868484170278}
+  jumpMinimalSpeed: 15
+  damperOnJumpMultiplier: 0.25
   hardPointOfTire: -1.1
   suspensionTravel: 0.4
+  enableFallJump: 1
+  ungroundTimeMinThreshold: 0.1
+  ungroundTimeMaxThreshold: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -6392,8 +6417,8 @@ MonoBehaviour:
   terrainMask:
     serializedVersion: 2
     m_Bits: 64
-  idlerWheelOffset: {x: 0, y: 0, z: -0.2}
-  idlerSite: 1
+  idlerWheelOffset: {x: 0, y: 0, z: -0.25}
+  idlerSite: -1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -6480,8 +6505,8 @@ MonoBehaviour:
   terrainMask:
     serializedVersion: 2
     m_Bits: 64
-  idlerWheelOffset: {x: 0, y: 0, z: -0.2}
-  idlerSite: 1
+  idlerWheelOffset: {x: 0, y: 0, z: -0.25}
+  idlerSite: -1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -7828,8 +7853,13 @@ MonoBehaviour:
   upperConstraintTransform: {fileID: 704749978986008306}
   lowerConstraintTransform: {fileID: 1573351869096913994}
   notGroundedTransform: {fileID: 5292749870040996105}
+  jumpMinimalSpeed: 15
+  damperOnJumpMultiplier: 0.25
   hardPointOfTire: -1
   suspensionTravel: 0.6
+  enableFallJump: 1
+  ungroundTimeMinThreshold: 0.1
+  ungroundTimeMaxThreshold: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -8632,8 +8662,13 @@ MonoBehaviour:
   upperConstraintTransform: {fileID: 3752238139358767937}
   lowerConstraintTransform: {fileID: 3139234117305621172}
   notGroundedTransform: {fileID: 5292749868256330280}
+  jumpMinimalSpeed: 15
+  damperOnJumpMultiplier: 0.25
   hardPointOfTire: -1.1
   suspensionTravel: 0.4
+  enableFallJump: 1
+  ungroundTimeMinThreshold: 0.1
+  ungroundTimeMaxThreshold: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -8823,8 +8858,13 @@ MonoBehaviour:
   upperConstraintTransform: {fileID: 44512879802977927}
   lowerConstraintTransform: {fileID: 2237273523050164626}
   notGroundedTransform: {fileID: 5292749869774720562}
+  jumpMinimalSpeed: 15
+  damperOnJumpMultiplier: 0.25
   hardPointOfTire: -1.1
   suspensionTravel: 0.4
+  enableFallJump: 1
+  ungroundTimeMinThreshold: 0.1
+  ungroundTimeMaxThreshold: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -8920,8 +8960,13 @@ MonoBehaviour:
   upperConstraintTransform: {fileID: 99033535462504510}
   lowerConstraintTransform: {fileID: 102629752369086325}
   notGroundedTransform: {fileID: 980613771219439348}
+  jumpMinimalSpeed: 15
+  damperOnJumpMultiplier: 0.25
   hardPointOfTire: -1
   suspensionTravel: 0.6
+  enableFallJump: 1
+  ungroundTimeMinThreshold: 0.1
+  ungroundTimeMaxThreshold: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -10870,8 +10915,13 @@ MonoBehaviour:
   upperConstraintTransform: {fileID: 5068224177934260893}
   lowerConstraintTransform: {fileID: 2721053209847987282}
   notGroundedTransform: {fileID: 5292749869421017252}
+  jumpMinimalSpeed: 15
+  damperOnJumpMultiplier: 0.25
   hardPointOfTire: -1.1
   suspensionTravel: 0.4
+  enableFallJump: 1
+  ungroundTimeMinThreshold: 0.1
+  ungroundTimeMaxThreshold: 1
   debugSettings:
     drawGizmos: 1
     drawOnDisable: 0
@@ -11992,7 +12042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerOfMass: {fileID: 2970605867215432948}
-  vehicleType: 1
+  vehicleType: 2
   forwardPowerCurve:
     serializedVersion: 2
     m_Curve:
@@ -12104,7 +12154,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  doesGravityDamping: 0
+  idlerBumpingMultiplier: 0.7
   wheelsCollisionDetectionMask:
     serializedVersion: 2
     m_Bits: 2147483647
