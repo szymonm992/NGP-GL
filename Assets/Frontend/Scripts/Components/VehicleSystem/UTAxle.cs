@@ -91,8 +91,8 @@ namespace Frontend.Scripts.Components
                 var rotateAroundAxis = -tireTransform.right;
                 wheelReposition.RotateWheel(dir, rotateAroundAxis, tireTransform, pair);
             }
-            bool isNotfullyCompressed = pair.Wheel.CompressionRate < 1f;
-            var tireWorldPos = isNotfullyCompressed ? pair.Wheel.TireWorldPosition : pair.Wheel.UpperConstraintPoint;
+
+            var tireWorldPos = pair.Wheel.TireWorldPosition;
             var tireDesiredPosition = tireWorldPos + (pair.Wheel.Transform.up * tiresContactOffset);
 
             float movementSpeed = (pair.Wheel.IsGrounded ? wheelReposition.RepositionSpeed : 5f) * Time.deltaTime;
