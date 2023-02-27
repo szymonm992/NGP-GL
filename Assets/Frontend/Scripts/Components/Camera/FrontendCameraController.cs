@@ -194,6 +194,8 @@ namespace Frontend.Scripts.Components
             OffsetPushCameraFromWall();
 
             lastCameraMode = currentCameraMode;
+
+            Debug.DrawRay(controlledCamera.transform.position, targetPosition - controlledCamera.transform.position, Color.red);
         }
 
         private void FixedUpdate()
@@ -255,7 +257,7 @@ namespace Frontend.Scripts.Components
                 transform.rotation = Quaternion.Inverse(snipingFollowPoint.rotation) * transform.rotation;
             }
 
-            transform.rotation *= Quaternion.Euler(rotation);
+            transform.rotation = Quaternion.Euler(transform.eulerAngles + (Vector3)rotation);
 
             if (IsInSnipingMode())
             {
@@ -557,6 +559,7 @@ namespace Frontend.Scripts.Components
             {
                 // calculate desired camera point (according to moved crosshair).
                 camTransform = transform.position - controlledCamera.transform.rotation * new Vector3(0, 0, orbitDist);
+
                 rayDir = Quaternion.AngleAxis(-GetCrosshairAngle(), transform.right) * controlledCamera.transform.rotation * Vector3.forward;
 
                 // quick fix: move starting point (ignore objects behind the turret)
