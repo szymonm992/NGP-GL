@@ -182,10 +182,16 @@ namespace Frontend.Scripts.Components
                     UpdateSnipingCamera();
                     break;
             }
-            
+
+            DistancePushCameraFromWall();
+
             // target lock is being executed only if camera is currently in orbiting mode
             // or if it has begun a transition between modes
             ApplyTargetLock();
+
+            // After target lock, the camera can rotate back into the ground.
+            // To avoid recursive logic, bump camera along target vector
+            OffsetPushCameraFromWall();
 
             lastCameraMode = currentCameraMode;
         }
@@ -331,20 +337,6 @@ namespace Frontend.Scripts.Components
             // target lock system handles everything so we only need to change this variable
             orbitDist = Mathf.Lerp(orbitDist, desiredOrbitDist, Time.deltaTime * orbitDistInterp * 10.0f);
 
-            // handling walls collisions
-            const float camOffset = 0.6f;
-            RaycastHit hit;
-            Quaternion orbitCamDirRotation = LimitCameraRange(GetTargetLockOrbitLookVector(true));
-
-            Vector3 orbitCamDirVec = (orbitCamDirRotation * Vector3.forward).normalized * desiredOrbitDist * -1f;
-
-            Ray r = new(transform.position, orbitCamDirVec);
-            if (Physics.SphereCast(r, orbitCameraColliderSize * 0.5f, out hit, orbitCamDirVec.magnitude + (orbitCameraColliderSize * 0.5f), targetMask))
-            {
-                orbitDist = Mathf.Min(hit.distance - camOffset, orbitDist);
-                Debug.DrawRay(transform.position, orbitCamDirVec.normalized * hit.distance, Color.blue);
-            }
-
             // setting the local position of camera
             controlledCamera.transform.localPosition = new(0f, 0f, -orbitDist);
         }
@@ -369,6 +361,52 @@ namespace Frontend.Scripts.Components
             //rotation update executed here, so target lock can handle it
             transform.rotation = snipingFollowPoint.rotation * Quaternion.Inverse(oldSnipingFollowRot) * transform.rotation;
             oldSnipingFollowRot = snipingFollowPoint.rotation;
+        }
+
+        private void DistancePushCameraFromWall()
+        {
+            if (!IsInOrbitingMode())
+            {
+                return;
+            }
+
+            var orbitCamDirRotation = LimitCameraRange(GetTargetLockOrbitLookVector(true));
+            var orbitCamDirVec = (orbitCamDirRotation * Vector3.forward).normalized;
+
+            orbitCamDirVec *= desiredOrbitDist * -1f;
+
+            var ray = new Ray(transform.position, orbitCamDirVec);
+            if (Physics.SphereCast(ray, orbitCameraColliderSize * 0.5f, out var hit, orbitCamDirVec.magnitude + (orbitCameraColliderSize * 0.5f), targetMask))
+            {
+                orbitDist = Mathf.Min(hit.distance - orbitCameraColliderSize, orbitDist);
+                Debug.DrawRay(transform.position, orbitCamDirVec.normalized * hit.distance, Color.blue);
+            }
+
+            // setting the local position of camera
+            controlledCamera.transform.localPosition = new(0f, 0f, -orbitDist);
+        }
+
+        private void OffsetPushCameraFromWall()
+        {
+            if (!IsInOrbitingMode())
+            {
+                return;
+            }
+
+            var targetCameraDelta = controlledCamera.transform.position - targetPosition;
+            var targetOriginDelta = transform.position - targetPosition;
+
+            var targetOriginProjection = Vector3.Dot(targetCameraDelta.normalized, targetOriginDelta);
+            var rayStartPoint = targetPosition + targetCameraDelta.normalized * targetOriginProjection;
+            var rayDirection = targetCameraDelta.normalized * (targetCameraDelta.magnitude - targetOriginProjection);
+
+            var ray = new Ray(rayStartPoint, rayDirection);
+
+            if (Physics.SphereCast(ray, orbitCameraColliderSize * 0.5f, out var hit, rayDirection.magnitude, targetMask))
+            {
+                var offset = rayDirection.normalized * (hit.distance - rayDirection.magnitude);
+                controlledCamera.transform.position += offset;
+            }
         }
 
         public void SetCameraMode(CameraMode newMode)
