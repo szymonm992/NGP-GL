@@ -183,7 +183,7 @@ namespace Frontend.Scripts.Components
                     break;
             }
 
-            DistancePushCameraFromWall();
+            bool pushedFromWall = DistancePushCameraFromWall();
 
             // target lock is being executed only if camera is currently in orbiting mode
             // or if it has begun a transition between modes
@@ -191,7 +191,7 @@ namespace Frontend.Scripts.Components
 
             // After target lock, the camera can rotate back into the ground.
             // To avoid recursive logic, bump camera along target vector
-            OffsetPushCameraFromWall();
+            if(pushedFromWall) OffsetPushCameraFromWall();
 
             lastCameraMode = currentCameraMode;
 
@@ -365,11 +365,11 @@ namespace Frontend.Scripts.Components
             oldSnipingFollowRot = snipingFollowPoint.rotation;
         }
 
-        private void DistancePushCameraFromWall()
+        private bool DistancePushCameraFromWall()
         {
             if (!IsInOrbitingMode())
             {
-                return;
+                return false;
             }
 
             var orbitCamDirRotation = LimitCameraRange(GetTargetLockOrbitLookVector(true));
@@ -382,17 +382,20 @@ namespace Frontend.Scripts.Components
             {
                 orbitDist = Mathf.Min(hit.distance - orbitCameraColliderSize, orbitDist);
                 Debug.DrawRay(transform.position, orbitCamDirVec.normalized * hit.distance, Color.blue);
+
+                controlledCamera.transform.localPosition = new(0f, 0f, -orbitDist);
+
+                return true;
             }
 
-            // setting the local position of camera
-            controlledCamera.transform.localPosition = new(0f, 0f, -orbitDist);
+            return false;
         }
 
-        private void OffsetPushCameraFromWall()
+        private bool OffsetPushCameraFromWall()
         {
             if (!IsInOrbitingMode())
             {
-                return;
+                return false;
             }
 
             var targetCameraDelta = controlledCamera.transform.position - targetPosition;
@@ -408,7 +411,11 @@ namespace Frontend.Scripts.Components
             {
                 var offset = rayDirection.normalized * (hit.distance - rayDirection.magnitude);
                 controlledCamera.transform.position += offset;
+
+                return true;
             }
+
+            return false;
         }
 
         public void SetCameraMode(CameraMode newMode)
@@ -552,7 +559,6 @@ namespace Frontend.Scripts.Components
         {
             const int targetDist = 2000;
 
-            RaycastHit hit;
             Vector3 camTransform = transform.position;
             Vector3 rayDir = transform.forward;
             if (IsInOrbitingMode())
@@ -566,16 +572,25 @@ namespace Frontend.Scripts.Components
                 camTransform += rayDir * orbitDist;
             }
 
-            Ray r = new(camTransform, rayDir * targetDist);
-            if (!Physics.Raycast(r, out hit, targetDist, targetMask))
+            var ray = new Ray(camTransform, rayDir * targetDist);
+            if (!Physics.Raycast(ray, out var hit, targetDist, targetMask))
             {
-                targetPosition = r.origin + r.direction * targetDist;
+                targetPosition = ray.origin + ray.direction * targetDist;
             }
             else
             {
                 targetPosition = hit.point;
-            }
 
+                var forwardFlattedDir = Vector3.Cross(Vector3.Cross(Vector3.up, rayDir.normalized), Vector3.up).normalized;
+
+                var realPositionProjection = Vector3.Dot((targetPosition - transform.position), forwardFlattedDir) - orbitDist;
+                if(realPositionProjection < 0.0f)
+                {
+                    var targetDeltaProjection = Vector3.Dot((targetPosition - camTransform), forwardFlattedDir);
+                    var distanceFactor = (targetDeltaProjection - realPositionProjection) / targetDeltaProjection;
+                    targetPosition = ray.origin + ray.direction * hit.distance * distanceFactor;
+                }
+            }
         }
         
         // the camera can deviate from target point when zooming in and out, becasue
