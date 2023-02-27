@@ -41,7 +41,7 @@ namespace Frontend.Scripts.Components
             }
 
             groundedWheels = GetGroundedWheels();
-            isAxleGrounded = CheckAxleGrounded();
+            isAxleAtContact = CheckAxleAtContact();
 
             if (controller.RunPhysics && applyAntiroll)
             {
