@@ -21,6 +21,7 @@ namespace Frontend.Scripts.Components
         [SerializeField] private LayerMask gunMask;
 
         private Transform localPlayerGun;
+        private bool snapRequested;
 
         public void Initialize()
         {
@@ -69,7 +70,9 @@ namespace Frontend.Scripts.Components
                 gunReticle.gameObject.ToggleGameObjectIfActive(true);
 
                 var screenPosition = Camera.main.WorldToScreenPoint(gunPosition);
-                gunReticle.position = Vector2.Lerp(gunReticle.position, screenPosition, Time.deltaTime * RETICLE_LERP_SPEED);
+                var lerpFactor = snapRequested ? 1.0f : Time.deltaTime * RETICLE_LERP_SPEED;
+                gunReticle.position = Vector2.Lerp(gunReticle.position, screenPosition, lerpFactor);
+                snapRequested = false;
             }
             else
             {
@@ -82,6 +85,8 @@ namespace Frontend.Scripts.Components
             var isSniping = OnCameraModeChanged.Mode == CameraMode.Sniping;
             float crosshairOffsetY = isSniping ? 0 : cameraController.ReticlePixelsOffset;
             middleScreenCrosshair.anchoredPosition = new Vector2(middleScreenCrosshair.anchoredPosition.x, crosshairOffsetY);
+
+            snapRequested = true;
         }
     }
 }
