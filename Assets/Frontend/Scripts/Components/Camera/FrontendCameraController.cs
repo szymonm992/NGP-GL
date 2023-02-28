@@ -65,10 +65,12 @@ namespace Frontend.Scripts.Components
 
         private float desiredOrbitDist;
         private float desiredSnipingZoom;
+        private float smoothOrbitDist;
         private float orbitDist;
         private float snipingZoom;
 
         private bool preventingBump;
+        private bool pushedFromWallThisFrame;
         private float lastBumpTime;
         private RangedFloat bumpPreventionRange = new();
 
@@ -76,6 +78,7 @@ namespace Frontend.Scripts.Components
         private CameraMode lastCameraMode = CameraMode.Orbiting;
         
         private Vector3 targetPosition;
+        private Vector3 targetHorizontalDirection;
         private Vector3 orbitFollowPos;
         private Vector3 snipingFollowPos;
 
@@ -127,6 +130,7 @@ namespace Frontend.Scripts.Components
             snipingZoom = snipingMinZoom;
 
             desiredOrbitDist = orbitDist;
+            smoothOrbitDist = orbitDist;
             desiredSnipingZoom = snipingZoom;
 
             oldSnipingFollowRot = Quaternion.identity;
@@ -183,15 +187,13 @@ namespace Frontend.Scripts.Components
                     break;
             }
 
-            bool pushedFromWall = DistancePushCameraFromWall();
-
             // target lock is being executed only if camera is currently in orbiting mode
             // or if it has begun a transition between modes
             ApplyTargetLock();
 
             // After target lock, the camera can rotate back into the ground.
             // To avoid recursive logic, bump camera along target vector
-            if(pushedFromWall) OffsetPushCameraFromWall();
+            PushCameraFromWallAlongTargetLine();
 
             lastCameraMode = currentCameraMode;
 
@@ -327,22 +329,6 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        private void UpdateOrbitCamera()
-        {
-            var zoomValue = GetZoomValue();
-            if (zoomValue != 0f)
-            {
-                var newOrbitDist = desiredOrbitDist - zoomValue * 10.0f * orbitZoomStep;
-                desiredOrbitDist = Mathf.Clamp(newOrbitDist, orbitMinDist, orbitMaxDist);
-            }
-
-            // target lock system handles everything so we only need to change this variable
-            orbitDist = Mathf.Lerp(orbitDist, desiredOrbitDist, Time.deltaTime * orbitDistInterp * 10.0f);
-
-            // setting the local position of camera
-            controlledCamera.transform.localPosition = new(0f, 0f, -orbitDist);
-        }
-
         private void UpdateSnipingCamera()
         {
             var zoomValue = GetZoomValue();
@@ -365,37 +351,75 @@ namespace Frontend.Scripts.Components
             oldSnipingFollowRot = snipingFollowPoint.rotation;
         }
 
-        private bool DistancePushCameraFromWall()
+        private void UpdateOrbitCamera()
+        {
+            pushedFromWallThisFrame = false;
+
+            var zoomValue = GetZoomValue();
+            if (zoomValue != 0f)
+            {
+                var newOrbitDist = desiredOrbitDist - zoomValue * 10.0f * orbitZoomStep;
+                desiredOrbitDist = Mathf.Clamp(newOrbitDist, orbitMinDist, orbitMaxDist);
+            }
+
+            // target lock system handles everything so we only need to change this variable
+            orbitDist = desiredOrbitDist;
+
+            // pushing the camera away from the wall
+            PushCameraFromWallAlongOrbitLine();
+
+            // Doesn't actually push the camera from the ceiling, but rather
+            // limits the orbiting distance so it wouldn't break in tunnels.
+            HandleDistanceWhenBelowCeiling();
+
+            // setting the local position of camera to lerped distance
+            var lerpFactor = (cameraMode != lastCameraMode) ? 1.0f : Time.deltaTime * orbitDistInterp * 10.0f;
+            smoothOrbitDist = Mathf.Lerp(smoothOrbitDist, orbitDist, lerpFactor);
+            controlledCamera.transform.localPosition = new(0f, 0f, -smoothOrbitDist);
+        }
+
+        private void PushCameraFromWallAlongOrbitLine()
         {
             if (!IsInOrbitingMode())
             {
-                return false;
+                return;
             }
 
-            var orbitCamDirRotation = LimitCameraRange(GetTargetLockOrbitLookVector(true));
+            var orbitCamDirRotation = LimitCameraRange(GetTargetLockOrbitLookVector(false));
             var orbitCamDirVec = (orbitCamDirRotation * Vector3.forward).normalized;
 
-            orbitCamDirVec *= desiredOrbitDist * -1f;
+            orbitCamDirVec *= orbitDist * -1f;
 
             var ray = new Ray(transform.position, orbitCamDirVec);
             if (Physics.SphereCast(ray, orbitCameraColliderSize * 0.5f, out var hit, orbitCamDirVec.magnitude + (orbitCameraColliderSize * 0.5f), targetMask))
             {
                 orbitDist = Mathf.Min(hit.distance - orbitCameraColliderSize, orbitDist);
-                Debug.DrawRay(transform.position, orbitCamDirVec.normalized * hit.distance, Color.blue);
-
-                controlledCamera.transform.localPosition = new(0f, 0f, -orbitDist);
-
-                return true;
+                pushedFromWallThisFrame = true;
             }
-
-            return false;
         }
 
-        private bool OffsetPushCameraFromWall()
+        private void HandleDistanceWhenBelowCeiling()
         {
             if (!IsInOrbitingMode())
             {
-                return false;
+                return;
+            }
+
+            var ray = new Ray(transform.position, Vector3.up);
+            var cosTargetAngle = Mathf.Cos((90.0f - GetCrosshairAngle()) * Mathf.Deg2Rad);
+            var rayDistance = orbitDist * cosTargetAngle;
+            if (Physics.SphereCast(ray, orbitCameraColliderSize * 0.5f, out var hit, rayDistance + (orbitCameraColliderSize * 0.5f), targetMask))
+            {
+                orbitDist = Mathf.Min((hit.distance - orbitCameraColliderSize) / cosTargetAngle, orbitDist);
+                pushedFromWallThisFrame = true;
+            }
+        }
+
+        private void PushCameraFromWallAlongTargetLine()
+        {
+            if (!IsInOrbitingMode() || !pushedFromWallThisFrame)
+            {
+                return;
             }
 
             var targetCameraDelta = controlledCamera.transform.position - targetPosition;
@@ -411,11 +435,7 @@ namespace Frontend.Scripts.Components
             {
                 var offset = rayDirection.normalized * (hit.distance - rayDirection.magnitude);
                 controlledCamera.transform.position += offset;
-
-                return true;
             }
-
-            return false;
         }
 
         public void SetCameraMode(CameraMode newMode)
@@ -435,6 +455,7 @@ namespace Frontend.Scripts.Components
                 controlledCamera.cullingMask |= 1 << LayerMask.NameToLayer("ExcludedFromSniper");
                 controlledCamera.fieldOfView = orbitFov;
                 orbitDist = desiredOrbitDist;
+                smoothOrbitDist = desiredOrbitDist;
                 transform.rotation = Quaternion.identity;
             }
             else if(newMode == CameraMode.Sniping)
@@ -564,13 +585,15 @@ namespace Frontend.Scripts.Components
             if (IsInOrbitingMode())
             {
                 // calculate desired camera point (according to moved crosshair).
-                camTransform = transform.position - controlledCamera.transform.rotation * new Vector3(0, 0, orbitDist);
+                camTransform = transform.position - controlledCamera.transform.rotation * new Vector3(0, 0, smoothOrbitDist);
 
                 rayDir = Quaternion.AngleAxis(-GetCrosshairAngle(), transform.right) * controlledCamera.transform.rotation * Vector3.forward;
 
                 // quick fix: move starting point (ignore objects behind the turret)
-                camTransform += rayDir * orbitDist;
+                camTransform += rayDir * smoothOrbitDist;
             }
+
+            targetHorizontalDirection = Vector3.Cross(Vector3.Cross(Vector3.up, rayDir), Vector3.up);
 
             var ray = new Ray(camTransform, rayDir * targetDist);
             if (!Physics.Raycast(ray, out var hit, targetDist, targetMask))
@@ -580,16 +603,6 @@ namespace Frontend.Scripts.Components
             else
             {
                 targetPosition = hit.point;
-
-                var forwardFlattedDir = Vector3.Cross(Vector3.Cross(Vector3.up, rayDir.normalized), Vector3.up).normalized;
-
-                var realPositionProjection = Vector3.Dot((targetPosition - transform.position), forwardFlattedDir) - orbitDist;
-                if(realPositionProjection < 0.0f)
-                {
-                    var targetDeltaProjection = Vector3.Dot((targetPosition - camTransform), forwardFlattedDir);
-                    var distanceFactor = (targetDeltaProjection - realPositionProjection) / targetDeltaProjection;
-                    targetPosition = ray.origin + ray.direction * hit.distance * distanceFactor;
-                }
             }
         }
         
@@ -609,7 +622,7 @@ namespace Frontend.Scripts.Components
             }
             else if(IsInOrbitingMode())
             {
-                finalRotation = GetTargetLockOrbitLookVector(false);
+                finalRotation = GetTargetLockOrbitLookVector(true);
             }
             
             transform.rotation = finalRotation;
@@ -622,35 +635,30 @@ namespace Frontend.Scripts.Components
         }
 
 
-        private Quaternion GetTargetLockOrbitLookVector(bool useDesiredDist)
+        private Quaternion GetTargetLockOrbitLookVector(bool useRealOrbitDist)
         {
-            Vector3 targetDir = targetPosition - transform.position;
-            float targetDist = targetDir.magnitude;
-            targetDir = targetDir.normalized;
+            var usedOrbitDist = useRealOrbitDist ? smoothOrbitDist : orbitDist;
+            var targetDelta = targetPosition - transform.position;
+            var crosshairAngle = GetCrosshairAngle();
 
-            float usedOrbitDist = useDesiredDist ? desiredOrbitDist : orbitDist;
+            // Using laws of cosines to determine the angle of camera which would aim at our target.
+            var cosCrosshairAngle = Mathf.Cos(crosshairAngle * Mathf.Deg2Rad);
+            var delta = Mathf.Pow(usedOrbitDist * cosCrosshairAngle, 2.0f) - Mathf.Pow(usedOrbitDist, 2.0f) + Mathf.Pow(targetDelta.magnitude, 2.0f);
 
-            float ang = GetCrosshairAngle();
-
-            // calculating the angle between the target and the middle of camera system (law of sines)
-            float targetAngle = Mathf.Asin(Mathf.Sin(ang * Mathf.Deg2Rad) * usedOrbitDist / targetDist) * Mathf.Rad2Deg;
-
-            // TODO: somehow the triangle that I'm imagining doesn't exist in the realm of this game,
-            // creating an angle that is not (asin with param bigger than 1). At this point I'm not 
-            // even trying to figure out what's wrong with it and I'm just abandoning the ship.
-            // Fix properly in the future if needed.
-            if (float.IsNaN(targetAngle))
+            // in some cases, it's impossible to form a triangle. revert to default rotation
+            if(delta < 0.0f)
             {
                 return transform.rotation;
             }
 
-            // calculating direction vector - targetDir rotated by the sum of calculated angles.
-            Vector3 lookVector = Quaternion.AngleAxis(ang + targetAngle, Vector3.Cross(Vector3.up, targetDir)) * targetDir;
+            var targetToCameraDist = -Mathf.Sqrt(delta) - usedOrbitDist * cosCrosshairAngle;
 
-            return Quaternion.LookRotation(lookVector, Vector3.up);
+            var cosTargetAngle = (Mathf.Pow(targetDelta.magnitude, 2.0f) + Mathf.Pow(usedOrbitDist, 2.0f) - Mathf.Pow(targetToCameraDist, 2.0f)) / (2.0f * usedOrbitDist * targetDelta.magnitude);
+            var targetAngleDifference = 180.0f - Mathf.Acos(cosTargetAngle) * Mathf.Rad2Deg;
 
+            var finalDirection = Quaternion.AngleAxis(-targetAngleDifference, Vector3.Cross(targetHorizontalDirection, Vector3.up)) * targetDelta.normalized;
+            return Quaternion.LookRotation(finalDirection, Vector3.up);
         }
-
 
 
 
