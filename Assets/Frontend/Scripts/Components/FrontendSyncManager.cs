@@ -22,6 +22,7 @@ namespace Frontend.Scripts.Components
         [SerializeField] private float inputSendingPeriod = 0.01f;
 
         private float timeLastSendingInput;
+        private PlayerInput lastReceivedOwnInput;
         private PlayerEntity localPlayerEntity;
 
         public PlayerEntity LocalPlayerEntity => localPlayerEntity;
@@ -34,7 +35,8 @@ namespace Frontend.Scripts.Components
             }
         }
 
-        public override void SyncInputs(PlayerInput remotePlayerInputs)//this is responsible for sync of inputs of remote clients (other players in room)
+        // This is responsible for sync of inputs of remote clients (other players in room).
+        public override void SyncInputs(PlayerInput remotePlayerInputs)
         {
             if (connectedPlayers.ContainsKey(remotePlayerInputs.Username))
             {
@@ -45,6 +47,10 @@ namespace Frontend.Scripts.Components
                     base.SyncInputs(remotePlayerInputs);
 
                     connectedPlayers[remotePlayerInputs.Username].InputProvider.SetInput(remotePlayerInputs);
+                }
+                else
+                {
+                    lastReceivedOwnInput = remotePlayerInputs;
                 }
             }
         }
@@ -211,9 +217,11 @@ namespace Frontend.Scripts.Components
 
         private void SyncLocalPlayerInput()
         {
-            if (timeLastSendingInput >= inputSendingPeriod)
+            // Sending our own inputs until server confirms it got them by sending them back.
+            var currentInputs = localPlayerEntity.Input;
+            if (timeLastSendingInput >= inputSendingPeriod && currentInputs != lastReceivedOwnInput)
             {
-                connectionManager.SendUDPRequest(NetworkConsts.RPC_PLAYER_INPUTS, localPlayerEntity.Input.ToISFSOBject());
+                connectionManager.SendUDPRequest(NetworkConsts.RPC_PLAYER_INPUTS, currentInputs.ToISFSOBject());
                 timeLastSendingInput = 0;
                 return;
             }
