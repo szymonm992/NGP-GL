@@ -79,9 +79,6 @@ namespace Frontend.Scripts.Components
 
         private void Interpolate()
         {
-            // Position and rotation are extrapolated with small error correction.
-            // Everything else is interpolated with big error correction.
-
             if (!IsRunning || receivedTransforms == 0)
             {
                 return;
@@ -103,12 +100,24 @@ namespace Frontend.Scripts.Components
                 Time.deltaTime
             );
 
-            // TODO: Extrapolated turret makes reticle overshoot its target. However, interpolating it causes
-            // a desync of the reticle when tank is in motion. This could probably be prevented if server
-            // sent some additional information to clients (for instance, target turret and gun angles).
-
             var deviationFactor = Mathf.Min(1.0f, TANK_DEVIATION_CORRECTION_FACTOR * Time.deltaTime);
             var lerpedTransform = LerpNetworkTransforms(localMoveStep, currentMoveStep, deviationFactor);
+
+            if (
+                currentNetworkTransform.TargetGunAngleX == previousNetworkTransform.TargetGunAngleX &&
+                Mathf.Abs(Mathf.DeltaAngle(currentNetworkTransform.TargetGunAngleX, currentNetworkTransform.GunAngleX)) < 0.01f
+            )
+            {
+                lerpedTransform.GunAngleX = currentNetworkTransform.GunAngleX;
+            }
+            if (
+                currentNetworkTransform.TargetTurretAngleY == previousNetworkTransform.TargetTurretAngleY &&
+                Mathf.Abs(Mathf.DeltaAngle(currentNetworkTransform.TargetTurretAngleY, currentNetworkTransform.TurretAngleY)) < 0.01f
+            )
+            {
+                lerpedTransform.TurretAngleY = currentNetworkTransform.TargetTurretAngleY;
+            }
+
             ApplyTransform(lerpedTransform);
         }
 
@@ -135,7 +144,7 @@ namespace Frontend.Scripts.Components
                 TurretAngleY = origin.TurretAngleY + deltaTurretAngle * stepMultiplier,
                 CurrentSpeed = origin.CurrentSpeed + deltaSpeed * stepMultiplier,
                 CurrentTurningSpeed = origin.CurrentTurningSpeed + deltaTurningSpeed * stepMultiplier,
-                TimeStamp = origin.TimeStamp + stepTime * 1000.0f
+                TimeStamp = origin.TimeStamp + (long)(stepTime * 1000.0f)
             };
         }
 
@@ -150,7 +159,7 @@ namespace Frontend.Scripts.Components
                 TurretAngleY = Mathf.LerpAngle(a.TurretAngleY, b.TurretAngleY, factor),
                 CurrentSpeed = Mathf.Lerp(a.CurrentSpeed, b.CurrentSpeed, factor),
                 CurrentTurningSpeed = Mathf.Lerp(a.CurrentTurningSpeed, b.CurrentTurningSpeed, factor),
-                TimeStamp = a.TimeStamp * (1.0f - factor) + b.TimeStamp * factor
+                TimeStamp = (long)(a.TimeStamp * (1.0f - factor) + b.TimeStamp * factor)
             };
         }
 

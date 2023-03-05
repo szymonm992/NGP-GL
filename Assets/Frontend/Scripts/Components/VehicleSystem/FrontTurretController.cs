@@ -20,6 +20,9 @@ namespace Frontend.Scripts.Components
 
         public bool TurretLock => inputProvider.TurretLockKey;
 
+        public float TargetTurretAngle => turret.localEulerAngles.y;
+        public float TargetGunAngle => gun.localEulerAngles.x;
+
         public void SetTurretAndGunRotation(float turretY, float gunX)
         {
             gun.localEulerAngles = new Vector3(gunX, 0f, 0f);
