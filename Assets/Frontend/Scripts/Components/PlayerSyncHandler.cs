@@ -1,3 +1,4 @@
+using Frontend.Scripts.Test;
 using GLShared.General.Signals;
 using GLShared.Networking.Components;
 using GLShared.Networking.Interfaces;
@@ -10,6 +11,7 @@ namespace Frontend.Scripts.Components
     public class PlayerSyncHandler : MonoBehaviour, IInitializable, ISyncInterpolator
     {
         private const float TANK_DEVIATION_CORRECTION_FACTOR = 5.0f;
+        private const float TIME_DEVIATION_ALLOWANCE_SCALE = 0.99f;
 
         [Inject] private readonly SignalBus signalBus;
         [Inject] private readonly TimeManager timeManager;
@@ -25,12 +27,23 @@ namespace Frontend.Scripts.Components
         private int receivedTransforms;
         private float timeSinceCurrentTransform;
 
+        //private LagMachine lagMachine;
+
         public bool IsRunning { get; private set; } = false;
 
         public void Initialize()
         {
             signalBus.Subscribe<PlayerSignals.OnPlayerInitialized>(OnPlayerInitialized);
             receivedTransforms = 0;
+
+            //lagMachine = new LagMachine
+            //{
+            //    MinLength = 0.1f,
+            //    MaxLength = 1.0f,
+            //    MinSpike = 0.3f,
+            //    MaxSpike = 0.5f,
+            //    PacketMissChance = 0.5f
+            //};
         }
 
         public void ProcessCurrentNetworkTransform(INetworkTransform nTransform)
@@ -42,16 +55,38 @@ namespace Frontend.Scripts.Components
 
             var networkTransform = (NetworkTransform)nTransform;
 
+            //lagMachine.InvokeLagged(delegate{ 
+            ApplyNetworkTransfor(networkTransform); 
+            //});
+        }
+
+        private void ApplyNetworkTransfor(NetworkTransform networkTransform)
+        {
+            if (!IsRunning)
+            {
+                return;
+            }
+
             if (receivedTransforms == 0)
             {
                 currentLocalTransform = networkTransform;
+                timeSinceCurrentTransform = 0.0f;
             }
 
             if (receivedTransforms < 1 || networkTransform.TimeStamp >= currentNetworkTransform.TimeStamp)
             {
+                if(receivedTransforms >= 2)
+                {
+                    timeSinceCurrentTransform -= (currentNetworkTransform.TimeStamp - previousNetworkTransform.TimeStamp) / 1000.0f;
+                    timeSinceCurrentTransform *= TIME_DEVIATION_ALLOWANCE_SCALE;
+                }
+                else if(receivedTransforms == 1)
+                {
+                    timeSinceCurrentTransform = 0.0f;
+                }
+
                 previousNetworkTransform = currentNetworkTransform;
                 currentNetworkTransform = networkTransform;
-                timeSinceCurrentTransform = 0.0f;
             }
             else if (receivedTransforms < 2 || networkTransform.TimeStamp >= previousNetworkTransform.TimeStamp)
             {
@@ -67,17 +102,19 @@ namespace Frontend.Scripts.Components
 
         private void Update()
         {
+            //lagMachine.Update();
+
             if (!IsRunning || receivedTransforms == 0)
             {
                 return;
             }
 
-            Interpolate();
+            Interpolate(false);
 
             timeSinceCurrentTransform += Time.deltaTime;
         }
 
-        private void Interpolate()
+        private void Interpolate(bool extrapolate)
         {
             if (!IsRunning || receivedTransforms == 0)
             {
@@ -86,12 +123,12 @@ namespace Frontend.Scripts.Components
 
             if (receivedTransforms < 2 || currentNetworkTransform.TimeStamp == previousNetworkTransform.TimeStamp)
             {
-                ApplyTransform(currentNetworkTransform);
+                ApplyLocalTransform(currentNetworkTransform);
                 return;
             }
 
             var currentMoveStep = CalculateMoveStep(
-                currentNetworkTransform,
+                extrapolate ? currentNetworkTransform : previousNetworkTransform,
                 timeSinceCurrentTransform
             );
 
@@ -103,22 +140,7 @@ namespace Frontend.Scripts.Components
             var deviationFactor = Mathf.Min(1.0f, TANK_DEVIATION_CORRECTION_FACTOR * Time.deltaTime);
             var lerpedTransform = LerpNetworkTransforms(localMoveStep, currentMoveStep, deviationFactor);
 
-            if (
-                currentNetworkTransform.TargetGunAngleX == previousNetworkTransform.TargetGunAngleX &&
-                Mathf.Abs(Mathf.DeltaAngle(currentNetworkTransform.TargetGunAngleX, currentNetworkTransform.GunAngleX)) < 0.01f
-            )
-            {
-                lerpedTransform.GunAngleX = currentNetworkTransform.GunAngleX;
-            }
-            if (
-                currentNetworkTransform.TargetTurretAngleY == previousNetworkTransform.TargetTurretAngleY &&
-                Mathf.Abs(Mathf.DeltaAngle(currentNetworkTransform.TargetTurretAngleY, currentNetworkTransform.TurretAngleY)) < 0.01f
-            )
-            {
-                lerpedTransform.TurretAngleY = currentNetworkTransform.TargetTurretAngleY;
-            }
-
-            ApplyTransform(lerpedTransform);
+            ApplyLocalTransform(lerpedTransform);
         }
 
         private NetworkTransform CalculateMoveStep(NetworkTransform origin, float stepTime)
@@ -163,7 +185,7 @@ namespace Frontend.Scripts.Components
             };
         }
 
-        private void ApplyTransform(NetworkTransform appliedTransform)
+        private void ApplyLocalTransform(NetworkTransform appliedTransform)
         {
             currentLocalTransform = appliedTransform;
 
